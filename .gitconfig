@@ -1,0 +1,10 @@
+[user]
+	email = omaryscott@gmail.com
+	name = Scott O'Mary
+	signingkey = D212F31EEE6D697D
+[includeIf "gitdir:~/A9R_Work/"]
+  path = ~/A9R_Work/.gitconfig
+[credential]
+	helper = libsecret
+[commit]
+	gpgsign = true

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "coc-stylua": "^0.0.8",
+    "neovim": "^4.10.1",
+    "prettier": "^2.6.2"
+  }
+}
