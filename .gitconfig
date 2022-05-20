@@ -2,8 +2,6 @@
   email = omaryscott@gmail.com
 	name = Scott O'Mary
 	signingkey = D212F31EEE6D697D
-[indludeIf "gitdir:~/Dev/"]
-  path = ~/Dev/.gitconfig
 [includeIf "gitdir:~/Work/"]
   path = ~/Work/.gitconfig
 [credential]
