@@ -1,9 +1,10 @@
 [user]
 	name = Scott O'Mary
 	email = omaryscott@gmail.com
-  signingkey = EA2AAE8532B26D76
+[includeIf "gitdir:~/"]
+  path = ~/.gitconfig-personal
 [includeIf "gitdir:~/Work/"]
-  path = ~/Work/.gitconfig
+  path = ~/Work/.gitconfig-work
 [credential]
 	helper = libsecret
 [commit]
