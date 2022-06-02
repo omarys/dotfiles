@@ -1,0 +1,11 @@
+[user]
+  email = omaryscott@gmail.com
+	name = Scott O'Mary
+[includeIf "gitdir:~/"]
+  path = ~/.gitconfig-personal
+[includeIf "gitdir:~/Work/"]
+  path = ~/Work/.gitconfig-work
+[credential]
+	helper = libsecret
+[commit]
+	gpgsign = true
