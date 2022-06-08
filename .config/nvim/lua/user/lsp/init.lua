@@ -31,4 +31,4 @@ require "lspconfig".sumneko_lua.setup{
   }
 }
 -- markdown language server
-require "lspconfig".zeta_note.setup{}
+require "lspconfig".marksman.setup{}
