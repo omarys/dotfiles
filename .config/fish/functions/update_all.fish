@@ -7,5 +7,5 @@ pip install --upgrade pynvim
 pip install --upgrade qmk
 pip install --upgrade tuir               
 pip install --upgrade youtube-dl         
-sudo npm -g upgrade neovim npm prettier pyright
+sudo npm -g upgrade
 cargo install-update -a
