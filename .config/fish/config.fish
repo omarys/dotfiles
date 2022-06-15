@@ -4,7 +4,7 @@
 set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 
 # make nvim the default editor
-set -x EDITOR nvim
+set -x EDITOR lvim
 
 # make nvim usable with git
 set -x GIT_EDITOR nvim
