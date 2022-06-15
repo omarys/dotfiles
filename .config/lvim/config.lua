@@ -166,3 +166,4 @@ lvim.plugins = {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+vim.o.guifont = "CaskaydiaCove Nerd Font Mono"
