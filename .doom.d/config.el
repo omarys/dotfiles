@@ -48,14 +48,6 @@
 (map! :map general-override-mode-map :nv "s" #'evil-substitute)
 (map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
 
-(setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
-(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-
-
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
