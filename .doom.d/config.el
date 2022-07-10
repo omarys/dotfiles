@@ -36,17 +36,27 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type t
+      evil-want-fine-undo t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Org/")
+(setq org-directory "~/Dev/Org/"
+      diary-file "~/Dev/Org/diary"
+      org-agenda-include-diary t
+      org-agenda-files "~/Dev/Org/Projects/"
+      org-roam-directory "~/Dev/Org/Roam"
+      org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))
+      org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED")))
 
 (after! evil-snipe
   (evil-snipe-mode -1))
 
-(map! :map general-override-mode-map :nv "s" #'evil-substitute)
-(map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
+(map! :map general-override-mode-map :nv "s" #'evil-substitute
+                                         "S" #'evil-change-whole-line)
+
+(map! :map evil-snipe-mode-map "SPC z s" 'evil-snipe-s
+                               "SPC z S" 'evil-snipe-S)
 
 (setq projectile-completion-system 'ivy)
 
