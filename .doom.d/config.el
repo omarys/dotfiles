@@ -55,9 +55,6 @@
 (map! :map general-override-mode-map :nv "s" #'evil-substitute)
 (map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
 
-(map! :map evil-snipe-mode-map "SPC z s" 'evil-snipe-s)
-(map! :map evil-snipe-mode-map "SPC z S" 'evil-snipe-S)
-
 (setq projectile-completion-system 'ivy)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
