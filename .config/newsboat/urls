@@ -1,6 +1,3 @@
-## Android
-https://www.androidpolice.com/feed/ "Android"
-
 ## Blogs
 https://lukesmith.xyz/rss.xml "Blog"
 http://blog.stackoverflow.com/feed/ "Blog"
@@ -11,6 +8,7 @@ https://www.charlieharrington.com/rss.xml "Blog"
 https://www.hyperborea.org/journal/feed/ "Blog"
 https://spool-five.com/rss.xml "Blog"
 https://fasterthanli.me/index.xml "Blog"
+https://www.tecmint.com/feed/ "Blog"
 
 ## Books
 https://mwl.io/feed "Books"
@@ -55,7 +53,6 @@ https://www.gamingonlinux.com/article_rss.php "Games"
 
 ## Lifting
 https://www.thebioneer.com/feed/ "Lift"
-https://startingstrength.com/rss.rss "Lift"
 
 ## News
 https://fx-companion.com/feed/ "News"
@@ -64,6 +61,9 @@ https://www.hexbear.net/feeds/all.xml?sort=Active "News"
 https://lobste.rs/rss "News"
 https://network23.org/ainriail/feed/ "News"	
 https://feeds.feedburner.com/TheHackersNews "News"
+https://hnrss.org/best "News"
+https://hnrss.org/active "News"
+https://hnrss.org/bestcomments "News"
 
 ## Philosophy
 https://bluelabyrinths.com/feed/ "Philosophy"
