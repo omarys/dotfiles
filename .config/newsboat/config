@@ -1,12 +1,14 @@
 # General
+history-limit 0
 auto-reload yes
 refresh-on-startup yes
-reload-time 30
-player vlc
+reload-threads 8
+reload-time 90
+show-title-bar no
 article-sort-order date-asc
 goto-next-feed no
 show-read-feeds no 
-download-retries 5
+download-retries 3
 download-timeout 60
 confirm-exit yes
 
@@ -48,8 +50,10 @@ bind-key U show-urls
 bind-key x pb-delete
 
 # Browser
-browser "firefox %u"
+browser "lynx -vikeys %u"
+player mpv
 
-macro m set browser "mpv %u" ; open-in-browser ; set browser "firefox %u"
-macro , set browser "firefox %u"; open-in-browser
-macro f set browser feh ; open-in-browser ; set browser "firefox %u"
+macro , set browser "lynx -vikeys %u"; open-in-browser
+macro m set browser "mpv %u" ; open-in-browser ; set browser "lynx -vikeys %u"
+macro f set browser feh ; open-in-browser ; set browser "lynx -vikeys %u"
+macro F set browser "firefox %u" ; open-in-browser ; set browser "lynx -vikeys %u"
