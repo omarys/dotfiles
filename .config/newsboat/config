@@ -50,10 +50,10 @@ bind-key U show-urls
 bind-key x pb-delete
 
 # Browser
-browser "lynx -vikeys %u"
+browser "w3m %u"
 player mpv
 
-macro , set browser "lynx -vikeys %u"; open-in-browser
-macro m set browser "mpv %u" ; open-in-browser ; set browser "lynx -vikeys %u"
-macro f set browser feh ; open-in-browser ; set browser "lynx -vikeys %u"
-macro F set browser "firefox %u" ; open-in-browser ; set browser "lynx -vikeys %u"
+macro , set browser "w3m %u"; open-in-browser
+macro m set browser "mpv %u" ; open-in-browser ; set browser "w3m %u"
+macro f set browser feh ; open-in-browser ; set browser "w3m %u"
+macro F set browser "firefox %u" ; open-in-browser ; set browser "w3m %u"
