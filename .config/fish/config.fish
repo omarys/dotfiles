@@ -22,11 +22,11 @@ set -g theme_nerd_fonts yes
 setenv SSH_ENV $HOME/.ssh/environment
 
 if test -d $HOME/.local/bin/
-  set -gx PATH $HOME/.local/bin $PATH
+    set -gx PATH $HOME/.local/bin $PATH
 end
 
 if test -d /var/lib/flatpak/
-  set -gx XDG_DATA_DIRS "/home/omary/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share/:/usr/local/share/:/usr/share/"
+    set -gx XDG_DATA_DIRS "/home/omary/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share/:/usr/local/share/:/usr/share/"
 end
 
 # persistently add to path
