@@ -31,7 +31,7 @@ keymap TAB NEXT_LINK
 keymap ESC-TAB PREV_LINK
 keymap u UNDO
 keymap C-r REDO
-keymap L LIST_MENU
+keymap C-l LIST_MENU
 
 # Hyperlink operation
 keymap M MARK_WORD
@@ -98,7 +98,7 @@ keymap ESC-a ADD_BOOKMARK
 
 # Misc operation
 keymap \\ MENU
-keymap H HELP
+keymap C-h HELP
 keymap ESC-o OPTIONS
 keymap ESC-k COOKIE
 keymap ESC-h HISTORY
