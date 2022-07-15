@@ -7,7 +7,7 @@ set -x VAGRANT_DEFAULT_PROVIDER virtualbox
 set -x EDITOR lvim
 
 # make nvim usable with git
-set -x GIT_EDITOR nvim
+set -x GIT_EDITOR lvim
 
 # Silence fish greeting
 set -g fish_greeting ''
@@ -86,8 +86,6 @@ end
 #         echo $_
 #     end
 # end
-
-function ef; nvim ~/.config/fish/config.fish; end
 
 thefuck --alias | source
 starship init fish | source
