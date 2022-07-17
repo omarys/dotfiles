@@ -35,8 +35,8 @@ ignorecase_search 1
 keymap_file keymap
 
 # Open page in the default browser or Firefox
-extbrowser xdg-open %s
-extbrowser2 firefox %s
+extbrowser firefox %s
+extbrowser2 sh -c 'printf %s "$0" | wl-copy'
 
 # Append url to $NOTES or the jrnl CLI app
 extbrowser3 url=%s out_file=$NOTES && echo $url >> $out_file && echo $url saved to $out_file && read s
