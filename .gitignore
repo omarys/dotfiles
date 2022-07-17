@@ -1,3 +1,5 @@
 .config/xplr/plugins
 .config/lvim/plugin/packer_compiled.lua
-.config/fish/fish_variable
+.config/fish/fish_variables
+.w3m/history
+.w3m/cookie*

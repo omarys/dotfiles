@@ -1,17 +1,9 @@
 ## Blogs
 https://lukesmith.xyz/rss.xml "Blog"
 http://blog.stackoverflow.com/feed/ "Blog"
-http://blog.dustinkirkland.com/feeds/posts/default "Blog" 
-https://ramonh.dev/blog/feed.xml "Blog" 
-https://www.charlieharrington.com/rss.xml "Blog"
-https://www.hyperborea.org/journal/feed/ "Blog"
 https://spool-five.com/rss.xml "Blog"
 https://fasterthanli.me/index.xml "Blog"
 https://www.tecmint.com/feed/ "Blog"
-
-## Books
-https://mwl.io/feed "Books"
-https://solar.lowtechmagazine.com/feeds/all-en.atom.xml "Books"
 
 ## Code
 https://blog.codinghorror.com/rss/ "Code"
@@ -19,8 +11,6 @@ https://krebsonsecurity.com/feed/ "Code"
 https://www.schneier.com/feed/atom/ "Code"
 https://www.smashingmagazine.com/feed "Code"
 https://martinfowler.com/feed.atom "Code"
-https://m.signalvnoise.com/feed/ "Code"
-http://feeds.hanselman.com/scotthanselman "Code"
 https://realpython.com/atom.xml "Code"
 http://feeds.feedburner.com/PythonSoftwareFoundationNews "Code"
 https://yasoob.me/index.xml "Code"
@@ -72,8 +62,6 @@ https://www.3ammagazine.com/3am/feed/ "Philosophy"
 https://www.jamesrwilliams.net/feed/ "Philosophy"
 
 ## Emacs
-## neeasade
-https://notes.neeasade.net/rss.xml
 ## yiufung
 https://yiufung.net/index.xml
 ## alanthird
