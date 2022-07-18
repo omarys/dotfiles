@@ -38,7 +38,7 @@ window:
     y: 2
 
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -60,7 +60,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  #startup_mode: Windowed
+  startup_mode: Windowed
 
   # Window title
   title: Alacritty
@@ -175,7 +175,7 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: true
 
 ##Colors (Molokai Dark)
 #colors:
@@ -376,7 +376,10 @@ cursor:
 #   - (Windows) powershell
 shell:
   program: /usr/bin/fish
-  #  args:
+  args:
+    - -c
+    - "tmux attach || tmux"
+
   #    - --login
 
   # Startup directory
