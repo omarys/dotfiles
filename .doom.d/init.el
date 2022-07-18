@@ -22,6 +22,7 @@
 
        :completion
        company           ; the ultimate code completion backend
+       (company-quickhelp-mode)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +fuzzy +prescient +icons)               ; a search engine for love and life
@@ -96,7 +97,7 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        (lsp +peek)               ; M-x vscode
-       (magit +forge)                    ; a git porcelain for Emacs
+       (magit +forge)              ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
