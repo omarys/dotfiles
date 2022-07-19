@@ -5,14 +5,14 @@ import:
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
-# TERM variable
-#
-# This value is used to set the `$TERM` environment variable for
-# each instance of Alacritty. If it is not present, alacritty will
-# check the local terminfo database and use `alacritty` if it is
-# available, otherwise `xterm-256color` is used.
-#TERM: xterm-256color
+env:
+  # TERM variable
+  #
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -20,8 +20,8 @@ window:
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
   dimensions:
-    columns: 160
-    lines: 48
+    columns: 0
+    lines: 0
 
   # Window position (changes require restart)
   #
@@ -179,30 +179,6 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-##Colors (Molokai Dark)
-#colors:
-#primary:
-#background: '0x1B1D1E'
-#foreground: '0xF8F8F2'
-#normal:
-#black:   '0x333333'
-#red:     '0xC4265E'
-#green:   '0x86B42B'
-#yellow:  '0xB3B42B'
-#blue:    '0x6A7EC8'
-#magenta: '0x8C6BC8'
-#cyan:    '0x56ADBC'
-#white:   '0xE3E3DD'
-#bright:
-#black:   '0x666666'
-#red:     '0xF92672'
-#green:   '0xA6E22E'
-#yellow:  '0xE2E22E'
-#blue:    '0x819AFF'
-#magenta: '0xAE81FF'
-#cyan:    '0x66D9EF'
-#white:   '0xF8F8F2'
-
 # # Colors (Dracula)
 # colors:
 #   # Default colors
@@ -231,13 +207,6 @@ draw_bold_text_with_bright_colors: true
 #     magenta: "0xff79c6"
 #     cyan: "0x8be9fd"
 #     white: "0xffffff"
-
-# Colors (Tomorrow Night Bright)
-#colors:
-# Default colors
-#primary:
-#background: '#F8F8F2'
-#foreground: '#282A36'
 
 # Bright and dim foreground colors
 #
