@@ -146,6 +146,7 @@ formatters.setup {
 
 -- Additional Plugins
 lvim.plugins = {
+  -- { "dracula/vim" },
   { "Mofiqul/dracula.nvim" },
   --     {"folke/tokyonight.nvim"},
   {
