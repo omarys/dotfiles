@@ -11,7 +11,6 @@ show-read-feeds no
 download-retries 3
 download-timeout 30
 confirm-exit yes
-text-width 80
 
 # colors
 # color background          default    default
