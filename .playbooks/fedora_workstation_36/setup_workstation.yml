@@ -4,16 +4,16 @@
   become: true
   gather_facts: true
   tasks:
-      - name: Improve DNF Performances
-        blockinfile:
-          path: /etc/dnf/dnf.conf
-          create: yes
-          block: |
-            deltarpm=true
-            fastestmirror=true
-            install_weak_deps=false
-            max_parallel_downloads=4
-        become: yes
+    - name: Improve DNF Performances
+      blockinfile:
+        path: /etc/dnf/dnf.conf
+        create: yes
+        block: |
+          deltarpm=true
+          fastestmirror=true
+          install_weak_deps=false
+          max_parallel_downloads=4
+      become: yes
 
     - name: Create Vagrant group
       group:
@@ -31,8 +31,8 @@
       lineinfile:
         dest: /etc/sudoers
         state: present
-        regexp: '^%wheel'
-        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        regexp: "^%wheel"
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
         validate: visudo -cf %s
 
     - name: Upgrade all packages
@@ -62,25 +62,27 @@
 
     - name: Install extra packages
       dnf:
-        name: util-linux
-        name: util-linux-user
-        name: fish
-        name: git
-        name: npm
-        name: guake
-        name: stow
-        name: openssl-devel
-        name: libtool
-        name: wl-clipboard
-        name: task
-        name: steam-devices
-        name: npm
-        name: toolbox
-        name: marked
-        name: llvm
-        name: llvm-devel
-        name: llvm-cmake-devel
-        name: vagrant
+        name:
+          - util-linux
+          - util-linux-user
+          - fish
+          - git
+          - npm
+          - guake
+          - stow
+          - openssl-devel
+          - libtool
+          - wl-clipboard
+          - task
+          - steam-devices
+          - npm
+          - toolbox
+          - marked
+          - llvm
+          - llvm-devel
+          - llvm-cmake-devel
+          - vagrant
+          - mpv
 
     - name: Install Rust/Cargo
       become: yes
@@ -92,13 +94,14 @@
 
     - name: Install Cargo packages
       cargo:
-        name: bat
-        name: cargo-update
-        name: fd-find
-        name: lsd
-        name: ripgrep
-        name: rm-improved
-        name: xplr
+        name:
+          - bat
+          - cargo-update
+          - fd-find
+          - lsd
+          - ripgrep
+          - rm-improved
+          - xplr
     # - name: Install Cargo packages
     #   become: yes
     #   command: cargo install cargo-update fd-find lsd ripgrep rm-improved xplr bat
