@@ -3,7 +3,6 @@ https://lukesmith.xyz/rss.xml "Blog"
 http://blog.stackoverflow.com/feed/ "Blog"
 https://spool-five.com/rss.xml "Blog"
 https://fasterthanli.me/index.xml "Blog"
-https://www.tecmint.com/feed/ "Blog"
 
 ## Code
 https://blog.codinghorror.com/rss/ "Code"
@@ -384,7 +383,6 @@ http://antirez.com/rss ~antirez programming redis
 http://www.romancortes.com/blog/feed/ programming graphics
 http://www.romancortes.com/v2/feed.xml programming graphics
 http://xmunkki.org/wiki/feed.php programming
-http://www.pompidev.net/feed/ programming
 http://www.ogre3d.org/feed programming graphics
 http://gafferongames.com/feed/ programming network physics
 http://andrewfsu.blogspot.com/feeds/posts/default programming opencl

@@ -22,7 +22,7 @@ set -g theme_nerd_fonts yes
 setenv SSH_ENV $HOME/.ssh/environment
 
 if test -d $HOME/.local/bin/
-    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $PATH
+    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.emacs.d/bin $PATH
 end
 
 if test -d /var/lib/flatpak/
