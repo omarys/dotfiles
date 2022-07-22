@@ -4,19 +4,62 @@
   become: true
   gather_facts: true
   tasks:
+      - name: Improve DNF Performances
+        blockinfile:
+          path: /etc/dnf/dnf.conf
+          create: yes
+          block: |
+            deltarpm=true
+            fastestmirror=true
+            install_weak_deps=false
+            max_parallel_downloads=4
+        become: yes
+
+    - name: Create Vagrant group
+      group:
+        name: vagrant
+        state: present
+
+    - name: Setup omary user
+      user:
+        name: omary
+        home: /home/omary
+        groups: mock,vagrant,libvirt,wheel
+        append: yes
+
+    - name: Allow wheel group to sudo without a password
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: visudo -cf %s
+
     - name: Upgrade all packages
       dnf:
         name: "*"
         state: latest
+
     - name: Install group packages
       dnf:
         name:
           - "@development tools"
           - "@virtualization"
         state: installed
+
+    - name: Install RPM Fusion repo rpms
+      dnf:
+        state: present
+        disable_gpg_check: yes
+        name:
+          - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-36.noarch.rpm"
+          - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-36.noarch.rpm"
+        become: yes
+
     - name: Add Hashicorp repo for vagrant
       become: yes
       command: sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+
     - name: Install extra packages
       dnf:
         name: util-linux
@@ -38,12 +81,15 @@
         name: llvm-devel
         name: llvm-cmake-devel
         name: vagrant
+
     - name: Install Rust/Cargo
       become: yes
       command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
     - name: Add Cargo to $PATH
       become: yes
       command: fish_add_path ~/.cargo/bin/
+
     - name: Install Cargo packages
       cargo:
         name: bat
@@ -56,41 +102,71 @@
     # - name: Install Cargo packages
     #   become: yes
     #   command: cargo install cargo-update fd-find lsd ripgrep rm-improved xplr bat
+    #
     - name: Add Pip packages to $PATH
       become: yes
       command: fish_add_path ~/.local/bin/
+
     - name: Install Pip packages
       become: yes
       command: pip install --user youtube-dl tuir thefuck
+
     - name: Install poetry
       become: yes
       command: curl -sSL https://install.python-poetry.org | python3 -
+
     - name: Install Doom Emacs
       become: yes
       command: git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d\n~/.emacs.d/bin/doom install
+
     - name: Upgrade Doom (force install)
       become: yes
       command: doom upgrade
-    - name: Enable Emacs service in systemd
-      become: yes
-      command: systemctl enable --user emacs
-    - name: Enable Libvirt service in systemd
-      become: yes
-      command: systemctl enable --user libvirtd
-    - name: Add user to libvirt usergroup
-      become: yes
-      command: sudo gpasswd -a omary libvirt
+
+    - name: Start and enable Emacs
+      service:
+        name: emacs
+        state: started
+        enabled: yes
+
+    - name: Start and enable libvirtd
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
+
     - name: Configure Flathub
       become: yes
       command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    - name: Install Flatpaks
-      flatpak:
-        name: org.keepassxc.KeePassXC
-        name: com.valvesoftware.steam
-        name: com.discordapp.Discord
-        name: com.usebottles.bottles
-        name: com.valvesoftware.Steam
-        name: org.gnome.Podcasts
-        name: winehq.Wine.DLLs.dxvk
-        name: us.zoom.Zoom
-        name: com.valvesoftware.Steam.CompatibilityTool.Proton-Exp
+
+    - name: Install KeePassXC
+      become: yes
+      command: flatpak install --assumeyes flathub org.keepassxc.KeePassXC
+
+    - name: Install Steam
+      become: yes
+      command: flatpak install --assumeyes flathub com.valvesoftware.Steam
+
+    - name: Install Discord
+      become: yes
+      command: flatpak install --assumeyes flathub com.discordapp.Discord
+
+    - name: Install Bottles
+      become: yes
+      command: flatpak install --assumeyes flathub com.usebottles.bottles
+
+    - name: Install Podcasts
+      become: yes
+      command: flatpak install --assumeyes flathub org.gnome.Podcasts
+
+    - name: Install DXVK
+      become: yes
+      command: flatpak install --assumeyes flathub winehq.Wine.DLLs.dxvk
+
+    - name: Install Zoom
+      become: yes
+      command: flatpak install --assumeyes flathub us.zoom.Zoom
+
+    - name: Install Proton-Experimental
+      become: yes
+      command: flatpak install --assumeyes flathub com.valvesoftware.Steam.CompatibilityTool.Proton-Exp
