@@ -57,6 +57,24 @@
 
 (setq projectile-completion-system 'ivy)
 
+(plist-put! +ligatures-extra-symbols
+  :and           nil
+  :or            nil
+  :for           nil
+  :not           nil
+  :true          nil
+  :false         nil
+  :int           nil
+  :float         nil
+  :str           nil
+  :bool          nil
+  :list          nil
+)
+
+(let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
+  (dolist (sym ligatures-to-disable)
+    (plist-put! +ligatures-extra-symbols sym nil)))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
