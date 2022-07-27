@@ -1,1311 +1,807 @@
-## Blogs
-https://lukesmith.xyz/rss.xml "Blog"
-http://blog.stackoverflow.com/feed/ "Blog"
-https://spool-five.com/rss.xml "Blog"
-https://fasterthanli.me/index.xml "Blog"
-
-## Code
-https://blog.codinghorror.com/rss/ "Code"
-https://krebsonsecurity.com/feed/ "Code"
-https://www.schneier.com/feed/atom/ "Code"
-https://www.smashingmagazine.com/feed "Code"
-https://martinfowler.com/feed.atom "Code"
-https://realpython.com/atom.xml "Code"
-http://feeds.feedburner.com/PythonSoftwareFoundationNews "Code"
-https://yasoob.me/index.xml "Code"
-https://planetpython.org/rss20.xml "Code"
-http://coreyms.com/feed/ "Code"
-http://decafbad.net/feed "Code"
-https://inkdroid.org/feed.xml "Code"
-https://computer.rip/rss.xml "Code" 
-https://www.hardill.me.uk/wordpress/feed/ "Code" 
-https://readrust.net/all/feed.rss "Code"
-
-## Comics
-http://xkcd.com/atom.xml "Comic"
-https://www.smbc-comics.com/comic/rss "Comic"
-
-## Food
-http://feeds.feedburner.com/seriouseatsfeaturesvideos "Food"
-
-## FOSS
-http://feeds.feedburner.com/ItsFoss "FOSS"
-https://hacks.mozilla.org/feed/ "FOSS"
-
-## Games
-https://www.guildwars2.com/en/feed/ "Games"
-https://www.teamfortress.com/rss.xml "Games"
-https://www.gamingonlinux.com/article_rss.php "Games"
-
-## Fitness
-https://www.thebioneer.com/feed/ "Fitness"
-
-## News
-https://fx-companion.com/feed/ "News"
-https://www.democracynow.org/democracynow.rss "News"
-https://www.hexbear.net/feeds/all.xml?sort=Active "News"
-https://lobste.rs/rss "News"
-https://network23.org/ainriail/feed/ "News"	
-https://feeds.feedburner.com/TheHackersNews "News"
-https://hnrss.org/best "News"
-https://hnrss.org/active "News"
-https://hnrss.org/bestcomments "News"
-
-## Philosophy
-https://bluelabyrinths.com/feed/ "Philosophy"
-https://habermas-rawls.blogspot.com/feeds/posts/default?alt=rss "Philosophy"
-https://www.lacan.com/perfumeblog/?feed=rss2 "Philosophy"
-https://www.urbanomic.com/feed/ "Philosophy"
-https://aeon.co/feed.rss "Philosophy" 
-https://www.3ammagazine.com/3am/feed/ "Philosophy"
-https://www.jamesrwilliams.net/feed/ "Philosophy"
-
-## Emacs
-https://yiufung.net/index.xml
-https://github.com/alanthird/idiocy.org/commits/master.atom
-https://www.codesections.com/rss.xml
-http://xenodium.com/rss.xml
-https://lchsk.com/posts.xml
-https://bendersteed.gitlab.io/post/index.xml
-http://ravit.ch/rss.xml
-https://chaoticlab.io/feed.xml
-https://feeds2.feedburner.com/mrdias
-https://legends2k.github.io/index.xml
-https://arenzana.org/feed/
-http://justinhj.github.io/feed.xml
-http://www.johnborwick.com/feed.xml
-https://punchagan.muse-amuse.in/tags/emacs.xml
-http://pragmaticemacs.com/feed
-https://www.miskatonic.org/feed/emacs.xml
-https://nullprogram.com/feed/
-https://www.blogger.com/feeds/13497321/posts/default/-/emacs
-https://au9ustine.wordpress.com/tag/emacs/feed/
-http://www.lambdacat.com/tag/emacs/rss/
-http://emacs-fu.blogspot.com/feeds/posts/default/-/new
-https://erambler.co.uk/tags/emacs.xml
-http://puntoblogspot.blogspot.com/feeds/posts/default/-/emacs
-http://babbagefiles.blogspot.com/feeds/posts/default/-/emacs
-http://gregnewman.org/journal/feed/category/emacs/
-http://emacsninja.com/emacs.atom
-http://emacs-doctor.com/feed.xml
-https://www.bytedude.com/feed.xml
-http://andrewjamesjohnson.com/category/emacs/feed
-http://www.blogbyben.com/feeds/posts/default/-/emacs
-http://amortizedanalysis.wordpress.com/tag/emacs/feed/
-https://mwfogleman.github.io/Emacs.xml
-http://www.wilfred.me.uk/emacs_rss.xml
-http://gromnitsky.blogspot.com/feeds/posts/default/-/emacs
-https://ddavis.io/index.xml
-http://www.masteringemacs.org/feed
-http://feeds2.feedburner.com/emacsblog
-http://bloggingmath.wordpress.com/tag/emacs/feed/
-http://feeds.feedburner.com/pimpmyemacs
-https://yveszoundi.wordpress.com/tag/emacs/feed
-https://tsdh.wordpress.com/tag/emacs/feed/
-http://acidwords.com/emacs.xml
-http://feeds.feedburner.com/emacslife
-http://floatsolutions.com/blog/category/emacs/feed/
-http://www.lonecpluspluscoder.com/category/emacs/feed/
-https://alexschroeder.ch/wiki/feed/full/Emacs
-https://l0st3d.wordpress.com/category/emacs/feed/
-https://valignatev.com/index.xml
-http://feeds.feedburner.com/ted-roden-emacs
-http://emacshorrors.com/feed.atom
-http://bryan-murdock.blogspot.com/atom.xml
-https://crazythinking.wordpress.com/category/emacs/feed/
-http://lanxin0106.wordpress.com/category/emacs/
-http://kevand.wordpress.com/tag/emacs/feed/
-http://emacsrocks.com/atom.xml
-https://awhan.wordpress.com/category/emacs/feed/
-http://emacslife.blogspot.com/feeds/posts/default
-http://nullprogram.com/tags/emacs/feed/
-https://gongyiliao.wordpress.com/category/emacs/feed/
-https://jawher.wordpress.com/category/emacs/feed/
-http://ergoemacs.org/emacs/blog.xml
-https://tincman.wordpress.com/tag/emacs/feed/
-http://blog.printf.net/feed/
-https://www.topbug.net/blog/category/programming-tools/emacs/feed
-http://subtech.g.hatena.ne.jp/antipop/rss2
-https://martinralbrecht.wordpress.com/category/emacs/feed/atom/
-http://dorophone.blogspot.com/feeds/posts/default/-/emacs
-http://alexott.blogspot.com/feeds/posts/default/-/emacs
-https://seeknuance.com/tag/emacs/feed/
-http://kanis.fr/blog-emacs.xml
-https://keramida.wordpress.com/category/emacs/feed/
-http://endlessparentheses.com/atom-planet.xml
-http://blog.danielgempesaw.com/tagged/planet-emacsen/rss
-https://ekaschalk.github.io/categories/emacs/index.xml
-https://curiousprogrammer.wordpress.com/tag/emacs/feed/atom/
-http://technomancy.us/feed/atom
-http://feeds.feedburner.com/emacsrookiecom
-http://dialectical-computing.de/blog/emacs.xml
-http://muublog.blogspot.com/feeds/posts/default/-/emacs
-http://matt.hackinghistory.ca/blog/feed/atom/
-https://emacs.cafe/feed.xml
-https://netflux.wordpress.com/tag/emacs/feed/
-https://kuniganotas.wordpress.com/category/emacs/feed
-https://kuniganotas.wordpress.com/category/emacs/feed/
-https://scripter.co/categories/emacs/atom.xml
-https://rvfblog.wordpress.com/category/emacs/feed/
-https://emacsfodder.github.io/atom.xml
-http://emacsmovies.org/atom.xml
-http://blog.anupamsg.me/tag/emacs/feed/atom
-https://wolfgangpfaff.wordpress.com/category/emacs/feed/
-http://gnufool.blogspot.com/feeds/posts/default/-/emacs
-http://emacsninja.com/feed.atom
-https://zingming.wordpress.com/tag/emacs/feed/
-http://pozorvlak.livejournal.com/data/atom?tag=emacs
-http://mp.vv.si/blog/category/emacs/feed/
-http://sigusr2.net/tags/emacs.xml
-http://sixty-north.com/blog/category/emacs/feed
-http://robert-adesam.blogspot.com/feeds/posts/default/-/emacs
-http://xeno-by.livejournal.com/data/atom?tag=emacs-en
-http://denverdroid.blogspot.com/feeds/posts/default/-/emacs
-https://doxdrum.wordpress.com/tag/emacs/feed
-https://suvayu.wordpress.com/tag/emacs/feed/
-https://blog.lnx.cx/category/emacs/feed/
-http://blog.chmouel.com/category/emacs/feed
-http://tromey.com/elpa/elpa.rss
-http://blog.jorgenschaefer.de/feeds/posts/default/-/Emacs
-http://nongeekrecipes.wordpress.com/category/emacs-and-friends/feed/
-http://occident.us/category/emacs/feed/
-https://baongoc124.wordpress.com/category/emacs/feed/
-https://zeekat.nl/news/tag/emacs/index.rss
-https://axelio.wordpress.com/category/emacs/feed/
-http://prodissues.com/category/emacs-geeking/feed
-https://qiita.com/tags/Emacs/feed
-https://jonathancamp.com/tag/emacs/feed/
-http://jr0cket.co.uk/categories/emacs/atom.xml
-http://tehom-blog.blogspot.com/feeds/posts/default/-/emacs
-https://www.hasecke.eu/index.xml
-http://feeds.feedburner.com/GotEmacs
-http://www.stefanom.org/tag/emacs/feed
-http://blog.binchen.org/categories/emacs.xml
-https://ofosos.org/tag/emacs/rss/
-http://whattheemacsd.com/atom.xml
-https://stardiviner.github.io/Blog/index.xml
-http://emacspeak.blogspot.com/atom.xml
-https://camdez.com/blog/categories/emacs/atom.xml
-https://thestandardoutput.com/tag/emacs.xml
-http://emacsworld.blogspot.com/feeds/posts/default
-http://emacsredux.com/atom.xml
-http://www.modernemacs.com/index.xml
-http://tess.oconnor.cx/feed;tag%3Demacs
-http://emacsnyc.org/atom.xml
-https://draptik.wordpress.com/tag/emacs/feed/
-http://emacsair.me.s3-website.eu-central-1.amazonaws.com/feed.xml
-https://emacsair.me/feed.xml
-https://panduwana.wordpress.com/category/emacs/feed/
-http://oremacs.com/atom.xml
-https://manandbytes.wordpress.com/tag/emacs/feed/
-http://whatthefuck.computer/rss.xml
-https://www.diegoberrocal.com/atom.xml
-https://nickdrozd.github.io/feed.xml
-https://manuel-uberti.github.io/feed
-http://thewanderingcoder.com/category/emacs/feed/
-https://www.wisdomandwonder.com/tag/emacs/feed
-https://punchcard.wordpress.com/tag/emacs/feed/
-http://feeds.feedburner.com/emacsblog
-https://techleaves.wordpress.com/tag/emacs/feed/
-http://sxemacs-en.blogspot.com/feeds/posts/default
-http://aaronhawley.livejournal.com/data/atom
-https://jugglingbits.wordpress.com/tag/emacs/feed/
-https://hbfs.wordpress.com/category/emacs/feed
-http://splash-of-open-sauce.blogspot.com/feeds/posts/default/-/planetemacsen
-https://hexmode.com/tag/emacs/feed
-http://echosa.github.io/blog/categories/emacs/atom.xml
-https://medium.com/feed/tag/emacs
-http://www.bennee.com/~alex/blog/tag/emacs/feed
-http://psung.blogspot.com/feeds/posts/default/-/emacs
-http://yoo2080.wordpress.com/category/emacs/feed
-https://iloveemacs.wordpress.com/feed
-https://chopmode.wordpress.com/category/emacs/feed/
-http://scottfrazersblog.blogspot.com/feeds/posts/default
-http://justinsboringpage.blogspot.com/feeds/posts/default/-/emacs
-https://zhangda.wordpress.com/feed/
-http://mbork.pl/?action=rss;rcfilteronly=CategoryEmacs;all=0;showedit=0;title=%20Content%20AND%20Presentation
-https://joshrollinswrites.com/emacsorg/index.xml
-http://mnemonikk.org/feed/
-https://feeds.feedburner.com/tuxicity-emacs
-http://feeds.feedburner.com/tuxicity-emacs
-https://ignaciopp.wordpress.com/tag/emacs/feed/
-https://fuco1.github.io/rss.xml
-https://mousecradle.wordpress.com/tag/emacs/feed/
-http://emacsist.com/rss
-http://tsengf.blogspot.com/feeds/posts/default/-/emacs
-https://vocalfolds.wordpress.com/category/emacs/feed/
-https://calltopower.wordpress.com/tag/emacs/feed/
-http://www.spacjer.com/emacs/feed.xml
-http://davazp.net/feeds/emacs.xml
-http://emacsblog.org/feed/
-https://arunsag.wordpress.com/category/emacs/feed/
-http://emacstidbits.blogspot.com/atom.xml
-https://blog.davep.org/feed.xml
-https://hookrace.net/blog/feed/
-https://writepermission.com/rss.xml
-https://kisaragi-hiu.com/feeds/all.atom.xml
-https://jingsi.space/index.xml
-https://sirsharpest.github.io/rss.xml
-http://www.wisdomandwonder.com/feed
-http://www.wilfred.me.uk/rss.xml
-http://www.verona.se/index.xml
-http://www.suenkler.info/feed
-http://www.macs.hw.ac.uk/~rs46/rss.xml
-http://www.dawnofthedata.com/feeds/posts/default
-http://www.clarkdonley.com/index.xml
-http://writequit.org/blog/feed/index.html
-http://williambert.online/atom.xml
-http://thescratchcastle.com/feed.xml
-http://tech.memoryimprintstudio.com/feed/
-https://zhangda.wordpress.com/feed
-https://yoo2080.wordpress.com/feed
-https://github.com/xuchunyang/blog/commits/master.atom
-https://www.blogger.com/feeds/3992530807750384868/posts/default/-/new
-https://vxlabs.com/feed
-https://github.com/tuhdo/tuhdo.github.io/commits/master.atom
-https://tsdh.wordpress.com/feed
-https://taingram.org/feed
-https://streakycobra.github.io/rss.xml
-https://storax.github.io/rss.xml
-https://ryuslash.org/rss.xml
-https://ogbe.net/blog.xml
-https://mwfogleman.github.io/feed.xml
-https://manuel-uberti.github.io/feed
-https://lars.ingebrigtsen.no/feed
-https://kozikow.com/feed
-https://keramida.wordpress.com/feed
-https://heikkil.github.io/rss.xml
-http://francismurillo.github.io/hacker/feed.xml
-https://github.com/sigma/yann.hodique.info/commits/master.atom
-https://feeds.feedburner.com/SanityInc
-https://feeds.feedburner.com/KrisJenkinsBlog
-https://ekaschalk.github.io//index.xml
-https://dgutov.github.io/atom.xml
-https://danlamanna.com/feeds/atom.xml
-http://scottfrazersblog.blogspot.com/feeds/posts/default
-https://ceving.blogspot.com/feeds/posts/default
-https://catern.com/feed.xml
-https://blog.aaronbieber.com/feed.xml
-https://bbbscarter.wordpress.com/feed
-http://psachin.github.io/feed.xml
-http://prog-elisp.blogspot.com/feeds/posts/default
-http://nullprogram.com/feed
-http://notes.neeasade.net/feed.xml
-http://noctuid.github.io/atom.xml
-http://nicolas-petton.fr/blog/index.xml
-http://muublog.blogspot.com/feeds/posts/default
-http://mjwall.com/atom.xml
-http://mbork.pl/?action=rss
-http://lars.ingebrigtsen.no/feed
-http://kitchingroup.cheme.cmu.edu/blog/feed/atom
-http://kazyos.hatenablog.com/feed
-http://jr0cket.co.uk/atom.xml
-http://jamesporter.me/feeds/rss.xml
-http://iqbalansari.me/atom.xml
-http://harryrschwartz.com/atom.xml
-http://feeds.feedburner.com/WisdomAndWonder?format=xml
-http://feeds.feedburner.com/KrisJenkinsBlog?format=xml
-http://feeds.feedburner.com/alexott
-http://fasciism.com/feed.xml
-http://ericjmritz.name/feed
-http://endlessparentheses.com/atom.xml
-https://elephly.net/feed.xml
-http://edward.oconnor.cx/feed
-http://dthompson.us/feeds/all.atom.xml
-http://draketo.de/rss.xml
-http://diobla.info/blog-archive
-http://dgutov.github.io/atom.xml
-http://dale.io/feed.xml
-http://cupfullofcode.com/atom.xml
-http://correl.phoenixinquis.net/feed.xml
-http://chrismccombs.net/feed
-http://chrisdone.com/rss.xml
-http://ceving.blogspot.com/feeds/posts/default
-http://cestlaz.github.io/rss.xml
-http://cestdiego.github.io/atom.xml
-http://bzg.fr/blog.xml
-http://camdez.com/blog/atom.xml
-http://amitp.blogspot.com/feeds/posts/default
-http://bastibe.de/rss.xml
-http://batsov.com/atom.xml
-http://bling.github.io/index.xml
-http://blog.aaronbieber.com/feed.xml
-http://blog.binchen.org/rss.xml
-http://blog.jorgenschaefer.de/feeds/posts/default
-http://blog.josephwilk.net/atom.xml
-http://blog.plover.com/index.rss
-http://blog.refu.co/?feed=rss2
-http://blog.waymondo.com/atom.xml
-http://blog.yitang.uk/atom.xml
-http://tromey.com/blog/?cat=11&amp;feed=rss2
-http://unix.stackexchange.com/feeds/tag?tagnames=emacs&amp;amp;sort=newest
-http://irreal.org/blog/?tag=emacs&amp;feed=rss2
-https://www.fitzsim.org/blog/?feed=rss2&amp;cat=3
-http://wenshanren.org/?cat=10&amp;tag=en&amp;feed=rss2
-https://planet.emacslife.com/atom.xml
-
-# programming feeds
-http://altdevblogaday.org/feed/ programming
-http://0fps.wordpress.com/feed/ programming
 http://29a.ch/feed.atom programming
-http://3d.benjamin-thaut.de/?feed=rss2 programming
+http://acidwords.com/emacs.xml
 http://acko.net/blog/feed programming maths
 http://adrianboeing.blogspot.com/feeds/posts/default programming
-https://molecularmusings.wordpress.com/feed/ programming favourite
-https://idea.popcount.org/rss.xml programming
-http://zeuxcg.org/feed programming
+http://adriansampson.net/blog.xml programming
 http://akrzemi1.wordpress.com/feed/ programming c++
-http://aigamedev.com/feed/ programming
-http://android-developers.blogspot.com/feeds/posts/default programming android
-http://anki3d.org/feed/ programming graphics
-http://blog.blackpawn.com/rss programming graphics
-http://www.blackpawn.com/blog/feed/ programming graphics favourite
-http://zserge.com/rss.xml programming
-http://anteru.net/feed/ programming graphics
-http://antirez.com/rss ~antirez programming redis
-http://www.romancortes.com/blog/feed/ programming graphics
-http://www.romancortes.com/v2/feed.xml programming graphics
-http://xmunkki.org/wiki/feed.php programming
-http://www.ogre3d.org/feed programming graphics
-http://gafferongames.com/feed/ programming network physics
-http://andrewfsu.blogspot.com/feeds/posts/default programming opencl
-http://ariya.ofilabs.com/feed programming
-http://www.yosefk.com/blog/feed programming
-http://assemblyrequired.crashworks.org/feed/ programming
-http://beust.com/weblog/feed/ programming javascript
-http://bitsquid.blogspot.com/feeds/posts/default programming
-http://asktherelic.com/code/feed/atom programming
-http://blog.blockos.org/?feed=rss2 programming
-http://blog.bengarney.com/feed/ programming
-http://blog.llvm.org/feeds/posts/default programming
-http://blog.elmindreda.org/feed/ programming
-http://www.thebigblob.com/feed/ programming
-http://blog.regehr.org/feed programming
-http://www.realtimerendering.com/blog/feed/ programming graphics
-http://www.spuify.co.uk/?feed=rss2 programming
-http://www.paradeofrain.com/feed/ programming indie
-http://animationphysics.wordpress.com/feed/ programming physics
-http://blog.gamedeff.com/?feed=rss2 programming graphics
-http://www.reenigne.org/blog/feed/ programming
-http://www.thetenthplanet.de/feed programming graphics
-http://www.realityprime.com/feed programming
-http://www.syedrezaali.com/blog/?feed=rss2 programming graphics
-http://www.sjbrown.co.uk/feed/ programming graphics
-http://www.mikeash.com/pyblog/rss.py?mode=fulltext programming
-http://blog.blackhc.net/feed/ programming
-http://meandmark.com/blog/feed/ programming indie
-http://attractivechaos.wordpress.com/feed/ programming
-http://www.macieira.org/blog/feed/ programming Qt
+http://alexott.blogspot.com/feeds/posts/default/-/emacs
+http://algorithmist.wordpress.com/feed/ maths
 http://allenchou.net/feed/ programming
-http://blog.hvidtfeldts.net/index.php/feed/ programming maths fractals
-http://www.numb3r23.net/feed/ programming graphics
-http://www.technofumbles.com/weblog/feed/ programming compression
-http://www.swageroo.com/wordpress/feed/ programming
-http://www.luxrender.net/newsblog/rss_data/3 programming graphics raytracing
-http://www.lab4games.net/zz85/blog/feed/ programming graphics
-http://bouliiii.blogspot.com/feeds/posts/default programming graphics raytracing
-http://www.joshuagranick.com/blog/feed programming
-http://www.inear.se/feed/ programming graphics
-http://blog.8thlight.com/feed/atom.xml programming
-http://benjamin-meyer.blogspot.com/feeds/posts/default programming
-http://blog.gamesfrommars.fr/feed/ programming
-http://blog.cmpxchg8b.com/feeds/posts/default programming
-http://blog.golang.org/feeds/posts/default programming
-http://blog.shayanjaved.com/feed/ programming
-http://www.redcode.nl/feed/ programming
-http://blog.reverberate.org/feeds/posts/default programming
-http://www.nicolaslelong.fr/feeds/posts/default programming
-http://blog.makingartstudios.com/?feed=rss2 programming
-http://www.opengl.org/news/rss_2.0/ programming graphics opengl
-http://blog.nobel-joergensen.com/feed/ programming graphics opengl
-http://blog.selfshadow.com/feed/ programming graphics
-http://www.insomniacgames.com/category/research-development/feed/ programming
-http://blog.stevemcauley.com/feed/ programming graphics
-http://blogs.msdn.com/b/oldnewthing/rss.aspx programming favourite
-https://devblogs.microsoft.com/oldnewthing/feed programming favourite
-http://devmaster.net/posts.rss programming
-https://www.gamedev.net/articles/?rss=1 ~gamedev.net programming
-http://bartoszmilewski.wordpress.com/feed/ programming
-http://blog.runevision.com/feeds/posts/default programming
-http://cbloomrants.blogspot.com/feeds/posts/default programming
-http://www.kyleschouviller.com/feed/ programming
-http://www.flashbang.se/feed programming
-http://www.forceflow.be/feed/ programming
-http://www.codeofhonor.com/blog/feed programming
-http://www.derschmale.com/feed/ programming
-http://www.intermediaware.com/blog/feed programming
-http://toddwerth.com/feed programming
-http://blog.icare3d.org/feeds/posts/default programming graphics
-http://blog.joa-ebert.com/feed/ programming
-http://www.popekim.com/feeds/posts/default programming graphics
-http://www.iryoku.com/feed programming graphics
-http://briansharpe.wordpress.com/feed/ programming graphics
-http://crashcoder.blogspot.com/feeds/posts/default programming
-http://creativejs.com/feed/ programming javascript
-http://c0de517e.blogspot.com/feeds/posts/default programming graphics
-http://www.farfarer.com/blog/feed/ programming graphics
-http://brnz.org/hbr/?feed=rss2 programming
-http://buildnewgames.com/atom.xml programming
-http://chadaustin.me/feed/ programming
-http://blog.tojicode.com/feeds/posts/default programming
-http://www.deadalnix.me/feed/ programming
-http://codeflow.org/feed.rss programming graphics opengl webgl
-http://cottonvibes.blogspot.com/feeds/posts/default programming
-http://blogs.msdn.com/shawnhar/rss.xml programming graphics directx
-http://coldattic.info/shvedsky/pro/blogs/a-foo-walks-into-a-bar/posts/rss programming
-http://code.danyork.com/feed/ programming
-http://www.kadrmasconcepts.com/blog/feed/ programming
-http://www.johanholwerda.nl/blog/feed/ programming graphics
-http://www.rockonflash.com/blog/?feed=rss2 programming
-http://blogs.technet.com/b/markrussinovich/atom.aspx programming
-http://casual-effects.blogspot.com/feeds/posts/default programming graphics
-http://chaosinmotion.com/blog/?feed=rss2 programming
-https://chaosinmotion.blog/feed/ programming
-#http://donw.org/b/rss.xml programming graphics
-http://donw.io/post/index.xml programming graphics
-http://d0cs4vage.blogspot.com/feeds/posts/default programming
-http://codeascraft.etsy.com/feed/ programming
-http://www.pjblewis.com/articles/feed/ programming graphics
-http://blog.andrewray.me programming
-http://www.codersnotes.com/atom/ programming
-http://tommyhinks.com/feed/ programming graphics
-http://eli.thegreenplace.net/feed/ programming
-http://www.bionicbeagle.com/wp/?feed=rss2 programming
-http://ericasadun.com/feed/ programming
-http://www.asawicki.info/news_rss.php5 programming
-https://developer.nvidia.com/blog/feed programming
-http://diogo.codingcorner.net/?feed=rss2&cat=12 programming
-http://en.nicoptere.net/?feed=rss2 programming flash
-http://donolmstead.me/feed/ programming
-http://blogs.msdn.com/b/vsproject/rss.aspx programming
-http://duartes.org/gustavo/blog/feed programming
-http://ericniebler.com/feed/ programming c++
-http://deplinenoise.wordpress.com/feed/ programming
-http://www.reedbeta.com/blog/feed/ programming
-http://cg.alexandra.dk/feed/ programming graphics
-http://fabiensanglard.net/rss.xml programming
-http://labs.domipheus.com/blog/feed/ programming
-http://fgiesen.wordpress.com/feed/ programming favourite
-http://dougrogers.blogspot.com/feeds/posts/default programming graphics
-http://feeds.feedburner.com/bkcore-thibautdespoulain
-http://www.backtothepixel.com/rss.xml programming graphics webgl
-http://ericlippert.com/feed/ programming
-http://fastcompression.blogspot.com/feeds/posts/default programming compression favourite
-http://divergentcoder.com/feed.xml programming
-http://coderview.blogspot.com/feeds/posts/default programming
-http://fahrenheit2539.blogspot.com/feeds/posts/default programming
-http://www.roastedamoeba.com/blog/atom.xml programming
-http://feeds.feedburner.com/antirez programming redis
-http://feeds.feedburner.com/softwaretechandmore programming
-http://feeds.feedburner.com/opensoul programming
-http://engineering.imvu.com/feed/ programming
-http://www.nickdarnell.com/feed programming
-http://www.airtightinteractive.com/feed/ programming
+http://altdevblogaday.org/feed/ programming
+http://amir.rachum.com/feed.xml programming
+http://amitp.blogspot.com/feeds/posts/default
+http://and-what-happened.blogspot.com/feeds/posts/default maths
+http://andrea.corbellini.name/feed.atom programming
+http://andrewfsu.blogspot.com/feeds/posts/default programming opencl
+http://andrewjamesjohnson.com/category/emacs/feed
+http://anki3d.org/feed/ programming graphics
+http://antirez.com/rss ~antirez programming redis
 http://aras-p.info/atom.xml programming favourite
-http://feeds.feedburner.com/codeincomplete programming
-http://gbgames.com/blog/feed/ programming
-http://www.pixelnerve.com/v/feed/ programming
-http://www.stevestreeting.com/feed/ programming
-http://blogs.aerys.in/jeanmarc-leroux/feed/ programming
-http://diaryofagraphicsprogrammer.blogspot.com/feeds/posts/default programming graphics
-http://feeds.feedburner.com/CppSoup programming c++
-http://codeblog.jonskeet.uk/feed/ programming
+http://arjanvandergaag.nl/feed.xml
+http://arne-mertz.de/feed/ "~Simplify C++" programming c++
+http://attractivechaos.wordpress.com/feed/ programming
+http://b.atch.se/rss.xml programming c++
+http://babbagefiles.blogspot.com/feeds/posts/default/-/emacs
+http://badassjs.com/rss web
+http://bair.berkeley.edu/blog/feed.xml machinelearning
+http://barradeau.com/blog/?feed=rss2 programming
+http://bartoszmilewski.wordpress.com/feed/ programming
+http://bartwronski.com/feed/ programming
+http://bastibe.de/rss.xml
+http://batsov.com/atom.xml
+http://baus.net/atom.xml
 http://beautifulpixels.blogspot.com/feeds/posts/default programming graphcis
+http://belkadan.com/blog/atom programming
+http://benfrain.com/feed/ web
+http://beust.com/weblog/feed/ programming javascript
+http://birdgames.nl/feed/ programming
+http://bitcharmer.blogspot.com/feeds/posts/default programming
+http://bitfunnel.org/index.xml programming
+http://bitshifter.github.io/atom.xml programming graphics
+http://bitsquid.blogspot.com/feeds/posts/default programming
+http://bling.github.io/index.xml
+http://blog.8thlight.com/feed/atom.xml programming
+http://blog.alexmaccaw.com/feed
+http://blog.anupamsg.me/tag/emacs/feed/atom
+http://blog.bengarney.com/feed/ programming
+http://blog.blockos.org/?feed=rss2 programming
+http://blog.chromium.org/feeds/posts/default web
+http://blog.cleancoder.com/atom.xml programming
+http://blog.cmpxchg8b.com/feeds/posts/default programming
+http://blog.demofox.org/feed/ programming
+http://blog.digital-horror.com/rss/ programming graphics
+http://blog.duangle.com/feeds/posts/default programming
+http://blog.dustinkirkland.com/feeds/posts/default misc
+http://blog.feabhas.com/feed/rss2/ programming
+http://blog.fishingcactus.com/index.php/feed/
+http://blog.golang.org/feeds/posts/default programming
+http://blog.habets.pp.se/rss
+http://blog.haml.info/rss web
+http://blog.httrack.com/atom.xml programming
+http://blog.hvidtfeldts.net/index.php/feed/ programming maths fractals
+http://blog.icare3d.org/feeds/posts/default programming graphics
 http://blog.irayrender.com/rss programming graphics
-http://blogs.msdn.com/vcblog/rss.xml programming c++
+http://blog.joa-ebert.com/feed/ programming
+http://blog.jorgenschaefer.de/feeds/posts/default
+http://blog.josephwilk.net/atom.xml
+http://blog.kenperlin.com/?feed=rss2 maths
+http://blog.linuxmint.com/?feed=rss2 linux
+http://blog.martinfjordvald.com/feed/ nginx
+http://blog.mmacklin.com/feed/ programming graphics fluids
+http://blog.nicolargo.com/feed linux
+http://blog.nobel-joergensen.com/feed/ programming graphics opengl
+http://blog.ometer.com/feed/ programming
+http://blog.patrickmeenan.com/feeds/posts/default web
+http://blog.plover.com/index.rss
+http://blog.printf.net/feed/
+http://blog.regehr.org/feed programming
+http://blog.reverberate.org/feeds/posts/default programming
+http://blog.runevision.com/feeds/posts/default programming
+http://blog.sanctum.geek.nz/feed/ linux tmux
+http://blog.selfshadow.com/feed/ programming graphics
+http://blog.sigfpe.com/feeds/posts/default
+http://blog.stackoverflow.com/feed/ "Blog"
+http://blog.tartanllama.xyz/feed.xml programming c++
+http://blog.tojicode.com/feeds/posts/default programming
+http://blog.vjeux.com/feed web
+http://blog.waymondo.com/atom.xml
+http://blog.yitang.uk/atom.xml
+http://bookofhook.blogspot.com/feeds/posts/default programming
+http://bordeen.blogspot.com/feeds/posts/default programming
+http://boredzo.org/blog/feed/atom maths
+http://bouliiii.blogspot.com/feeds/posts/default programming graphics raytracing
+http://briansharpe.wordpress.com/feed/ programming graphics
+http://brnz.org/hbr/?feed=rss2 programming
+http://bryan-murdock.blogspot.com/atom.xml
+http://buildnewgames.com/atom.xml programming
+http://c0de517e.blogspot.com/feeds/posts/default programming graphics
+http://casual-effects.blogspot.com/feeds/posts/default programming graphics
+http://cbloomrants.blogspot.com/feeds/posts/default programming
+http://cestlaz.github.io/rss.xml
+http://ceving.blogspot.com/feeds/posts/default
+http://chadaustin.me/feed/ programming
+http://charlesleifer.com/blog/rss/ programming
+http://chrisdone.com/rss.xml
+http://chrismccombs.net/feed
+http://christianheilmann.com/feed/ web
+http://code-spot.co.za/feed/
+http://code.danyork.com/feed/ programming
+http://codeascraft.etsy.com/feed/ programming
+http://codeblog.jonskeet.uk/feed/ programming
+http://codeofthedamned.com/index.php?tempskin=_atom programming
+http://coderview.blogspot.com/feeds/posts/default programming
 http://codesuppository.blogspot.com/feeds/posts/default
+http://codingadventures.me/feed/ programming
+http://coldattic.info/shvedsky/pro/blogs/a-foo-walks-into-a-bar/posts/rss programming
+http://coreyms.com/feed/ "Code"
+http://cottonvibes.blogspot.com/feeds/posts/default programming
+http://cppcast.libsyn.com/rss programming
 http://cpptruths.blogspot.com/feeds/posts/default programming c++
+http://crashcoder.blogspot.com/feeds/posts/default programming
+http://croustination.com/feed/ misc
+http://d0cs4vage.blogspot.com/feeds/posts/default programming
+http://dale.io/feed.xml
+http://danluu.com/atom.xml programming
+http://daugaard.org/feed/ programming
+http://denverdroid.blogspot.com/feeds/posts/default/-/emacs
+http://dev.weechat.org/feed/atom misc
+http://dhruvbird.blogspot.com/feeds/posts/default programming
+http://diaryofagraphicsprogrammer.blogspot.com/feeds/posts/default programming graphics
 http://digestingduck.blogspot.com/feeds/posts/default programming
+http://donw.io/post/index.xml programming graphics
+http://dorophone.blogspot.com/feeds/posts/default/-/emacs
+http://dougmccune.com/blog/feed/ misc
+http://dougrogers.blogspot.com/feeds/posts/default programming graphics
+http://dtrace.org/blogs/bmc/feed/ programming
+http://dtrace.org/blogs/brendan/feed/ dtrace
+http://duartes.org/gustavo/blog/feed programming
+http://eev.ee/feeds/atom.xml programming
+http://eli.thegreenplace.net/feed/ programming
+http://emacs-fu.blogspot.com/feeds/posts/default/-/new
+http://emacsair.me.s3-website.eu-central-1.amazonaws.com/feed.xml
+http://emacshorrors.com/feed.atom
+http://emacslife.blogspot.com/feeds/posts/default
+http://emacsninja.com/emacs.atom
+http://emacsnyc.org/atom.xml
+http://emacspeak.blogspot.com/atom.xml
+http://emacsredux.com/atom.xml
+http://emacsrocks.com/atom.xml
+http://emacstidbits.blogspot.com/atom.xml
+http://emacsworld.blogspot.com/feeds/posts/default
+http://endlessparentheses.com/atom.xml
+http://ericasadun.com/feed/ programming
+http://ericlippert.com/feed/ programming
+http://ericniebler.com/feed/ programming c++
+http://ewontfix.com/feed.rss programming
+http://fabiensanglard.net/rss.xml programming
+http://fahrenheit2539.blogspot.com/feeds/posts/default programming
+http://fastcompression.blogspot.com/feeds/posts/default programming compression favourite
+http://feeds.exploringbinary.com/exploringbinary programming
+http://feeds.feedburner.com/24ways web
+http://feeds.feedburner.com/50plyBlog programming
 http://feeds.feedburner.com/ChrisGranger programming
+http://feeds.feedburner.com/CppSoup programming c++
+http://feeds.feedburner.com/CssTricks web css
 http://feeds.feedburner.com/GiantRobotsSmashingIntoOtherGiantRobots programming
-feed://feeds.feedburner.com/GiantRobotsSmashingIntoOtherGiantRobots programming
+http://feeds.feedburner.com/GotEmacs
+http://feeds.feedburner.com/ItsFoss "FOSS"
+http://feeds.feedburner.com/JohnResig web
+http://feeds.feedburner.com/JoniSalonen programming
 http://feeds.feedburner.com/KarlSeguinsBlog programming redis
+http://feeds.feedburner.com/Kholdcode programming
+http://feeds.feedburner.com/KrisJenkinsBlog?format=xml
 http://feeds.feedburner.com/Lighthouse3d programming graphics opengl
-#http://feeds.feedburner.com/RayWenderlich programming ios
+http://feeds.feedburner.com/MessWithYourJunk programming
+http://feeds.feedburner.com/Pyimagesearch machinelearning
+http://feeds.feedburner.com/ScottHanselman misc
+http://feeds.feedburner.com/SimpleA11Y web accessibility
 http://feeds.feedburner.com/SolarianProgrammer programming
-http://feeds.feedburner.com/ThoughtsSerializer programming
+http://feeds.feedburner.com/WisdomAndWonder?format=xml
+http://feeds.feedburner.com/alexott
+http://feeds.feedburner.com/antirez programming redis
+http://feeds.feedburner.com/bkcore-thibautdespoulain
+http://feeds.feedburner.com/codeincomplete programming
+http://feeds.feedburner.com/csswizardry web
+http://feeds.feedburner.com/emacsblog
+http://feeds.feedburner.com/emacslife
+http://feeds.feedburner.com/emacsrookiecom
 http://feeds.feedburner.com/g-truc programming graphics opengl
 http://feeds.feedburner.com/holman programming
-http://feeds.feedburner.com/idevblogaday programming ios
+http://feeds.feedburner.com/html5rocks web
 http://feeds.feedburner.com/jeffkreeftmeijer programming
+http://feeds.feedburner.com/matthen maths
+http://feeds.feedburner.com/opensoul programming
+http://feeds.feedburner.com/paul-irish web
+http://feeds.feedburner.com/pimpmyemacs
+http://feeds.feedburner.com/remysharp web javascript
+http://feeds.feedburner.com/somerandomdude web
+http://feeds.feedburner.com/spf13 web
+http://feeds.feedburner.com/ted-roden-emacs
+http://feeds.feedburner.com/thesassway web css sass
+http://feeds.feedburner.com/tuxicity-emacs
+http://feeds.feedburner.com/warpspire
+http://feeds.justinhileman.info/justinhileman/blog web
+http://feeds2.feedburner.com/Command-line-fu cli
 http://feeds2.feedburner.com/EverydayFlash programming
-http://feeds.feedburner.com/mraleph programming
+http://feeds2.feedburner.com/awf-allposts web
+http://feeds2.feedburner.com/emacsblog
+http://feeds2.feedburner.com/stevelosh
+http://feeds2.feedburner.com/tympanus web
+http://fgiesen.wordpress.com/feed/ programming favourite
+http://fhtr.blogspot.com/feeds/posts/default web
 http://flexmonkey.blogspot.com/feeds/posts/default programming
 http://flohofwoe.blogspot.com/feeds/posts/default programming
-http://forum.beyond3d.com/external.php?type=RSS2&forumids=22 programming
-http://forum.beyond3d.com/external.php?type=RSS2&forumids=42 programming
-#http://fpcomplete.com/feed/ programming
+http://francismurillo.github.io/hacker/feed.xml
+http://furbo.org/feed/ programming
+http://gafferongames.com/feed/ programming network physics
 http://gameangst.com/?feed=rss2 programming
 http://gamearchitect.net/feed/ programming
 http://gamedevcoder.wordpress.com/feed/ programming
-http://www.jonolick.com/2/feed programming
 http://games.greggman.com/game/feed/ programming
 http://gamesfromwithin.com/feed programming
-http://github.prideout.net/atom.xml programming
+http://gfxprose.blogspot.com/feeds/posts/default web
+http://gilesbowkett.blogspot.com/feeds/posts/default programming
+http://ginsweater.com/blog/feed/ programming
+http://gloryowlcomix.blogspot.com/feeds/posts/default misc
+http://gnufool.blogspot.com/feeds/posts/default/-/emacs
 http://googleappsdeveloper.blogspot.com/feeds/posts/default programming
 http://googlecode.blogspot.com/feeds/posts/default programming
 http://googletesting.blogspot.com/feeds/posts/default programming test
+http://gpuopen.com/feed/ programming
 http://gpupro.blogspot.com/feeds/posts/default programming graphics
 http://gpuzen.blogspot.com/feeds/posts/default programming graphics
 http://graphicrants.blogspot.com/feeds/posts/default programming graphics
 http://graphicsrunner.blogspot.com/feeds/posts/default programming graphics
-http://grgrdvrt.com/blog/feed/ programming graphics
+http://gromnitsky.blogspot.com/feeds/posts/default/-/emacs
 http://gustedt.wordpress.com/feed/ programming
+http://h14s.p5r.org/feed programming
+http://ha-ha-ha.tumblr.com/rss misc
 http://hacksoflife.blogspot.com/feeds/posts/default programming
+http://hakim.se/rss.xml web
+http://harmful.cat-v.org/Blog/index.atom misc
+http://harryrschwartz.com/atom.xml
 http://hbfs.wordpress.com/feed/ programming
 http://herbsutter.wordpress.com/feed/ programming c++
-http://home.comcast.net/~tom_forsyth/blog.wiki.xml programming
-http://eelpi.gotdns.org/blog.wiki.xml programming
+http://hopperapp.com/blog/?feed=rss2 programming
+http://html5doctor.com/feed/ web
+http://hubicka.blogspot.com/feeds/posts/default programming
+http://hugogiraudel.com/rss/ web
 http://humus.name/rss.xml programming graphics
 http://i-am-glow.com/?feed=rss2 programming graphcis webbl
+http://icospheric.com/blog/feed/ programming
 http://iki.fi/sol/rss.xml programming
-http://irrlicht3d.org/rss.xml programming graphics
+http://imdoingitwrong.wordpress.com/feed/
+http://inessential.com/xml/rss.xml web
+http://interplayoflight.wordpress.com/feed/ programming graphics
+http://ithare.com/rssfeed/ programming
+http://j00ru.vexillium.org/?feed=rss2 programming
+http://jakoblaegdsmand.com/feed.xml web
+http://jamesdolan.blogspot.com/feeds/posts/default programming
+http://jamesporter.me/feeds/rss.xml
 http://jbremer.org/feed/ programming
+http://jeremykun.com/feed/ maths
 http://jet.ro/feed/ programming
 http://jfdube.wordpress.com/feed/ programming
 http://johnwhigham.blogspot.com/feeds/posts/default programming graphics
-http://feeds.feedburner.com/JoniSalonen programming
+http://johnwhite3d.blogspot.com/feeds/posts/default programming
 http://joostdevblog.blogspot.com/feeds/posts/default programming
-http://journal.stuffwithstuff.com/feed programming
-http://kevin.deldycke.com/feed/ programming
+http://jquery.com/blog/feed/ web jquery
+http://jr0cket.co.uk/atom.xml
+http://justinhj.github.io/feed.xml
+http://justinsboringpage.blogspot.com/feeds/posts/default/-/emacs
+http://jvns.ca/atom.xml programming
+http://karpathy.github.io/feed.xml machinelearning
+http://kazyos.hatenablog.com/feed
+http://kbeezie.com/feed/ nginx
+http://kennykerr.ca/feed/ programming c++
+http://kitchingroup.cheme.cmu.edu/blog/feed/atom
+http://kylehalladay.com/atom.xml programming
 http://landonf.bikemonkey.org/index.rss programming
+http://lars.ingebrigtsen.no/feed
+http://lcamtuf.blogspot.com/feeds/posts/default programming
+http://leifnode.com/feed/ programming graphics
 http://lemire.me/blog/feed/ programming
-http://kriscg.blogspot.com/feeds/posts/default programming graphics
+http://linux-debugger-bits.blogspot.com/feeds/posts/default programming
+http://locklessinc.com/feed.rss programming
 http://lol.zoy.org/blog?format=rss programming
-http://merlin3d.wordpress.com/feed/ programming graphics
-http://learningwebgl.com/blog/?feed=rss2 programming graphics webgl
-http://leewinder.co.uk/blog/?feed=rss2 programming
-http://libcinder.org/feeds/blog/ programming graphics
 http://lousodrome.net/blog/light/feed/ programming
+http://lowlevelbits.org/atom.xml programming
 http://lspiroengine.com/?feed=rss2 programming
 http://lucumr.pocoo.org/feed.atom programming
+http://machinethink.net/blog/index.xml programming graphics
 http://magnuswrenninge.com/feed programming graphics
+http://manu343726.github.io/feed.xml programming
+http://marc-b-reynolds.github.io/feed.xml programming graphics
 http://marcgravell.blogspot.com/feeds/posts/default programming
-http://markshroyer.com/feed/ programming
-http://martinecker.com/martincodes/feed/ programming graphics
+http://marek.vavrusa.com/feed.xml programming
+http://marijnhaverbeke.nl/blog/feed.atom
+http://matt.hackinghistory.ca/blog/feed/atom/
 http://mechanical-sympathy.blogspot.com/feeds/posts/default programming
 http://meetingcpp.com/blogen.xml programming c++
+http://merlin3d.wordpress.com/feed/ programming graphics
 http://metaphysicaldeveloper.wordpress.com/feed/ programming
 http://mike.teczno.com/notes/index.xml programming
-http://blog.mmacklin.com/feed/ programming graphics fluids
+http://mjwall.com/atom.xml
 http://mmikkelsen3d.blogspot.com/feeds/posts/default programming graphics
 http://mmmovania.blogspot.com/feeds/posts/default programming graphics opengl
+http://mnemonikk.org/feed/
 http://moinakg.wordpress.com/feed/ programming
-http://monoinfinito.wordpress.com/feed/ programming
-http://mouaif.wordpress.com/feed/ programming
-http://msinilo.pl/blog/?feed=rss2 programming
 http://msinilo.pl/blog2/index.xml programming
-http://mudcu.be/journal/feed/ programming
-http://my.opera.com/Vorlath/xml/rss/blog/ programming
-http://my.opera.com/emoller/xml/rss/blog/ programming
+http://muublog.blogspot.com/feeds/posts/default
 http://mynameismjp.wordpress.com/feed/ programming graphics
-https://therealmjp.github.io/posts/index.xml graphics
-http://ncannasse.fr/wiki/rss?path=blog programming
-http://nervedemosystem.blogspot.com/feeds/posts/default programming
-http://ochafik.free.fr/blog/?feed=rss2 programming
-http://oos.moxiecode.com/blog/index.php/feed/ programming
-http://openglbook.com/feed/ programming graphics opengl
-http://openmp.org/wp/feed/ programming
-http://orenk2k.blogspot.com/feeds/posts/default programming graphics
+http://n-e-r-v-o-u-s.com/blog/?feed=rss2
+http://n00body.squarespace.com/journal/atom.xml
+http://natosha-bard.com/rss programming
+http://ndebug.blogspot.com/feeds/posts/default programming
+http://nehe.gamedev.net/rss/ programming
+http://nfrechette.github.io/atom.xml programming
+http://nickbradbury.com/feed/ misc
+http://nickdesaulniers.github.io/atom.xml programming
+http://nicolasgallagher.com/feed/ web
+http://nikhilism.com/index.xml programming
+http://nongeekrecipes.wordpress.com/category/emacs-and-friends/feed/
+http://notes.underscorediscovery.com/rss/ programming
+http://nullprogram.com/feed/ programming
+http://nurpax.github.io/rss.xml programming
+http://oremacs.com/atom.xml
+http://ourmachinery.com/index.xml programming
 http://outerra.blogspot.com/feeds/posts/default programming graphics
 http://overbyte.com.au/index.php/overbyte-blog/latest?format=feed&type=rss programming
-http://pagcoder.blogspot.com/feeds/posts/default programming
-http://paulmck.livejournal.com/data/rss?tag=is%20parallel%20programming%20hard programming
+http://pcloadletter.co.uk/feed/ synology
+http://pempek.net/feed/
+http://petersikachev.blogspot.com/feeds/posts/default programming
 http://petersobot.com/atom.xml programming
-http://philippe.elsass.me/feed/ programming
+http://pharr.org/matt/blog/feed.xml programming
 http://phoboslab.org/log/feed programming graphics
 http://pkisensee.spaces.live.com/feed.rss programming
-http://preney.ca/paul/feed/ programming
+http://planet.clang.org/atom.xml programming
+http://pointersgonewild.wordpress.com/feed/ programming
+http://polycode.tumblr.com/rss programming
+http://pozorvlak.livejournal.com/data/atom?tag=emacs
+http://pragmaticemacs.com/feed
 http://preshing.com/feed programming favourite
+http://probablydance.com/feed/ programming
 http://procworld.blogspot.com/feeds/posts/default programming graphis
-http://prog21.dadgum.com/atom.xml programming
+http://programmingisterrible.com/rss programming
+http://psachin.github.io/feed.xml
 http://psgraphics.blogspot.com/feeds/posts/default programming graphics
-http://sealedabstract.com/feed/rss/ programming
+http://psung.blogspot.com/feeds/posts/default/-/emacs
+http://puntoblogspot.blogspot.com/feeds/posts/default/-/emacs
 http://randomascii.wordpress.com/feed/ programming favourite
+http://rasmusbarr.github.io/feed.xml programming
 http://rastergrid.com/blog/feed/ programming
 http://rauwendaal.net/feed/ programming
+http://ravit.ch/rss.xml
 http://raytracey.blogspot.com/feeds/posts/default programming graphics
 http://realtimecollisiondetection.net/blog/?feed=rss2 programming
 http://rectangleworld.com/blog/feed programming graphics
+http://redmeat.lapin.org/fluxrss.xml misc
 http://renderingpipeline.com/feed/ programming graphics
 http://repi.blogspot.com/feeds/posts/default programming graphics
 http://research.swtch.com/feed.atom programming
 http://rgba32.blogspot.com/feeds/posts/default programming
-http://ridiculousfish.com/blog/feed/ programming
-http://rmurphey.com/atom.xml programming
-http://www.rigsofrods.com/blog_external.php?type=RSS2 programming
-http://roberthodgin.com/feed/ programming graphics
-http://roy-t.nl/index.php/feed/ programming
+http://richg42.blogspot.com/feeds/posts/default programming favourite
+http://roar11.com/feed/ programming
+http://robert-adesam.blogspot.com/feeds/posts/default/-/emacs
+http://samrowe.com/wordpress/feed/
 http://samsaffron.com/posts.rss programming
 http://sandervanrossen.blogspot.com/feeds/posts/default programming graphics
-http://www.sayinghai.com/wp/?feed=rss2 programming graphics
+http://schellcode.github.io/feed.xml programming
 http://scientificninja.com/feed programming
+http://scottfrazersblog.blogspot.com/feeds/posts/default
 http://scottmeyers.blogspot.com/feeds/posts/default programming c++
-http://scriptogr.am/jj/feed programming c++
-http://sea-of-memes.com/rss.xml programming graphics
-http://sebastiansylvan.com/feed/ programming
-http://www.sebastiansylvan.com/index.xml programming
 http://sebh-blog.blogspot.com/feeds/posts/default programming graphics
 http://seblagarde.wordpress.com/feed/ programming graphics
+http://sethgodin.typepad.com/seths_blog/atom.xml misc
+http://sheredom.wordpress.com/feed/ programming
 http://simblob.blogspot.com/feeds/posts/default programming
 http://simonstechblog.blogspot.com/feeds/posts/default programming graphics
 http://slackito.com/feed/ programming
-http://soledadpenades.com/feed/ programming
 http://solid-angle.blogspot.com/feeds/posts/default programming
+http://splash-of-open-sauce.blogspot.com/feeds/posts/default/-/planetemacsen
+http://spritesmods.com/rss.php misc
 http://sree.kotay.com/atom.xml programming
 http://steve.vinoski.net/blog/feed/atom/ programming
 http://stevehanov.ca/blog/?atom programming favourite
+http://sub.blue/feed.rss programming graphics
 http://swiftcoder.wordpress.com/feed/ programming
+http://sxemacs-en.blogspot.com/feeds/posts/default
 http://sylefeb.blogspot.com/feeds/posts/default programming
 http://takinginitiative.wordpress.com/feed/ programming
+http://tangentvector.wordpress.com/feed/ programming
+http://taras.glek.net/atom.xml web
 http://tatourian.wordpress.com/feed/ programming
-#https://tatourian.blog/feed/ programming
+http://tech.memoryimprintstudio.com/feed/
+http://technomancy.us/feed/atom
+http://tehom-blog.blogspot.com/feeds/posts/default/-/emacs
 http://the-free-meme.blogspot.com/feeds/posts/default programming
 http://the-witness.net/news/?feed=rss2 programming
+http://thechangelog.com/rss misc
 http://thiagocosta.net/?feed=rss2 programming
-http://timothylottes.blogspot.com/feeds/posts/default programming
-https://timothylottes.github.io/index.rss programming
+http://thomasdiewald.com/blog/?feed=rss2 programming graphics
+http://thomaskole.nl/feed/ programming graphics
+http://tiamat.tsotech.com/tiamat.rss web
 http://tinodidriksen.com/feed/ programming
-http://www.codercorner.com/blog/?feed=rss2 programming
-#http://www.kvraudio.com/forum/feed.php?f=33 programming
-http://www.mahdiyusuf.com/rss programming
-http://tomkirbygreen.com/feed/ programming
+http://tolgaceylan.tumblr.com/rss programming
+http://tomdalling.com/blog/feed programming
+http://tommyhinks.com/feed/ programming graphics
+http://tonsky.me/blog/atom.xml programming
+http://torch.ch/blog/feed.xml
 http://torjo.blogspot.com/feeds/posts/default programming webgl
+http://treyhunner.com/atom.xml programming python
+http://tromey.com/elpa/elpa.rss
+http://troydm.github.io/atom.xml programming
+http://tsengf.blogspot.com/feeds/posts/default/-/emacs
+http://turbochaos.blogspot.com/feeds/posts/default programming
 http://twistedoakstudios.com/blog/?feed=rss programming
+http://ultimex.over-blog.com/rss-articles.xml misc
+http://unapologetic.wordpress.com/feed/ maths
 http://unigine.blogspot.com/feeds/posts/default programming
-http://unigine.com/devlog/rss.xml programming
+http://unix.stackexchange.com/feeds/tag?tagnames=emacs&amp;amp;sort=newest
+http://unknownworlds.com/futureperfect/feed/ programming
+http://upcoder.com/feed programming
+http://useyourloaf.com/blog/rss.xml programming
 http://ventspace.wordpress.com/feed/ programming
-http://blog.virtualglobebook.com/feeds/posts/default programming
+http://vihart.com/feed misc
+http://vimcasts.org/feeds/ogg misc vim
 http://voxelium.wordpress.com/feed/ programming graphics
 http://voxels.blogspot.com/feeds/posts/default programming graphics
-http://wanderingcoder.net/feed/ programming
-http://250bpm.com/feed/pages/pagename/blog/category/blog/t/250bpm-blogs/h/http%3A%2F%2Fwww.250bpm.com%2Fblog programming
+http://wacki.me/feed.xml programming graphics
+http://whattheemacsd.com/atom.xml
+http://whatthefuck.computer/rss.xml
+http://williambert.online/atom.xml
+http://williamdurand.fr/atom.xml misc
+http://wongmichael.com/feed/ programming
+http://writequit.org/blog/feed/index.html
+http://www.adriancourreges.com/atom.xml programming graphics
+http://www.aerialmantis.co.uk/feed.xml programming c++
+http://www.airtightinteractive.com/feed/ programming
+http://www.alexandre-pestana.com/feed/ programming
+http://www.archlinux.org/feeds/news/ linux archlinux
 http://www.artfromcode.com/?feed=rss2 programming graphics
 http://www.artima.com/spotlight/feeds/spotlight.rss programming
-http://www.bit-101.com/blog/?feed=rss2 programming
-http://www.dasprinzip.com/prinzipiell/feed/ programming
-http://www.ddj.com/rss/cpp.xml programming c++
-http://www.gamerendering.com/feed/ programming
-http://www.gpgpu.org/cgi-bin/blosxom.cgi/index.rss programming gpgpu
-http://www.real-time-volume-graphics.org/?feed=rss2 programming
-http://www.strchr.com/?feed=news programming
-http://www.thealphablenders.com/feed/ programming graphics
-http://www.volumesoffun.com/feed/ programming
-http://colinbarrebrisebois.com/feed/ programming
-https://mollyrocket.com/forums/rss.php?ignored=0 programming
-http://yosoygames.com.ar/wp/feed/ programming
-http://interplayoflight.wordpress.com/feed/ programming graphics
-http://bookofhook.blogspot.com/feeds/posts/default programming
-http://blog.l0cal.com/feed/ programming
-http://pointersgonewild.wordpress.com/feed/ programming
-http://mosra.cz/blog/rss-en.php programming
-http://joeduffyblog.com/feed programming
-http://tangentvector.wordpress.com/feed/ programming
-http://floored.com/atom.xml programming
-http://mcnopper.blogspot.com/feeds/posts/default programming
-http://polycode.tumblr.com/rss programming
-http://oroboro.com/feed/ programming
-http://git-scm.com/blog.rss programming
-https://yinwang0.wordpress.com/feed/ programming
-http://feeds.feedburner.com/Kholdcode programming
-http://feeds.feedburner.com/50plyBlog programming
-http://www.openglsuperbible.com/feed/ programming
-http://www.clicktorelease.com/rss.xml programming
-http://probablydance.com/feed/ programming
-http://www.uncontrol.com/feed/ programming
-http://bordeen.blogspot.com/feeds/posts/default programming
-http://9elements.com/io/index.php/feed/ programming
-http://notes.underscorediscovery.com/rss/ programming
-http://www.p1xelcoder.com/feed/ programming
-http://alisdair.mcdiarmid.org/feed.atom programming
-http://blog.coldflake.com/rss.xml programming
-http://planet.clang.org/atom.xml programming
-http://ndkovac.tumblr.com/rss programming
-http://crntaylor.wordpress.com/feed/ programming
-http://www.filmicworlds.com/feed/ programming
-http://tomdalling.com/blog/feed programming
-http://www.slashslash.info/feed/ programming
-http://strilanc.com/feed.xml programming
-http://ginsweater.com/blog/feed/ programming
-http://barradeau.com/blog/?feed=rss2 programming
-http://blog.duangle.com/feeds/posts/default programming
-http://linux-debugger-bits.blogspot.com/feeds/posts/default programming
-http://johnwhite3d.blogspot.com/feeds/posts/default programming
-http://hubicka.blogspot.com/feeds/posts/default programming
-http://useyourloaf.com/blog/rss.xml programming
-http://bartwronski.com/feed/ programming
-http://tolgaceylan.tumblr.com/rss programming
-http://fapad3d.blogspot.com/feeds/posts/default programming
-http://www.joshbarczak.com/blog/?feed=rss2 programming
-http://notes.ericjiang.com/feed programming
-http://www.kiransprojects.com/blog/feed/ programming
-http://codepen.io/andremichelle/blog/feed/ programming audio
-http://hopperapp.com/blog/?feed=rss2 programming
-http://sheredom.wordpress.com/feed/ programming
-http://weblog.kimkulling.de/?feed=rss2 programming
-http://kimkulling.de/feed/ programming
-http://jamesdolan.blogspot.com/feeds/posts/default programming
-http://www.alexandre-pestana.com/feed/ programming
-http://blog.feabhas.com/feed/rss2/ programming
-http://h14s.p5r.org/feed programming
-https://knarkowicz.wordpress.com/feed/ programming
-http://danluu.com/atom.xml programming
-http://nullprogram.com/feed/ programming
-http://www.pagetable.com/?feed=rss2 programming
-http://petersikachev.blogspot.com/feeds/posts/default programming
-http://ndebug.blogspot.com/feeds/posts/default programming
-http://unknownworlds.com/futureperfect/feed/ programming
-http://snaipe.me/feed.xml programming
-https://ferransole.wordpress.com/feed/ programming
-http://zulko.github.io/atom.xml programming
-http://arne-mertz.de/feed/ "~Simplify C++" programming c++
-http://blog.mattbierner.com/rss/ programming c++
-https://blog.mattbierner.com/atom.xml programming c++
-http://shaneenishry.com/feed.xml programming
-http://www.adriancourreges.com/atom.xml programming graphics
-http://www.duskborn.com/feed/ programming
-http://wadeb.com/blog/feed.xml programming
-http://www.alexstjohn.com/WP/feed/ programming
-http://lcamtuf.blogspot.com/feeds/posts/default programming
-http://locklessinc.com/feed.rss programming
-http://www.evanmiller.org/news.xml programming
-http://kennykerr.ca/feed/ programming c++
-http://sub.blue/feed.rss programming graphics
-http://zverovich.net/atom.xml programming
-http://yapb-soc.blogspot.com/feeds/posts/default progamming c++
-http://marek.vavrusa.com/feed.xml programming
-http://seanmiddleditch.com/rss/ programming
-http://birdgames.nl/feed/ programming
-http://b.atch.se/rss.xml programming c++
-http://codeofthedamned.com/index.php?tempskin=_atom programming
-http://codingadventures.me/feed/ programming
-http://renderdoc.org/blogrss/Graphics-in-Plain-Language/ programming graphics
-http://richg42.blogspot.com/feeds/posts/default programming favourite
-https://dolphin-emu.org/blog/feeds/ programming
-http://andrea.corbellini.name/feed/ programming
-http://andrea.corbellini.name/feed.atom programming
-http://feeds.exploringbinary.com/exploringbinary programming
-http://nfrechette.github.io/atom.xml programming
-http://blog.noctua-software.com/atom.xml programming
-http://leifnode.com/feed/ programming graphics
-http://gilesbowkett.blogspot.com/feeds/posts/default programming
-#http://natoshabard.com/rss programming
-http://natosha-bard.com/rss programming
-http://kmamou.blogspot.com/feeds/posts/default
-http://blog.httrack.com/atom.xml programming
-http://www.remarkablyrestrained.com/feed.xml programming
-http://roar11.com/feed/ programming
-http://nickdesaulniers.github.io/atom.xml programming
-http://dhruvbird.blogspot.com/feeds/posts/default programming
-http://marcinignac.com/rss/ programming graphics
-https://raytracedminecraft.wordpress.com/feed/ programming graphics
-http://blog.cleancoder.com/atom.xml programming
-#http://www.farrarfocus.com/feed/ programming
-http://accu.org/index.php/articles?theme=rss programming
-http://stevengharms.com/atom.xml programming
-http://adriansampson.net/blog.xml programming
-http://turbochaos.blogspot.com/feeds/posts/default programming
-http://manu343726.github.io/feed.xml programming
-http://furbo.org/feed/ programming
-http://wongmichael.com/feed/ programming
-https://www.tinycranes.com/rss.xml programming
-http://blog.ometer.com/feed/ programming
-http://mollyrocket.com/casey/stream_atom.rss programming
-http://eev.ee/feeds/atom.xml programming
-http://feeds.feedburner.com/MessWithYourJunk programming
-https://smcgro.wordpress.com/feed/ programming
-http://brandonpelfrey.github.io/atom.xml programming
-http://www.elbeno.com/blog/?feed=rss2 programming
-https://natecraun.net/feed.xml programming
-http://lowlevelbits.org/atom.xml programming
-https://gamedevdaily.io/feed programming
-http://www.randygaul.net/feed/ programming
-http://upcoder.com/feed programming
-http://cppcast.libsyn.com/rss programming
-http://stephaniehurlburt.com/blog?format=RSS programming
-http://panavtec.me/feed/ programming
-http://gpuopen.com/feed/ programming
-http://xania.org/feed programming
-https://matt.sh/.rss programming
-http://troydm.github.io/atom.xml programming
-http://blog.demofox.org/feed/ programming
-http://charlesleifer.com/blog/rss/ programming
-http://programmingisterrible.com/rss programming
-http://www.mr-edd.co.uk/rss.xml programming
-http://feeds.feedburner.com/codeandgraphics programming
+http://www.asawicki.info/news_rss.php5 programming
+http://www.backtothepixel.com/rss.xml programming graphics webgl
+http://www.bennee.com/~alex/blog/tag/emacs/feed
 http://www.bfilipek.com/feeds/posts/default programming
-https://procedural.github.io/feed.xml programming
-https://procedural.github.io/index.xml programming
-https://optimiserly.wordpress.com/feed/ programming
-http://ewontfix.com/feed.rss programming
-https://stoyannk.wordpress.com/feed/ programming
-https://basesandframes.wordpress.com/feed/ programming
-http://ithare.com/rssfeed/ programming
-https://www.imperialviolet.org/iv-rss.xml programming
-http://number-none.com/blow/blog/feed.xml programming
-http://notes.willcrichton.net/rss/ programming
-http://icospheric.com/blog/feed/ programming
-http://j00ru.vexillium.org/?feed=rss2 programming
-http://radek.io/rss.xml programming
-http://rasmusbarr.github.io/feed.xml programming
-https://loonytek.com/feed/ programming
-http://jvns.ca/atom.xml programming
-http://roy.red/feeds/all.atom.xml programming
-https://fuzzyreflection.com/feed/ programming
-http://belkadan.com/blog/atom programming
-http://www.rorydriscoll.com/feed/ programming
-https://jackmott.github.io//feed.xml programming
-http://ninslash.com/feed/ programming
-http://momentsingraphics.de/?feed=rss2 programming graphics
-https://blogs.msdn.microsoft.com/visualstudio/feed/ programming
-http://www.miaumiau.cat/feed/ programming graphics
-http://amir.rachum.com/feed.xml programming
-https://imagineraytracer.wordpress.com/feed/ programming graphics
-http://floooh.github.io/feed.xml programming graphics
-http://shaderbits.com/rss.xml programming graphics
-http://bitfunnel.org/index.xml programming
-http://www.rasterman.com/rss.xml programming
-https://nlguillemot.wordpress.com/feed/ programming
-https://alschwalm.com/blog/static/rss/index.xml programming
-https://engineering.riotgames.com/news/feed programming
-https://kristerw.blogspot.com/feeds/posts/default programming
-https://traxnet.wordpress.com/feed/ programming
-http://www.randomprogramming.com/feed/ programming
-http://machinethink.net/blog/index.xml programming graphics
-https://sakibsaikia.github.io/feed.xml programming graphics
-http://marc-b-reynolds.github.io/feed.xml programming graphics
-http://www.lebarba.com/feed/ programming graphics
-http://wacki.me/feed.xml programming graphics
-http://www.diusrex.com/feed/ programming
-http://ourmachinery.com/index.xml programming
-http://blog.tartanllama.xyz/feed.xml programming c++
-http://www.epicshaders.com/feed/ programming graphics
-https://daniel.haxx.se/blog/feed/ programming
-https://kosmonautblog.wordpress.com/feed/ programming graphics
-#https://bulldozer00.com/feed/ programming
-http://nehe.gamedev.net/rss/ programming
-http://www.corsix.org/rss.xml programming
-https://www.fasterthan.life/blog?format=RSS programming graphics
-http://www.aerialmantis.co.uk/feed.xml programming c++
-http://blog.digital-horror.com/rss/ programming graphics
-https://jendrikillner.bitbucket.io/index.xml programming graphics
-https://www.pvk.ca/atom.xml programming
-https://blog.plan99.net/feed programming
-https://rmarcus.info/blog/atom.xml programming
-http://ericlengyel.blogspot.com/feeds/posts/default programming
-https://erkaman.github.io/rss.xml programming
-https://blog.rpis.ec/feeds/all.atom.xml programming security
-http://www.swedishcoding.com/feed/ programming
-https://www.blogger.com/feeds/5055426614227209030/posts/default programming
-http://kylehalladay.com/atom.xml programming
-https://jeffamstutz.io/feed/ programming
-https://www.alanzucconi.com/feed/ programming
-http://www.elopezr.com/feed/ programming graphics
-http://pharr.org/matt/blog/feed.xml programming
-https://hsivonen.fi/feed/atom/ programming rust
-https://medium.com/feed/@jamis programming
-http://thomaskole.nl/feed/ programming graphics
-https://dendibakh.github.io/feed.xml programming
-http://thomasdiewald.com/blog/?feed=rss2 programming graphics
-https://apoorvaj.io/rss.xml programming graphics
-https://grahamhazel.com/blog/feed/ programming
-http://wwwtyro.net/feed.xml programming graphics
-https://code.visualstudio.com/feed.xml programming
-https://schuttejoe.github.io/index.xml programming graphics
-https://kazakov.life/feed/ programming
-https://www.kusma.xyz/feed.xml programming
-https://nical.github.io/feeds/all.atom.xml programming
-http://bitshifter.github.io/atom.xml programming graphics
-https://technik90.blogspot.com/feeds/posts/default programming graphics
-http://nurpax.github.io/rss.xml programming
-http://metalkit.org/feed.xml programming graphics
-https://rivten.github.io/atom.xml programming graphics
-https://ndotl.wordpress.com/feed/ programming graphics
-https://deadvoxels.blogspot.com/feeds/posts/default programming graphics
-https://www.ronja-tutorials.com/feed.xml programming graphics
-https://www.wihlidal.com/feed.xml programming graphics
-http://tonsky.me/blog/atom.xml programming
-http://dtrace.org/blogs/bmc/feed/ programming
-http://treyhunner.com/atom.xml programming python
-https://www.3dgep.com/feed/ programming graphics
-http://www.gijskaerts.com/wordpress/?feed=rss2 programming graphics
-https://www.superluminal.eu/feed/ programming
-https://blog.rust-lang.org/feed.xml programming rust
-https://abiondo.me/feed.xml programming
-http://nikhilism.com/index.xml programming
-https://pkeir.github.io/feed.xml programming
-http://daugaard.org/feed/ programming
-https://lxjk.github.io/rss/ programming
-https://pycoders.com/feed/bmtfgMEB programming
-http://www.gingerbill.org/article/index.xml programming
-https://yupferris.github.io/blog/feed.xml programming
-https://branchfree.org/feed/ programming
-https://giordi91.github.io/index.xml programming
-https://zalo.github.io/feed.xml programming
-https://auzaiffe.wordpress.com/feed/ programming graphics
-https://bheisler.github.io/index.xml programming
-https://philippegroarke.com//posts/index.xml programming
-https://danengelbrecht.github.io/feed.xml programming
-https://travisdowns.github.io/feed.xml programming
-https://pdziepak.github.io/feed.xml programming
-https://ciechanow.ski/atom.xml programming graphics
-https://aschrein.github.io/feed.xml programming graphics
-https://raphlinus.github.io/feed.xml programming
-https://groups.google.com/forum/feed/pagedout-notifications/msgs/atom.xml?num=15 programming
-https://gamozolabs.github.io/feed.xml programming
-https://alain.xyz/rss programming graphics
-https://tratt.net/laurie/blog/entries.rss programming
-https://metalbyexample.com/feed/ programming graphics
-https://software.rajivprab.com/feed/ programming
-https://fasterthanli.me/index.xml programming
-https://thephd.github.io/feed.xml programming
-https://www.codeblueprint.co.uk/feed.xml programming
-https://blog.nelhage.com/atom.xml programming
-http://schellcode.github.io/feed.xml programming
-https://xoofx.com/feed.xml programming
-https://jacco.ompf2.com/feed/ programming graphics
-https://maxliani.wordpress.com/feed/ programming graphics
-https://mischasan.wordpress.com/feed/ programming
-http://bitcharmer.blogspot.com/feeds/posts/default programming
-https://blog.jfo.click//feed.xml programming
-
-#machine learning
+http://www.bionicbeagle.com/wp/?feed=rss2 programming
+http://www.bit-101.com/blog/?feed=rss2 programming
+http://www.blogbyben.com/feeds/posts/default/-/emacs
 http://www.cleverhans.io/feed.xml machinelearning
-http://bair.berkeley.edu/blog/feed.xml machinelearning
-http://feeds.feedburner.com/Pyimagesearch machinelearning
-http://deeplearning.net/feed/ machinelearning
-http://karpathy.github.io/feed.xml machinelearning
-https://medium.com/feed/@karpathy machinelearning
-https://guillaumegenthial.github.io/feed.xml machinelearning
-https://www.fast.ai/atom.xml machinelearning
-https://distill.pub/rss.xml machinelearning
-http://www.wildml.com/feed/ machinelearning
-http://deliprao.com/feed machinelearning
-https://www.deeplearning.ai/feed/ machinelearning
-https://sgugger.github.io/feeds/all.atom.xml machinelearning
-https://medium.com/feed/@radekosmulski machinelearning
-https://blog.ml.cmu.edu/feed/ machinelearning
-https://medium.com/feed/@gidishperber machinelearning
-https://machinetalk.org/feed/ machinelearning
-https://muellerzr.github.io/fastblog/feed.xml machinelearning
-https://www.justinpinkney.com/rss.xml machinelearning
-https://win-vector.com/feed/ machinelearning
-
-# management feeds
-https://www.radicalcandor.com/feed/ management
-
-# library feeds
-http://box2d.org/feed/
-http://pugixml.org/feed/
-http://blog.qt.digia.com/feed/
-
-# web feeds
-https://hacks.mozilla.org/feed/ web
-http://www.stevesouders.com/blog/feed/ web
-http://ricardocabello.com/rss/ web
-http://badassjs.com/rss web
-http://benfrain.com/feed/ web
-http://blog.chromium.org/feeds/posts/default web
-http://www.zeldman.com/rss/ web
-http://blog.haml.info/rss web
-http://feeds.feedburner.com/paul-irish web
-http://blog.webplatform.org/feed/ web
-http://christianheilmann.com/feed/ web
-http://blog.patrickmeenan.com/feeds/posts/default web
-http://compass-style.org/blog/atom.xml web css
-http://feeds.feedburner.com/JohnResig web
-http://www.alistapart.com/feed/rss.xml web
-http://feeds.feedburner.com/24ways web
-http://fhtr.blogspot.com/feeds/posts/default web
-http://feeds.feedburner.com/csswizardrycom web
-http://feeds.feedburner.com/csswizardry web
-http://css-ig.net/rss/flux web
-http://feeds.feedburner.com/CssTricks web css
-http://feeds.feedburner.com/SimpleA11Y web accessibility
-http://blog.vjeux.com/feed web
-http://feeds.feedburner.com/AshleyFord-Papermashupcom web
-http://gfxprose.blogspot.com/feeds/posts/default web
-http://feeds.feedburner.com/html5rocks web
-https://developers.google.com/web/updates/atom.xml web
-http://www.css3files.com/feed/ web css
-http://taras.glek.net/atom.xml web
-http://feeds.feedburner.com/mootools-blog web javascript
-http://feeds.feedburner.com/matthewjamestaylor?format=xml web
-http://feeds.feedburner.com/remysharp web javascript
-http://feeds.feedburner.com/somerandomdude web
-http://feeds.feedburner.com/thesassway web css sass
-http://feeds.justinhileman.info/justinhileman/blog web
-http://feeds2.feedburner.com/awf-allposts web
-http://hakim.se/rss.xml web
-http://html5doctor.com/feed/ web
-http://inessential.com/xml/rss.xml web
-http://jquery.com/blog/feed/ web jquery
-http://mobiletestingfordummies.tumblr.com/rss web
-http://nicolasgallagher.com/feed/ web
-http://palantir.net/blog/feed ~palantir.net web
-http://responsivedesignweekly.com/feed/ web responsive
-http://taitems.tumblr.com/rss web
-http://tiamat.tsotech.com/tiamat.rss web
-http://feeds.feedburner.com/spf13 web
-http://feeds.feedburner.com/RubyRedBricks web
-http://jakoblaegdsmand.com/feed.xml web
-http://codepen.io/chriscoyier/blog/feed/ web
-http://feeds2.feedburner.com/tympanus web
-http://hugogiraudel.com/rss/ web
-https://www.w3.org/community/gpu/feed/ web
-https://daverupert.com/atom.xml web
-https://cssfromscratch.com/feed.xml web
-https://every-layout.dev/feed.xml web
-https://blog.excalidraw.com/rss.xml web
-
-# sysadmin feeds
-http://blog.linuxmint.com/?feed=rss2 linux
-http://2bits.com/contents/articles/feed drupal
-https://blog.flameeyes.eu/articles.atom autotools
-http://blog.martinfjordvald.com/feed/ nginx
-http://blog.nicolargo.com/feed linux
-http://blog.sanctum.geek.nz/feed/ linux tmux
-http://www.debian-administration.org/atom.xml linux debian
-http://www.archlinux.org/feeds/news/ linux archlinux
-http://dtrace.org/blogs/brendan/feed/ dtrace
-http://feeds2.feedburner.com/Command-line-fu cli
-http://kbeezie.com/feed/ nginx
-http://pcloadletter.co.uk/feed/ synology
-https://www.madboa.com/blog/index.xml
-http://samrowe.com/wordpress/feed/
-https://blogs.msdn.microsoft.com/commandline/feed/
-
-# maths feeds
-http://and-what-happened.blogspot.com/feeds/posts/default maths
-http://algorithmist.wordpress.com/feed/ maths
-http://www.algorithmist.net/?feed=rss2 maths
-http://www.johndcook.com/blog/feed/ maths
-http://blog.wolfram.com/feed/ maths
-http://blog.kenperlin.com/?feed=rss2 maths
-http://boredzo.org/blog/feed/atom maths
+http://www.clicktorelease.com/rss.xml programming
+http://www.codeofhonor.com/blog/feed programming
+http://www.codercorner.com/blog/?feed=rss2 programming
+http://www.codersnotes.com/atom/ programming
+http://www.corsix.org/rss.xml programming
+http://www.dawnofthedata.com/feeds/posts/default
+http://www.ddj.com/rss/cpp.xml programming c++
+http://www.diusrex.com/feed/ programming
+http://www.elbeno.com/blog/?feed=rss2 programming
 http://www.elegantcoding.com/feeds/posts/default maths
-http://jeremykun.com/feed/ maths
-http://unapologetic.wordpress.com/feed/ maths
-http://vihart.com/blog/rss.xml maths
+http://www.elopezr.com/feed/ programming graphics
 http://www.essentialmath.com/blog/?feed=rss2 maths
-http://feeds.feedburner.com/matthen maths
-
-# misc feeds
-http://xkcd.com/atom.xml fun
-http://yieldthedog.github.com/atom.xml misc
-http://pempek.net/feed/
-http://www.teknidermy.com/fridge/news.0.91.rss misc gui
-http://www.mondaynote.com/feed/ misc
+http://www.evanmiller.org/news.xml programming
+http://www.farfarer.com/blog/feed/ programming graphics
+http://www.forceflow.be/feed/ programming
 http://www.fuzzyyellowballs.com/feed/ misc tennis
-http://croustination.com/feed/ misc
-http://dev.weechat.org/feed/atom misc
-http://feeds.feedburner.com/codinghorror/ misc
-http://vimcasts.org/feeds/ogg misc vim
-http://ultimex.over-blog.com/rss-articles.xml misc
-http://feeds.danielmiessler.com/danielmiessler misc
-https://medium.com/feed/usevim misc vim
-http://drgoulu.com/feed/ misc
-http://dougmccune.com/blog/feed/ misc
-http://feeds.feedburner.com/ScottHanselman misc
-http://feeds.feedburner.com/amixdk misc
-http://ha-ha-ha.tumblr.com/rss misc
-http://jordanmechner.com/feed/ misc
-http://redmeat.lapin.org/fluxrss.xml misc
-http://sethgodin.typepad.com/seths_blog/atom.xml misc
-http://thechangelog.com/rss misc
-http://statico.github.com/atom.xml misc vim
-http://vimbits.com/bits.rss?sort=new misc vim
-http://vimbits.com/bits.rss?sort=top misc vim
 http://www.geeks3d.com/?feed=rss2 misc
-http://www.zdziarski.com/blog/?feed=rss2 misc
-http://williamdurand.fr/atom.xml misc
-http://kri.gs/atom.xml misc
-http://icogif.tumblr.com/rss misc
-http://vihart.com/feed misc
-http://markus.com/rss/ misc
-http://euri.ca/feed/index.xml misc
-http://spritesmods.com/rss.php misc
-http://mollyrocket.com/jacs/jacs_s04_atom.rss misc
-http://nickbradbury.com/feed/ misc
-http://vim.watch/feed.xml vim misc
-http://boz.com/boz.rss misc
-http://paperswelove.org/feed.xml misc
-http://harmful.cat-v.org/Blog/index.atom misc
-http://gloryowlcomix.blogspot.com/feeds/posts/default misc
-http://www.eecis.udel.edu/~mckennar/blog/rss.xml misc
-http://fail0verflow.com/blog/excerptsfeed.xml misc
-http://blog.dustinkirkland.com/feeds/posts/default misc
-
-# demoscene feeds
-http://bbs.demoscene.fr/.xml/?type=rss demoscene
-http://www.iquilezles.org/blog/?feed=rss2 demoscene programming graphics
-http://www.jco.de/feed/ demoscene
-http://www.pixtur.org/content/rss demoscene
-http://copypastaresearch.tumblr.com/rss programming demoscene
-http://directtovideo.wordpress.com/feed/ demoscene
-http://feeds.feedburner.com/displayhack demoscene
-http://www.bitsnbites.eu/?feed=rss2 demoscene programming synth
-http://www.evilpaul.org/wp/feed/ demoscene
-http://code4k.blogspot.com/feeds/posts/default programming demoscene
-http://xt95.tuxfamily.org/blog/?feed=rss2 demoscene
-http://geidav.wordpress.com/feed/ demoscene programming
-http://illogictree.com/blog/feed/ demoscene programming
-http://iquilezles.org/www/rss.php demoscene programming graphics
-http://kbi.theelude.eu/?feed=rss2 demoscene programming
-http://keyj.s2000.ws/?feed=rss2 demoscene programming
-https://keyj.emphy.de/feed/ demoscene programming
-http://kile.stravaganza.org/rss.php demoscene
-http://plastic-demo.nazwa.pl/wordpress/?feed=rss2 demoscene
-http://rcl-rs-vvg.blogspot.com/feeds/posts/default demoscene
-http://sizecoding.blogspot.com/feeds/posts/default demoscene programming
-http://trixter.oldskool.org/feed/ demoscene
-http://www.ctrl-alt-test.fr/?feed=rss2 demoscene programming
-http://www.iguanademos.com/Jare/wp/?feed=rss2 demoscene programming
-http://yupferris.blogspot.com/feeds/posts/default demoscene programming
-http://zerkman.sector1.fr/index.php?feed/atom demoscene programming
-http://www.simppa.fi/blog/feed/ demoscene programming
-
-# rendering feeds
-http://www.eugenedeon.com/feed/atom/ rendering
-
-# application feeds
-http://www.sublimetext.com/blog/feed
-http://appleseedhq.net/rss.xml
-http://feedproxy.google.com/ContinuousBlog jenkins
-http://www.blender.org/feed/
-http://pinboard.in/feed
-http://rogueamoeba.com/utm/feed/
-http://www.indigorenderer.com/blog/feed
-http://www.mitsuba-renderer.org/devblog/?feed=rss2
-
-# typography feeds
-http://feeds.feedburner.com/webtype typography
-http://feeds.feedburner.com/ILoveTypography
-
-# uncategorized feeds
-http://ahmetalpbalkan.com/blog/feed/
-http://blog.alexmaccaw.com/feed
-http://yqlblog.net/blog/feed/
-http://baus.net/atom.xml
-http://badcorporatelogo.spaces.live.com/feed.rss
-http://andrewrussell.net/feed/
-http://blog.habets.pp.se/rss
-http://www.macmation.com/blog/feed/
-http://www.witchboy.net/feed/
-http://blog.millermedeiros.com/feed/
-http://yanpritzker.com/feed/
-http://blog.arsthanea.com/feed/
-http://blog.serverfault.com/feed/
-http://blog.notdot.net/feeds/atom.xml
-http://www.ir-ltd.net/feed/
+http://www.gijskaerts.com/wordpress/?feed=rss2 programming graphics
+http://www.gingerbill.org/article/index.xml programming
+http://www.iryoku.com/feed programming graphics
 http://www.joelonsoftware.com/rss.xml
-http://blog.onebyonedesign.com/feed/
-http://rfw.name/blog/feed.xml
-http://feeds.feedburner.com/noumena/
-http://santyhammer.blogspot.com/feeds/posts/default
-http://www.codedanger.com/caglar/feed
-http://www.joesfer.com/?feed=rss2
-http://blog.caustik.com/feed/
-http://www.derekwyatt.org/feed/
-http://corte.si/rss.xml
-http://www.futurechips.org/feed
-http://www.motiondraw.com/blog/?feed=rss2
-http://corensic.wordpress.com/feed/
-http://code-spot.co.za/feed/
-http://blog.sigfpe.com/feeds/posts/default
-http://ejohansson.se/feed/
-http://enja.org/feed/
-http://www.clownfrogfish.com/feed/
-http://www.saschawillems.de/?feed=rss2
-http://dickyjim.wordpress.com/feed/
-http://drawlogic.com/feed/
-http://entersingularity.wordpress.com/feed/
-http://blog.1024cores.net/feeds/posts/default
-http://www.nullpointer.co.uk/content/feed/
-http://blogs.gnome.org/clutter/feed/
-http://www.alecjacobson.com/weblog/?feed=rss2
-http://valokuva.org/?feed=rss2
-http://winntfs.com/feed/
-http://www.drbunsen.org/feed.xml
-http://wadeawalker.wordpress.com/feed/
-http://distantsoulsdev.blogspot.com/feeds/posts/default
-http://feeds.feedburner.com/metafizzy
-http://formandcode.tumblr.com/rss
-http://www.puppygames.net/blog/?feed=rss2
-http://feeds.feedburner.com/warpspire
-http://www.cforcoding.com/feeds/posts/default
-http://www.defenceindepth.net/feeds/posts/default
-http://www.andrew-hoyer.com/atom.xml
-http://portfolio.anthony-scavarelli.com/feed/
-http://feeds.feedburner.com/BlogIvanDeMarino
-http://feeds.feedburner.com/connectnothing
-http://feeds.feedburner.com/PersistentInfo
-http://blog.fishingcactus.com/index.php/feed/
-http://feeds.macosxtips.co.uk/macosxtips
-http://arjanvandergaag.nl/feed.xml
-http://blog.goosoftware.co.uk/atom.xml
-http://feeds.feedburner.com/VincentLiu
-http://beyondds.free.fr/rss.php
-http://cscheid.net/rss/blog.xml
-http://feeds.feedburner.com/felixge
-http://feeds.feedburner.com/tecosystems
-http://feeds.feedburner.com/yeahrightkeller
-http://feeds.wolfire.com/WolfireGames
-http://ithaca.arpinum.org/atom.xml
-http://feeds2.feedburner.com/codebetter
-http://feeds2.feedburner.com/stevelosh
-http://feeds.feedburner.com/introversion_blog
-http://frictionalgames.blogspot.com/feeds/posts/default
-http://garrys-brain.blogspot.com/feeds/posts/default
-http://glandium.org/blog/?feed=rss2
-http://glennmarshall.wordpress.com/feed/
-http://illformed.org/feed/
-http://imdoingitwrong.wordpress.com/feed/
-http://julipedia.blogspot.com/feeds/posts/default
-http://julio.meroh.net/feed.xml
-http://kwigbo.com/rss
-http://lambda-the-ultimate.org/rss.xml
-http://lia-sae.net/en/feed/
-http://loramel.net/feed/
-http://lostgarden.com/atom.xml
-http://mattgemmell.com/feed
-http://marijnhaverbeke.nl/blog/feed.atom
-http://methodart.blogspot.com/feeds/posts/default
-http://n-e-r-v-o-u-s.com/blog/?feed=rss2
-http://n00body.squarespace.com/journal/atom.xml
-http://nighthacks.com/roller/jag/feed/entries/atom
-http://nopjia.blogspot.com/feeds/posts/default
-http://onedayitwillmake.com/blog/feed/
-http://nvie.com/feed programming
-http://openresearch.wordpress.com/feed/
-http://opensourcevfx.org/feed/
-http://oscarbg.blogspot.com/feeds/posts/default
-http://pferrie.host22.com/rss.xml
-http://www.pod2g.org/feeds/posts/default
-http://polygonalhell.blogspot.com/feeds/posts/default
-http://pragprog.com/feed/global
-http://rc3.org/feed/
-http://rdist.root.org/feed/
-http://schani.wordpress.com/feed/
-http://sebleedelisle.com/feed/
-http://simonsarris.com/feed
-http://speirs.org/blog/atom.xml
-http://stochasticgeometry.wordpress.com/feed/
-http://tangledhelix.com/atom.xml
-http://teddziuba.com/atom.xml
-http://thetoolsmiths.org/feed/
-http://tianyizhou.wordpress.com/feed/
-http://u2bleank.tumblr.com/rss
-http://www.amsqr.com/feeds/posts/default
-http://www.clicknothing.com/click_nothing/atom.xml
-http://www.dadhacker.com/blog/?feed=rss2
-http://www.dev.confettispecialfx.com/feed/rss
-http://www.ozone3d.net/rss/index.php
-http://www.ozone3d.net/blogs/lab/?feed=rss2
-http://www.photonstorm.com/feed
-http://www.revergestudios.com/reblog/index.php?n=ReCode.RecentChanges?action=rss?list=normal
-http://www.dieantwoord.fr/feed/
-
-# deep learning
+http://www.johanholwerda.nl/blog/feed/ programming graphics
+http://www.johnborwick.com/feed.xml
+http://www.johndcook.com/blog/feed/ maths
+http://www.jonolick.com/2/feed programming
+http://www.joshbarczak.com/blog/?feed=rss2 programming
+http://www.kiransprojects.com/blog/feed/ programming
+http://www.lonecpluspluscoder.com/category/emacs/feed/
+http://www.macs.hw.ac.uk/~rs46/rss.xml
+http://www.mahdiyusuf.com/rss programming
+http://www.masteringemacs.org/feed
+http://www.mikeash.com/pyblog/rss.py?mode=fulltext programming
+http://www.openglsuperbible.com/feed/ programming
+http://www.p1xelcoder.com/feed/ programming
+http://www.pagetable.com/?feed=rss2 programming
+http://www.randomprogramming.com/feed/ programming
+http://www.realtimerendering.com/blog/feed/ programming graphics
+http://www.reedbeta.com/blog/feed/ programming
+http://www.reenigne.org/blog/feed/ programming
+http://www.remarkablyrestrained.com/feed.xml programming
+http://www.rockonflash.com/blog/?feed=rss2 programming
+http://www.rorydriscoll.com/feed/ programming
+http://www.sebastiansylvan.com/index.xml programming
+http://www.sjbrown.co.uk/feed/ programming graphics
+http://www.slashslash.info/feed/ programming
+http://www.spacjer.com/emacs/feed.xml
+http://www.spuify.co.uk/?feed=rss2 programming
+http://www.stefanom.org/tag/emacs/feed
+http://www.stevesouders.com/blog/feed/ web
+http://www.stevestreeting.com/feed/ programming
+http://www.strchr.com/?feed=news programming
+http://www.suenkler.info/feed
+http://www.swageroo.com/wordpress/feed/ programming
+http://www.swedishcoding.com/feed/ programming
+http://www.syedrezaali.com/blog/?feed=rss2 programming graphics
+http://www.technofumbles.com/weblog/feed/ programming compression
+http://www.teknidermy.com/fridge/news.0.91.rss misc gui
+http://www.thealphablenders.com/feed/ programming graphics
+http://www.thebigblob.com/feed/ programming
+http://www.thetenthplanet.de/feed programming graphics
+http://www.uncontrol.com/feed/ programming
+http://www.verona.se/index.xml
+http://www.volumesoffun.com/feed/ programming
+http://www.wildml.com/feed/ machinelearning
+http://www.wilfred.me.uk/emacs_rss.xml
+http://www.wilfred.me.uk/rss.xml
+http://www.wisdomandwonder.com/feed
+http://www.yosefk.com/blog/feed programming
+http://www.zdziarski.com/blog/?feed=rss2 misc
+http://www.zeldman.com/rss/ web
+http://wwwtyro.net/feed.xml programming graphics
+http://xania.org/feed programming
+http://xeno-by.livejournal.com/data/atom?tag=emacs-en
+http://xenodium.com/rss.xml
+http://xkcd.com/atom.xml "Comic"
+http://xmunkki.org/wiki/feed.php programming
+http://yapb-soc.blogspot.com/feeds/posts/default progamming c++
+http://yieldthedog.github.com/atom.xml misc
+http://yoo2080.wordpress.com/category/emacs/feed
+http://yosoygames.com.ar/wp/feed/ programming
+http://yqlblog.net/blog/feed/
+http://zeuxcg.org/feed programming
+http://zserge.com/rss.xml programming
+http://zulko.github.io/atom.xml programming
+http://zverovich.net/atom.xml programming
+https://abiondo.me/feed.xml programming
+https://aeon.co/feed.rss "Philosophy"
+https://alain.xyz/rss programming graphics
+https://alexschroeder.ch/wiki/feed/full/Emacs
+https://alschwalm.com/blog/static/rss/index.xml programming
+https://apoorvaj.io/rss.xml programming graphics
+https://arenzana.org/feed/
+https://arunsag.wordpress.com/category/emacs/feed/
+https://aschrein.github.io/feed.xml programming graphics
+https://au9ustine.wordpress.com/tag/emacs/feed/
+https://auzaiffe.wordpress.com/feed/ programming graphics
+https://awhan.wordpress.com/category/emacs/feed/
+https://axelio.wordpress.com/category/emacs/feed/
+https://baongoc124.wordpress.com/category/emacs/feed/
+https://basesandframes.wordpress.com/feed/ programming
+https://bbbscarter.wordpress.com/feed
+https://bendersteed.gitlab.io/post/index.xml
+https://bheisler.github.io/index.xml programming
+https://blog.aaronbieber.com/feed.xml
+https://blog.codinghorror.com/rss/ "Code"
+https://blog.davep.org/feed.xml
+https://blog.excalidraw.com/rss.xml web
+https://blog.flameeyes.eu/articles.atom autotools
+https://blog.jfo.click//feed.xml programming
+https://blog.lnx.cx/category/emacs/feed/
+https://blog.mattbierner.com/atom.xml programming c++
+https://blog.ml.cmu.edu/feed/ machinelearning
+https://blog.nelhage.com/atom.xml programming
+https://blog.plan99.net/feed programming
+https://blog.rpis.ec/feeds/all.atom.xml programming security
+https://blog.rust-lang.org/feed.xml programming rust
+https://bluelabyrinths.com/feed/ "Philosophy"
+https://branchfree.org/feed/ programming
+https://calltopower.wordpress.com/tag/emacs/feed/
+https://camdez.com/blog/categories/emacs/atom.xml
+https://catern.com/feed.xml
+https://ceving.blogspot.com/feeds/posts/default
+https://chaosinmotion.blog/feed/ programming
+https://chaoticlab.io/feed.xml
+https://chopmode.wordpress.com/category/emacs/feed/
+https://ciechanow.ski/atom.xml programming graphics
+https://code.visualstudio.com/feed.xml programming
+https://computer.rip/rss.xml "Code"
+https://crazythinking.wordpress.com/category/emacs/feed/
+https://cssfromscratch.com/feed.xml web
+https://curiousprogrammer.wordpress.com/tag/emacs/feed/atom/
+https://danengelbrecht.github.io/feed.xml programming
+https://daniel.haxx.se/blog/feed/ programming
+https://danlamanna.com/feeds/atom.xml
+https://daverupert.com/atom.xml web
+https://ddavis.io/index.xml
+https://deadvoxels.blogspot.com/feeds/posts/default programming graphics
+https://dendibakh.github.io/feed.xml programming
+https://devblogs.microsoft.com/oldnewthing/feed programming favourite
+https://developer.nvidia.com/blog/feed programming
+https://developers.google.com/web/updates/atom.xml web
+https://dgutov.github.io/atom.xml
+https://distill.pub/rss.xml machinelearning
+https://dolphin-emu.org/blog/feeds/ programming
+https://doxdrum.wordpress.com/tag/emacs/feed
+https://draptik.wordpress.com/tag/emacs/feed/
+https://ekaschalk.github.io//index.xml
+https://ekaschalk.github.io/categories/emacs/index.xml
+https://elephly.net/feed.xml
+https://emacs.cafe/feed.xml
+https://emacsair.me/feed.xml
+https://emacsfodder.github.io/atom.xml
+https://engineering.riotgames.com/news/feed programming
+https://erambler.co.uk/tags/emacs.xml
+https://erkaman.github.io/rss.xml programming
+https://every-layout.dev/feed.xml web
+https://fasterthanli.me/index.xml "Blog"
+https://fasterthanli.me/index.xml programming
+https://feeds.feedburner.com/KrisJenkinsBlog
+https://feeds.feedburner.com/SanityInc
+https://feeds.feedburner.com/tuxicity-emacs
+https://feeds2.feedburner.com/mrdias
+https://ferransole.wordpress.com/feed/ programming
+https://fuco1.github.io/rss.xml
+https://fuzzyreflection.com/feed/ programming
+https://fx-companion.com/feed/ "News"
+https://gamedevdaily.io/feed programming
+https://gamozolabs.github.io/feed.xml programming
+https://giordi91.github.io/index.xml programming
+https://github.com/alanthird/idiocy.org/commits/master.atom
+https://github.com/sigma/yann.hodique.info/commits/master.atom
+https://github.com/tuhdo/tuhdo.github.io/commits/master.atom
+https://github.com/xuchunyang/blog/commits/master.atom
+https://gongyiliao.wordpress.com/category/emacs/feed/
+https://grahamhazel.com/blog/feed/ programming
+https://groups.google.com/forum/feed/pagedout-notifications/msgs/atom.xml?num=15 programming
+https://guillaumegenthial.github.io/feed.xml machinelearning
+https://habermas-rawls.blogspot.com/feeds/posts/default?alt=rss "Philosophy"
+https://hacks.mozilla.org/feed/ "FOSS"
+https://hbfs.wordpress.com/category/emacs/feed
+https://heikkil.github.io/rss.xml
+https://hexmode.com/tag/emacs/feed
+https://hnrss.org/active "News"
+https://hnrss.org/best "News"
+https://hnrss.org/bestcomments "News"
+https://hookrace.net/blog/feed/
+https://hsivonen.fi/feed/atom/ programming rust
+https://idea.popcount.org/rss.xml programming
+https://ignaciopp.wordpress.com/tag/emacs/feed/
+https://iloveemacs.wordpress.com/feed
+https://imagineraytracer.wordpress.com/feed/ programming graphics
+https://inkdroid.org/feed.xml "Code"
+https://jacco.ompf2.com/feed/ programming graphics
+https://jackmott.github.io//feed.xml programming
+https://jawher.wordpress.com/category/emacs/feed/
+https://jeffamstutz.io/feed/ programming
+https://jendrikillner.bitbucket.io/index.xml programming graphics
+https://jingsi.space/index.xml
+https://jonathancamp.com/tag/emacs/feed/
+https://joshrollinswrites.com/emacsorg/index.xml
+https://jugglingbits.wordpress.com/tag/emacs/feed/
+https://kazakov.life/feed/ programming
+https://keramida.wordpress.com/category/emacs/feed/
+https://keramida.wordpress.com/feed
+https://kisaragi-hiu.com/feeds/all.atom.xml
+https://knarkowicz.wordpress.com/feed/ programming
+https://kosmonautblog.wordpress.com/feed/ programming graphics
+https://kozikow.com/feed
+https://krebsonsecurity.com/feed/ "Code"
+https://kristerw.blogspot.com/feeds/posts/default programming
+https://kuniganotas.wordpress.com/category/emacs/feed
+https://l0st3d.wordpress.com/category/emacs/feed/
+https://lars.ingebrigtsen.no/feed
+https://lchsk.com/posts.xml
+https://legends2k.github.io/index.xml
+https://lobste.rs/rss "News"
+https://loonytek.com/feed/ programming
+https://lukesmith.xyz/rss.xml "Blog"
+https://lxjk.github.io/rss/ programming
+https://machinetalk.org/feed/ machinelearning
+https://manandbytes.wordpress.com/tag/emacs/feed/
+https://manuel-uberti.github.io/feed
+https://manuel-uberti.github.io/feed
+https://martinfowler.com/feed.atom "Code"
+https://martinralbrecht.wordpress.com/category/emacs/feed/atom/
+https://matt.sh/.rss programming
+https://maxliani.wordpress.com/feed/ programming graphics
+https://medium.com/feed/@gidishperber machinelearning
+https://medium.com/feed/@jamis programming
+https://medium.com/feed/@karpathy machinelearning
+https://medium.com/feed/@radekosmulski machinelearning
 https://medium.com/feed/@samim deep-learning
-http://torch.ch/blog/feed.xml
+https://medium.com/feed/tag/emacs
+https://medium.com/feed/usevim misc vim
+https://metalbyexample.com/feed/ programming graphics
+https://mischasan.wordpress.com/feed/ programming
+https://molecularmusings.wordpress.com/feed/ programming favourite
+https://mollyrocket.com/forums/rss.php?ignored=0 programming
+https://mousecradle.wordpress.com/tag/emacs/feed/
+https://muellerzr.github.io/fastblog/feed.xml machinelearning
+https://mwfogleman.github.io/feed.xml
+https://natecraun.net/feed.xml programming
+https://ndotl.wordpress.com/feed/ programming graphics
+https://netflux.wordpress.com/tag/emacs/feed/
+https://network23.org/ainriail/feed/ "News"
+https://nical.github.io/feeds/all.atom.xml programming
+https://nickdrozd.github.io/feed.xml
+https://nlguillemot.wordpress.com/feed/ programming
+https://nullprogram.com/feed/
+https://ofosos.org/tag/emacs/rss/
+https://ogbe.net/blog.xml
+https://optimiserly.wordpress.com/feed/ programming
+https://panduwana.wordpress.com/category/emacs/feed/
+https://pdziepak.github.io/feed.xml programming
+https://philippegroarke.com//posts/index.xml programming
+https://pkeir.github.io/feed.xml programming
+https://planet.emacslife.com/atom.xml
+https://planetpython.org/rss20.xml "Code"
+https://punchagan.muse-amuse.in/tags/emacs.xml
+https://punchcard.wordpress.com/tag/emacs/feed/
+https://pycoders.com/feed/bmtfgMEB programming
+https://qiita.com/tags/Emacs/feed
+https://raphlinus.github.io/feed.xml programming
+https://raytracedminecraft.wordpress.com/feed/ programming graphics
+https://readrust.net/all/feed.rss "Code"
+https://realpython.com/atom.xml "Code"
+https://rivten.github.io/atom.xml programming graphics
+https://rmarcus.info/blog/atom.xml programming
+https://rvfblog.wordpress.com/category/emacs/feed/
+https://ryuslash.org/rss.xml
+https://sakibsaikia.github.io/feed.xml programming graphics
+https://schuttejoe.github.io/index.xml programming graphics
+https://scripter.co/categories/emacs/atom.xml
+https://seeknuance.com/tag/emacs/feed/
+https://sgugger.github.io/feeds/all.atom.xml machinelearning
+https://sirsharpest.github.io/rss.xml
+https://smcgro.wordpress.com/feed/ programming
+https://software.rajivprab.com/feed/ programming
+https://spool-five.com/rss.xml "Blog"
+https://stardiviner.github.io/Blog/index.xml
+https://storax.github.io/rss.xml
+https://stoyannk.wordpress.com/feed/ programming
+https://streakycobra.github.io/rss.xml
+https://suvayu.wordpress.com/tag/emacs/feed/
+https://taingram.org/feed
+https://techleaves.wordpress.com/tag/emacs/feed/
+https://technik90.blogspot.com/feeds/posts/default programming graphics
+https://thephd.github.io/feed.xml programming
+https://therealmjp.github.io/posts/index.xml graphics
+https://thestandardoutput.com/tag/emacs.xml
+https://timothylottes.github.io/index.rss programming
+https://tincman.wordpress.com/tag/emacs/feed/
+https://tratt.net/laurie/blog/entries.rss programming
+https://travisdowns.github.io/feed.xml programming
+https://traxnet.wordpress.com/feed/ programming
+https://tsdh.wordpress.com/feed
+https://tsdh.wordpress.com/tag/emacs/feed/
+https://valignatev.com/index.xml
+https://vocalfolds.wordpress.com/category/emacs/feed/
+https://vxlabs.com/feed
+https://win-vector.com/feed/ machinelearning
+https://wolfgangpfaff.wordpress.com/category/emacs/feed/
+https://writepermission.com/rss.xml
+https://www.3ammagazine.com/3am/feed/ "Philosophy"
+https://www.3dgep.com/feed/ programming graphics
+https://www.alanzucconi.com/feed/ programming
+https://www.blogger.com/feeds/13497321/posts/default/-/emacs
+https://www.blogger.com/feeds/3992530807750384868/posts/default/-/new
+https://www.blogger.com/feeds/5055426614227209030/posts/default programming
+https://www.bytedude.com/feed.xml
+https://www.codeblueprint.co.uk/feed.xml programming
+https://www.codesections.com/rss.xml
+https://www.deeplearning.ai/feed/ machinelearning
+https://www.democracynow.org/democracynow.rss "News"
+https://www.diegoberrocal.com/atom.xml
+https://www.fast.ai/atom.xml machinelearning
+https://www.fasterthan.life/blog?format=RSS programming graphics
+https://www.fitzsim.org/blog/?feed=rss2&amp;cat=3
+https://www.gamedev.net/articles/?rss=1 ~gamedev.net programming
+https://www.gamingonlinux.com/article_rss.php "Games"
+https://www.guildwars2.com/en/feed/ "Games"
+https://www.hardill.me.uk/wordpress/feed/ "Code"
+https://www.hasecke.eu/index.xml
+https://www.hexbear.net/feeds/all.xml?sort=Active "News"
+https://www.imperialviolet.org/iv-rss.xml programming
+https://www.jamesrwilliams.net/feed/ "Philosophy"
+https://www.justinpinkney.com/rss.xml machinelearning
+https://www.kusma.xyz/feed.xml programming
+https://www.lacan.com/perfumeblog/?feed=rss2 "Philosophy"
+https://www.madboa.com/blog/index.xml
+https://www.miskatonic.org/feed/emacs.xml
+https://www.pvk.ca/atom.xml programming
+https://www.radicalcandor.com/feed/ management
+https://www.ronja-tutorials.com/feed.xml programming graphics
+https://www.schneier.com/feed/atom/ "Code"
+https://www.smashingmagazine.com/feed "Code"
+https://www.smbc-comics.com/comic/rss "Comic"
+https://www.superluminal.eu/feed/ programming
+https://www.teamfortress.com/rss.xml "Games"
+https://www.thebioneer.com/feed/ "Fitness"
+https://www.tinycranes.com/rss.xml programming
+https://www.topbug.net/blog/category/programming-tools/emacs/feed
+https://www.urbanomic.com/feed/ "Philosophy"
+https://www.w3.org/community/gpu/feed/ web
+https://www.wihlidal.com/feed.xml programming graphics
+https://www.wisdomandwonder.com/tag/emacs/feed
+https://xoofx.com/feed.xml programming
+https://yasoob.me/index.xml "Code"
+https://yinwang0.wordpress.com/feed/ programming
+https://yiufung.net/index.xml
+https://yoo2080.wordpress.com/feed
+https://yupferris.github.io/blog/feed.xml programming
+https://yveszoundi.wordpress.com/tag/emacs/feed
+https://zalo.github.io/feed.xml programming
+https://zeekat.nl/news/tag/emacs/index.rss
+https://zhangda.wordpress.com/feed/
+https://zingming.wordpress.com/tag/emacs/feed/
