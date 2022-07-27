@@ -87,5 +87,4 @@ end
 #     end
 # end
 
-thefuck --alias | source
 starship init fish | source
