@@ -42,10 +42,10 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dev/Org/"
-      diary-file "~/Dev/Org/diary"
+      diary-file "~/Dev/Org/Diary"
       org-agenda-include-diary t
       org-agenda-files "~/Dev/Org/Projects/"
-      org-roam-directory "~/Dev/Org/Roam"
+      org-roam-directory "~/Dev/Org/Roam/"
       org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))
       org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED")))
 
