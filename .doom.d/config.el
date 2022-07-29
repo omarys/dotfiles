@@ -41,13 +41,18 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dev/Org/"
-      diary-file "~/Dev/Org/Diary"
-      org-agenda-include-diary t
-      org-agenda-files "~/Dev/Org/Projects/"
-      org-roam-directory "~/Dev/Org/Roam/"
-      org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))
-      org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED")))
+
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup))
+  ;; (setq org-directory "~/Dev/Org/"
+  ;;       diary-file "~/Dev/Org/Diary"
+  ;;       org-agenda-include-diary t
+  ;;       org-agenda-files "~/Dev/Org/Projects/"
+  ;;       org-roam-directory "~/Dev/Org/Roam/"
+  ;;       org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))
+  ;;       org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))))
 
 (after! evil-snipe
   (evil-snipe-mode -1))
