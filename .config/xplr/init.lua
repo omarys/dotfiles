@@ -13,6 +13,6 @@ package.path = home
 require("nvim-ctrl").setup()
 
 -- Icons
-local home = os.getenv("HOME")
+-- local home = os.getenv("HOME")
 package.path = os.getenv("HOME") .. '/.config/xplr/plugins/?/src/init.lua'
 require "icons".setup()
