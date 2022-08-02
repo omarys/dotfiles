@@ -45,14 +45,14 @@
 (after! org
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
-        :n "M-k" #'org-metaup))
-  ;; (setq org-directory "~/Dev/Org/"
-  ;;       diary-file "~/Dev/Org/Diary"
-  ;;       org-agenda-include-diary t
+        :n "M-k" #'org-metaup)
+  (setq org-directory "~/Dev/Org/"
+        diary-file "~/Dev/Org/Diary"
+        org-agenda-include-diary t
   ;;       org-agenda-files "~/Dev/Org/Projects/"
   ;;       org-roam-directory "~/Dev/Org/Roam/"
-  ;;       org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))
-  ;;       org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "|" "DONE" "CANCELED"))))
+        org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
+        org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
 (after! evil-snipe
   (evil-snipe-mode -1))
