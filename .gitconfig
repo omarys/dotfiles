@@ -1,6 +1,3 @@
-[user]
-  email = omaryscott@gmail.com
-	name = Scott O'Mary
 [includeIf "gitdir:~/"]
   path = ~/.gitconfig-home
 [includeIf "gitdir:~/Dev/"]
