@@ -47,13 +47,13 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'org-metaup)
   (setq org-directory "~/.task/Org/"
-        diary-file "~/.task/Org/diary.org"
+        diary-file "~/.task/Org/Notes/diary.org"
         org-agenda-include-diary t
         org-agenda-files '(
-                           "~/.task/Org/Projects/private.org"
+                           "~/.task/Org/Projects/personal.org"
                            "~/.task/Org/Projects/work.org"
                            )
-        org-roam-directory "~/.task/Org/notes/"
+        ;; org-roam-directory "~/.task/Org/Notes/"
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
