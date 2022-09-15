@@ -1,7 +1,7 @@
 . ~/.config/fish/alias.fish
 
 # Tell Vagrant to use virtualbox as it's default provider.
-set -x VAGRANT_DEFAULT_PROVIDER virtualbox
+set -x VAGRANT_DEFAULT_PROVIDER libvirt
 
 # make nvim the default editor
 set -x EDITOR lvim
