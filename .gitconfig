@@ -12,3 +12,7 @@
 	defaultBranch = main
 [pull]
 	rebase = false
+[core]
+	editor = emacs
+[fetch]
+  prune = true
