@@ -51,6 +51,7 @@
         org-agenda-include-diary t
         org-agenda-files '(
                            "~/Dev/Org/Projects/personal.org"
+                           "~/Dev/Org/Projects/school.org"
                            "~/Dev/Org/Projects/work.org"
                            )
         ;; org-roam-directory "~/.task/Org/Notes/"
