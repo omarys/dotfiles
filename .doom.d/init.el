@@ -22,7 +22,7 @@
 
        :completion
        company           ; the ultimate code completion backend
-       (company-quickhelp-mode)
+       ;; (company-quickhelp-mode)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +fuzzy +prescient +icons)               ; a search engine for love and life
