@@ -54,7 +54,6 @@
                            "~/Dev/Org/Projects/school.org"
                            "~/Dev/Org/Projects/work.org"
                            )
-        ;; org-roam-directory "~/.task/Org/Notes/"
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
