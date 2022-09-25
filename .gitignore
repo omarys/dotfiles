@@ -7,3 +7,4 @@
 .w3m/w3msrc*
 .w3m/cookie*
 .w3m/*.gz
+*.bak
