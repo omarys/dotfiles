@@ -8,7 +8,6 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-(package! org)
 (package! dracula-theme)
 (package! elpy)
 (package! company-quickhelp)
