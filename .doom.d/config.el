@@ -48,11 +48,10 @@
   (setq org-directory "~/Dev/Org/"
         diary-file "~/Dev/Org/Notes/diary.org"
         org-agenda-include-diary t
-        org-agenda-files '(
-                           "~/Dev/Org/Projects/personal.org"
-                           "~/Dev/Org/Projects/school.org"
-                           "~/Dev/Org/Projects/work.org"
-                           )
+        org-agenda-files (list 
+                           (concat org-directory "personal.org")
+                           (concat org-directory "work.org")
+                           (concat org-directory "school.org"))
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
