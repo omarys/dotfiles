@@ -9,3 +9,4 @@ pip install --upgrade tuir
 pip install --upgrade youtube-dl         
 sudo npm -g upgrade
 cargo install-update -a
+cargo install --git https://github.com/neovide/neovide
