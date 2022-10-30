@@ -2,6 +2,7 @@
 .config/lvim/plugin/packer_compiled.lua
 .config/lvim/ignore
 .config/fish/fish_variables
+.local/bin
 .w3m/history
 .w3m/w3mcache*
 .w3m/w3msrc*
