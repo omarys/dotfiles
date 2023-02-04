@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 version = "0.20.1"
-=======
-version = "0.20.0"
->>>>>>> 486f0983308d5c6b727ec82e69d3f95b9842f4e4
 
 -- Prompt
 xplr.config.general.prompt.format = "❯ "
