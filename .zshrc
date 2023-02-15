@@ -9,7 +9,12 @@ fi
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH
 
 # default browser
-export BROWSER=/usr/bin/firefox
+if [ -x /usr/bin/firefox ]; then
+  export BROWSER=/usr/bin/firefox
+elif [ -x /usr/bin/qutebrowser ]
+then
+  export BROWSER=/usr/bin/qutebrowser
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
