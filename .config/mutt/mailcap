@@ -1,11 +1,40 @@
+# Plain text & HTML
 text/plain; $EDITOR %s ;
 text/html; /usr/local/lib/mutt-wizard/openfile %s ; nametemplate=%s.html
 text/html; /usr/bin/w3m -T text/html '%s'; needsterminal; description=HTML Text; nametemplate=%s.html
-# text/html; /usr/bin/w3m -dump -T text/html -I %{charset} -O utf-8 %s; copiousoutput; description=HTML Text; nametemplate=%s.html
-# text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
-image/*; /usr/local/lib/mutt-wizard/openfile %s ;
+
+# Images & A/V
+image/x-imgur-album; feh -g 640x480  -. %s -j /usr/local/lib/mutt-wizard/openfile; test=test -n "$DISPLAY"
+image/gif; mpv '%s' --autofit=640x480 --loop=inf; test=test -n "$DISPLAY"
+image/*; feh -g 640x480 -. '%s' -j /usr/local/lib/mutt-wizard/openfile; test=test -n "$DISPLAY"
 video/*; setsid mpv --quiet %s &; copiousoutput
 audio/*; mpv %s ;
+
+# Documents
 application/pdf; /usr/local/lib/mutt-wizard/openfile %s ;
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;
 application/pgp-keys; gpg --import '%s'; copiousoutput;
+
+# DOCX & things
+application/vnd.sun.xml.writer; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.spreadsheetml.template; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.presentationml.template; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.presentationml.slideshow; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.presentationml.presentation; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.presentationml.slide; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice --writer %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.template; libreoffice --writer %s
+application/vnd.ms-excel.addin.macroEnabled.12; libreoffice --writer %s
+application/vnd.ms-excel.sheet.binary.macroEnabled.12; libreoffice --writer %s
+
+# MS Excel
+application/x-msexcel; libreoffice --calc %s
+application/ms-exc; libreoffice --calc %s
+application/excel; libreoffice --calc %s
+application/msexcel; libreoffice --calc %s
+application/vnd.ms-exc; libreoffice --calc %s
+application/vnd.ms-excel; libreoffice --calc %s
+
+# MS Word
+application/msword; libreoffice --writer %s
