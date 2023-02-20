@@ -46,9 +46,10 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'org-metaup)
   (setq org-directory "~/Dev/Org/"
-        diary-file "~/Dev/Org/Notes/diary.org"
-        org-agenda-include-diary t
-        org-agenda-files (list 
+        org-roam-directory "~/Dev/Org/Roam/"
+        org-roam-db-location "~/Dev/Org/Roam/org-roam.db"
+        org-journal-dir "~/Dev/Org/Journal/"
+        org-agenda-files (list
                            (concat org-directory "personal.org")
                            (concat org-directory "work.org")
                            (concat org-directory "school.org"))
