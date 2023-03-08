@@ -4,8 +4,6 @@
   path = ~/.gitconfig-dev
 [includeIf "gitdir:~/Work/"]
   path = ~/Work/.gitconfig-work
-[credential]
-	helper = libsecret
 [commit]
 	gpgsign = true
 [init]
