@@ -154,7 +154,6 @@ alias goredd="w3m gopher://gopherddit.com:70"
 alias goworld="w3m gopher://gopher.floodgap.com/1/world"
 alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
-alias remac="systemctl restart --user emacs"
 alias lg="lvim-gui"
 alias clr="clear"
 
