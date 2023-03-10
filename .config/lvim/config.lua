@@ -173,26 +173,6 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
-  {
-    "nvim-neorg/neorg",
-    config = function()
-      require('neorg').setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.norg.concealer"] = {},
-          ["core.norg.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/Org/Notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-    run = ":Neorg sync-parsers",
-    requires = "nvim-lua/plenary.nvim",
-  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
