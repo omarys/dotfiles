@@ -50,9 +50,9 @@
         org-roam-db-location "~/Dev/Org/Roam/org-roam.db"
         org-journal-dir "~/Dev/Org/Journal/"
         org-agenda-files (list
-                           (concat org-directory "personal.org")
-                           (concat org-directory "work.org")
-                           (concat org-directory "school.org"))
+                           (concat org-directory "Agenda/personal.org")
+                           (concat org-directory "Agenda/work.org")
+                           (concat org-directory "Agenda/school.org"))
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
