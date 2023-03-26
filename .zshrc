@@ -157,5 +157,6 @@ alias gomisc="w3m gopher://mozz.us:70"
 alias lg="lvim-gui"
 alias clr="clear"
 
+eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
