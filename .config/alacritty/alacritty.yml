@@ -346,7 +346,7 @@ cursor:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/fish
+  program: /usr/bin/zsh
   args:
     - -c
     - "tmux attach || tmux"
