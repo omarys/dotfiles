@@ -1,6 +1,4 @@
-#+title: Readme
-
-* Dotfiles for me
+#+title: Dotfiles
 
 #+begin_src sh
 git clone https://github.com/omarys/dotfiles ~/.dotfiles
