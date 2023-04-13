@@ -1,0 +1,7 @@
+#+title: Readme
+
+* Dotfiles for me
+
+#+begin_src sh
+git clone https://github.com/omarys/dotfiles ~/.dotfiles
+#+end_src
