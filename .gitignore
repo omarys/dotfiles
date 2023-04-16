@@ -1,6 +1,7 @@
 .config/xplr/plugins
 .config/lvim/plugin/packer_compiled.lua
 .config/lvim/ignore
+.config/nvim
 .config/fish/fish_variables
 .config/weechat/sec.conf
 .local/bin
