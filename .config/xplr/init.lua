@@ -1,4 +1,4 @@
-version = "0.20.1"
+version = "0.21.1"
 
 -- Prompt
 xplr.config.general.prompt.format = "❯ "
