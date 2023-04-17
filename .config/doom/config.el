@@ -60,7 +60,7 @@
 
 (map! :map general-override-mode-map :nv "s" #'evil-substitute)
 (map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
-(map! :map general-override-mode-map :gn "SPC p p" #'project-switch-project)
+;; (map! :map general-override-mode-map :gn "SPC p p" #'project-switch-project)
 
 (plist-put! +ligatures-extra-symbols
   :and           nil
