@@ -11,3 +11,5 @@
 .w3m/cookie*
 .w3m/*.gz
 *.bak
+node_modules/*
+package-lock.json
