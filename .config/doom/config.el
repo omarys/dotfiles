@@ -55,14 +55,12 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
-
 (after! evil-snipe
   (evil-snipe-mode -1))
 
 (map! :map general-override-mode-map :nv "s" #'evil-substitute)
 (map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
-
-(setq projectile-completion-system 'ivy)
+(map! :map general-override-mode-map :gn "SPC p p" #'project-switch-project)
 
 (plist-put! +ligatures-extra-symbols
   :and           nil
