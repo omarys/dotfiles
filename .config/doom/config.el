@@ -6,9 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
-
+(setq user-full-name "Scott O'Mary"
+      user-mail-address "omaryscott@gmail.com")
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -32,16 +31,56 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'dracula)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type t
+      evil-want-fine-undo t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup)
+  (setq org-directory "~/Dev/Org/"
+        org-roam-directory "~/Dev/Org/Roam/"
+        org-roam-db-location "~/Dev/Org/Roam/org-roam.db"
+        org-journal-dir "~/Dev/Org/Journal/"
+        org-agenda-files (list
+                           (concat org-directory "Agenda/personal.org")
+                           (concat org-directory "Agenda/work.org")
+                           (concat org-directory "Agenda/school.org"))
+        org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
+        org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
+
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(map! :map general-override-mode-map :nv "s" #'evil-substitute)
+(map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
+
+(setq projectile-completion-system 'ivy)
+
+(plist-put! +ligatures-extra-symbols
+  :and           nil
+  :or            nil
+  :for           nil
+  :not           nil
+  :true          nil
+  :false         nil
+  :int           nil
+  :float         nil
+  :str           nil
+  :bool          nil
+  :list          nil
+)
+
+(let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
+  (dolist (sym ligatures-to-disable)
+    (plist-put! +ligatures-extra-symbols sym nil)))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
