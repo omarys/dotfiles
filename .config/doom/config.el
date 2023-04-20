@@ -7,7 +7,8 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Scott O'Mary"
-      user-mail-address "omaryscott@gmail.com")
+      user-full-address "omaryscott@gmail.com")
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -37,7 +38,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t
       evil-want-fine-undo t)
-(setq +format-on-save-enabled-modes t)
+
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -81,24 +82,6 @@
 (let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
   (dolist (sym ligatures-to-disable)
     (plist-put! +ligatures-extra-symbols sym nil)))
-
-
-(use-package! vertico
-  :config
-  (map! :map vertico-map
-        "C-j" #'vertico-next
-        "C-k" #'vertico-previous
-        "C-h" #'vertico-directory-delete-word
-        "C-l" #'vertico-directory-enter
-
-        "C-n" #'vertico-next-group
-        "C-p" #'vertico-previous-group))
-
-(use-package! embark
-  :config
-  (map! (:map minibuffer-local-map
-         [escape] #'minibuffer-keyboard-quit)))
-
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
