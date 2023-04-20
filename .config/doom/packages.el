@@ -9,8 +9,13 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 (package! dracula-theme)
-(package! elpy)
 (package! evil-tutor)
+(package! dash)
+
+(package! prettier-js)
+(package! lsp-mode)
+(package! py-yapf)
+;; (package! flycheck)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

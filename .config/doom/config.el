@@ -37,6 +37,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t
       evil-want-fine-undo t)
+(setq +format-on-save-enabled-modes t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -55,12 +56,13 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
+
 (after! evil-snipe
   (evil-snipe-mode -1))
 
 (map! :map general-override-mode-map :nv "s" #'evil-substitute)
 (map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
-;; (map! :map general-override-mode-map :gn "SPC p p" #'project-switch-project)
+
 
 (plist-put! +ligatures-extra-symbols
   :and           nil
@@ -79,6 +81,24 @@
 (let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
   (dolist (sym ligatures-to-disable)
     (plist-put! +ligatures-extra-symbols sym nil)))
+
+
+(use-package! vertico
+  :config
+  (map! :map vertico-map
+        "C-j" #'vertico-next
+        "C-k" #'vertico-previous
+        "C-h" #'vertico-directory-delete-word
+        "C-l" #'vertico-directory-enter
+
+        "C-n" #'vertico-next-group
+        "C-p" #'vertico-previous-group))
+
+(use-package! embark
+  :config
+  (map! (:map minibuffer-local-map
+         [escape] #'minibuffer-keyboard-quit)))
+
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
