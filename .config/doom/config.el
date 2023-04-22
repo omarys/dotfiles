@@ -57,6 +57,7 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
+(org-roam-db-autosync-mode)
 
 (after! evil-snipe
   (evil-snipe-mode -1))
