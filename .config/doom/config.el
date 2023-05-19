@@ -84,27 +84,26 @@
   (dolist (sym ligatures-to-disable)
     (plist-put! +ligatures-extra-symbols sym nil)))
 
-(require 'mu4e)
 
 (setq mu4e-maildir "~/.mail"
-mu4e-attachment-dir "~/Downloads")
+        mu4e-attachment-dir "~/Downloads")
 
 (setq user-mail-address "scottomary@proton.me"
-user-full-name  "Scott O'Mary")
+        user-full-name  "Scott O'Mary")
 
 ;; Get mail
 (setq mu4e-get-mail-command "mbsync protonmail"
-mu4e-change-filenames-when-moving t   ; needed for mbsync
-mu4e-update-interval 120)             ; update every 2 minutes
+        mu4e-change-filenames-when-moving t   ; needed for mbsync
+        mu4e-update-interval 120)             ; update every 2 minutes
 
 ;; Send mail
 (setq message-send-mail-function 'smtpmail-send-it
-smtpmail-auth-credentials "~/.authinfo.gpg"
-smtpmail-smtp-server "127.0.0.1"
-smtpmail-stream-type 'starttls
-smtpmail-smtp-service 1025)
+        smtpmail-auth-credentials "~/.authinfo.gpg"
+        smtpmail-smtp-server "127.0.0.1"
+        smtpmail-stream-type 'starttls
+        smtpmail-smtp-service 1025)
 
-(add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
+;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
