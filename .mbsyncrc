@@ -1,0 +1,28 @@
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User "scottomary@proton.me"
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk 'FNR == 1 {print $8}'"
+SSLType STARTTLS
+SSLVersions TLSv1.2
+CertificateFile ~/.config/protonmail/bridge-v3/cert.pem
+
+IMAPStore remote
+Account protonmail
+
+#You can change .mail to something else
+MaildirStore local
+Subfolders Verbatim
+Path ~/.mail/
+Inbox ~/.mail/INBOX/
+
+Channel inbox
+Far :remote:
+Near :local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+Group protonmail
+Channel inbox
