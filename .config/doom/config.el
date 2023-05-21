@@ -107,6 +107,7 @@
 (elfeed-org)
 (setq rmh-elfeed-org-files (list "~/Dev/Org/Elfeed/elfeed.org"))
 (setq elfeed-db-directory "~/.elfeed")
+(setq elfeed-use-curl t)
 
 (map! :leader
       (:prefix-map ("o" . "open")
@@ -115,6 +116,8 @@
                     :desc "Update elfeeds" "u" #'elfeed-update
                     :desc "Filter feeds" "f" #'elfeed-search-set-filter
                     :desc "Clear filter" "c" #'elfeed-search-clear-filter)))
+
+(setq browse-url-browser-function 'eww-browse-url)
 
 ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
