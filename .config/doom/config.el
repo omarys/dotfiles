@@ -105,14 +105,14 @@
 
 (require 'elfeed-org)
 (elfeed-org)
-(setf url-queue-timeout 30)
-(setq rhm-elfeed-org-files (list "/home/omary/.config/doom/elfeed.org"))
+(setq rmh-elfeed-org-files (list "~/Dev/Org/Elfeed/elfeed.org"))
+(setq elfeed-db-directory "~/.elfeed")
+
 (map! :leader
       (:prefix-map ("o" . "open")
                    (:prefix ("n" . "elfeed")
                     :desc "Open elfeed" "n" #'elfeed
                     :desc "Update elfeeds" "u" #'elfeed-update)))
-(setq elfeed-db-directory "~/.elfeed")
 
 ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
