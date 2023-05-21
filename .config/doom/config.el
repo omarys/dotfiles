@@ -77,8 +77,8 @@
   :float         nil
   :str           nil
   :bool          nil
-  :list          nil
-)
+  :list          nil)
+
 
 (let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
   (dolist (sym ligatures-to-disable)
@@ -102,6 +102,10 @@
         smtpmail-smtp-server "127.0.0.1"
         smtpmail-stream-type 'starttls
         smtpmail-smtp-service 1025)
+
+(require 'elfeed-org)
+(elfeed-org)
+(setq rhm-elfeed-org-files (list "~/.config/doom/elfeed.org"))
 
 ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
