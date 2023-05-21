@@ -112,7 +112,9 @@
       (:prefix-map ("o" . "open")
                    (:prefix ("n" . "elfeed")
                     :desc "Open elfeed" "n" #'elfeed
-                    :desc "Update elfeeds" "u" #'elfeed-update)))
+                    :desc "Update elfeeds" "u" #'elfeed-update
+                    :desc "Filter feeds" "f" #'elfeed-search-set-filter
+                    :desc "Clear filter" "c" #'elfeed-search-clear-filter)))
 
 ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
