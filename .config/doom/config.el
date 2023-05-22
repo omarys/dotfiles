@@ -111,15 +111,16 @@
 
 (map! :leader
       (:prefix-map ("o" . "open")
-                   (:prefix ("n" . "elfeed")
-                    :desc "Open elfeed" "n" #'elfeed
-                    :desc "Update elfeeds" "u" #'elfeed-update
+                   (:desc "elfeed" "l" #'elfeed)))
+
+(map! :leader
+      (:prefix-map ("e" . "easy")
+                   (:prefix ("e" . "elfeed")
                     :desc "Filter feeds" "f" #'elfeed-search-set-filter
-                    :desc "Clear filter" "c" #'elfeed-search-clear-filter)))
+                    :desc "Clear filter" "c" #'elfeed-search-clear-filter
+                    :desc "Update feeds" "u" #'elfeed-update)))
 
 (setq browse-url-browser-function 'eww-browse-url)
-
-;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem"))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
