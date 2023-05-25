@@ -167,7 +167,7 @@
        ;;terra             ; Earth and Moon in alignment for performance.
        (web +lsp +tree-sitter)               ; the tubes
        (yaml +lsp)              ; JSON, but readable
-       ;;zig               ; C, but simpler
+       (zig +lsp)          ; C, but simpler
 
        :email
        (:if (executable-find "mu") (mu4e +org))
