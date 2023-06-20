@@ -1,28 +1,18 @@
-<<<<<<< HEAD
-personal_ws-1.1 en 15
+personal_ws-1.1 en 17
 apis
 decrypted
 elisp
 invertible
-=======
-personal_ws-1.1 en 11
-apis
 benchmarking
-elisp
->>>>>>> 94882894bbf35be53d5ec2a232d56ea5f9f7f5d8
 microservices
 middleware
 modeline
 config
-<<<<<<< HEAD
 roadmap
 saas
-scalable
 subnetwork
 timeboxing
-=======
 o'mary
 scalable
->>>>>>> 94882894bbf35be53d5ec2a232d56ea5f9f7f5d8
 ultrathin
 workspaces
