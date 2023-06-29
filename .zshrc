@@ -91,7 +91,6 @@ plugins=(
   cp
   docker
   dotnet
-  dnf
   emacs
   extract
   fd
@@ -102,6 +101,7 @@ plugins=(
   python
   ripgrep
   rust
+  suse
   tmux
   vagrant
 )
@@ -138,14 +138,8 @@ alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias vid="mpv '$(wl-paste -p)'"
-# alias xvid="mpv '$(xclip -o)'"
-alias novid="mpv '$(wl-paste -p)' --no-video"
-# alias xnovid="mpv '$(xclip -o)' --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
-alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
-# alias xclipkey="xclip ~/.ssh/id_ed25519.pub"
 alias pyt="poetry run python -m unittest discover"
 alias mc="mullvad connect"
 alias md="mullvad disconnect"
@@ -155,7 +149,39 @@ alias goworld="w3m gopher://gopher.floodgap.com/1/world"
 alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
-alias up="sudo dnf update -y; doom up; rustup update; cargo install-update -a"
+alias up="sudo zypper update -y; doom up; rustup update; cargo install-update -a"
+
+# Conditional aliases
+type ag >/dev/null 2>&1 && alias grep=ag
+# Alias functions
+vid ()
+{
+  if [[ -x /usr/bin/mpv ]]; then
+    if [[ -x /usr/bin/wl-paste ]]; then
+      mpv '$(wl-paste -p)'
+    elif [[ -x /usr/bin/xclip ]]; then
+      mpv '$(xclip -o)'
+    fi
+  fi
+}
+novid ()
+{
+  if [[ -x /usr/bin/mpv ]]; then
+    if [[ -x /usr/bin/wl-paste ]]; then
+      mpv '$(wl-paste -p)' --no-video
+    elif [[ -x /usr/bin/xclip ]]; then
+      mpv '$(xclip -o)' --no-video
+    fi
+  fi
+}
+clipkey ()
+{
+  if [[ -x /usr/bin/wl-copy ]]; then
+    wl-copy < "/home/omary/.ssh/id_ed25519.pub"
+  elif [[ -x /usr/bin/xclip ]]; then
+    xclip "/home/omary/.ssh/id_ed25519.pub"
+  fi
+}
 
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
