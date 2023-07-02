@@ -152,6 +152,9 @@ alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
 alias up="sudo pacman -Syyu; doom up; rustup update; cargo install-update -a"
 
+# Conditional aliases
+type ag >/dev/null 2>&1 && alias grep=ag
+
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
