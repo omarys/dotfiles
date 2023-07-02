@@ -86,12 +86,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  archlinux
   ansible
   common-aliases
   cp
   docker
   dotnet
-  dnf
   emacs
   extract
   fd
@@ -138,24 +138,19 @@ alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias vid="mpv '$(wl-paste -p)'"
-# alias xvid="mpv '$(xclip -o)'"
-alias novid="mpv '$(wl-paste -p)' --no-video"
-# alias xnovid="mpv '$(xclip -o)' --no-video"
+alias clipkey="copyq copy - < ~/.ssh/id_ed25519.pub"
+alias vid="mpv '$(copyq read)'"
+alias novid="mpv '$(copyq read)' --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
-alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
-# alias xclipkey="xclip ~/.ssh/id_ed25519.pub"
 alias pyt="poetry run python -m unittest discover"
-alias mc="mullvad connect"
-alias md="mullvad disconnect"
 alias gonews="w3m gopher://gopher.leveck.us:70"
 alias goredd="w3m gopher://gopherddit.com:70"
 alias goworld="w3m gopher://gopher.floodgap.com/1/world"
 alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
-alias up="sudo dnf update -y; doom up; rustup update; cargo install-update -a"
+alias up="sudo pacman -Syyu; doom up; rustup update; cargo install-update -a"
 
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
