@@ -9,12 +9,7 @@ fi
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/go/bin:$HOME/.config/emacs/bin:/usr/local/bin:$PATH
 
 # default browser
-if [ -x /usr/bin/firefox ]; then
-  export BROWSER=/usr/bin/firefox
-elif [ -x /usr/bin/qutebrowser ]
-then
-  export BROWSER=/usr/bin/qutebrowser
-fi
+export BROWSER=/usr/bin/firefox
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -22,17 +17,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export GPG_TTY=$(tty)
 export PINENTRY_USER_DATA="USE_CURSES=1"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -142,8 +127,8 @@ alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
-alias vid="mpv '$(xclip -o)'"
-alias novid="mpv '$(xclip -o)' --no-video"
+alias vid="mpv \"$(xclip -o)\""
+alias novid="mpv \"$(xclip -o)\" --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias pyt="poetry run python -m unittest discover"

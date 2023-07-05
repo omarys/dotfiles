@@ -29,8 +29,10 @@ require("xpm").setup({
   'sayanarijit/fzf.xplr',
   'Junker/nuke.xplr',
   'prncss-xyz/icons.xplr',
-  'sayanarijit/wl-clipboard.xplr',
+  'sayanarijit/xclip.xplr',
+  'sayanarijit/alacritty.xplr',
   'sayanarijit/nvim-ctrl.xplr',
+  'dtomvan/ouch.xplr',
   auto_install = true,
   auto_cleanup = true,
 })
