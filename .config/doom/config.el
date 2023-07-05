@@ -17,6 +17,10 @@
 ;;   presentations or streaming.
 ;; - `doom-unicode-font' -- for unicode glyphs
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
+(add-to-list 'default-frame-alist '(font . "CaskaydiaCove Nerd Font Mono-13"))
+(setq doom-font "CaskaydiaCove Nerd Font Mono:pixelsize=18")
+(unless (doom-font-exists-p doom-font)
+  (setq doom-font nil))
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:

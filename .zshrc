@@ -20,6 +20,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 
 export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_CURSES=1"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -140,9 +141,9 @@ alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias clipkey="copyq copy - < ~/.ssh/id_ed25519.pub"
-alias vid="mpv '$(copyq read)'"
-alias novid="mpv '$(copyq read)' --no-video"
+alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
+alias vid="mpv '$(xclip -o)'"
+alias novid="mpv '$(xclip -o)' --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias pyt="poetry run python -m unittest discover"

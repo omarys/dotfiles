@@ -12,9 +12,6 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 lvim.colorscheme = "dracula"
--- vim.cmd 'colorscheme dracula'
--- vim.o.termguicolors = true
-vim.o.guifont = "CaskaydiaCove Nerd Font Mono:h16"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
