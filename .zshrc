@@ -15,6 +15,7 @@ export BROWSER=/usr/bin/firefox
 export ZSH="$HOME/.oh-my-zsh"
 
 export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_CURSES=1"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
