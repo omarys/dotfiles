@@ -14,7 +14,7 @@ export BROWSER=/usr/bin/firefox
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export GPG_TTY=$(tty)
+export GPG_TTY=$TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -107,7 +107,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='lvim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -119,8 +119,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="lvim ~/.zshrc"
-alias ohmyzsh="lvim ~/.oh-my-zsh"
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cat="bat"
 alias find="fd"
 alias ls="lsd"
