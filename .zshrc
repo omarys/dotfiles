@@ -14,8 +14,8 @@ export BROWSER=/usr/bin/firefox
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export GPG_TTY=$TTY
-export PINENTRY_USER_DATA="USE_CURSES=1"
+export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_TTY=1"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
