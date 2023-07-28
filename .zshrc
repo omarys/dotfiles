@@ -80,6 +80,7 @@ plugins=(
   cp
   docker
   dotnet
+  dnf
   emacs
   extract
   fd
@@ -126,9 +127,9 @@ alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
-alias vid="mpv \"$(xclip -o)\""
-alias novid="mpv \"$(xclip -o)\" --no-video"
+alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
+alias vid="mpv \"$(wl-paste)\""
+alias novid="mpv \"$(wl-paste)\" --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias pyt="poetry run python -m unittest discover"
