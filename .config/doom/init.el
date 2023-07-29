@@ -109,7 +109,7 @@
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
        (cc +lsp +tree-sitter)         ; C > C++ == 1
-       (clojure +lsp)           ; java with a lisp
+       ;; (clojure +lsp)           ; java with a lisp
        common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
@@ -121,14 +121,14 @@
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
-       (ess +lsp) ; emacs speaks statistics
+       ;; (ess +lsp) ; emacs speaks statistics
        ;;factor
        ;;faust             ; dsp, but you get to keep your soul
        ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       (go +lsp)         ; the hipster dialect
+       ;; (go +lsp)         ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
@@ -152,14 +152,14 @@
        ;;purescript        ; javascript, but functional
        (python +lsp +pyright +poetry +tree-sitter)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       (racket +lsp +xp)   ; a DSL for DSLs
+       ;; (racket +lsp +xp)   ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp +tree-sitter)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       (scheme +chez +mit +chicken +gauche +guile +chibi)   ; a fully conniving family of lisps
+       ;; (scheme +chez +mit +chicken +gauche +guile +chibi)   ; a fully conniving family of lisps
        (sh +powershell +tree-sitter)                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
@@ -167,10 +167,10 @@
        ;;terra             ; Earth and Moon in alignment for performance.
        (web +lsp +tree-sitter)               ; the tubes
        (yaml +lsp)              ; JSON, but readable
-       (zig +lsp)          ; C, but simpler
+       ;; (zig +lsp)          ; C, but simpler
 
        :email
-       (:if (executable-find "mu") (mu4e +org))
+       ;; (:if (executable-find "mu") (mu4e +org))
        ;; (mu4e +org)
        ;; notmuch
        ;;(wanderlust +gmail)
