@@ -17,7 +17,7 @@
 ;;   presentations or streaming.
 ;; - `doom-unicode-font' -- for unicode glyphs
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-(add-to-list 'default-frame-alist '(font . "CaskaydiaCove Nerd Font Mono-13"))
+(add-to-list 'default-frame-alist '(font . "CaskaydiaCove Nerd Font Mono-14"))
 (setq doom-font "CaskaydiaCove Nerd Font Mono:pixelsize=18")
 (unless (doom-font-exists-p doom-font)
   (setq doom-font nil))
@@ -149,6 +149,9 @@
 
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq comp-async-report-warnings-errors nil)
+
+(require 'flymake-ruff)
+(add-hook 'python-mode-hook #'flymake-ruff-load)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
