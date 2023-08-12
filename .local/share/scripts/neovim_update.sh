@@ -1,5 +1,4 @@
 cd ~/Dev/neovim
 git pull
-git checkout stable
 make CMAKE_BUILD_TYPE=Release
-sudo make install
+cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
