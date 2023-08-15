@@ -12,3 +12,4 @@
 node_modules/*
 package-lock.json
 */lvim/lazy-lock.json
+pipup.sh
