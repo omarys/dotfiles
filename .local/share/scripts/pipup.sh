@@ -1,17 +1,1 @@
-pip install --upgrade --user argcomplete attrs Beaker \
-  beautifulsoup4 black blivet blivet-gui Brlapi Brotli \
-  cattrs certifi cffi chardet charset-normalizer click \
-  cryptography cupshelpers dasbus dbus-python distlib distro \
-  fedora-third-party file-magic filelock fros gpg greenlet \
-  humanize idna iniconfig isort langtable libcomps lsprotocol \
-  lxml Mako MarkupSafe msgpack mutagen mypy-extensions nftables \
-  nose olefile packaging Paste pathspec pexpect pid Pillow pip \
-  pipenv platformdirs pluggy ply productmd ptyprocess pwquality \
-  pycairo pycparser pycrypto pycryptodomex pycups pycurl \
-  pyenchant pyflakes pygls PyGObject pykickstart pynvim \
-  pyOpenSSL pyparted PySocks pytest python-augeas python-dateutil \
-  python-meh pyudev pyxdg PyYAML regex requests requests-file \
-  requests-ftp rpm ruff ruff-lsp selinux sepolicy setools \
-  setuptools simpleaudio simpleline six sos soupsieve \
-  systemd-python Tempita typeguard typing_extensions urllib3 \
-  virtualenv virtualenv-clone websockets wheel yt-dlp 
+pip install --upgrade --user ansible ansible-core appdirs apt-clone apturl beautifulsoup4 black blinker Brlapi certifi chardet click colorama command-not-found configobj cryptography cupshelpers dbus-python defer distlib distro docopt exceptiongroup eyeD3 filelock Flask future gitdb GitPython greenlet grip grpcio guake gyp httplib2 idna ifaddr IMDbPY importlib-metadata iniconfig isort itsdangerous jeepney Jinja2 keyring launchpadlib lazr.restfulclient lazr.uri lazygit louis macaroonbakery Mako Markdown MarkupSafe more-itertools msgpack mypy-extensions nemo-emblems neovim netaddr netifaces nose oauthlib onboard packaging PAM path-and-address pathspec pbr pexpect Pillow pip pipenv platformdirs pluggy protobuf psutil ptyprocess pycairo pycups pycurl pyelftools pyflakes Pygments PyGObject PyICU pyinotify PyJWT pymacaroons PyNaCl pynvim pyparsing pyparted pyRFC3339 pytest python-apt python-debian python-gnupg python-magic python-xlib pytz pyxdg PyYAML reportlab requests requests-file resolvelib SecretStorage setproctitle setuptools six smmap soupsieve systemd-python tinycss2 tldextract tomli ubuntu-drivers-common ufw Unidecode urllib3 virtualenv virtualenv-clone wadllib webencodings Werkzeug wheel xdg xkit xlrd youtube-dl zipp

@@ -12,3 +12,9 @@
 node_modules/*
 package-lock.json
 */lvim/lazy-lock.json
+.config/emacs/.local/cache/
+.config/emacs/.local/env
+.config/emacs/.local/etc/spell-fu/
+.config/emacs/.local/state/
+.config/emacs/.local/straight/
+.config/nvim/plugin/packer_compiled.lua
