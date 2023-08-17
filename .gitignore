@@ -18,3 +18,4 @@ package-lock.json
 .config/emacs/.local/state/
 .config/emacs/.local/straight/
 .config/nvim/plugin/packer_compiled.lua
+pipup.sh
