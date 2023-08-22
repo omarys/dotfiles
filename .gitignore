@@ -13,9 +13,10 @@
 node_modules/*
 package-lock.json
 */lvim/lazy-lock.json
-.config/emacs/.local/cache/
 .config/emacs/.local/*
 !.config/emacs/.local/etc/ispell/.pws
-.config/nvim/plugin/packer_compiled.lua
+.config/nvim/*
+!./config/nvim/lua/config/keymaps.lua
+!./config/nvim/lua/plugins/core.lua
 pipup.sh
 Dracula.hct
