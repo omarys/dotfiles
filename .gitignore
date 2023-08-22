@@ -3,6 +3,7 @@
 .config/fish/fish_variables
 .config/weechat/sec.conf
 .local/bin
+.local/share/fonts
 .w3m/history
 .w3m/w3mcache*
 .w3m/w3msrc*
@@ -13,10 +14,8 @@ node_modules/*
 package-lock.json
 */lvim/lazy-lock.json
 .config/emacs/.local/cache/
-.config/emacs/.local/env
-.config/emacs/.local/etc/spell-fu/
-.config/emacs/.local/state/
-.config/emacs/.local/straight/
+.config/emacs/.local/*
+!.config/emacs/.local/etc/ispell/.pws
 .config/nvim/plugin/packer_compiled.lua
 pipup.sh
 Dracula.hct
