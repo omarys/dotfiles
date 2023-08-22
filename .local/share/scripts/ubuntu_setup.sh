@@ -19,7 +19,7 @@ sudo apt install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite
 
 # Flatpaks install
 flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam\
-  com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch\
+  org.freedesktop.Platform.VulkanLayer.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch\
   org.freedesktop.Platform.VulkanLayer.gamescope org.gnome.Mahjongg org.gnome.Aisleriot
 
 # Rust alternatives install
