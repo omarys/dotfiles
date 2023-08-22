@@ -19,3 +19,4 @@ package-lock.json
 .config/emacs/.local/straight/
 .config/nvim/plugin/packer_compiled.lua
 pipup.sh
+Dracula.hct
