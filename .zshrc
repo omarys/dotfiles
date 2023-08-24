@@ -46,7 +46,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 plugins=(
-  archlinux
   ansible
   common-aliases
   cp
