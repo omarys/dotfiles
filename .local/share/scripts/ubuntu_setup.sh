@@ -43,7 +43,7 @@ rm ~/.config/nvim/.git
 # Emacs source code clone/build
 git clone https://git.savannah.gnu.org/git/emacs.git ~/Dev/emacs
 cd ~/Dev/emacs
-git checkout emacs-28
+git checkout emacs-29
 git pull
 ./autogen.sh
 ./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
