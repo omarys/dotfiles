@@ -1,7 +1,9 @@
-personal_ws-1.1 en 29
+personal_ws-1.1 en 32
 apis
+daneeka
 decrypted
 elisp
+hulu
 invertible
 benchmarking
 isolator
@@ -10,6 +12,7 @@ middleware
 misconfiguration
 modeline
 config
+morreall's
 pcap
 pilferable
 pseudocode

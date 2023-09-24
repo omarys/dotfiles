@@ -95,6 +95,7 @@ alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
 alias upp="flatpak update -y; cargup; doom up; doom sync; doom purge;"
+alias zzz="exit"
 
 # Conditional aliases
 type ag >/dev/null 2>&1 && alias grep=ag
@@ -110,6 +111,7 @@ type xclip >/dev/null 2>&1 && alias novid="mpv \"$(xclip -o)\" --no-video"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste)\" --no-video"
 type xclip >/dev/null 2>&1 && alias cl="git clone \"$(xclip -o)\""
 type wl-paste >/dev/null 2>&1 && alias cl="git clone \"$(wl-paste)\""
+type xplr >/dev/null 2>&1 && alias xx="xplr"
 
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
