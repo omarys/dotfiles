@@ -94,6 +94,7 @@ alias goworld="w3m gopher://gopher.floodgap.com/1/world"
 alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
+alias upp="flatpak update -y; cargup; doom up; doom sync; doom purge;"
 
 # Conditional aliases
 type ag >/dev/null 2>&1 && alias grep=ag
