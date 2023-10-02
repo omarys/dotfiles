@@ -1,4 +1,4 @@
-personal_ws-1.1 en 36
+personal_ws-1.1 en 38
 apis
 ciphertext
 cryptanalysis
@@ -19,6 +19,7 @@ config
 morreall's
 pcap
 pilferable
+powershell
 pseudocode
 recency
 roadmap
@@ -30,6 +31,7 @@ o'mary
 scalable
 tsgt
 ultrathin
+unmount
 vectorizing
 volumetrics
 wireframe
