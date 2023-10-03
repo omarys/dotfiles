@@ -113,6 +113,10 @@ type xclip >/dev/null 2>&1 && alias cl="git clone \"$(xclip -o)\""
 type wl-paste >/dev/null 2>&1 && alias cl="git clone \"$(wl-paste)\""
 type xplr >/dev/null 2>&1 && alias xx="xplr"
 
+if [[ -f ~/.cmd ]]; then
+  alias cmd="cat ~/.cmd"
+fi
+
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
