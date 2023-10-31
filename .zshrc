@@ -80,8 +80,6 @@ fi
 
 # Standard aliases
 alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias cat="bat"
 alias find="fd"
 alias ls="lsd"
 alias rm="rip"
@@ -94,7 +92,6 @@ alias goredd="w3m gopher://gopherddit.com:70"
 alias goworld="w3m gopher://gopher.floodgap.com/1/world"
 alias gorec="w3m gopher://fld.gp:70"
 alias gomisc="w3m gopher://mozz.us:70"
-alias gitc="git clone $(xclip -o -selection clipboard)"
 alias clr="clear"
 alias upp="flatpak update -y; cargup; doom up; doom sync; doom purge;"
 alias zzz="exit"
