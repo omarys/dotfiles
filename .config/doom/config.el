@@ -150,9 +150,6 @@
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq comp-async-report-warnings-errors nil)
 
-(require 'flymake-ruff)
-(add-hook 'python-mode-hook #'flymake-ruff-load)
-
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;

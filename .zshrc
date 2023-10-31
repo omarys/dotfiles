@@ -52,6 +52,7 @@ plugins=(
   cp
   docker
   dotnet
+  dnf
   emacs
   extract
   fd
@@ -102,6 +103,8 @@ type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="sudo pacman -Syyu"
 type apt >/dev/null 2>&1 && alias in="sudo apt install"
 type apt >/dev/null 2>&1 && alias up="apt update; sudo apt upgrade -y"
+type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
+type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
 type xclip >/dev/null 2>&1 && alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type xclip >/dev/null 2>&1 && alias vid="mpv \"$(xclip -o)\""
