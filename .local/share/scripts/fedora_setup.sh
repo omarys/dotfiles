@@ -24,9 +24,9 @@ flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware
 # Rust install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Rust packages install
-cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update tree-sitter-cli
-cargo install ripgrep --features pcre2
-cargo install --locked xplr
+~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update tree-sitter-cli
+~/.cargo/bin/cargo install ripgrep --features pcre2
+~/.cargo/bin/cargo install --locked xplr
 
 # CaC service daemon
 sudo systemctl enable --now pcscd
