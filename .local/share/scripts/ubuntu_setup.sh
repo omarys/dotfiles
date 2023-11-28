@@ -14,9 +14,9 @@ sudo apt install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite
 flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch org.freedesktop.Platform.VulkanLayer.gamescope org.gnome.Mahjongg org.gnome.Aisleriot
 
 # Rust alternatives install
-cargo install bottom lsd rm-improved fd-find bat zoxide alacritty cargo-update tree-sitter-cli
-cargo install ripgrep --features pcre2
-cargo install --locked --force xplr
+~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide alacritty cargo-update tree-sitter-cli
+~/.cargo/bin/cargo cargo install ripgrep --features pcre2
+~/.cargo/bin/cargo cargo install --locked --force xplr
 
 # Alacritty requires symbolic link for desktop entry
 sudo ln -s /home/USER/.cargo/bin/alacritty /usr/local/bin/alacritty
