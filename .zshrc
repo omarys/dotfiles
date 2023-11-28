@@ -11,7 +11,11 @@ export BROWSER=/usr/bin/firefox
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export GPG_TTY=$(tty)
+if [[ $DESKTOP_SESSION = "plasma" ]]; then
+  export GPG_TTY=$(pinentry-qt)
+else
+  export GPG_TTY=$(tty)
+fi
 export PINENTRY_USER_DATA="USE_TTY=1"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -98,10 +102,16 @@ alias zzz="exit"
 
 # Conditional aliases
 type ag >/dev/null 2>&1 && alias grep=ag
+type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="sudo pacman -Syyu"
+type apt >/dev/null 2>&1 && alias se="apt search"
 type apt >/dev/null 2>&1 && alias in="sudo apt install"
 type apt >/dev/null 2>&1 && alias up="apt update; sudo apt upgrade -y"
+type pkcon >/dev/null 2>&1 && alias se="pkcon search"
+type pkcon >/dev/null 2>&1 && alias in="pkcon install"
+type pkcon >/dev/null 2>&1 && alias up="pkcon update"
+type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
 type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
 type xclip >/dev/null 2>&1 && alias ggit="git clone \"$(xclip -sel c -o)\""
