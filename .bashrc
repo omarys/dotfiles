@@ -50,3 +50,5 @@ alias clr="clear"
 
 unset rc
 . "$HOME/.cargo/env"
+eval "$(starship init bash)"
+

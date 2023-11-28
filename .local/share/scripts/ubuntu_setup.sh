@@ -1,17 +1,14 @@
-# Oh-my-zsh setup
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Powerlevel10k setup
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-
-# Rust install
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Package update
+apt update && sudo apt upgrade
 
 # Apt install dependencies
 sudo apt install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite1 libdbus-1-dev pcsc-tools cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 tmux aspell aspell-en xclip ninja-build gettext cmake unzip curl libssl-dev stow git zsh autoconf texinfo libx11-dev libmagickwand-dev libxaw7-dev libgccjit-11-dev libgif-dev libjansson4 libjansson-dev gnutls-bin libtree-sitter-dev libncurses-dev libtinfo-dev libharfbuzz-dev libacl1-dev libxinerama-dev libxcb-xinerama0-dev sbcl sqlite3 steam-devices mpv feh python3-pip libtool-bin libtool xdotool graphviz gnuplot editorconfig npm nodejs openjdk-19-jdk glslang-dev glslang-tools clang-format direnv shfmt shellcheck tidy gnutls-dev texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
 
 # Flatpaks install
 flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch org.freedesktop.Platform.VulkanLayer.gamescope org.gnome.Mahjongg org.gnome.Aisleriot
+
+# Rust install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust alternatives install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide alacritty cargo-update tree-sitter-cli
@@ -61,3 +58,10 @@ poetry completions zsh >$ZSH_CUSTOM/plugins/poetry/_poetry
 
 # Clean up Thunar
 /usr/bin/rm -rfv ~/.cache/thumbnails
+
+# Oh-my-zsh setup
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Powerlevel10k setup
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
