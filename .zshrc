@@ -97,23 +97,29 @@ alias upp="flatpak update -y; cargup; doom up; doom sync; doom purge;"
 alias zzz="exit"
 
 # Conditional aliases
-type ag >/dev/null 2>&1 && alias grep=ag
+# type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 # type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 # type pacman >/dev/null 2>&1 && alias up="sudo pacman -Syyu"
+# type apt >/dev/null 2>&1 && alias se="apt search"
 # type apt >/dev/null 2>&1 && alias in="sudo apt install"
 # type apt >/dev/null 2>&1 && alias up="apt update; sudo apt upgrade -y"
+# type pkcon >/dev/null 2>&1 && alias se="pkcon search"
+# type pkcon >/dev/null 2>&1 && alias in="pkcon install"
+# type pkcon >/dev/null 2>&1 && alias up="pkcon update"
+type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
 type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
+
 # type xclip >/dev/null 2>&1 && alias ggit="git clone \"$(xclip -sel c -o)\""
-type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 # type xclip >/dev/null 2>&1 && alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
-type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 # type xclip >/dev/null 2>&1 && alias vid="mpv \"$(xclip -o)\""
-type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste)\""
 # type xclip >/dev/null 2>&1 && alias novid="mpv \"$(xclip -o)\" --no-video"
-type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste)\" --no-video"
 # type xclip >/dev/null 2>&1 && alias cl="git clone \"$(xclip -o)\""
+type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
+type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias cl="git clone \"$(wl-paste)\""
+type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste)\""
+type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste)\" --no-video"
 type xplr >/dev/null 2>&1 && alias xx="xplr"
 
 if [[ -f ~/.cmd ]]; then
@@ -123,3 +129,4 @@ fi
 eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fpath+=${ZDOTDIR:-~}/.zsh_functions
