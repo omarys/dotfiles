@@ -20,3 +20,6 @@ package-lock.json
 !./config/nvim/lua/plugins/core.lua
 pipup.sh
 Dracula.hct
+/.config/qutebrowser/bookmarks/
+/.config/qutebrowser/quickmarks
+/.local/share/applications/
