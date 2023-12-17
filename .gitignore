@@ -1,4 +1,5 @@
 .config/emacs/eln-cache
+.config/mangal/anilist.json
 .config/xplr/plugins
 .config/fish/fish_variables
 .config/weechat/sec.conf
