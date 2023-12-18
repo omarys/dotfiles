@@ -7,7 +7,7 @@ sudo apt update && sudo nala upgrade -y
 sudo nala install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite1 libdbus-1-dev \
 	pcsc-tools cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
 	python3 tmux aspell aspell-en xclip ninja-build gettext cmake unzip curl libssl-dev stow git zsh \
-	autoconf texinfo libx11-dev libmagickwand-dev libxaw7-dev libgccjit-11-dev libgif-dev libjansson4 \
+	autoconf texinfo libx11-dev libmagickwand-dev libxaw7-dev libgccjit-12-dev libgif-dev libjansson4 \
 	libjansson-dev gnutls-bin libtree-sitter-dev libncurses-dev libtinfo-dev libharfbuzz-dev libacl1-dev \
 	libxinerama-dev libxcb-xinerama0-dev sbcl sqlite3 steam-devices mpv feh python3-pip libtool-bin libtool \
 	xdotool graphviz gnuplot editorconfig npm nodejs default-jdk glslang-dev glslang-tools clang-format \
