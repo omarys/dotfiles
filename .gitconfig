@@ -16,3 +16,5 @@
   prune = true
 [credential]
   helper = libsecret
+[safe]
+	directory = /home/omary/sdcard/.dotfiles

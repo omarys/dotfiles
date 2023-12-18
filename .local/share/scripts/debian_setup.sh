@@ -1,13 +1,10 @@
-# Install apt-fast dependency
-sudo apt update && sudo apt install aria2
-# Install apt-fast
-/bin/bash -c "$(curl -sL https://git.io/vokNn)"
+sudo apt update && sudo apt install nala -y
 
 # Package update
-sudo apt-fast update && sudo apt-fast upgrade -y
+sudo apt update && sudo nala upgrade -y
 
 # Apt install dependencies
-sudo apt install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite1 libdbus-1-dev \
+sudo nala install build-essential opensc libpcsc-perl libpcsclite-dev libpcsclite1 libdbus-1-dev \
 	pcsc-tools cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
 	python3 tmux aspell aspell-en xclip ninja-build gettext cmake unzip curl libssl-dev stow git zsh \
 	autoconf texinfo libx11-dev libmagickwand-dev libxaw7-dev libgccjit-11-dev libgif-dev libjansson4 \
@@ -27,6 +24,7 @@ flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 #
 # Install alacritty
+cd ~/Downloads
 git clone https://github.com/alacritty/alacritty.git
 cd alacritty
 cargo build --release --no-default-features --features=wayland
