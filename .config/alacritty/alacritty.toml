@@ -1,11 +1,14 @@
 import = ["/home/omary/.config/alacritty/dracula.toml"]
-tabspaces = 4
+
+[shell]
+program = "/usr/bin/zsh"
+args = ["-c", "tmux attach || tmux"]
+
 
 [colors]
 draw_bold_text_with_bright_colors = true
 
 [cursor]
-live_config_reload = true
 style = "Block"
 unfocused_hollow = true
 
@@ -33,17 +36,6 @@ y = 0
 
 [scrolling]
 history = 9001
-
-[shell]
-args = ["-c", "tmux attach || tmux"]
-program = "/usr/bin/zsh"
-
-[shell.url.launcher]
-args = []
-program = "xdg-open"
-
-[visual_bell]
-duration = 0
 
 [window]
 decorations = "full"
