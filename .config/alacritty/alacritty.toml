@@ -1,11 +1,9 @@
 import = ["/home/omary/.config/alacritty/dracula.toml"]
-tabspaces = 4
 
 [colors]
 draw_bold_text_with_bright_colors = true
 
 [cursor]
-live_config_reload = true
 style = "Block"
 unfocused_hollow = true
 
@@ -13,7 +11,7 @@ unfocused_hollow = true
 TERM = "xterm-256color"
 
 [font]
-size = 12.0
+size = 13.0
 
 [font.bold]
 family = "CaskaydiaCove Nerd Font Mono"
@@ -35,15 +33,8 @@ y = 0
 history = 9001
 
 [shell]
-args = ["-c", "tmux attach || tmux"]
 program = "/usr/bin/zsh"
-
-[shell.url.launcher]
-args = []
-program = "xdg-open"
-
-[visual_bell]
-duration = 0
+args = ["-c", "tmux attach || tmux"]
 
 [window]
 decorations = "full"

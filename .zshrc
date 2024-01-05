@@ -93,16 +93,15 @@ alias pyt="poetry run python -m unittest discover"
 # alias gorec="w3m gopher://fld.gp:70"
 # alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
-alias upp="flatpak update -y; cargup; doom up; doom sync; doom purge;"
+alias upp="rustup update; cargo install-update -a; \
+  doom up; doom sync; doom purge;"
 alias zzz="exit"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
-type nala >/dev/null 2>&1 && alias up="sudo nala upgrade"
-# type pkcon >/dev/null 2>&1 && alias se="pkcon search"
-# type pkcon >/dev/null 2>&1 && alias in="pkcon install"
-# type pkcon >/dev/null 2>&1 && alias up="pkcon update"
+type nala >/dev/null 2>&1 && alias up="flatpak update; sudo nala upgrade;"
+
 # type dnf >/dev/null 2>&1 && alias se="dnf search"
 # type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
 # type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
