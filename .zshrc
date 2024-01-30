@@ -100,7 +100,8 @@ alias zzz="exit"
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
-type nala >/dev/null 2>&1 && alias up="flatpak update; sudo nala upgrade;"
+type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
+  sudo nala upgrade --assume-yes;"
 
 # type dnf >/dev/null 2>&1 && alias se="dnf search"
 # type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
@@ -126,3 +127,19 @@ eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/omary/.anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/omary/.anaconda/etc/profile.d/conda.sh" ]; then
+        . "/home/omary/.anaconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/omary/.anaconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
