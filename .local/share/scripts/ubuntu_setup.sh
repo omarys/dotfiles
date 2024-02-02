@@ -2,8 +2,8 @@
 
 # Package update
 sudo apt update
-sudo apt install nala
-sudo nala upgrade
+sudo apt install nala --assume-yes
+sudo nala upgrade --assume-yes
 
 # Apt install dependencies
 sudo nala install build-essential opensc libpcsc-perl libpcsclite-dev \
@@ -18,10 +18,10 @@ sudo nala install build-essential opensc libpcsc-perl libpcsclite-dev \
 	gnuplot editorconfig npm nodejs openjdk-19-jdk glslang-dev glslang-tools \
 	clang-format direnv shfmt shellcheck tidy gnutls-dev texlive-latex-base \
 	texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra flatpak \
-	python3.11-venv libnss3-tools syncthingtray-kde-plasma
+	libnss3-tools syncthingtray-kde-plasma procps
 
 # Editor dependencies install
-pip install --user pipx --break-system-packages
+pip install --user ansible pipx venv --break-system-packages
 pipx install poetry neovim lazygit wheel ansible black grip pyflakes isort \
 	pipenv nose pytest
 
@@ -38,6 +38,7 @@ flatpak install org.keepassxc.KeePassXC com.discordapp.Discord \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install alacritty
+cd ~/Downloads
 git clone https://github.com/alacritty/alacritty.git ~/Dev/alacritty
 cd alacritty
 cargo build --release --no-default-features --features=wayland
@@ -47,7 +48,8 @@ sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 
 # Rust alternatives install
-~/.cargo/bin/cargo install alacritty bottom lsd rm-improved fd-find bat zoxide alacritty cargo-update tree-sitter-cli
+~/.cargo/bin/cargo install alacritty bottom lsd rm-improved fd-find bat \
+	zoxide alacritty cargo-update tree-sitter-cli pandoc
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -95,9 +97,9 @@ gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozil
 echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list >/dev/null
 
 # Update your package list and install the Firefox Nightly .deb package:
-sudo apt-get update && sudo apt-get install firefox-devedition
+sudo nala update && sudo nala install firefox-devedition
 
-# Clean up Thunar
+# Clean up Thunar - this was an old fix for the XFCE file manager
 /usr/bin/rm -rfv ~/.cache/thumbnails
 
 # Make executable update scripts
@@ -108,6 +110,34 @@ chmod +x ~/.local/bin/emacsup
 
 # Install mangal
 curl -sSL mangal.metafates.one/install | sh
+
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') \
+	>> /home/omary/.zshrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Install Kotlin linter
+brew install ktlint
+
+# Fonts!
+cd ~/Downloads
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
+mkdir ~/.local/share/fonts
+unzip CascadiaCode.zip -d ~/.local/share/fonts/
+
+# Certificates
+curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
+mkdir ~/Downloads/certs
+unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
+openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
+	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
+sudo cp ~/Downloads/certs/dod_CAs.pem /usr/local/share/ca-certificates/dod_CAs.crt
+sudo update-ca-certificates
+
+# Enable Chrome CAC card use
+cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
+	-libfile /usr/lib/x86_64-linux-gnu/onepin-opensc-pkcs11.so
 
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
