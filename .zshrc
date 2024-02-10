@@ -114,8 +114,8 @@ type nala >/dev/null 2>&1 && alias up="flatpak update; sudo nala upgrade;"
 type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias cl="git clone \"$(wl-paste)\""
-type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste)\""
-type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste)\" --no-video"
+type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste --primary)\""
+type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste --primary)\" --no-video"
 type xplr >/dev/null 2>&1 && alias xx="xplr"
 
 if [[ -f ~/.cmd ]]; then
@@ -126,3 +126,20 @@ eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/omary/.anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/omary/.anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/omary/.anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/omary/.anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

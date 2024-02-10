@@ -95,6 +95,8 @@ echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://package
 # Update your package list and install the Firefox Nightly .deb package:
 sudo apt-get update && sudo apt-get install firefox-devedition
 
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Clean up Thunar
 /usr/bin/rm -rfv ~/.cache/thumbnails
 
