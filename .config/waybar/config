@@ -134,7 +134,7 @@
             "1": "",
             "2": "",
             "3": "",
-            "4": "",
+            "4": "",
         }
     },
 
@@ -199,8 +199,8 @@
     },
 
     "custom/files": {
-        "format": " ",
-        "on-click": "exec thunar",
+        "format": " ",
+        "on-click": "exec emacs",
         "tooltip": false
     },
 

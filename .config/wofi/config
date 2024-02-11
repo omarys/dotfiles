@@ -1,9 +1,9 @@
 hide_scroll=true
 show=drun
-width=25%
+width=40%
 lines=10
 line_wrap=word
-term=xfce4-terminal
+term=alacritty
 allow_markup=true
 always_parse_args=true
 show_all=true
@@ -15,4 +15,4 @@ prompt=
 image_size=15
 display_generic=true
 location=center
-columns=2
+columns=1

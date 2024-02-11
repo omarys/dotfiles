@@ -8,8 +8,11 @@ for_window [class="firefox"] focus
 assign [app_id=thunar] 3
 for_window [app_id=thunar] focus
 
-assign [class="Telegram"] 4
-for_window [class="Telegram"] focus
+assign [app_id="emacs"] 4
+for_window [app_id="emacs"] focus
+
+assign [class="emacs"] 4
+for_window [class="emacs"] focus
 
 
 for_window [app_id="xed"] focus
