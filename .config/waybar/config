@@ -28,7 +28,7 @@
         "backlight#value",
         "clock",
         "tray",
-        //"custom/weather",
+        "custom/weather",
         "custom/power",
     ],
 
@@ -75,7 +75,7 @@
             "warning": 70,
             "critical": 90,
         },
-        "on-click": "xfce4-terminal -e 'htop'",
+        "on-click": "xfce4-terminal -e 'btm'",
     },
 
     "custom/keyboard-layout": {
@@ -91,7 +91,7 @@
 
     "memory": {
         "interval": 5,
-        "format": " {}%", // Icon: memory
+        "format": "  {}%", // Icon: memory
         "on-click": "xfce4-terminal -e 'htop'", 
         "states": {
             "warning": 70,
@@ -142,14 +142,14 @@
         "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon}  {format_source}",
-        "format-bluetooth-muted": " {icon}  {format_source}",
-        "format-muted": "婢 {format_source}",
+        "format-bluetooth-muted": " {icon}  {format_source}",
+        "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
+            "headphone": "",
             "hands-free": "וֹ",
-            "headset": "  ",
+            "headset": " 󰋎 ",
             "phone": "",
             "portable": "",
             "car": "",
@@ -163,7 +163,7 @@
     // to use the weather module replace <your_location> with your city or town
     // note: do not use spaces: new york would be newyork
     "custom/weather": {
-        "exec": "~/.config/waybar/scripts/weather.sh <your_location>", 
+        "exec": "~/.config/waybar/scripts/weather.sh sanantonio", 
         "return-type": "json",
         "interval": 600,
     },
@@ -175,7 +175,7 @@
 
     "backlight#icon": {
         "format": "{icon}",
-        "format-icons": [""],
+        "format-icons": [" "],
         "on-scroll-down": "brightnessctl -c backlight set 1%-",
         "on-scroll-up": "brightnessctl -c backlight set +1%"
     },
@@ -194,7 +194,7 @@
 
     "custom/terminal": {
         "format": " ",
-        "on-click": "exec xfce4-terminal",
+        "on-click": "exec alacritty",
         "tooltip": false
     },
 
