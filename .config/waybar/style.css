@@ -56,8 +56,8 @@ Arc-Dark Color Scheme
     background: transparent;
     color: #bebebe;
     background-color: @base1;
-    font-family: NotoSans Nerd Font Regular;
-    font-size: 14px;
+    font-family: NotoSansM Nerd Font Mono;
+    font-size: 18px;
 }
 
 /* Every modules */
