@@ -105,7 +105,7 @@ type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
-  sudo pacman -Syyu;"
+  sudo pacman -Syyu; pipx upgrade-all;"
 
 # type dnf >/dev/null 2>&1 && alias se="dnf search"
 # type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
@@ -115,10 +115,9 @@ type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
 # type xclip >/dev/null 2>&1 && alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
 # type xclip >/dev/null 2>&1 && alias vid="mpv \"$(xclip -o)\""
 # type xclip >/dev/null 2>&1 && alias novid="mpv \"$(xclip -o)\" --no-video"
-# type xclip >/dev/null 2>&1 && alias cl="git clone \"$(xclip -o)\""
+#
 type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
-type wl-paste >/dev/null 2>&1 && alias cl="git clone \"$(wl-paste)\""
 type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste --primary)\""
 type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste --primary)\" --no-video"
 type xplr >/dev/null 2>&1 && alias xx="xplr"
