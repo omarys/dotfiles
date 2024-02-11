@@ -199,6 +199,8 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioRaiseVolume exec $volume_up
     bindsym --locked XF86AudioLowerVolume exec $volume_down
     bindsym --locked XF86AudioMute exec $volume_mute
+    bindsym --locked $mod+XF86AudioMute exec $mic_mute
+
 #
 # Player
 #
