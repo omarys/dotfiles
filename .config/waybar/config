@@ -16,12 +16,12 @@
     ],
 
     "modules-right": [
-        "network",
+        //"network",
         "idle_inhibitor",
         "memory",
         "cpu",
         "pulseaudio",
-        "custom/keyboard-layout",
+        //"custom/keyboard-layout",
         "battery",
         //"custom/PBPbattery",
         "backlight#icon",
@@ -49,7 +49,7 @@
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -63,14 +63,16 @@
 
     "clock": {
         "interval": 10,
-        "format-alt": " {:%e %b %Y}", // Icon: calendar-alt
-        "format": "{:%H:%M}",
+        "format-alt": "  {:%e %b %Y}", // Icon: calendar-alt
+        "format": "{:%I:%M %p}",
+        //"format": "{:%H:%M}",
         "tooltip-format": "{:%e %B %Y}"
     },
 
     "cpu": {
         "interval": 5,
-        "format": "  {usage}% ({load})", // Icon: microchip
+        "format": "  {usage}% ", // Icon: microchip
+        //"format": "  {usage}% ({load})", // Icon: microchip
         "states": {
             "warning": 70,
             "critical": 90,
@@ -91,8 +93,8 @@
 
     "memory": {
         "interval": 5,
-        "format": "  {}%", // Icon: memory
-        "on-click": "xfce4-terminal -e 'htop'", 
+        "format": "  {}%", // Icon: memory
+        "on-click": "xfce4-terminal -e 'btm'", 
         "states": {
             "warning": 70,
             "critical": 90
