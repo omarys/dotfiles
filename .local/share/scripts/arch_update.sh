@@ -6,20 +6,7 @@ sudo pacman -Syyu
 # Pacman install dependencies
 sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
 	shfmt shellcheck tidy curl unzip aspell aspell-en stow git zsh \
-	autoconf mpv feh opensc alacritty
-# sudo nala install build-essential opensc libpcsc-perl libpcsclite-dev \
-# 	libpcsclite1 libdbus-1-dev pcsc-tools cmake pkg-config libfreetype6-dev \
-# 	libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 tmux \
-# 	aspell aspell-en xclip ninja-build gettext cmake unzip curl libssl-dev \
-# 	stow git zsh autoconf texinfo libx11-dev libmagickwand-dev libxaw7-dev \
-# 	libgccjit-13-dev libgif-dev libjansson4 libjansson-dev gnutls-bin \
-# 	libtree-sitter-dev libncurses-dev libtinfo-dev libharfbuzz-dev \
-# 	libacl1-dev libxinerama-dev libxcb-xinerama0-dev sbcl sqlite3 \
-# 	steam-devices mpv feh python3-pip libtool-bin libtool xdotool graphviz \
-# 	gnuplot editorconfig npm nodejs openjdk-19-jdk glslang-dev glslang-tools \
-# 	clang-format direnv shfmt shellcheck tidy gnutls-dev texlive-latex-base \
-# 	texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra flatpak \
-# 	libnss3-tools syncthingtray-kde-plasma procps
+	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc
 
 # Editor dependencies install
 pip install --user pipx --break-system-packages
@@ -48,31 +35,13 @@ sudo systemctl enable --now pcscd
 # Tmux package manager install
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# Neovim source code clone/build
-# git clone https://github.com/neovim/neovim.git ~/Dev/neovim
-# cd ~/Dev/neovim
-# make CMAKE_BUILD_TYPE=RelWithDebInfo
-# cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
-
 # Lazyvim setup
-# git clone https://github.com/LazyVim/starter ~/.config/nvim
-# rm ~/.config/nvim/.git
-
-# Emacs source code clone/build
-# git clone https://git.savannah.gnu.org/git/emacs.git ~/Dev/emacs
-# cd ~/Dev/emacs
-# git checkout emacs-29
-# git pull
-# ./autogen.sh
-# ./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation \
-# 	--with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft \
-# 	--with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
-# make -j$(nproc)
-# sudo make install
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm ~/.config/nvim/.git
 
 # Doom Emacs setup
-# git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-# ~/.config/emacs/bin/doom install
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
 
 # Clean up Thunar - this was an old fix for the XFCE file manager
 /usr/bin/rm -rfv ~/.cache/thumbnails
@@ -83,8 +52,15 @@ curl -sSL mangal.metafates.one/install | sh
 # Fonts!
 cd ~/Downloads
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
 mkdir ~/.local/share/fonts
 unzip CascadiaCode.zip -d ~/.local/share/fonts/
+unzip Noto.zip -d ~/.local/share/fonts/
+
+# Install Sway community edition for Endeavour OS
+git clone https://github.com/EndeavourOS-Community-Editions/sway.git
+cd sway
+bash sway-install.sh
 
 # Certificates
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
