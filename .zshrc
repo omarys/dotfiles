@@ -102,6 +102,10 @@ type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
+type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
+type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
+type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
+  sudo pacman -Syyu;"
 
 # type dnf >/dev/null 2>&1 && alias se="dnf search"
 # type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
@@ -143,4 +147,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

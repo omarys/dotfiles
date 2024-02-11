@@ -14,7 +14,7 @@
 node_modules/*
 package-lock.json
 */lvim/lazy-lock.json
-.config/emacs/.local/straight
+.config/emacs/*
 !.config/emacs/.local/etc/ispell/.pws
 .config/nvim/*
 !./config/nvim/lua/config/keymaps.lua
