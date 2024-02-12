@@ -104,7 +104,7 @@
         "format-plugged": " {capacity}%",
         //"format-good": "", // An empty format will hide the module
         //"format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [" ", " ", " ", " ", " "]
     },
 
     "clock": {
