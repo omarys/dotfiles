@@ -16,6 +16,7 @@
     ],
 
     "modules-right": [
+        "custom/wittr",
         //"network",
         "idle_inhibitor",
         "memory",
@@ -26,10 +27,9 @@
         //"custom/PBPbattery",
         "backlight#icon",
         "backlight#value",
-        "clock",
         "tray",
         //"custom/weather",
-        "custom/wittr",
+        "clock",
         "custom/power",
     ],
 
@@ -172,12 +172,13 @@
     },
 
     "custom/wittr": {
-      "exec": "~/.config/waybar/scripts/wittr.sh",
-      "return-type": "json",
-      "format": "{}",
-      "tooltip": true,
-      "interval": 900,
+        "format": "{} °",
+        "tooltip": true,
+        "interval": 900,
+        "exec": "wttrbar --location San+Antonio --fahrenheit",
+        "return-type": "json"
     },
+
 
     "tray": {
         "icon-size": 18,
@@ -186,7 +187,7 @@
 
     "backlight#icon": {
         "format": "{icon}",
-        "format-icons": [" "],
+        "format-icons": [""],
         "on-scroll-down": "brightnessctl -c backlight set 1%-",
         "on-scroll-up": "brightnessctl -c backlight set +1%"
     },
