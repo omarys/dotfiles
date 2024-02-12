@@ -35,6 +35,14 @@
 
     // Modules
 
+    "custom/wittr": {
+        "format": "{} °",
+        "tooltip": true,
+        "interval": 900,
+        "exec": "wttrbar --location San+Antonio --fahrenheit",
+        "return-type": "json"
+    },
+
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons":{
@@ -43,23 +51,60 @@
         }
     },
 
+    "memory": {
+        "interval": 5,
+        "format": " {}%", // Icon: memory
+        "on-click": "xfce4-terminal -e 'btm'", 
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}% ", // Icon: microchip
+        "states": {
+            "warning": 70,
+            "critical": 90,
+        },
+        "on-click": "xfce4-terminal -e 'btm'",
+    },
+
+    "pulseaudio": {
+        "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{volume}% {icon}  {format_source}",
+        "format-bluetooth-muted": " {icon}  {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "וֹ",
+            "headset": " 󰋎 ",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [""]
+        },
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
+    },
+
     "battery": {
         "states": {
             // "good": 95,
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon} ",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
         //"format-good": "", // An empty format will hide the module
         //"format-full": "",
         "format-icons": ["", "", "", "", ""]
-    },
-
-    "custom/PBPbattery": {
-        "exec": "~/.config/waybar/scripts/PBPbattery.sh",
-        "format": "{}",
     },
 
     "clock": {
@@ -68,17 +113,6 @@
         "format": "{:%I:%M %p}",
         //"format": "{:%H:%M}",
         "tooltip-format": "{:%e %B %Y}"
-    },
-
-    "cpu": {
-        "interval": 5,
-        "format": " {usage}% ", // Icon: microchip
-        //"format": " {usage}% ({load})", // Icon: microchip
-        "states": {
-            "warning": 70,
-            "critical": 90,
-        },
-        "on-click": "xfce4-terminal -e 'btm'",
     },
 
     "custom/keyboard-layout": {
@@ -90,16 +124,6 @@
         "signal": 1, // SIGHUP
         "tooltip": false,
         "on-click": "~/.config/waybar/scripts/keyhint.sh",
-    },
-
-    "memory": {
-        "interval": 5,
-        "format": " {}%", // Icon: memory
-        "on-click": "xfce4-terminal -e 'btm'", 
-        "states": {
-            "warning": 70,
-            "critical": 90
-        }
     },
 
     "network": {
@@ -132,7 +156,6 @@
         "disable-markup" : false,
         "all-outputs": true,
         "format": "  {icon}  ",
-        //"format":"{icon}",
         "format-icons": {
             "1": "",
             "2": "",
@@ -142,45 +165,6 @@
             "6": "",
         }
     },
-
-    "pulseaudio": {
-        "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}  {format_source}",
-        "format-bluetooth-muted": " {icon}  {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "וֹ",
-            "headset": " 󰋎 ",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [""]
-        },
-        "on-click": "pavucontrol",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
-    },
-
-    // to use the weather module replace <your_location> with your city or town
-    // note: do not use spaces: new york would be newyork
-    "custom/weather": {
-        "exec": "~/.config/waybar/scripts/weather.sh sanantonio", 
-        "return-type": "json",
-        "interval": 600,
-    },
-
-    "custom/wittr": {
-        "format": "{} °",
-        "tooltip": true,
-        "interval": 900,
-        "exec": "wttrbar --location San+Antonio --fahrenheit",
-        "return-type": "json"
-    },
-
 
     "tray": {
         "icon-size": 18,

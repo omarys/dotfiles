@@ -73,7 +73,7 @@ sudo update-ca-certificates
 
 # Enable Chrome CAC card use
 cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
-	-libfile /usr/lib/x86_64-linux-gnu/onepin-opensc-pkcs11.so
+	-libfile /usr/lib64/onepin-opensc-pkcs11.so
 
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
