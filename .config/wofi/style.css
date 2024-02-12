@@ -16,7 +16,7 @@
 }
 
 window {
-    border: 1px solid @selection;
+    border: 1px solid @background-darker;
 }
 
 #input {
@@ -43,9 +43,9 @@ window {
 }
 
 #entry:nth-child(even) {
-    background-color: @selection;
+    background-color: @comment;
 }
 
 #entry:selected {
-    background-color: @purple;
+    background-color: @selection;
 }

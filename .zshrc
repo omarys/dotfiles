@@ -118,8 +118,8 @@ type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
 #
 type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
-type wl-paste >/dev/null 2>&1 && alias vid="mpv \"$(wl-paste --primary)\""
-type wl-paste >/dev/null 2>&1 && alias novid="mpv \"$(wl-paste --primary)\" --no-video"
+type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
+type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
 type xplr >/dev/null 2>&1 && alias xx="xplr"
 
 if [[ -f ~/.cmd ]]; then
