@@ -28,7 +28,8 @@
         "backlight#value",
         "clock",
         "tray",
-        "custom/weather",
+        //"custom/weather",
+        "custom/wittr",
         "custom/power",
     ],
 
@@ -168,6 +169,14 @@
         "exec": "~/.config/waybar/scripts/weather.sh sanantonio", 
         "return-type": "json",
         "interval": 600,
+    },
+
+    "custom/wittr": {
+      "exec": "~/.config/waybar/scripts/wittr.sh",
+      "return-type": "json",
+      "format": "{}",
+      "tooltip": true,
+      "interval": 900,
     },
 
     "tray": {

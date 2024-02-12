@@ -1,45 +1,49 @@
-/*
-Arc-Dark Color Scheme
-*/
-
-@define-color highlight #5294e2;
-@define-color base1  #404552;
-@define-color base2  #40455;
-@define-color base3  #4b5160;
+@define-color background-darker rgba(30, 31, 41, 230);
+@define-color background #282a36;
+@define-color selection #44475a;
+@define-color foreground #f8f8f2;
+@define-color comment #6272a4;
+@define-color cyan #8be9fd;
+@define-color green #50fa7b;
+@define-color orange #ffb86c;
+@define-color pink #ff79c6;
+@define-color purple #bd93f9;
+@define-color red #ff5555;
+@define-color yellow #f1fa8c;
 
 *{
-    font-family: UbuntuMono;
+    font-family: NotoSans Nerd Font Mono;
 }
 
 #window {
-    border: 1px solid @highlight;
+    border: 1px solid @selection;
     margin: 0px 5px 0px 5px;
 }
 
 #inner-box {
-    background-color: @base2;
+    background-color: @background;
 }
 
 #outer-box {
     margin: 5px;
     padding:10px;
-    background-color: @base2;
+    background-color: @background;
     margin-top: -22px;
 }
 
 #text {
     padding: 5px;
-    color: white;
+    color: @foreground;
 }
 
 #entry:nth-child(even) {
-    background-color: @base1;
+    background-color: @cyan;
 }
 
 #entry {
-    background-color: @base3;
+    background-color: @background-darker;
 }
 
 #entry:selected {
-    background-color: @highlight;
+    background-color: @selection;
 }
