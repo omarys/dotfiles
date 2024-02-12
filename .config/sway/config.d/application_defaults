@@ -14,6 +14,17 @@ for_window [app_id="emacs"] focus
 assign [class="emacs"] 4
 for_window [class="emacs"] focus
 
+assign [app_id="ktorrent"] 5
+for_window [app_id="ktorrent"] focus
+
+assign [class="ktorrent"] 5
+for_window [class="ktorrent"] focus
+
+assign [app_id="discord"] 6
+for_window [app_id="discord"] focus
+
+assign [class="discord"] 6
+for_window [class="discord"] focus
 
 for_window [app_id="xed"] focus
 
