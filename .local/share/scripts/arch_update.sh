@@ -6,12 +6,12 @@ sudo pacman -Syyu
 # Pacman install dependencies
 sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
 	shfmt shellcheck tidy curl unzip aspell aspell-en stow git zsh \
-	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc
+	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc \
+	python-black python-pyflakes python-isort python-pipenv python-nose \
+	python-pytest python-pipx ccid acsccid tmux pcsc-perl pcsc-tools \
+	discord greetd
 
-# Editor dependencies install
-pip install --user pipx --break-system-packages
-pipx install poetry neovim lazygit wheel ansible black grip pyflakes isort \
-	pipenv nose pytest
+pipx install poetry ansible
 
 sudo npm install -g neovim marked js-beautify stylelint
 
@@ -25,7 +25,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust alternatives install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-	zoxide cargo-update tree-sitter-cli
+	zoxide cargo-update tree-sitter-cli editorconfig
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -68,12 +68,18 @@ mkdir ~/Downloads/certs
 unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
 openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
 	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
-sudo cp ~/Downloads/certs/dod_CAs.pem /usr/local/share/ca-certificates/dod_CAs.crt
-sudo update-ca-certificates
+sudo trust anchor --store dod_CAs.pem
 
 # Enable Chrome CAC card use
 cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
 	-libfile /usr/lib64/onepin-opensc-pkcs11.so
+
+# Wttr bar for weather
+mkdir ~/Dev && cd ~/Dev
+git clone https://github.com/bjesus/wttrbar.git
+cd wttrbar
+cargo build --release
+cp target/release/wttrbar ~/.cargo/bin
 
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
