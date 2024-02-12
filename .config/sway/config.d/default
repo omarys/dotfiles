@@ -14,6 +14,7 @@ set $volume_down $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
 set $volume_up $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
 set $volume_mute $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
 set $mic_mute $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
+set $play_video $(mpv $(wl-paste))
 
 # Your preferred terminal emulators
 set $term-float alacritty
@@ -220,6 +221,8 @@ bindsym $mod+r mode "resize"
     bindsym $mod+n exec thunar
     bindsym $mod+o exec firefox
     bindsym $mod+m exec emacs
+    bindsym $mod+Shift+m exec $play_video
+
 #
 # Screenshots
 #
