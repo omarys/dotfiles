@@ -32,6 +32,12 @@ for_window [app_id="mpv"] focus
 assign [class="mpv"] 7
 for_window [class="mpv"] focus
 
+assign [app_id="steam"] 8
+for_window [app_id="steam"] focus
+
+assign [class="steam"] 8
+for_window [class="steam"] focus
+
 for_window [app_id="xed"] focus
 
 
