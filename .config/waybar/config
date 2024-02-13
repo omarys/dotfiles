@@ -54,7 +54,7 @@
     "memory": {
         "interval": 5,
         "format": " {}%", // Icon: memory
-        "on-click": "xfce4-terminal -e 'btm'", 
+        "on-click": "xfce4-terminal -e 'htop'", 
         "states": {
             "warning": 70,
             "critical": 90
@@ -68,7 +68,7 @@
             "warning": 70,
             "critical": 90,
         },
-        "on-click": "xfce4-terminal -e 'btm'",
+        "on-click": "xfce4-terminal -e 'htop'",
     },
 
     "pulseaudio": {

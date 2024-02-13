@@ -2,12 +2,12 @@
 exec_always ~/.config/sway/scripts/import-gsettings
 
 # Set inner/outer gaps
-gaps inner 2
+gaps inner 0
 gaps outer 0
 
 # Hide titlebar on windows:
 default_border pixel none
-default_floating_border pixel 5
+default_floating_border pixel none
 
 # Default Font
 font pango:NotoSans Nerd Font Regular 13
