@@ -9,16 +9,11 @@ sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
 	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc \
 	python-black python-pyflakes python-isort python-pipenv python-nose \
 	python-pytest python-pipx ccid acsccid tmux pcsc-perl pcsc-tools \
-	discord greetd
+	discord greetd keepassxc steam
 
 pipx install poetry ansible
 
 sudo npm install -g neovim marked js-beautify stylelint
-
-# Flatpaks install
-flatpak install org.keepassxc.KeePassXC com.discordapp.Discord \
-	com.valvesoftware.Steam com.valvesoftware.Steam.Utility.steamtinkerlaunch \
-	org.freedesktop.Platform.VulkanLayer.gamescope
 
 # Rust install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
