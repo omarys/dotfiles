@@ -45,5 +45,5 @@
 }
 
 #entry:selected {
-    background-color: @selection;
+    background-color: @orange;
 }
