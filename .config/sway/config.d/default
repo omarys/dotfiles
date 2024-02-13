@@ -95,6 +95,10 @@ exec swayidle -w\
 #
 # Workspaces:
 #
+
+    # Cycle through active workspaces
+    bindsym ctrl+Alt+$right workspace next_on_output
+    bindsym ctrl+Alt+$left workspace prev_on_output
     # Switch to workspace
     bindsym $mod+tab workspace back_and_forth
     bindsym $mod+1 workspace number 1
