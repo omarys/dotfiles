@@ -43,9 +43,9 @@ window {
 }
 
 #entry:nth-child(even) {
-    background-color: @comment;
+    background-color: @selection;
 }
 
 #entry:selected {
-    background-color: @selection;
+    background-color: @comment;
 }
