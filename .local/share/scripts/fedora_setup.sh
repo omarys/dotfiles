@@ -22,15 +22,16 @@ sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
 
 # Flatpaks install
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch org.freedesktop.Platform.VulkanLayer.gamescope
+#flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch org.freedesktop.Platform.VulkanLayer.gamescope
 
 # Rust install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update tree-sitter-cli
+~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
+	zoxide cargo-update tree-sitter-cli editorconfig
 ~/.cargo/bin/cargo install ripgrep --features pcre2
-~/.cargo/bin/cargo install --locked xplr
+~/.cargo/bin/cargo install --locked --force xplr
 
 # CaC service daemon
 sudo systemctl enable --now pcscd
@@ -64,11 +65,35 @@ make -j$(nproc) && sudo make install
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
-# Python-poetry install/setup
-curl -sSL https://install.python-poetry.org | python3 -
-mkdir $ZSH_CUSTOM/plugins/poetry
-poetry completions zsh >$ZSH_CUSTOM/plugins/poetry/_poetry
+# Install mangal
+curl -sSL mangal.metafates.one/install | sh
 
+# Fonts!
+cd ~/Downloads
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
+mkdir ~/.local/share/fonts
+unzip CascadiaCode.zip -d ~/.local/share/fonts/
+unzip Noto.zip -d ~/.local/share/fonts/
+
+# Certificates
+curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
+mkdir ~/Downloads/certs
+unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
+openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
+	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
+sudo trust anchor --store dod_CAs.pem
+
+# Enable Chrome CAC card use
+cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
+	-libfile /usr/lib64/onepin-opensc-pkcs11.so
+
+# Wttr bar for weather
+mkdir ~/Dev && cd ~/Dev
+git clone https://github.com/bjesus/wttrbar.git
+cd wttrbar
+cargo build --release
+cp target/release/wttrbar ~/.cargo/bin
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
