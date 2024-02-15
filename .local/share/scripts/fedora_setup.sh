@@ -23,22 +23,26 @@ sudo dnf install -y zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-li
 	harfbuzz-devel libacl-devel sbcl sqlite3 steam-devices mpv feh libtool xdotool graphviz gnuplot \
 	editorconfig npm nodejs java-latest-openjdk-devel java-latest-openjdk glslang-devel glslang direnv \
 	shfmt shellcheck tidy gnutls-devel texlive-scheme-basic texlive-capt-of texlive-ulem texlive-wrapfig \
-	texlive-pdfextra keepassxc steam
+	texlive-pdfextra keepassxc
+
 # OpenH264 for Firefox
 sudo dnf config-manager --set-enabled fedora-cisco-openh264
 sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
 
 # Flatpaks install
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install com.discordapp.Discord
+flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam \
+	com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch \
+	org.freedesktop.Platform.VulkanLayer.gamescope
 
 # Rust install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update tree-sitter-cli
+~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
+	zoxide cargo-update tree-sitter-cli editorconfig
 ~/.cargo/bin/cargo install ripgrep --features pcre2
-~/.cargo/bin/cargo install --locked xplr
+~/.cargo/bin/cargo install --locked --force xplr
 
 # CaC service daemon
 sudo systemctl enable --now pcscd
@@ -74,13 +78,16 @@ make -j$(nproc) && sudo make install
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
-# Python-poetry install/setup
-curl -sSL https://install.python-poetry.org | python3 -
-mkdir $ZSH_CUSTOM/plugins/poetry
-poetry completions zsh >$ZSH_CUSTOM/plugins/poetry/_poetry
-
 # Install mangal
 curl -sSL mangal.metafates.one/install | sh
+
+# Fonts!
+cd ~/Downloads
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
+mkdir ~/.local/share/fonts
+unzip CascadiaCode.zip -d ~/.local/share/fonts/
+unzip Noto.zip -d ~/.local/share/fonts/
 
 # Certificates
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
@@ -100,7 +107,7 @@ git clone https://github.com/bjesus/wttrbar.git
 cd wttrbar
 cargo build --release
 cp target/release/wttrbar ~/.cargo/bin
-
+#
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
