@@ -169,17 +169,18 @@
 }
 
 #workspaces {
-    font-size:13px;
+    font-size:16px;
 }
 
 #workspaces button {
     border-bottom: 3px solid transparent;
+    color: @foreground;
     margin-bottom: 0px;
     padding:0px;
 }
 
 #workspaces button.focused {
-    border-bottom: 3px solid  @selection;
+    border-bottom: 3px solid  @green;
     margin-bottom: 1px;
     padding-left:0;
 }

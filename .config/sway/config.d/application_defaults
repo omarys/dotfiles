@@ -8,11 +8,11 @@ for_window [class="firefox"] focus
 assign [app_id=thunar] 3
 for_window [app_id=thunar] focus
 
-assign [app_id="emacs"] 4
-for_window [app_id="emacs"] focus
+assign [app_id="emacsclient"] 4
+for_window [app_id="emacsclient"] focus
 
-assign [class="emacs"] 4
-for_window [class="emacs"] focus
+assign [class="emacsclient"] 4
+for_window [class="emacsclient"] focus
 
 assign [app_id="ktorrent"] 5
 for_window [app_id="ktorrent"] focus

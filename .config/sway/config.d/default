@@ -22,7 +22,8 @@ set $term-float alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi -c ~/.config/wofi/config -I
+# set $menu wofi -c ~/.config/wofi/config -I
+set $menu fuzzel
 
 set $powermenu ~/.config/waybar/scripts/power-menu.sh
 

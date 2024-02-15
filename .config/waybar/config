@@ -36,7 +36,7 @@
     // Modules
 
     "custom/wittr": {
-        "format": "{} °",
+        "format": "{}°",
         "tooltip": true,
         "interval": 900,
         "exec": "wttrbar --location San+Antonio --fahrenheit",
@@ -44,7 +44,7 @@
     },
 
     "idle_inhibitor": {
-        "format": "{icon} ",
+        "format": " {icon} ",
         "format-icons":{
             "activated": "",
             "deactivated": ""
@@ -54,7 +54,7 @@
     "memory": {
         "interval": 5,
         "format": " {}%", // Icon: memory
-        "on-click": "xfce4-terminal -e 'htop'", 
+        "on-click": "xfce4-terminal -e 'btm'", 
         "states": {
             "warning": 70,
             "critical": 90
@@ -68,7 +68,7 @@
             "warning": 70,
             "critical": 90,
         },
-        "on-click": "xfce4-terminal -e 'htop'",
+        "on-click": "xfce4-terminal -e 'btm'",
     },
 
     "pulseaudio": {

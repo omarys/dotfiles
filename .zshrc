@@ -107,9 +107,9 @@ type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo pacman -Syyu; pipx upgrade-all;"
 
-# type dnf >/dev/null 2>&1 && alias se="dnf search"
-# type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
-# type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
+type dnf >/dev/null 2>&1 && alias se="dnf search"
+type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
+type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
 
 # type xclip >/dev/null 2>&1 && alias ggit="git clone \"$(xclip -sel c -o)\""
 # type xclip >/dev/null 2>&1 && alias clipkey="xclip -sel c < ~/.ssh/id_ed25519.pub"
