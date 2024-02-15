@@ -4,7 +4,7 @@
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
-    "height": 30,
+    // "height": 30,
 
     "modules-left": [
         "custom/launcher",
@@ -17,18 +17,14 @@
 
     "modules-right": [
         "custom/wittr",
-        //"network",
         "idle_inhibitor",
         "memory",
         "cpu",
         "pulseaudio",
-        //"custom/keyboard-layout",
         "battery",
-        //"custom/PBPbattery",
         "backlight#icon",
         "backlight#value",
         "tray",
-        //"custom/weather",
         "clock",
         "custom/power",
     ],
@@ -113,32 +109,6 @@
         "format": "{:%I:%M %p}",
         //"format": "{:%H:%M}",
         "tooltip-format": "{:%e %B %Y}"
-    },
-
-    "custom/keyboard-layout": {
-        "exec": "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
-        // Interval set only as a fallback, as the value is updated by signal
-        "interval": 30,
-        "format": "  {}", // Icon: keyboard
-        // Signal sent by Sway key binding (~/.config/sway/key-bindings)
-        "signal": 1, // SIGHUP
-        "tooltip": false,
-        "on-click": "~/.config/waybar/scripts/keyhint.sh",
-    },
-
-    "network": {
-        "interval": 5,
-        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
-        "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
-        "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}",
-        "on-click": "xfce4-terminal -e 'nmtui'",
-    },
-    "network#vpn": {
-        "interface": "tun0",
-        "format": "  {essid} ({signalStrength}%)",
-        "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
     },
 
     "sway/mode": {
