@@ -18,3 +18,6 @@
   helper = libsecret
 [safe]
 	directory = /home/omary/sdcard/.dotfiles
+[maintenance]
+	repo = /home/omary/.dotfiles
+	repo = /home/omary/Dev/Org

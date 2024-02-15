@@ -14,11 +14,11 @@ for_window [app_id="emacs"] focus
 assign [class="emacs"] 4
 for_window [class="emacs"] focus
 
-assign [app_id="ktorrent"] 5
-for_window [app_id="ktorrent"] focus
+assign [app_id="transmission"] 5
+for_window [app_id="transmission"] focus
 
-assign [class="ktorrent"] 5
-for_window [class="ktorrent"] focus
+assign [class="transmission"] 5
+for_window [class="transmission"] focus
 
 assign [app_id="discord"] 6
 for_window [app_id="discord"] focus
