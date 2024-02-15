@@ -31,7 +31,7 @@ sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
 
 # Flatpaks install
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install org.keepassxc.KeePassXC com.discordapp.Discord com.valvesoftware.Steam \
+flatpak install com.discordapp.Discord com.valvesoftware.Steam \
 	com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch \
 	org.freedesktop.Platform.VulkanLayer.gamescope
 
