@@ -63,7 +63,7 @@
 
     "cpu": {
         "interval": 5,
-        "format": " {usage}% ", // Icon: microchip
+        "format": " {usage}%", // Icon: microchip
         "states": {
             "warning": 70,
             "critical": 90,
@@ -104,7 +104,7 @@
         "format-plugged": " {capacity}%",
         //"format-good": "", // An empty format will hide the module
         //"format-full": "",
-        "format-icons": [" ", " ", " ", " ", " "]
+        "format-icons": ["", "", "", "", ""]
     },
 
     "clock": {
