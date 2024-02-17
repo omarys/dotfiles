@@ -1,6 +1,9 @@
 # RPM Fusion
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+# Add Mullvad repo
+sudo dnf config-manager --add-repo https://repository.mullvad.net/rpm/stable/mullvad.repo
+
 # Update packages
 sudo dnf -y update
 sudo dnf -y upgrade --refresh
@@ -23,7 +26,11 @@ sudo dnf install -y zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-li
 	harfbuzz-devel libacl-devel sbcl sqlite3 steam-devices mpv feh libtool xdotool graphviz gnuplot \
 	editorconfig npm nodejs java-latest-openjdk-devel java-latest-openjdk glslang-devel glslang direnv \
 	shfmt shellcheck tidy gnutls-devel texlive-scheme-basic texlive-capt-of texlive-ulem texlive-wrapfig \
-	texlive-pdfextra keepassxc
+	texlive-pdfextra fuzzel greetd tlp tlp-rdw powertop light mullvad-vpn
+
+# Configure powertop
+sudo systemctl mask power-profiles-daemon
+sudo powertop --auto-tune
 
 # OpenH264 for Firefox
 sudo dnf config-manager --set-enabled fedora-cisco-openh264
@@ -33,7 +40,7 @@ sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install com.discordapp.Discord com.valvesoftware.Steam \
 	com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.steamtinkerlaunch \
-	org.freedesktop.Platform.VulkanLayer.gamescope
+	org.freedesktop.Platform.VulkanLayer.gamescope org.keepassxc.KeePassXC
 
 # Rust install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -57,7 +64,8 @@ make && sudo make install
 
 # Editor dependencies from pip and node
 python -m ensurepip --user
-pip3 install --user pipx neovim
+pip3 install --upgrade pip --user
+pip install --user pipx neovim
 pipx install lazygit wheel ansible black grip pyflakes isort pipenv nose pytest
 sudo npm install -g neovim marked js-beautify stylelint
 
@@ -85,29 +93,41 @@ curl -sSL mangal.metafates.one/install | sh
 cd ~/Downloads
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
-mkdir ~/.local/share/fonts
+mkdir -p ~/.local/share/fonts
 unzip CascadiaCode.zip -d ~/.local/share/fonts/
 unzip Noto.zip -d ~/.local/share/fonts/
 
 # Certificates
+cd ~/Downloads
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
-mkdir ~/Downloads/certs
-unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
-openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod/certificates_pkcs7_v5_13_dod_der.p7b \
-	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
-sudo trust anchor --store dod_CAs.pem
+unzip unclass-certificates_pkcs7_DoD.zip
+openssl pkcs7 -in ~/Downloads/certificates_pkcs7_v5_13_dod/certificates_pkcs7_v5_13_dod_der.p7b \
+	-inform der -print_certs -out ~/Downloads/certificates_pkcs7_v5_13_dod/dod_CAs.pem
+sudo trust anchor --store certificates_pkcs7_v5_13_dod/dod_CAs.pem
 
-# Enable Chrome CAC card use
-cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
-	-libfile /usr/lib64/onepin-opensc-pkcs11.so
+# Dracula Gnome Theme
+cd ~/Downloads
+mkdir -p ~/.themes ~/.icons
+curl -LO https://github.com/dracula/gtk/archive/master.zip
+curl -LO https://github.com/dracula/gtk/files/5214870/Dracula.zip
+unzip master.zip -d ~/.themes/
+mv ~/.themes/gtk-master ~/.themes/Dracula
+unzip Dracula.zip ~/.icons/
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+gsettings set org.gnome.desktop.interface icon-theme "Dracula"
+
+# Override flatpak theme
+sudo flatpak override --filesystem=$HOME/.themes
+sudo flatpak override --env=GTK_THEME=Dracula
 
 # Wttr bar for weather
-mkdir ~/Dev && cd ~/Dev
+mkdir -p ~/Dev && cd ~/Dev
 git clone https://github.com/bjesus/wttrbar.git
 cd wttrbar
 cargo build --release
-cp target/release/wttrbar ~/.cargo/bin
-#
+cp target/release/wttrbar ~/.cargo/bin/
+
 # Oh-my-zsh setup
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 

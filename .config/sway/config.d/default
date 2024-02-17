@@ -59,6 +59,9 @@ exec swayidle -w\
     # Activities
     bindsym $mod+p exec ~/.config/wofi/windows.py
 
+    # Toggle control center
+    bindsym $mod+Shift+n exec swaync-client -t -sw
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -203,8 +206,8 @@ bindsym $mod+r mode "resize"
     # bindsym --locked XF86AudioMute exec pamixer -t
     
     # Control volume directly trough pactl
-    bindsym --locked XF86AudioRaiseVolume exec $volume_up
-    bindsym --locked XF86AudioLowerVolume exec $volume_down
+    bindsym --locked XF86AudioRaiseVolume exec $volume_up | notify-send "🔊 $VOL%" -t 500 -c audio-volume
+    bindsym --locked XF86AudioLowerVolume exec $volume_down | notify-send "🔊 $VOL%" -t 500 -c audio-volume
     bindsym --locked XF86AudioMute exec $volume_mute
     bindsym --locked $mod+XF86AudioMute exec $mic_mute
     bindsym --locked XF86AudioMicMute exec $mic_mute
@@ -219,8 +222,10 @@ bindsym $mod+r mode "resize"
 #
 # Backlight
 #
-    bindsym XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
-    bindsym XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
+    bindsym XF86MonBrightnessUp exec light -A 5
+    bindsym XF86MonBrightnessDown exec light -U 5
+    # bindsym XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
+    # bindsym XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
 #
 # App shortcuts
 #

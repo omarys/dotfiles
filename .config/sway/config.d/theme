@@ -13,7 +13,7 @@ default_floating_border pixel none
 font pango:NotoSans Nerd Font Regular 13
 
 # Thin borders:
-smart_borders on
+smart_borders off
 
 # Set wallpaper:
 # exec swaybg -i ~/.config/sway/sway.png
