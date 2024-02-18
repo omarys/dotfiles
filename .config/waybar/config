@@ -35,7 +35,7 @@
         "format": "{}°",
         "tooltip": true,
         "interval": 900,
-        "exec": "wttrbar --location San+Antonio --fahrenheit",
+        "exec": "wttrbar --location San+Antonio --fahrenheit --ampm --hide-conditions",
         "return-type": "json"
     },
 
