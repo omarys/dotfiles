@@ -3,6 +3,7 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 
 # Add Mullvad repo
 sudo dnf config-manager --add-repo https://repository.mullvad.net/rpm/stable/mullvad.repo
+sudo dnf copr enable erikreider/SwayNotificationCenter
 
 # Update packages
 sudo dnf -y update
@@ -26,7 +27,8 @@ sudo dnf install -y zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-li
 	harfbuzz-devel libacl-devel sbcl sqlite3 steam-devices mpv feh libtool xdotool graphviz gnuplot \
 	editorconfig npm nodejs java-latest-openjdk-devel java-latest-openjdk glslang-devel glslang direnv \
 	shfmt shellcheck tidy gnutls-devel texlive-scheme-basic texlive-capt-of texlive-ulem texlive-wrapfig \
-	texlive-pdfextra fuzzel greetd tlp tlp-rdw powertop light mullvad-vpn
+	texlive-pdfextra fuzzel greetd tlp tlp-rdw powertop mullvad-vpn SwayNotificationCenter syncthing \
+	wob pamixer brightnessctl flatpak
 
 # Configure powertop
 sudo systemctl mask power-profiles-daemon
