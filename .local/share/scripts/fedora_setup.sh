@@ -114,7 +114,7 @@ curl -LO https://github.com/dracula/gtk/archive/master.zip
 curl -LO https://github.com/dracula/gtk/files/5214870/Dracula.zip
 unzip master.zip -d ~/.themes/
 mv ~/.themes/gtk-master ~/.themes/Dracula
-unzip Dracula.zip ~/.icons/
+unzip Dracula.zip -d ~/.icons/
 gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
 gsettings set org.gnome.desktop.interface icon-theme "Dracula"
