@@ -2,9 +2,6 @@
     "layer": "top",
     "position": "top",
 
-    // If height property would be not present, it'd be calculated dynamically
-    // "height": 30,
-
     "modules-left": [ "custom/launcher", "sway/workspaces", "sway/mode", ],
  
     "modules-center": [ "sway/window", ],
@@ -20,7 +17,6 @@
         "backlight#value",
         "tray",
         "clock",
-        "custom/power",
     ],
 
     // Modules
@@ -186,13 +182,7 @@
 
     "custom/launcher": {
         "format":" ",
-        "on-click": "exec wofi -c ~/.config/wofi/config -I",
-        "tooltip": false,
-    },
-
-    "custom/power": {
-        "format":"⏻",
-        "on-click": "exec ~/.config/waybar/scripts/power-menu.sh",
+        "on-click": "exec fuzzel",
         "tooltip": false,
     },
 }
