@@ -24,25 +24,13 @@
 @define-color yellow #f1fa8c;
 
 @keyframes blink-warning {
-    70% {
-        color: @foreground;
-    }
-
-    to {
-        color: @foreground;
-        background-color: @orange;
-    }
+    70% { color: @foreground; }
+    to { color: @foreground; background-color: @orange; }
 }
 
 @keyframes blink-critical {
-    70% {
-      color: @foreground;
-    }
-
-    to {
-        color: @foreground;
-        background-color: @red;
-    }
+    70% { color: @foreground; }
+    to { color: @foreground; background-color: @red; }
 }
 
 /* -----------------------------------------------------------------------------
@@ -96,13 +84,9 @@
     animation-direction: alternate;
 }
 
-#battery.warning {
-    color: @orange;
-}
+#battery.warning { color: @orange; }
 
-#battery.critical {
-    color: @red;
-}
+#battery.critical { color: @red; }
 
 #battery.warning.discharging {
     animation-name: blink-warning;
@@ -114,13 +98,9 @@
     animation-duration: 2s;
 }
 
-#cpu.warning {
-    color: @orange;
-}
+#cpu.warning { color: @orange; }
 
-#cpu.critical {
-    color: @red;
-}
+#cpu.critical { color: @red; }
 
 #memory {
     animation-timing-function: linear;
@@ -128,9 +108,7 @@
     animation-direction: alternate;
 }
 
-#memory.warning {
-    color: @orange;
- }
+#memory.warning { color: @orange; }
 
 #memory.critical {
     color: @red;
