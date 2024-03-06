@@ -38,6 +38,18 @@ for_window [app_id="steam"] focus
 assign [class="steam"] 8
 for_window [class="steam"] focus
 
+assign [app_id="keepassxc"] 9
+for_window [app_id="keepassxc"] focus
+
+assign [class="keepassxc"] 9
+for_window [class="keepassxc"] focus
+
+assign [app_id="chrome"] 10
+for_window [app_id="chrome"] focus
+
+assign [class="chrome"] 10
+for_window [class="chrome"] focus
+
 for_window [app_id="xed"] focus
 
 
@@ -74,4 +86,5 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 # Inhibit idle
 for_window [app_id="firefox"] inhibit_idle fullscreen
-for_window [app_id="Chromium"] inhibit_idle fullscreen
+for_window [app_id="mpv"] inhibit_idle fullscreen
+for_window [app_id="emacs"] inhibit_idle fullscreen

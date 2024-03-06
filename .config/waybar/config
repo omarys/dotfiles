@@ -2,9 +2,9 @@
     "layer": "top",
     "position": "top",
 
-    "modules-left": [ "custom/launcher", "sway/workspaces", "sway/mode", ],
+    "modules-left": [ "custom/launcher", "sway/workspaces", ],
  
-    "modules-center": [ "sway/window", ],
+    "modules-center": [ "sway/mode", "sway/window", ],
 
     "modules-right": [
         "custom/wittr",
@@ -87,7 +87,7 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         //"format-good": "", // An empty format will hide the module
-        //"format-full": "",
+        "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
 
@@ -141,11 +141,13 @@
             "6": "",
             "7": "",
             "8": "",
+            "9": "",
+            "10": "",
         }
     },
 
     "tray": {
-        "icon-size": 18,
+        "icon-size": 24,
         "spacing":10,
      },
 
@@ -160,24 +162,6 @@
          "format": "{percent}%",
          "on-scroll-down": "brightnessctl -c backlight set 1%-",
          "on-scroll-up": "brightnessctl -c backlight set +1%"
-    },
-
-    "custom/firefox": {
-        "format": " ",
-        "on-click": "exec firefox",
-        "tooltip": false
-    },
-
-    "custom/terminal": {
-        "format": " ",
-        "on-click": "exec alacritty",
-        "tooltip": false
-    },
-
-    "custom/files": {
-        "format": " ",
-        "on-click": "exec emacs",
-        "tooltip": false
     },
 
     "custom/launcher": {
