@@ -10,8 +10,6 @@
 [core]
 	editor = nvim
   pager = delta 
-[credential]
-  helper = libsecret
 [fetch]
   prune = true
 [init]

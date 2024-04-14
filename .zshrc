@@ -94,7 +94,7 @@ alias pyt="poetry run python -m unittest discover"
 # alias gomisc="w3m gopher://mozz.us:70"
 alias clr="clear"
 alias upp="rustup update; cargo install-update -a; \
-  doom up; doom sync; doom purge;"
+  doom up; doom sync; doom gc;"
 alias zzz="exit"
 
 # Conditional aliases
