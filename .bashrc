@@ -4,6 +4,11 @@ case $- in
 *) return ;;
 esac
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
 # Path to your oh-my-bash installation.
 export OSH='/home/omary/.oh-my-bash'
 
@@ -153,5 +158,6 @@ source "$OSH"/oh-my-bash.sh
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+. "$HOME/.cargo/env"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
