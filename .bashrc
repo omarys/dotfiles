@@ -6,11 +6,13 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$HOME/.config/emacs/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+	PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$HOME/.config/emacs/bin:$PATH"
 fi
 export PATH
+
+export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_TTY=1"
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -51,4 +53,4 @@ alias clr="clear"
 unset rc
 . "$HOME/.cargo/env"
 eval "$(starship init bash)"
-
+eval "$(zoxide init bash)"
