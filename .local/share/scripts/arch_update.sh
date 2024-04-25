@@ -9,7 +9,7 @@ sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
 	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc \
 	python-black python-pyflakes python-isort python-pipenv python-nose \
 	python-pytest python-pipx ccid acsccid tmux pcsc-perl pcsc-tools \
-	discord greetd keepassxc steam
+	discord greetd keepassxc steam sway waybar fuzzle swaylock
 
 pipx install poetry ansible
 
@@ -59,6 +59,10 @@ unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
 openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
 	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
 sudo trust anchor --store dod_CAs.pem
+
+# Add CAC reader capability ofr Chrome
+cd ~
+modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/libcoolkeypk11.so
 
 # Wttr bar for weather
 mkdir ~/Dev && cd ~/Dev
