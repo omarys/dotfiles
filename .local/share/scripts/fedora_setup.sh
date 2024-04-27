@@ -49,7 +49,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-	zoxide cargo-update tree-sitter-cli editorconfig
+	zoxide cargo-update tree-sitter-cli editorconfig starship
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -68,7 +68,7 @@ make && sudo make install
 python -m ensurepip --user
 pip3 install --upgrade pip --user
 pip install --user pipx neovim
-pipx install lazygit wheel ansible black grip pyflakes isort pipenv nose pytest
+pipx install lazygit wheel ansible black grip pyflakes isort pipenv nose pytest yt-dlp
 sudo npm install -g neovim marked js-beautify stylelint
 
 # Lazyvim setup
@@ -107,22 +107,6 @@ openssl pkcs7 -in ~/Downloads/certificates_pkcs7_v5_13_dod/certificates_pkcs7_v5
 	-inform der -print_certs -out ~/Downloads/certificates_pkcs7_v5_13_dod/dod_CAs.pem
 sudo trust anchor --store certificates_pkcs7_v5_13_dod/dod_CAs.pem
 
-# Dracula Gnome Theme
-cd ~/Downloads
-mkdir -p ~/.themes ~/.icons
-curl -LO https://github.com/dracula/gtk/archive/master.zip
-curl -LO https://github.com/dracula/gtk/files/5214870/Dracula.zip
-unzip master.zip -d ~/.themes/
-mv ~/.themes/gtk-master ~/.themes/Dracula
-unzip Dracula.zip -d ~/.icons/
-gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
-gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
-gsettings set org.gnome.desktop.interface icon-theme "Dracula"
-
-# Override flatpak theme
-sudo flatpak override --filesystem=$HOME/.themes
-sudo flatpak override --env=GTK_THEME=Dracula
-
 # Wttr bar for weather
 mkdir -p ~/Dev && cd ~/Dev
 git clone https://github.com/bjesus/wttrbar.git
@@ -130,11 +114,8 @@ cd wttrbar
 cargo build --release
 cp target/release/wttrbar ~/.cargo/bin/
 
-# Oh-my-zsh setup
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Powerlevel10k setup
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Oh-my-bash setup
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 # Clean up cache (previously for Thunar)
 /usr/bin/rm -rfv ~/.cache/thumbnails

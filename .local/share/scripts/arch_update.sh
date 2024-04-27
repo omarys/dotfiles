@@ -9,7 +9,7 @@ sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
 	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc \
 	python-black python-pyflakes python-isort python-pipenv python-nose \
 	python-pytest python-pipx ccid acsccid tmux pcsc-perl pcsc-tools \
-	discord greetd keepassxc steam
+	discord greetd keepassxc steam sway waybar fuzzle swaylock
 
 pipx install poetry ansible
 
@@ -20,7 +20,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust alternatives install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-	zoxide cargo-update tree-sitter-cli editorconfig
+	zoxide cargo-update tree-sitter-cli editorconfig starship
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -52,11 +52,6 @@ mkdir ~/.local/share/fonts
 unzip CascadiaCode.zip -d ~/.local/share/fonts/
 unzip Noto.zip -d ~/.local/share/fonts/
 
-# Install Sway community edition for Endeavour OS
-git clone https://github.com/EndeavourOS-Community-Editions/sway.git
-cd sway
-bash sway-install.sh
-
 # Certificates
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
 mkdir ~/Downloads/certs
@@ -65,9 +60,9 @@ openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
 	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
 sudo trust anchor --store dod_CAs.pem
 
-# Enable Chrome CAC card use
-cd ~ && modutil -dbdir sql:.pki/nssdb -add "CAC Module" \
-	-libfile /usr/lib64/onepin-opensc-pkcs11.so
+# Add CAC reader capability ofr Chrome
+cd ~
+modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/libcoolkeypk11.so
 
 # Wttr bar for weather
 mkdir ~/Dev && cd ~/Dev
@@ -76,8 +71,5 @@ cd wttrbar
 cargo build --release
 cp target/release/wttrbar ~/.cargo/bin
 
-# Oh-my-zsh setup
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Powerlevel10k setup
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Oh-my-bash setup
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"

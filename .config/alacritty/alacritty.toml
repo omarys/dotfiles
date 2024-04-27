@@ -33,7 +33,7 @@ y = 0
 history = 9001
 
 [shell]
-program = "/usr/bin/zsh"
+program = "/usr/bin/bash"
 args = ["-c", "tmux attach || tmux"]
 
 [window]
