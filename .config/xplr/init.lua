@@ -48,3 +48,36 @@ key.v = {
 key["f3"] = xplr.config.modes.custom.nuke.key_bindings.on_key.v
 key["enter"] = xplr.config.modes.custom.nuke.key_bindings.on_key.o
 key["U"] = xplr.config.modes.custom.xpm.key_bindings.on_key.u
+
+xplr.config.modes.builtin.default.key_bindings.on_key["M"] = {
+	help = "mpv mode",
+	messages = {
+		{ SwitchModeCustom = "mpvxplr" },
+	},
+}
+
+-- Key bindings
+xplr.config.general.global_key_bindings = {
+	on_key = {
+		["m"] = {
+			help = "Play videos with MPV",
+			messages = {
+				{
+					BashExec = [===[
+              mpv .
+            ]===],
+				},
+			},
+		},
+		["esc"] = {
+			messages = {
+				"PopMode",
+			},
+		},
+		["ctrl-c"] = {
+			messages = {
+				"Terminate",
+			},
+		},
+	},
+}
