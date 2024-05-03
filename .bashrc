@@ -21,6 +21,9 @@ export PATH
 export GPG_TTY=$(tty)
 export PINENTRY_USER_DATA="USE_TTY=1"
 
+# Default vagrant provider
+VAGRANT_DEFAULT_PROVIDER=libvirt
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
 # OSH_THEME="font"
