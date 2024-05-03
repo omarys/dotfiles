@@ -158,6 +158,10 @@ source "$OSH"/oh-my-bash.sh
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+alias bashconfig="nvim ~/.bashrc"
 . "$HOME/.cargo/env"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

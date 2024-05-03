@@ -32,3 +32,10 @@ type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
+
+type nvim >/dev/null 2>&1 && alias bashconfig="nvim ~/.bashrc"
+type nvim >/dev/null 2>&1 && alias aliasconfig="nvim ~/.oh-my-bash/aliases/custom.aliases.sh"
+
+if [[ -f ~/.cmd ]]; then
+  alias cmd="cat ~/.cmd"
+fi
