@@ -23,7 +23,7 @@ type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
-  sudo pacman -Syyu; pipx upgrade-all;"
+  sudo pacman -Syyu;"
 
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
