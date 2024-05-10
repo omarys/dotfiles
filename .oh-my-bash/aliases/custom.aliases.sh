@@ -16,6 +16,7 @@ alias zzz="exit"
 alias upp="rustup update; cargo install-update -a; \
   doom up; doom sync; doom gc;"
 
+type zoxide >/dev/null 2>&1 && alias cd="z"
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
@@ -37,5 +38,5 @@ type nvim >/dev/null 2>&1 && alias bashconfig="nvim ~/.bashrc"
 type nvim >/dev/null 2>&1 && alias aliasconfig="nvim ~/.oh-my-bash/aliases/custom.aliases.sh"
 
 if [[ -f ~/.cmd ]]; then
-  alias cmd="cat ~/.cmd"
+	alias cmd="cat ~/.cmd"
 fi
