@@ -1,4 +1,4 @@
-personal_ws-1.1 en 58
+personal_ws-1.1 en 61
 anthropogenic
 aphotic
 apis
@@ -7,11 +7,13 @@ bootcamp
 ciphertext
 combinational
 cryptanalysis
+crypto
 cryptographic
 daneeka
 decrypt
 decrypted
 decrypts
+degauss
 dev
 elisp
 hulu
@@ -42,6 +44,7 @@ pts
 recency
 roadmap
 saas
+sanitization
 skillbridge
 subnetwork
 templating
