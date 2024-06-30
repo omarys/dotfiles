@@ -62,7 +62,7 @@ sudo trust anchor --store dod_CAs.pem
 
 # Add CAC reader capability ofr Chrome
 cd ~
-modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/libcoolkeypk11.so
+modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/onepin-opensc-pkcs11.so
 
 # Wttr bar for weather
 mkdir ~/Dev && cd ~/Dev
