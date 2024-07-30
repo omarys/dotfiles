@@ -1,11 +1,4 @@
 return {
-  -- Configure LazyVim to load dracula
-  {
-    "Mofiqul/dracula.nvim",
-    opts = {
-      colorscheme = "dracula",
-    },
-  },
   {
     "nvim-orgmode/orgmode",
     dependencies = {
@@ -15,8 +8,8 @@ return {
     config = function()
       -- Setup orgmode
       require("orgmode").setup({
-        org_agenda_files = "~/orgfiles/**/*",
-        org_default_notes_file = "~/orgfiles/refile.org",
+        org_agenda_files = "~/Dev/Org/Agenda/*",
+        org_default_notes_file = "~/Dev/Org/refile.org",
       })
     end,
   },
