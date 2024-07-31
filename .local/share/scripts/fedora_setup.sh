@@ -5,7 +5,7 @@ sudo dnf install dnf5 -y
 sudo dnf5 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 # Add Mullvad repo
-sudo dnf5 config-manager --add-repo https://repository.mullvad.net/rpm/stable/mullvad.repo
+sudo dnf config-manager --add-repo https://repository.mullvad.net/rpm/stable/mullvad.repo
 
 # Update packages
 sudo dnf5 -y update
@@ -29,17 +29,17 @@ sudo dnf5 install -y zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-l
   harfbuzz-devel libacl-devel sbcl sqlite3 steam-devices mpv feh libtool xdotool graphviz gnuplot \
   editorconfig java-latest-openjdk-devel java-latest-openjdk glslang-devel glslang direnv shfmt \
   shellcheck tidy gnutls-devel texlive-scheme-basic texlive-capt-of texlive-ulem texlive-wrapfig \
-  texlive-pdfextra fuzzel greetd tlp tlp-rdw powertop mullvad-vpn syncthing automake kernel-devel \
-  pamixer brightnessctl flatpak openh264 mozilla-openh264 wl-clipboard direnv sbcl shfmt shellcheck \
-  gnuplot java-latest-openjdk java-latest-openjdk-devel tidy glslang-devel clang-tools-extra ktorrent \
-  maven toolbox php composer
+  texlive-pdfextra tlp tlp-rdw powertop mullvad-vpn syncthing automake kernel-devel pamixer \
+  brightnessctl flatpak openh264 mozilla-openh264 wl-clipboard direnv sbcl shfmt shellcheck \
+  gnuplot java-latest-openjdk java-latest-openjdk-devel tidy glslang-devel clang-tools-extra \
+  ktorrent maven toolbox php composer
 
 # Configure powertop
 sudo systemctl mask power-profiles-daemon
 sudo powertop --auto-tune
 
 # OpenH264 for Firefox
-sudo dnf5 config-manager --set-enabled fedora-cisco-openh264
+sudo dnf config-manager --set-enabled fedora-cisco-openh264
 
 # Flatpaks install
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -49,9 +49,8 @@ flatpak install com.discordapp.Discord org.keepassxc.KeePassXC
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-  zoxide cargo-update tree-sitter-cli editorconfig starship \
-  myfly alacritty
+~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update \
+  tree-sitter-cli editorconfig starship myfly alacritty
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -120,7 +119,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/mast
 # Setup Docker
 sudo dnf5 remove docker docker-client docker-client-latest docker-common docker-latest \
   docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
-sudo dnf5 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf5 install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin
 sudo systemctl enable docker
 sudo systemctl enable containerd
@@ -132,7 +131,7 @@ sudo dnf5 install https://releases.mattermost.com/desktop/5.8.1/mattermost-deskt
 
 # # Sway installation
 # sudo dnf5 copr enable erikreider/SwayNotificationCenter
-# sudo dnf5 install -y SwayNotificationCenter sway wob
+# sudo dnf5 install -y SwayNotificationCenter sway wob fuzzel greetd
 # # Wttr bar for weather
 # mkdir -p ~/Dev && cd ~/Dev
 # git clone https://github.com/bjesus/wttrbar.git
