@@ -28,7 +28,7 @@ type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
 type dnf5 >/dev/null 2>&1 && alias dnf="dnf5"
 type dnf5 >/dev/null 2>&1 && alias se="dnf5 search"
 type dnf5 >/dev/null 2>&1 && alias in="sudo dnf5 install"
-type dnf5 >/dev/null 2>&1 && alias up="dnf5 upgrade -y"
+type dnf5 >/dev/null 2>&1 && alias up="sudo dnf5 upgrade -y"
 
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
