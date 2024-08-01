@@ -15,6 +15,8 @@ alias clr="clear"
 alias zzz="exit"
 alias upp="rustup update; cargo install-update -a; \
   doom up; doom sync; doom gc;"
+alias cleana="sed -i -e \"s/\r//g\""
+alias cleanb="sed -i -e \"s/\e\[[0-9;]*m//g\""
 
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
