@@ -102,7 +102,7 @@ OMB_USE_SUDO=true
 # Add wisely, as too many completions slow down shell startup.
 completions=(
   git
-  composer
+  # composer
   ssh
 )
 
@@ -122,7 +122,6 @@ aliases=(
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  # bashmarks
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -166,6 +165,7 @@ alias bashconfig="nvim ~/.bashrc"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 eval "$(mcfly init bash)"
+eval "$(fzf --bash)"
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

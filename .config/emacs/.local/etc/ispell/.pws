@@ -1,7 +1,8 @@
-personal_ws-1.1 en 66
+personal_ws-1.1 en 69
 anthropogenic
 aphotic
 apis
+backend
 biome
 biometric
 bootcamp
@@ -18,6 +19,7 @@ decrypts
 degauss
 dev
 elisp
+hardcoded
 homomorphic
 hulu
 invertible
@@ -50,6 +52,7 @@ recency
 roadmap
 saas
 sanitization
+semgrep
 skillbridge
 subnetwork
 templating
