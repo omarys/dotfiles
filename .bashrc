@@ -166,7 +166,7 @@ alias bashconfig="nvim ~/.bashrc"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 eval "$(mcfly init bash)"
-eval "$(fzf init bash)"
+eval "$(fzf --bash)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
