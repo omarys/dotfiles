@@ -1,4 +1,4 @@
-personal_ws-1.1 en 69
+personal_ws-1.1 en 75
 anthropogenic
 aphotic
 apis
@@ -19,6 +19,7 @@ decrypts
 degauss
 dev
 elisp
+exfiltration
 hardcoded
 homomorphic
 hulu
@@ -39,6 +40,8 @@ modeline
 config
 morreall's
 nitrous
+opencti
+openssl
 orthotic
 outprocessing
 ozonosphere
@@ -49,12 +52,15 @@ powershell
 pseudocode
 pts
 recency
+repos
 roadmap
+rulesets
 saas
 sanitization
 semgrep
 skillbridge
 subnetwork
+suricata
 templating
 timeboxing
 o'mary

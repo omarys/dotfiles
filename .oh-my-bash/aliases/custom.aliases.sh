@@ -19,6 +19,8 @@ alias upp="rustup update; cargo install-update -a; \
 alias cleana="sed -i -e \"s/\r//g\""
 alias cleanb="sed -i -e \"s/\e\[[0-9;]*m//g\""
 
+type yazi >/dev/null 2>&1 && alias xp="yazi"
+
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
