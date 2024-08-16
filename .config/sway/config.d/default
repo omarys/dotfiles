@@ -18,7 +18,7 @@ set $mic_mute $(pamixer --default-source --toggle-mute)
 
 set $play_video $(mpv $(wl-paste))
 
-set $term-float alacritty
+set $term-float kitty
 
 set $menu fuzzel
 # set $menu wofi -c ~/.config/wofi/config -I
