@@ -101,9 +101,17 @@ OMB_USE_SUDO=true
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
+  awscli
+  docker
   git
-  # composer
+  go
+  kubectl
+  maven
+  npm
+  nvm
+  pip3
   ssh
+  terraform
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -114,6 +122,8 @@ aliases=(
   general
   misc
   custom
+  docker
+  terraform
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -121,7 +131,16 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  ansible
+  aws
   git
+  goenv
+  golang
+  npm
+  nvm
+  progress
+  sudo
+  zoxide
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -164,7 +183,7 @@ export EDITOR='nvim'
 alias bashconfig="nvim ~/.bashrc"
 . "$HOME/.cargo/env"
 eval "$(starship init bash)"
-eval "$(zoxide init bash)"
+# eval "$(zoxide init bash)"
 eval "$(mcfly init bash)"
 eval "$(fzf --bash)"
 

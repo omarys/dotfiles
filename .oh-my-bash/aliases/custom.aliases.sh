@@ -40,6 +40,37 @@ type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
 type nvim >/dev/null 2>&1 && alias bashconfig="nvim ~/.bashrc"
 type nvim >/dev/null 2>&1 && alias aliasconfig="nvim ~/.oh-my-bash/aliases/custom.aliases.sh"
 
+type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
+if [[ -x mvn ]]; then
+  alias mci='mvn clean install'
+  alias mi='mvn install'
+  alias mcp='mvn clean package'
+  alias mp='mvn package'
+  alias mrprep='mvn release:prepare'
+  alias mrperf='mvn release:perform'
+  alias mrrb='mvn release:rollback'
+  alias mdep='mvn dependency:tree'
+  alias mpom='mvn help:effective-pom'
+  alias mcisk='mci -Dmaven.test.skip=true'
+  alias mcpsk='mcp -Dmaven.test.skip=true'
+fi
+
+if [[ -x curl ]]; then
+  # follow redirects
+  alias cl='curl -L'
+  # follow redirects, download as original name
+  alias clo='curl -L -O'
+  # follow redirects, download as original name, continue
+  alias cloc='curl -L -C - -O'
+  # follow redirects, download as original name, continue, retry 5 times
+  alias clocr='curl -L -C - -O --retry 5'
+  # follow redirects, fetch banner
+  alias clb='curl -L -I'
+  # see only response headers from a get request
+  alias clhead='curl -D - -so /dev/null'
+fi
+
 if [[ -f ~/.cmd ]]; then
   alias cmd="cat ~/.cmd"
 fi
