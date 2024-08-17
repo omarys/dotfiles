@@ -14,7 +14,7 @@ export OSH='/home/omary/.oh-my-bash'
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-  PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$HOME/.config/emacs/bin:$PATH"
+  PATH="$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.config/emacs/bin:$PATH"
 fi
 export PATH
 

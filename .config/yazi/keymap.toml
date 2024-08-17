@@ -1,0 +1,19 @@
+[[manager.prepend_keymap]]
+on = [ "g", "a" ]
+run = "cd ~/Videos/"
+desc = "Go to Anime"
+
+[[manager.prepend_keymap]]
+on = [ "g", "d" ]
+run = "cd ~/Downloads/"
+desc = "Go to Downloads"
+
+[[manager.prepend_keymap]]
+on = [ "g", "w" ]
+run = "cd ~/Dev/"
+desc = "Go to Dev"
+
+[[manager.prepend_keymap]]
+on = [ "g", "W" ]
+run = "cd ~/Work/"
+desc = "Go to Work"
