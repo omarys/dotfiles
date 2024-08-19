@@ -1,7 +1,3 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/go/bin:$HOME/.config/emacs/bin:/usr/local/bin:$PATH
 
@@ -14,31 +10,14 @@ export ZSH="$HOME/.oh-my-zsh"
 export GPG_TTY=$(tty)
 export PINENTRY_USER_DATA="USE_TTY=1"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+# zstyle ':omz:update' frequency 7
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -47,23 +26,56 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
   ansible
+  aws
+  battery
+  bun
+  colorize
   common-aliases
+  composer
   cp
   docker
+  conda
   dotnet
   dnf
   emacs
   extract
   fd
+  fzf
+  gem
   git
+  git-flow
+  gitignore
   golang
+  gnu-utils
+  helm
+  history
+  kitty
+  laravel
+  mvn
+  node
   npm
+  nvm
+  pep8
+  perl
+  pip
+  podman
   poetry
   python
   ripgrep
   rust
+  rvm
+  spring
+  ssh
+  starship
+  sudo
+  systemd
+  terraform
+  timer
   tmux
+  toolbox
   vagrant
+  zoxide
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -116,7 +128,6 @@ if [[ -f ~/.cmd ]]; then
   alias cmd="cat ~/.cmd"
 fi
 
-eval "$(zoxide init zsh)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
@@ -136,6 +147,8 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
+eval "$(fzf --bash)"
+eval "$(mcfly init bash)"
+eval "$(zoxide init zsh)"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
