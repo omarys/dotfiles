@@ -1,4 +1,5 @@
-personal_ws-1.1 en 75
+personal_ws-1.1 en 77
+ansible
 anthropogenic
 aphotic
 apis
@@ -62,6 +63,7 @@ skillbridge
 subnetwork
 suricata
 templating
+terraform
 timeboxing
 o'mary
 scalable
