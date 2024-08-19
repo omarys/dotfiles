@@ -1,6 +1,6 @@
 .config/emacs/eln-cache
 .config/mangal/*
-.config/xplr/plugins
+.config/tmux/plugins
 .config/fish/fish_variables
 .config/weechat/sec.conf
 .local/bin
