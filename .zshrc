@@ -39,7 +39,6 @@ plugins=(
   dnf
   emacs
   extract
-  fd
   fzf
   gem
   git
@@ -61,7 +60,6 @@ plugins=(
   podman
   poetry
   python
-  ripgrep
   rust
   rvm
   spring
