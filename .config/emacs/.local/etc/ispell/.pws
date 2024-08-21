@@ -1,4 +1,4 @@
-personal_ws-1.1 en 77
+personal_ws-1.1 en 82
 ansible
 anthropogenic
 aphotic
@@ -26,9 +26,11 @@ homomorphic
 hulu
 invertible
 benchmarking
+iocs
 isolator
 isolines
 jupyter
+kibana
 landforms
 linkedin
 linters
@@ -50,6 +52,7 @@ pcap
 performant
 pilferable
 powershell
+programmatically
 pseudocode
 pts
 recency
@@ -73,6 +76,8 @@ ultrathin
 unmount
 vectorizing
 volumetrics
+warfighter
 wireframe
 workshopped
 workspaces
+zeek

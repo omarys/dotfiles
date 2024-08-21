@@ -7,7 +7,6 @@
     "modules-center": [ "sway/mode", "sway/window", ],
 
     "modules-right": [
-        "custom/wittr",
         "idle_inhibitor",
         "memory",
         "cpu",
@@ -21,7 +20,7 @@
 
     // Modules
 
-    "custom/wittr": {
+    "custom/sat_weather": {
         "format": "{}°",
         "tooltip": true,
         "interval": 900,

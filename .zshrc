@@ -4,6 +4,8 @@ export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/go/bin:$HOME/
 # default browser
 export BROWSER=/usr/bin/firefox
 
+export EDITOR='nvim'
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -27,53 +29,39 @@ DISABLE_MAGIC_FUNCTIONS="true"
 plugins=(
   ansible
   aws
-  battery
   bun
   colorize
   common-aliases
   composer
   cp
   docker
-  conda
-  dotnet
+  docker-compose
   dnf
-  emacs
+  conda
   extract
-  fd
   fzf
   gem
   git
   git-flow
   gitignore
   golang
-  gnu-utils
-  helm
-  history
-  kitty
   laravel
   mvn
   node
   npm
   nvm
-  pep8
   perl
-  pip
   podman
   poetry
   python
-  ripgrep
   rust
-  rvm
   spring
   ssh
   starship
   sudo
   systemd
   terraform
-  timer
   tmux
-  toolbox
-  vagrant
   zoxide
   zsh-autosuggestions
 )
@@ -102,7 +90,11 @@ alias pyt="poetry run python -m unittest discover"
 alias clr="clear"
 alias upp="rustup update; cargo install-update -a; \
   doom up; doom sync; doom gc;"
+alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
+alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
+alias cleana="sed -i -e \"s/\r//g\""
+alias cleanb="sed -i -e \"s/\e\[[0-9;]*m//g\""
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -114,19 +106,23 @@ type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo pacman -Syyu; pipx upgrade-all;"
 
-type dnf >/dev/null 2>&1 && alias se="dnf search"
-type dnf >/dev/null 2>&1 && alias in="sudo dnf install"
-type dnf >/dev/null 2>&1 && alias up="sudo dnf upgrade -y"
+type dnf5 >/dev/null 2>&1 && alias se="dnf5 search"
+type dnf5 >/dev/null 2>&1 && alias in="sudo dnf5 install"
+type dnf5 >/dev/null 2>&1 && alias up="sudo dnf5 upgrade -y"
+
+type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
-type xplr >/dev/null 2>&1 && alias xx="xplr"
+type yazi >/dev/null 2>&1 && alias yy="yazi"
 
 if [[ -f ~/.cmd ]]; then
   alias cmd="cat ~/.cmd"
 fi
+
+bindkey '^ ' autosuggest-accept
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -147,8 +143,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-eval "$(fzf --bash)"
-eval "$(mcfly init bash)"
-eval "$(zoxide init zsh)"
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+. "$HOME/.cargo/env"
+eval "$(mcfly init zsh)"
 export PATH="$PATH:$HOME/.rvm/bin"
