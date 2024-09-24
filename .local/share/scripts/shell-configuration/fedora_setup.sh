@@ -21,7 +21,7 @@ sudo dnf5 group upgrade --with-optional Multimedia
 # Install dev packages (mostly dependencies for emacs)
 sudo dnf5 group install "Development Tools"
 sudo dnf5 builddep emacs
-sudo dnf5 install -y zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-libs libva libva-utils \
+sudo dnf5 install -y dnf5 zsh git openssl openssl-devel alacritty mpv ffmpeg ffmpeg-libs libva libva-utils \
   opensc pcsc-perl pcsc-lite pcsc-lite-devel pcsc-tools gcc gcc-c++ make cmake pkgconf-pkg-config \
   freetype-devel fontconfig-devel libxcb xcb-util libxcb-devel python3 tmux aspell aspell-en xclip \
   ninja-build gettext unzip curl stow git zsh autoconf texinfo ImageMagick-devel ImageMagick \
@@ -49,10 +49,11 @@ flatpak install com.discordapp.Discord org.keepassxc.KeePassXC
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update \
+[ -f ~/.cargo/env ] && source $HOME/.cargo/env
+cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update \
   tree-sitter-cli editorconfig starship myfly alacritty
-~/.cargo/bin/cargo install ripgrep --features pcre2
-~/.cargo/bin/cargo install --locked --force xplr
+cargo install ripgrep --features pcre2
+cargo install --locked --force xplr
 
 # CaC service daemon
 sudo systemctl enable --now pcscd
