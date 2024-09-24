@@ -43,4 +43,5 @@
 [rebase]
   autostash = true
 [credential]
-	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+  helper = libsecret
+	; helper = /usr/libexec/git-core/git-credential-libsecret
