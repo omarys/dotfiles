@@ -146,3 +146,4 @@ unset __conda_setup
 . "$HOME/.cargo/env"
 eval "$(mcfly init zsh)"
 export PATH="$PATH:$HOME/.rvm/bin"
+eval "$(/home/omary/.linuxbrew/bin/brew shellenv)"
