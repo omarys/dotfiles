@@ -29,6 +29,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 plugins=(
   ansible
   aws
+  brew
   bun
   colorize
   common-aliases
@@ -50,6 +51,7 @@ plugins=(
   node
   npm
   nvm
+  opentofu
   perl
   podman
   poetry
@@ -60,7 +62,6 @@ plugins=(
   starship
   sudo
   systemd
-  terraform
   tmux
   zoxide
   zsh-autosuggestions
@@ -145,5 +146,8 @@ unset __conda_setup
 
 . "$HOME/.cargo/env"
 eval "$(mcfly init zsh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:$HOME/.rvm/bin"
-eval "$(/home/omary/.linuxbrew/bin/brew shellenv)"
+
+# opam configuration
+[[ ! -r /home/omary/.opam/opam-init/init.zsh ]] || source /home/omary/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
