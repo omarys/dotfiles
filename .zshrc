@@ -119,8 +119,8 @@ type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
 type yazi >/dev/null 2>&1 && alias yy="yazi"
 
-if [[ -f ~/.cmd ]]; then
-  alias cmd="cat ~/.cmd"
+if [[ -f ~/.cht ]]; then
+  alias cht="cat ~/.cht"
 fi
 
 bindkey '^ ' autosuggest-accept
