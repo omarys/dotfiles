@@ -45,3 +45,5 @@
   autostash = true
 [credential]
 	helper = libsecret 
+[rerere]
+	enabled = true
