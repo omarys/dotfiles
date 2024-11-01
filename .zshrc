@@ -94,8 +94,7 @@ alias upp="rustup update; cargo install-update -a; \
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
-alias cleana="sed -i -e \"s/\r//g\""
-alias cleanb="sed -i -e \"s/\e\[[0-9;]*m//g\""
+alias gcn="git commit --no-verify"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -117,7 +116,15 @@ type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
-type yazi >/dev/null 2>&1 && alias yy="yazi"
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
