@@ -5,13 +5,9 @@ sudo pacman -Syyu
 
 # Pacman install dependencies
 sudo pacman -S base-devel npm nodejs wl-clipboard flatpak sqlite3 direnv \
-	shfmt shellcheck tidy curl unzip aspell aspell-en stow git zsh \
-	autoconf mpv feh opensc alacritty emacs-wayland neovim pandoc \
-	python-black python-pyflakes python-isort python-pipenv python-nose \
-	python-pytest python-pipx ccid acsccid tmux pcsc-perl pcsc-tools \
-	discord greetd keepassxc steam sway waybar fuzzle swaylock
-
-pipx install poetry ansible
+  shfmt shellcheck tidy curl unzip aspell aspell-en stow git zsh \
+  autoconf mpv feh opensc kitty neovim ccid acsccid tmux pcsc-perl \
+  pcsc-tools discord keepassxc steam
 
 sudo npm install -g neovim marked js-beautify stylelint
 
@@ -20,7 +16,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust alternatives install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-	zoxide cargo-update tree-sitter-cli editorconfig starship
+  zoxide cargo-update tree-sitter-cli editorconfig starship
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked --force xplr
 
@@ -28,18 +24,11 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 sudo systemctl enable --now pcscd
 
 # Tmux package manager install
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 # Lazyvim setup
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm ~/.config/nvim/.git
-
-# Doom Emacs setup
-git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-~/.config/emacs/bin/doom install
-
-# Clean up Thunar - this was an old fix for the XFCE file manager
-/usr/bin/rm -rfv ~/.cache/thumbnails
 
 # Install mangal
 curl -sSL mangal.metafates.one/install | sh
@@ -57,19 +46,16 @@ curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certifi
 mkdir ~/Downloads/certs
 unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
 openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
-	-inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
+  -inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
 sudo trust anchor --store dod_CAs.pem
 
 # Add CAC reader capability ofr Chrome
 cd ~
 modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/onepin-opensc-pkcs11.so
 
-# Wttr bar for weather
-mkdir ~/Dev && cd ~/Dev
-git clone https://github.com/bjesus/wttrbar.git
-cd wttrbar
-cargo build --release
-cp target/release/wttrbar ~/.cargo/bin
+# Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Oh-my-bash setup
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+# Install OMZ & Auto Suggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
