@@ -44,6 +44,6 @@
 [rebase]
   autostash = true
 [credential]
-	helper = libsecret 
+	helper = libsecret
 [rerere]
 	enabled = true
