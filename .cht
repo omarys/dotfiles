@@ -1,3 +1,8 @@
+sed -i -e "s/\r//g"
+sed -i -e "s/\e\[[0-9;]*m//g"
+
+Alias     | Command
+----------|------------------------------------
 gaa       | git add --all
 gdup      | git diff @{upstream}
 gdw       | git diff --word-diff
@@ -6,11 +11,14 @@ ggp       | git push origin $(current_branch)
 grhh      | git reset --hard
 gpristine | git reset --hard && git clean -dffx
 
-sed -i -e "s/\r//g"
-sed -i -e "s/\e\[[0-9;]*m//g"
+Alias | Command
+------|----------------------
+dbl   | docker build
+dils  | docker image ls
+dipru | docker image prune -a
 
 Alias | Command
------ | --------------- 
+------|---------------
 tt    | tofu
 tta   | tofu apply
 ttc   | tofu console
