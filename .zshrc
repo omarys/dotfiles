@@ -54,7 +54,6 @@ plugins=(
   opentofu
   perl
   podman
-  poetry
   python
   rust
   spring
@@ -63,6 +62,7 @@ plugins=(
   sudo
   systemd
   tmux
+  uv
   zoxide
   zsh-autosuggestions
 )
