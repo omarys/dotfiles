@@ -24,16 +24,6 @@ run = "cd ~/Work"
 desc = "Go to Work"
 
 [[manager.prepend_keymap]]
-on = ["g", "f"]
-run = "git fetch"
-desc = "Git Fetch"
-
-[[manager.prepend_keymap]]
 on = ["g", "p"]
-run = "git pull origin $(current_branch)"
-desc = "Git Pull"
-
-[[manager.prepend_keymap]]
-on = ["g", "P"]
-run = "git push origin $(current_branch)"
-desc = "Git Push"
+run = "cd ~/Pictures/"
+desc = "Go to Pictures"
