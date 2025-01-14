@@ -1,6 +1,6 @@
-command = /usr/bin/zsh
+command = ~/.config/ghostty/init.sh
 font-family = "CaskaydiaCove Nerd Font Mono"
 shell-integration = zsh
 theme = Dracula
-keybind = ctrl+h=previous_tab
-keybind = ctrl+l=next_tab
+keybind = ctrl+H=previous_tab
+keybind = ctrl+L=next_tab

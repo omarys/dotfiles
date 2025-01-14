@@ -63,18 +63,14 @@ plugins=(
   sudo
   systemd
   tmux
+  uv
   zoxide
   zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -94,6 +90,7 @@ alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
 alias gcn="git commit --no-verify"
+alias podman="docker"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -131,10 +128,6 @@ fi
 
 bindkey '^ ' autosuggest-accept
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/omary/.anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -156,4 +149,4 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # opam configuration
-[[ ! -r /home/omary/.opam/opam-init/init.zsh ]] || source /home/omary/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# [[ ! -r /home/omary/.opam/opam-init/init.zsh ]] || source /home/omary/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
