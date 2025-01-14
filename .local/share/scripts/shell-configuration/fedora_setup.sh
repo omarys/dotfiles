@@ -51,7 +51,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Rust packages install
 [ -f ~/.cargo/env ] && source $HOME/.cargo/env
 cargo install bottom lsd rm-improved fd-find bat zoxide cargo-update \
-  tree-sitter-cli editorconfig starship myfly alacritty
+  tree-sitter-cli editorconfig starship myfly alacritty git-delta
 cargo install ripgrep --features pcre2
 cargo install --locked --force xplr
 
