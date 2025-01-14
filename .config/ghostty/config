@@ -1,0 +1,6 @@
+command = /usr/bin/zsh
+font-family = "CaskaydiaCove Nerd Font Mono"
+shell-integration = zsh
+theme = Dracula
+keybind = ctrl+h=previous_tab
+keybind = ctrl+l=next_tab

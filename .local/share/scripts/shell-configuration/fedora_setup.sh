@@ -111,9 +111,6 @@ openssl pkcs7 -in ~/Downloads/certificates_pkcs7_v5_13_dod/certificates_pkcs7_v5
   -inform der -print_certs -out ~/Downloads/certificates_pkcs7_v5_13_dod/dod_CAs.pem
 sudo trust anchor --store certificates_pkcs7_v5_13_dod/dod_CAs.pem
 
-# Oh-my-bash setup
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-
 # Clean up cache (previously for Thunar)
 /usr/bin/rm -rfv ~/.cache/thumbnails
 
@@ -139,3 +136,7 @@ sudo dnf5 install https://releases.mattermost.com/desktop/5.8.1/mattermost-deskt
 # cd wttrbar
 # cargo build --release
 # cp target/release/wttrbar ~/.cargo/bin/
+
+# Install OMZ & Auto Suggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

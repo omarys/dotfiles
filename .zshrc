@@ -62,6 +62,7 @@ plugins=(
   sudo
   systemd
   tmux
+  uv
   zoxide
   zsh-autosuggestions
 )
@@ -87,7 +88,7 @@ alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
-alias upp="rustup update; cargo install-update -a;"
+alias upp="rustup update; cargo install-update -a; brew up; brew upgrade;"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
