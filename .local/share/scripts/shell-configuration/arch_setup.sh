@@ -16,8 +16,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust alternatives install
 ~/.cargo/bin/cargo install bottom lsd rm-improved fd-find bat \
-  zoxide cargo-update tree-sitter-cli editorconfig starship
+  zoxide cargo-update tree-sitter-cli editorconfig starship git-delta
 ~/.cargo/bin/cargo install ripgrep --features pcre2
+~/.cargo/bin/cargo install --locked yazi-fm yazi-cli
 ~/.cargo/bin/cargo install --locked --force xplr
 
 # CaC service daemon

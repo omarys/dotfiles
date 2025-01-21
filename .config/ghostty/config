@@ -1,0 +1,5 @@
+command = ~/.config/ghostty/init.sh
+font-family = "CaskaydiaCove Nerd Font Mono"
+shell-integration = zsh
+theme = Dracula
+window-decoration = false

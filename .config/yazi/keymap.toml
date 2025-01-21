@@ -14,11 +14,6 @@ run = "cd ~/Documents"
 desc = "Go to Documents"
 
 [[manager.prepend_keymap]]
-on = ["g", "p"]
-run = "cd ~/Pictures/"
-desc = "Go to Pictures"
-
-[[manager.prepend_keymap]]
 on = ["g", "w"]
 run = "cd ~/Dev"
 desc = "Go to Dev"
@@ -27,3 +22,8 @@ desc = "Go to Dev"
 on = ["g", "W"]
 run = "cd ~/Work"
 desc = "Go to Work"
+
+[[manager.prepend_keymap]]
+on = ["g", "p"]
+run = "cd ~/Pictures/"
+desc = "Go to Pictures"

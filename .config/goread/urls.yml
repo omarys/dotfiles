@@ -1,0 +1,949 @@
+categories:
+    - name: News
+      desc: All the news fit to report
+      subscriptions:
+        - name: Stack Overflow Blog
+          desc: ""
+          url: http://blog.stackoverflow.com/feed/
+        - name: Krebs on Security
+          desc: ""
+          url: https://krebsonsecurity.com/feed/
+        - name: Schneier on Security
+          desc: ""
+          url: https://www.schneier.com/feed/atom/
+        - name: It's FOSS
+          desc: ""
+          url: http://feeds.feedburner.com/ItsFoss
+        - name: Mozilla Hacks – the Web developer blog
+          desc: ""
+          url: https://hacks.mozilla.org/feed/
+        - name: GuildWars2.com
+          desc: ""
+          url: https://www.guildwars2.com/en/feed/
+        - name: TF2 Official Blog
+          desc: ""
+          url: https://www.teamfortress.com/rss.xml
+        - name: The Foreign Exchanges Companion
+          desc: ""
+          url: https://fx-companion.com/feed/
+        - name: Democracy Now!
+          desc: ""
+          url: https://www.democracynow.org/democracynow.rss
+        - name: Hexbear - All
+          desc: ""
+          url: https://www.hexbear.net/feeds/all.xml?sort=Active
+        - name: Lobsters
+          desc: ""
+          url: https://lobste.rs/rss
+        - name: The Hacker News
+          desc: ""
+          url: https://feeds.feedburner.com/TheHackersNews
+        - name: Political Theory - Habermas and Rawls
+          desc: ""
+          url: https://habermas-rawls.blogspot.com/feeds/posts/default?alt=rss
+        - name: Google Developers Blog
+          desc: ""
+          url: http://googlecode.blogspot.com/feeds/posts/default
+        - name: Google Testing Blog
+          desc: ""
+          url: http://googletesting.blogspot.com/feeds/posts/default
+        - name: Hacker News Active
+          desc: ""
+          url: https://hnrss.org/active
+        - name: Hacker News Best
+          desc: ""
+          url: https://hnrss.org/best
+        - name: Hacker News Best Comments
+          desc: ""
+          url: https://hnrss.org/bestcomments
+    - name: CLI
+      desc: Command line
+      subscriptions:
+        - name: Charlie Harrington
+          desc: ""
+          url: https://www.charlieharrington.com/rss.xml
+        - name: xavier roche's homework
+          desc: ""
+          url: http://blog.httrack.com/atom.xml
+        - name: Arabesque
+          desc: ""
+          url: http://blog.sanctum.geek.nz/feed/
+        - name: Cyclopedia Square
+          desc: ""
+          url: http://bryan-murdock.blogspot.com/atom.xml
+        - name: ceving
+          desc: ""
+          url: http://ceving.blogspot.com/feeds/posts/default
+        - name: Erica Sadun
+          desc: ""
+          url: http://ericasadun.com/feed/
+        - name: cat -v
+          desc: ""
+          url: http://harmful.cat-v.org/Blog/index.atom
+        - name: Chaotic Security
+          desc: ""
+          url: http://turbochaos.blogspot.com/feeds/posts/default
+        - name: daniel.haxx.se
+          desc: ""
+          url: https://daniel.haxx.se/blog/feed/
+    - name: Dev
+      desc: Development
+      subscriptions:
+        - name: Martin Fowler
+          desc: ""
+          url: https://martinfowler.com/feed.atom
+        - name: Jon Skeet's coding blog
+          desc: ""
+          url: http://codeblog.jonskeet.uk/feed/
+        - name: Signal v. Noise
+          desc: ""
+          url: https://m.signalvnoise.com/feed/
+        - name: Scott Hanselman's Blog
+          desc: ""
+          url: http://feeds.hanselman.com/scotthanselman
+        - name: Yasoob Khalid
+          desc: ""
+          url: https://yasoob.me/index.xml
+        - name: Ming-Lun "Allen" Chou | 周明倫
+          desc: ""
+          url: http://allenchou.net/feed/
+        - name: Otaku – Cedric's blog
+          desc: ""
+          url: http://beust.com/weblog/feed/
+        - name: The Clean Code Blog
+          desc: Uncle Bob
+          url: http://blog.cleancoder.com/atom.xml
+        - name: Digital Horror
+          desc: ""
+          url: http://blog.digital-horror.com/rss/
+        - name: The Go Blog
+          desc: ""
+          url: http://blog.golang.org/feeds/posts/default
+        - name: Morten Nobel's Blog
+          desc: ""
+          url: http://blog.nobel-joergensen.com/feed/
+        - name: Etsy Engineering | Code as Craft
+          desc: ""
+          url: http://codeascraft.etsy.com/feed/
+        - name: d0c_s4vage
+          desc: ""
+          url: http://d0cs4vage.blogspot.com/feeds/posts/default
+        - name: Kaspar Daugaard’s Blog
+          desc: ""
+          url: http://daugaard.org/feed/
+        - name: Elegant Coding
+          desc: ""
+          url: http://feeds.feedburner.com/ElegantCoding
+        - name: Eli Bendersky's website
+          desc: ""
+          url: http://eli.thegreenplace.net/feed/
+        - name: Fabulous adventures in coding
+          desc: ""
+          url: http://ericlippert.com/feed/
+        - name: Evan Miller’s News
+          desc: ""
+          url: http://evanmiller.org/news.xml
+        - name: EWONTFIX
+          desc: ""
+          url: http://ewontfix.com/feed.rss
+        - name: fabiensanglard.net
+          desc: ""
+          url: http://fabiensanglard.net/rss.xml
+        - name: Giant Robots Smashing Into Other Giant Robots
+          desc: ""
+          url: http://feeds.feedburner.com/GiantRobotsSmashingIntoOtherGiantRobots
+        - name: The Mindful Programmer
+          desc: ""
+          url: http://feeds.feedburner.com/JoniSalonen
+        - name: Kris Jenkins' Blog
+          desc: ""
+          url: http://feeds.feedburner.com/KrisJenkinsBlog?format=xml
+        - name: PyImageSearch
+          desc: ""
+          url: http://feeds.feedburner.com/Pyimagesearch
+        - name: Solarian Programmer
+          desc: ""
+          url: http://feeds.feedburner.com/SolarianProgrammer
+        - name: spf13
+          desc: ""
+          url: http://feeds.feedburner.com/spf13
+        - name: Games from Within
+          desc: ""
+          url: http://gamesfromwithin.com/feed
+        - name: Math ∩ Programming
+          desc: ""
+          url: http://jeremykun.com/feed/
+        - name: Joel on Software
+          desc: ""
+          url: http://joelonsoftware.com/rss.xml
+        - name: Functional[Justin
+          desc: ""
+          url: http://justinhj.github.io/feed.xml
+        - name: Julia Evans
+          desc: ""
+          url: http://jvns.ca/atom.xml
+        - name: MBR
+          desc: ""
+          url: http://marc-b-reynolds.github.io/feed.xml
+        - name: Metaphysical Developer
+          desc: ""
+          url: http://metaphysicaldeveloper.wordpress.com/feed/
+        - name: NSBlog
+          desc: ""
+          url: http://mikeash.com/pyblog/rss.py?mode=fulltext
+        - name: null program
+          desc: ""
+          url: http://nullprogram.com/feed/
+        - name: Overbyte - Latest blog entries
+          desc: ""
+          url: http://overbyte.com.au/index.php/overbyte-blog/latest?format=feed&type=rss
+        - name: PEMPEK.NET
+          desc: ""
+          url: http://pempek.net/feed/
+        - name: Pointers Gone Wild
+          desc: ""
+          url: http://pointersgonewild.wordpress.com/feed/
+        - name: Probably Dance
+          desc: ""
+          url: http://probablydance.com/feed/
+        - name: Nathan Reed’s coding blog
+          desc: ""
+          url: http://reedbeta.com/blog/feed/
+        - name: research!rsc
+          desc: ""
+          url: http://research.swtch.com/feed.atom
+        - name: SchellCode
+          desc: ""
+          url: http://schellcode.github.io/feed.xml
+        - name: Steve Hanov's Programming Blog
+          desc: ""
+          url: http://stevehanov.ca/blog/?atom
+        - name: Technomancy
+          desc: ""
+          url: http://technomancy.us/feed/atom
+        - name: Tom Dalling
+          desc: ""
+          url: http://tomdalling.com/blog/feed
+        - name: Troydm's Blog
+          desc: ""
+          url: http://troydm.github.io/atom.xml
+        - name: Promit's Ventspace
+          desc: ""
+          url: http://ventspace.wordpress.com/feed/
+        - name: Proper Fixation
+          desc: ""
+          url: http://yosefk.com/blog/feed
+        - name: zeux.io
+          desc: ""
+          url: http://zeuxcg.org/feed
+        - name: zserge's blog
+          desc: ""
+          url: http://zserge.com/rss.xml
+        - name: Security Through Obscurity
+          desc: ""
+          url: https://alschwalm.com/blog/static/rss/index.xml
+        - name: Posts on Made of Bugs
+          desc: ""
+          url: https://blog.nelhage.com/atom.xml
+        - name: sanity, inc.
+          desc: ""
+          url: https://feeds.feedburner.com/SanityInc
+        - name: Mr Dias
+          desc: ""
+          url: https://feeds2.feedburner.com/mrdias
+        - name: fitzsim's development log
+          desc: ""
+          url: https://fitzsim.org/blog/?feed=rss2&amp;cat=3
+        - name: Loonytek – Delving into Tech
+          desc: ""
+          url: https://loonytek.com/feed/
+        - name: Stories by Jamis Buck on Medium
+          desc: ""
+          url: https://medium.com/feed/@jamis
+        - name: fastblog
+          desc: ""
+          url: https://muellerzr.github.io/fastblog/feed.xml
+        - name: Something Something Programming
+          desc: ""
+          url: https://nickdrozd.github.io/feed.xml
+        - name: nlguillemot
+          desc: ""
+          url: https://nlguillemot.wordpress.com/feed/
+        - name: Posts on memdump
+          desc: ""
+          url: https://philippegroarke.com//posts/index.xml
+        - name: Paul Khuong
+          desc: Some Lisp
+          url: https://pvk.ca/atom.xml
+        - name: Ryan Marcus
+          desc: ""
+          url: https://rmarcus.info/blog/atom.xml
+        - name: Software the Hard way
+          desc: ""
+          url: https://software.rajivprab.com/feed/
+        - name: Laurence Tratt
+          desc: Essays
+          url: https://tratt.net/laurie/blog/entries.rss
+    - name: Python
+      desc: Python
+      subscriptions:
+        - name: Real Python
+          desc: ""
+          url: https://realpython.com/atom.xml
+        - name: Planet Python
+          desc: ""
+          url: https://planetpython.org/rss20.xml
+        - name: CoreyMS
+          desc: ""
+          url: http://coreyms.com/feed/
+        - name: Trey Hunner
+          desc: ""
+          url: http://treyhunner.com/atom.xml
+        - name: Guillaume Genthial blog
+          desc: ""
+          url: https://guillaumegenthial.github.io/feed.xml
+        - name: PyCoder’s Weekly
+          desc: ""
+          url: https://pycoders.com/feed/bmtfgMEB
+        - name: Win Vector LLC
+          desc: ""
+          url: https://win-vector.com/feed/
+    - name: Sys Langs
+      desc: System Level Programming Languages
+      subscriptions:
+        - name: Read Rust - All
+          desc: ""
+          url: https://readrust.net/all/feed.rss
+        - name: Gordon Brown on<br>C++, Gamedev, Heterogeneous Computing
+          desc: ""
+          url: http://aerialmantis.co.uk/feed.xml
+        - name: Andrzej's C++ blog
+          desc: ""
+          url: http://akrzemi1.wordpress.com/feed/
+        - name: Simplify C++
+          desc: ""
+          url: http://arne-mertz.de/feed/
+        - name: b.atch.se
+          desc: ""
+          url: http://b.atch.se/rss.xml
+        - name: Fast. Faster. Freak
+          desc: ""
+          url: http://bitcharmer.blogspot.com/feeds/posts/default
+        - name: shifting bits
+          desc: ""
+          url: http://bitshifter.github.io/atom.xml
+        - name: Sticky Bits – Powered by Feabhas
+          desc: ""
+          url: http://blog.feabhas.com/feed/rss2/
+        - name: Blargh
+          desc: ""
+          url: http://blog.habets.pp.se/rss
+        - name: Josh Haberman
+          desc: ""
+          url: http://blog.reverberate.org/feeds/posts/default
+        - name: Sy Brand
+          desc: ""
+          url: http://blog.tartanllama.xyz/feed.xml
+        - name: hbr
+          desc: ""
+          url: http://brnz.org/hbr/?feed=rss2
+        - name: code-spot
+          desc: ""
+          url: http://code-spot.co.za/feed/
+        - name: code_of_the_damned();
+          desc: ""
+          url: http://codeofthedamned.com/index.php?tempskin=_atom
+        - name: John Ratcliff's Code Suppository
+          desc: ""
+          url: http://codesuppository.blogspot.com/feeds/posts/default
+        - name: Trash Can of Code
+          desc: ""
+          url: http://cottonvibes.blogspot.com/feeds/posts/default
+        - name: C++ Truths
+          desc: ""
+          url: http://cpptruths.blogspot.com/feeds/posts/default
+        - name: Dr. Dobb's C/C++
+          desc: ""
+          url: http://ddj.com/rss/cpp.xml
+        - name: Eric Niebler
+          desc: ""
+          url: http://ericniebler.com/feed/
+        - name: Fahrenheit's C++ exercises
+          desc: ""
+          url: http://fahrenheit2539.blogspot.com/feeds/posts/default
+        - name: C++ Soup!
+          desc: ""
+          url: http://feeds.feedburner.com/CppSoup
+        - name: Karl Seguin
+          desc: ""
+          url: http://feeds.feedburner.com/KarlSeguinsBlog
+        - name: KholdCode
+          desc: ""
+          url: http://feeds.feedburner.com/Kholdcode
+        - name: Gamedev Coder Diary
+          desc: ""
+          url: http://gamedevcoder.wordpress.com/feed/
+        - name: Jens Gustedt's Blog
+          desc: ""
+          url: http://gustedt.wordpress.com/feed/
+        - name: Sutter’s Mill
+          desc: ""
+          url: http://herbsutter.wordpress.com/feed/
+        - name: Honza Hubička's Blog
+          desc: ""
+          url: http://hubicka.blogspot.com/feeds/posts/default
+        - name: IT Hare on Soft.ware
+          desc: ""
+          url: http://ithare.com/rssfeed/
+        - name: Daniel Lemire's blog
+          desc: ""
+          url: http://lemire.me/blog/feed/
+        - name: Manu343726
+          desc: ""
+          url: http://manu343726.github.io/feed.xml
+        - name: Code, code and more code.
+          desc: ""
+          url: http://marcgravell.blogspot.com/feeds/posts/default
+        - name: Meeting C++ blog
+          desc: ""
+          url: http://meetingcpp.com/blogen.xml
+        - name: ndebug
+          desc: ""
+          url: http://ndebug.blogspot.com/feeds/posts/default
+        - name: nurpax.github.com blog
+          desc: ""
+          url: http://nurpax.github.io/rss.xml
+        - name: Planet Clang
+          desc: ""
+          url: http://planet.clang.org/atom.xml
+        - name: Preshing on Programming
+          desc: ""
+          url: http://preshing.com/feed
+        - name: Random programming
+          desc: ""
+          url: http://randomprogramming.com/feed/
+        - name: slackito.com
+          desc: ""
+          url: http://slackito.com/feed/
+        - name: Tolga Ceylan's Linux, C/C++ Blog
+          desc: ""
+          url: http://tolgaceylan.tumblr.com/rss
+        - name: Michael Wong's Standard
+          desc: ""
+          url: http://wongmichael.com/feed/
+        - name: Matt Godbolt’s blog
+          desc: ""
+          url: http://xania.org/feed
+        - name: Multi-paradigm
+          desc: ""
+          url: http://yapb-soc.blogspot.com/feeds/posts/default
+        - name: zverovich.net
+          desc: ""
+          url: http://zverovich.net/atom.xml
+        - name: 3D Game Engine Programming
+          desc: ""
+          url: https://3dgep.com/feed/
+        - name: bheisler.github.io
+          desc: ""
+          url: https://bheisler.github.io/index.xml
+        - name: Development Chaos Theory
+          desc: ""
+          url: https://chaosinmotion.blog/feed/
+        - name: fasterthanli.me
+          desc: ""
+          url: https://fasterthanli.me/index.xml
+        - name: HookRace Blog
+          desc: ""
+          url: https://hookrace.net/blog/feed/
+        - name: Michael Kazakov's quiet corner
+          desc: ""
+          url: https://kazakov.life/feed/
+        - name: Krister Walfridsson’s old blog
+          desc: ""
+          url: https://kristerw.blogspot.com/feeds/posts/default
+        - name: lchsk - blog and technical articles
+          desc: ""
+          url: https://lchsk.com/posts.xml
+        - name: Molecular Musings
+          desc: ""
+          url: https://molecularmusings.wordpress.com/feed/
+        - name: Eight million pixels and counting
+          desc: ""
+          url: https://nical.github.io/feeds/all.atom.xml
+        - name: Type Unknown
+          desc: ""
+          url: https://pkeir.github.io/feed.xml
+        - name: Raph Levien’s blog
+          desc: ""
+          url: https://raphlinus.github.io/feed.xml
+        - name: Prog stuff
+          desc: ""
+          url: https://stoyannk.wordpress.com/feed/
+        - name: The Pasture
+          desc: ""
+          url: https://thephd.github.io/feed.xml
+    - name: Misc
+      desc: Everything else
+      subscriptions:
+        - name: From the Canyon Edge
+          desc: ""
+          url: http://blog.dustinkirkland.com/feeds/posts/default
+        - name: M I R A B I L A R Y
+          desc: ""
+          url: https://anneboyer.substack.com/feed
+        - name: K-Squared Ramblings
+          desc: ""
+          url: https://www.hyperborea.org/journal/feed/
+        - name: Michael W Lucas
+          desc: ""
+          url: https://mwl.io/feed
+        - name: LOW←TECH MAGAZINE
+          desc: ""
+          url: https://solar.lowtechmagazine.com/feeds/all-en.atom.xml
+        - name: Craig Maloney
+          desc: ""
+          url: http://decafbad.net/feed
+        - name: inkdroid
+          desc: ""
+          url: https://inkdroid.org/feed.xml
+        - name: xkcd.com
+          desc: ""
+          url: http://xkcd.com/atom.xml
+        - name: Saturday Morning Breakfast Cereal
+          desc: ""
+          url: https://www.smbc-comics.com/comic/rss
+        - name: Serious Eats
+          desc: ""
+          url: http://feeds.feedburner.com/seriouseatsfeaturesvideos
+        - name: The Bioneer
+          desc: ""
+          url: https://www.thebioneer.com/feed/
+        - name: James R Williams
+          desc: ""
+          url: https://www.jamesrwilliams.net/feed/
+        - name: Youpi !
+          desc: ""
+          url: http://barradeau.com/blog/?feed=rss2
+        - name: Tavis Ormandy
+          desc: ""
+          url: http://blog.cmpxchg8b.com/feeds/posts/default
+        - name: duangle
+          desc: ""
+          url: http://blog.duangle.com/feeds/posts/default
+        - name: The Universe of Discourse
+          desc: ""
+          url: http://blog.plover.com/index.rss
+        - name: Idle Time
+          desc: ""
+          url: http://boredzo.org/blog/feed/atom
+        - name: Croustination
+          desc: ""
+          url: http://croustination.com/feed/
+        - name: The Observation Deck
+          desc: ""
+          url: http://dtrace.org/blogs/bmc/feed/
+        - name: fuzzy notepad
+          desc: ""
+          url: http://eev.ee/feeds/atom.xml
+        - name: FlexMonkey
+          desc: ""
+          url: http://flexmonkey.blogspot.com/feeds/posts/default
+        - name: furbo.org
+          desc: ""
+          url: http://furbo.org/feed/
+        - name: Fuzzy Yellow Balls
+          desc: ""
+          url: http://fuzzyyellowballs.com/feed/
+        - name: games.greggman.com
+          desc: ""
+          url: http://games.greggman.com/game/feed/
+        - name: GLORY OWL
+          desc: ""
+          url: http://gloryowlcomix.blogspot.com/feeds/posts/default
+        - name: The Hacks of Life
+          desc: ""
+          url: http://hacksoflife.blogspot.com/feeds/posts/default
+        - name: Harry R. Schwartz
+          desc: ""
+          url: http://harryrschwartz.com/atom.xml
+        - name: Sol's Stuff
+          desc: ""
+          url: http://iki.fi/sol/rss.xml
+        - name: inessential.com
+          desc: ""
+          url: http://inessential.com/xml/rss.xml
+        - name: John Whigham's Blog
+          desc: ""
+          url: http://johnwhigham.blogspot.com/feeds/posts/default
+        - name: Jon Olick - Home
+          desc: ""
+          url: http://jonolick.com/2/feed
+        - name: Joost's Dev Blog
+          desc: ""
+          url: http://joostdevblog.blogspot.com/feeds/posts/default
+        - name: Random Thoughts
+          desc: ""
+          url: http://lars.ingebrigtsen.no/feed
+        - name: vavrusa.github.io
+          desc: ""
+          url: http://marek.vavrusa.com/feed.xml
+        - name: marijnhaverbeke.nl/blog
+          desc: ""
+          url: http://marijnhaverbeke.nl/blog/feed.atom
+        - name: The Pseudo Random Bit Bucket
+          desc: ""
+          url: http://moinakg.wordpress.com/feed/
+        - name: Nervous System blog
+          desc: ""
+          url: http://n-e-r-v-o-u-s.com/blog/?feed=rss2
+        - name: Nick Bradbury
+          desc: ""
+          url: http://nickbradbury.com/feed/
+        - name: PC LOAD LETTER
+          desc: ""
+          url: http://pcloadletter.co.uk/feed/
+        - name: Peter Sobot
+          desc: ""
+          url: http://petersobot.com/atom.xml
+        - name: Phoboslab
+          desc: ""
+          url: http://phoboslab.org/log/feed
+        - name: programming is terrible
+          desc: ""
+          url: http://programmingisterrible.com/rss
+        - name: psachin.github.io
+          desc: ""
+          url: http://psachin.github.io/feed.xml
+        - name: Random ASCII – tech blog of Bruce Dawson
+          desc: ""
+          url: http://randomascii.wordpress.com/feed/
+        - name: Reenigne blog
+          desc: ""
+          url: http://reenigne.org/blog/feed/
+        - name: Remarkably Restrained
+          desc: ""
+          url: http://remarkablyrestrained.com/feed.xml
+        - name: Sam Saffron
+          desc: ""
+          url: http://samsaffron.com/posts.rss
+        - name: Sanders' blog
+          desc: ""
+          url: http://sandervanrossen.blogspot.com/feeds/posts/default
+        - name: The View from Aristeia
+          desc: ""
+          url: http://scottmeyers.blogspot.com/feeds/posts/default
+        - name: Sheredom's Blog
+          desc: ""
+          url: http://sheredom.wordpress.com/feed/
+        - name: Tangent Vector
+          desc: ""
+          url: http://tangentvector.wordpress.com/feed/
+        - name: teknidermy
+          desc: ""
+          url: http://teknidermy.com/fridge/news.0.91.rss
+        - name: Thomas Kole – Technical Artist
+          desc: ""
+          url: http://thomaskole.nl/feed/
+        - name: tonsky.me
+          desc: ""
+          url: http://tonsky.me/blog/atom.xml
+        - name: Upcoder
+          desc: ""
+          url: http://upcoder.com/feed
+        - name: William Durand
+          desc: ""
+          url: http://williamdurand.fr/atom.xml
+        - name: Zdziarski
+          desc: ""
+          url: http://zdziarski.com/blog/?feed=rss2
+        - name: Flameeyes's Weblog
+          desc: ""
+          url: https://blog.flameeyes.eu/articles.atom
+        - name: Dan Engelbrecht
+          desc: ""
+          url: https://danengelbrecht.github.io/feed.xml
+        - name: Rekado
+          desc: ""
+          url: https://elephly.net/feed.xml
+        - name: ImperialViolet
+          desc: ""
+          url: https://imperialviolet.org/iv-rss.xml
+        - name: Justin Pinkney's blog
+          desc: ""
+          url: https://justinpinkney.com/rss.xml
+        - name: Stories by Andrej Karpathy on Medium
+          desc: ""
+          url: https://medium.com/feed/@karpathy
+        - name: Radical Candor
+          desc: ""
+          url: https://radicalcandor.com/feed/
+        - name: Tassilo's Blog
+          desc: ""
+          url: https://tsdh.wordpress.com/feed
+    - name: Sci
+      desc: Science
+      subscriptions:
+        - name: DevRel, Developer Education and OSS
+          desc: ""
+          url: https://ramonh.dev/blog/feed.xml
+        - name: Coding Horror
+          desc: ""
+          url: https://blog.codinghorror.com/rss/
+        - name: Articles on Smashing Magazine — For Web Designers And Developers
+          desc: ""
+          url: https://www.smashingmagazine.com/feed
+        - name: computers are bad
+          desc: ""
+          url: https://computer.rip/rss.xml
+        - name: Ben's Place
+          desc: ""
+          url: https://www.hardill.me.uk/wordpress/feed/
+        - name: Blue Labyrinths
+          desc: ""
+          url: https://bluelabyrinths.com/feed/
+        - name: Aeon | a world of ideas
+          desc: ""
+          url: https://aeon.co/feed.rss
+        - name: Acko.net
+          desc: ""
+          url: http://acko.net/blog/feed
+        - name: Adrian Boeing Blog
+          desc: ""
+          url: http://adrianboeing.blogspot.com/feeds/posts/default
+        - name: Adrian Sampson
+          desc: ""
+          url: http://adriansampson.net/blog.xml
+        - name: Amir Rachum’s Blog
+          desc: ""
+          url: http://amir.rachum.com/feed.xml
+        - name: Andrea Corbellini
+          desc: ""
+          url: http://andrea.corbellini.name/feed.atom
+        - name: antirez
+          desc: ""
+          url: http://antirez.com/rss
+        - name: Artima Developer Spotlight
+          desc: ""
+          url: http://artima.com/spotlight/feeds/spotlight.rss
+        - name: Attractive Chaos
+          desc: ""
+          url: http://attractivechaos.wordpress.com/feed/
+        - name: The Berkeley Artificial Intelligence Research Blog
+          desc: ""
+          url: http://bair.berkeley.edu/blog/feed.xml
+        - name: Bartosz Milewski's Programming Cafe
+          desc: ""
+          url: http://bartoszmilewski.wordpress.com/feed/
+        - name: Bastibe.de
+          desc: ""
+          url: http://bastibe.de/rss.xml
+        - name: Beautiful Pixels
+          desc: ""
+          url: http://beautifulpixels.blogspot.com/feeds/posts/default
+        - name: BIT-101
+          desc: ""
+          url: http://bit-101.com/blog/?feed=rss2
+        - name: BitFunnel
+          desc: ""
+          url: http://bitfunnel.org/index.xml
+        - name: 8th Light Blog
+          desc: ""
+          url: http://blog.8thlight.com/feed/atom.xml
+        - name: Alex MacCaw
+          desc: ""
+          url: http://blog.alexmaccaw.com/feed
+        - name: The blog at the bottom of the sea
+          desc: ""
+          url: http://blog.demofox.org/feed/
+        - name: A Neighborhood of Infinity
+          desc: ""
+          url: http://blog.sigfpe.com/feeds/posts/default
+        - name: Book Of Hook
+          desc: ""
+          url: http://bookofhook.blogspot.com/feeds/posts/default
+        - name: briansharpe
+          desc: ""
+          url: http://briansharpe.wordpress.com/feed/
+        - name: Build New Games
+          desc: ""
+          url: http://buildnewgames.com/atom.xml
+        - name: C'est la Z
+          desc: ""
+          url: http://cestlaz.github.io/rss.xml
+        - name: Chad Austin
+          desc: ""
+          url: http://chadaustin.me/feed/
+        - name: charlesleifer.com
+          desc: ""
+          url: http://charlesleifer.com/blog/rss/
+        - name: Chris Done's Blog
+          desc: ""
+          url: http://chrisdone.com/rss.xml
+        - name: Christian Heilmann
+          desc: ""
+          url: http://christianheilmann.com/feed/
+        - name: cleverhans-blog
+          desc: ""
+          url: http://cleverhans.io/feed.xml
+        - name: codersnotes.com
+          desc: ""
+          url: http://codersnotes.com/atom/
+        - name: Digesting Duck
+          desc: ""
+          url: http://digestingduck.blogspot.com/feeds/posts/default
+        - name: Brendan's blog
+          desc: ""
+          url: http://dtrace.org/blogs/brendan/feed/
+        - name: Essential Math Weblog
+          desc: ""
+          url: http://essentialmath.com/blog/?feed=rss2
+        - name: Exploring Binary
+          desc: ""
+          url: http://feeds.exploringbinary.com/exploringbinary
+        - name: 50Ply Blog
+          desc: ""
+          url: http://feeds.feedburner.com/50plyBlog
+        - name: Zach Holman
+          desc: ""
+          url: http://feeds.feedburner.com/holman
+        - name: Brandon Keepers
+          desc: ""
+          url: http://feeds.feedburner.com/opensoul
+        - name: All commands
+          desc: ""
+          url: http://feeds2.feedburner.com/Command-line-fu
+        - name: Award Winning Fjords
+          desc: ""
+          url: http://feeds2.feedburner.com/awf-allposts
+        - name: The ryg blog
+          desc: ""
+          url: http://fgiesen.wordpress.com/feed/
+        - name: fhtr
+          desc: ""
+          url: http://fhtr.blogspot.com/feeds/posts/default
+        - name: Articles on gingerBill
+          desc: ""
+          url: http://gingerbill.org/article/index.xml
+        - name: Hummus and Magnets
+          desc: ""
+          url: http://h14s.p5r.org/feed
+        - name: Harder, Better, Faster, Stronger
+          desc: ""
+          url: http://hbfs.wordpress.com/feed/
+        - name: Humus
+          desc: ""
+          url: http://humus.name/rss.xml
+        - name: I'm doing it wrong
+          desc: ""
+          url: http://imdoingitwrong.wordpress.com/feed/
+        - name: John D. Cook
+          desc: ""
+          url: http://johndcook.com/blog/feed/
+        - name: Andrej Karpathy blog
+          desc: ""
+          url: http://karpathy.github.io/feed.xml
+        - name: The Kitchin Research Group
+          desc: ""
+          url: http://kitchingroup.cheme.cmu.edu/blog/feed/atom
+        - name: Articles
+          desc: ""
+          url: http://locklessinc.com/feed.rss
+        - name: Armin Ronacher's Thoughts and Writings
+          desc: ""
+          url: http://lucumr.pocoo.org/feed.atom
+        - name: Blog on Machine, Think!
+          desc: ""
+          url: http://machinethink.net/blog/index.xml
+        - name: Magnus Wrenninge
+          desc: ""
+          url: http://magnuswrenninge.com/feed
+        - name: Nicholas Frechette's Blog
+          desc: ""
+          url: http://nfrechette.github.io/atom.xml
+        - name: A Random Walk Through Geek-Space
+          desc: ""
+          url: http://sebastiansylvan.com/index.xml
+        - name: Blobs in Games
+          desc: ""
+          url: http://simblob.blogspot.com/feeds/posts/default
+        - name: Alan Tatourian
+          desc: ""
+          url: http://tatourian.wordpress.com/feed/
+        - name: Changelog
+          desc: ""
+          url: http://thechangelog.com/rss
+        - name: Twisted Oak Studios Blog
+          desc: ""
+          url: http://twistedoakstudios.com/blog/?feed=rss
+        - name: The Unapologetic Mathematician
+          desc: ""
+          url: http://unapologetic.wordpress.com/feed/
+        - name: apoorvaj.io
+          desc: ""
+          url: https://apoorvaj.io/rss.xml
+        - name: Bases and Frames
+          desc: ""
+          url: https://basesandframes.wordpress.com/feed/
+        - name: blog.davep.org
+          desc: ""
+          url: https://blog.davep.org/feed.xml
+        - name: blog.jfo.click
+          desc: ""
+          url: https://blog.jfo.click//feed.xml
+        - name: Machine Learning Blog | ML@CMU | Carnegie Mellon University
+          desc: ""
+          url: https://blog.ml.cmu.edu/feed/
+        - name: Mike’s blog - Medium
+          desc: ""
+          url: https://blog.plan99.net/feed
+        - name: Branch Free
+          desc: ""
+          url: https://branchfree.org/feed/
+        - name: Blog
+          desc: ""
+          url: https://catern.com/feed.xml
+        - name: Codesections
+          desc: ""
+          url: https://codesections.com/rss.xml
+        - name: Denis Bakhvalov
+          desc: ""
+          url: https://dendibakh.github.io/feed.xml
+        - name: Distill
+          desc: ""
+          url: https://distill.pub/rss.xml
+        - name: Gamozo Labs Blog
+          desc: ""
+          url: https://gamozolabs.github.io/feed.xml
+        - name: Bits of Insight
+          desc: ""
+          url: https://madboa.com/blog/index.xml
+        - name: Blog on madboa.com
+          desc: ""
+          url: https://legends2k.github.io/index.xml
+        - name: Art, Tech and other Nonsense
+          desc: ""
+          url: https://maxliani.wordpress.com/feed/
+        - name: Stories by Gidi Shperber on Medium
+          desc: ""
+          url: https://medium.com/feed/@gidishperber
+        - name: Stories by Radek Osmulski on Medium
+          desc: ""
+          url: https://medium.com/feed/@radekosmulski
+        - name: Stories by samim on Medium
+          desc: ""
+          url: https://medium.com/feed/@samim
+        - name: Coding on the edges
+          desc: ""
+          url: https://mischasan.wordpress.com/feed/
+        - name: Another data science student's blog
+          desc: ""
+          url: https://sgugger.github.io/feeds/all.atom.xml
+        - name: Stephen McGroarty
+          desc: ""
+          url: https://smcgro.wordpress.com/feed/
+        - name: Performance Matters
+          desc: ""
+          url: https://travisdowns.github.io/feed.xml
+        - name: ferris blogs stuff
+          desc: ""
+          url: https://yupferris.github.io/blog/feed.xml
