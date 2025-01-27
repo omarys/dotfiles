@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/go/bin:$HOME/.config/emacs/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/go/bin:/usr/local/bin:$PATH
 
 # default browser
 export BROWSER=/usr/bin/firefox
@@ -30,10 +30,10 @@ plugins=(
   ansible
   aws
   brew
-  bun
+  # bun
   colorize
   common-aliases
-  composer
+  # composer
   cp
   docker
   docker-compose
@@ -43,16 +43,17 @@ plugins=(
   fzf
   gem
   git
-  git-flow
+  # git-flow
   gitignore
   golang
-  laravel
+  kubectl
+  # laravel
   mvn
   node
   npm
   nvm
   opentofu
-  perl
+  # perl
   podman
   python
   rust

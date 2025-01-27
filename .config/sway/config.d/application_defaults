@@ -8,6 +8,9 @@ for_window [class="firefox"] focus
 assign [app_id=thunar] 3
 for_window [app_id=thunar] focus
 
+assign [app_id=dolphin] 3
+for_window [app_id=dolphin] focus
+
 assign [app_id="emacs"] 4
 for_window [app_id="emacs"] focus
 
@@ -31,6 +34,9 @@ for_window [app_id="mpv"] focus
 
 assign [class="mpv"] 7
 for_window [class="mpv"] focus
+
+assign [app_id="kasts"] 7
+for_window [app_id="kasts"] focus
 
 assign [app_id="steam"] 8
 for_window [app_id="steam"] focus

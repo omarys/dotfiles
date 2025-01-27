@@ -3,3 +3,4 @@ font-family = "CaskaydiaCove Nerd Font Mono"
 shell-integration = zsh
 theme = Dracula
 window-decoration = false
+font-size = 14
