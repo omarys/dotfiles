@@ -48,6 +48,7 @@ plugins=(
   golang
   kubectl
   # laravel
+  minikube
   mvn
   node
   npm
