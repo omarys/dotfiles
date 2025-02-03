@@ -35,8 +35,8 @@ plugins=(
   common-aliases
   # composer
   cp
-  docker
-  docker-compose
+  # docker
+  # docker-compose
   dnf
   conda
   extract
@@ -90,7 +90,6 @@ alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
 alias gcn="git commit --no-verify"
-alias podman="docker"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -100,7 +99,7 @@ type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
-  sudo pacman -Syyu; pipx upgrade-all;"
+  sudo pacman -Syyu;"
 
 type dnf5 >/dev/null 2>&1 && alias se="dnf5 search"
 type dnf5 >/dev/null 2>&1 && alias in="sudo dnf5 install"
