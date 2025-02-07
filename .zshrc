@@ -90,7 +90,6 @@ alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
 alias gcn="git commit --no-verify"
-alias podman="docker"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
