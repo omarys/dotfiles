@@ -35,9 +35,9 @@ plugins=(
   common-aliases
   # composer
   cp
-  docker
-  docker-compose
-  dnf
+  # docker
+  # docker-compose
+  # dnf
   conda
   extract
   fzf
@@ -100,7 +100,7 @@ type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
-  sudo pacman -Syyu; pipx upgrade-all;"
+  sudo pacman -Syyu;"
 
 type dnf5 >/dev/null 2>&1 && alias se="dnf5 search"
 type dnf5 >/dev/null 2>&1 && alias in="sudo dnf5 install"
