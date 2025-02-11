@@ -3,12 +3,12 @@ sed -i -e "s/\e\[[0-9;]*m//g"
 
 Alias   | Command
 --------|----------------------------------------------------------------------------------------
-| uva   | `uv add`
-| uvexp | `uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet`
-| uvlu  | `uv lock --upgrade`
-| uvsu  | `uv sync --upgrade`
-| uvup  | `uv self update`
-| uvv   | `uv venv`
+| uva   | uv add
+| uvexp | uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet
+| uvlu  | uv lock --upgrade
+| uvsu  | uv sync --upgrade
+| uvup  | uv self update
+| uvv   | uv venv
 
 Alias     | Command
 ----------|------------------------------------
@@ -22,9 +22,13 @@ gpristine | git reset --hard && git clean -dffx
 
 Alias | Command
 ------|----------------------
-dbl   | docker build
-dils  | docker image ls
-dipru | docker image prune -a
+pbl   | podman build
+pils  | podman image ls
+pcin  | podman container inspect
+pclsa | podman container ls -a
+prit  | podman container run --interactive --tty
+psta  | podman stop $(podman ps -q)
+ptop  | podman top
 
 Alias | Command
 ------|---------------
