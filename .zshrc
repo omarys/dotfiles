@@ -37,7 +37,7 @@ plugins=(
   cp
   # docker
   # docker-compose
-  dnf
+  # dnf
   conda
   extract
   fzf
