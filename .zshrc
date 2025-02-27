@@ -56,6 +56,7 @@ plugins=(
   opentofu
   # perl
   podman
+  pre-commit
   python
   rust
   spring
@@ -78,7 +79,6 @@ export EDITOR='nvim'
 
 # Standard aliases
 alias zshconfig="nvim ~/.zshrc"
-alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
