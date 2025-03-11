@@ -18,13 +18,13 @@ ggl       | git pull origin $(current_branch)
 ggp       | git push origin $(current_branch)
 grhh      | git reset --hard
 gpristine | git reset --hard && git clean -dffx
-pbl       | podman build
-pils      | podman image ls
-pcin      | podman container inspect
-pclsa     | podman container ls -a
-prit      | podman container run --interactive --tty
-psta      | podman stop $(podman ps -q)
-ptop      | podman top
+dbl       | docker build
+dils      | docker image ls
+dcin      | docker container inspect
+dclsa     | docker container ls -a
+drit      | docker container run --interactive --tty
+dsta      | docker stop $(podman ps -q)
+dtop      | docker top
 tt        | tofu
 tta       | tofu apply
 ttc       | tofu console

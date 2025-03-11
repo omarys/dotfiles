@@ -46,7 +46,7 @@ unzip Noto.zip -d ~/.local/share/fonts/
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
 mkdir ~/Downloads/certs
 unzip unclass-certificates_pkcs7_DoD.zip -d ~/Downloads/certs
-openssl pkcs7 -in ~/Downloads/certs/certificates_pkcs7_v5_13_dod_der.p7b \
+openssl pkcs7 -in ~/Downloads/certs/Certificates_PKCS7_v5_14_DoD/certificates_pkcs7_v5_14_dod_der.p7b \
   -inform der -print_certs -out ~/Downloads/certs/dod_CAs.pem
 sudo trust anchor --store dod_CAs.pem
 
