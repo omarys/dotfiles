@@ -124,6 +124,18 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+function gitfind() {
+  find . -type d -name ".git" -print0 | while IFS= read -r -d $'\0' dir; do
+    (echo "$dir" && cd "$dir/.." && git pull)
+  done
+}
+
+function gitfd() {
+  fd -t d -H .git | while read -r repo; do
+    (echo "$repo" && cd "$repo/.." && git pull)
+  done
+}
+
 if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
