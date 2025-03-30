@@ -1,17 +1,16 @@
 sed -i -e "s/\r//g"
 sed -i -e "s/\e\[[0-9;]*m//g"
 
-Alias   | Command
---------|----------------------------------------------------------------------------------------
-| uva   | `uv add`
-| uvexp | `uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet`
-| uvlu  | `uv lock --upgrade`
-| uvsu  | `uv sync --upgrade`
-| uvup  | `uv self update`
-| uvv   | `uv venv`
+bluetoothctl > scan on > trust > pair > connect
 
 Alias     | Command
-----------|------------------------------------
+----------|----------------------------------------------------------------------------------------
+uva       | uv add
+uvexp     | uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet
+uvlu      | uv lock --upgrade
+uvsu      | uv sync --upgrade
+uvup      | uv self update
+uvv       | uv venv
 gaa       | git add --all
 gdup      | git diff @{upstream}
 gdw       | git diff --word-diff
@@ -19,26 +18,26 @@ ggl       | git pull origin $(current_branch)
 ggp       | git push origin $(current_branch)
 grhh      | git reset --hard
 gpristine | git reset --hard && git clean -dffx
-
-Alias | Command
-------|----------------------
-dbl   | docker build
-dils  | docker image ls
-dipru | docker image prune -a
-
-Alias | Command
-------|---------------
-tt    | tofu
-tta   | tofu apply
-ttc   | tofu console
-ttd   | tofu destroy
-ttf   | tofu fmt
-tti   | tofu init
-tto   | tofu output
-ttp   | tofu plan
-ttv   | tofu validate
-tts   | tofu state
-ttsh  | tofu show
-ttr   | tofu refresh
-ttt   | tofu test
-ttws  | tofu workspace
+dbl       | docker build
+dils      | docker image ls
+dcin      | docker container inspect
+dclsa     | docker container ls -a
+drit      | docker container run --interactive --tty
+dsta      | docker stop $(podman ps -q)
+dtop      | docker top
+tt        | tofu
+tta       | tofu apply
+ttc       | tofu console
+ttd       | tofu destroy
+ttf       | tofu fmt
+tti       | tofu init
+tto       | tofu output
+ttp       | tofu plan
+ttv       | tofu validate
+tts       | tofu state
+ttsh      | tofu show
+ttr       | tofu refresh
+ttt       | tofu test
+ttws      | tofu workspace
+prcau     | `pre-commit autoupdate`
+prcra     | `pre-commit run --all-files`

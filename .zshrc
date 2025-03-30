@@ -79,7 +79,6 @@ export EDITOR='nvim'
 
 # Standard aliases
 alias zshconfig="nvim ~/.zshrc"
-alias find="fd"
 alias ls="lsd"
 alias rm="rip"
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
@@ -91,6 +90,9 @@ alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
 alias gcn="git commit --no-verify"
+alias ms="minikube start --insecure-registry=\"registry.levelup.cce.af.mil\""
+alias md="minikube delete"
+alias av="aws-vault exec octi -- "
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -120,6 +122,18 @@ function y() {
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
+}
+
+function gitfind() {
+  find . -type d -name ".git" -print0 | while IFS= read -r -d $'\0' dir; do
+    (echo "$dir" && cd "$dir/.." && git pull)
+  done
+}
+
+function gitfd() {
+  fd -t d -H .git | while read -r repo; do
+    (echo "$repo" && cd "$repo/.." && git pull)
+  done
 }
 
 if [[ -f ~/.cht ]]; then
