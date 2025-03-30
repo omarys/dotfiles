@@ -4,3 +4,5 @@ shell-integration = zsh
 theme = Dracula
 window-decoration = true
 font-size = 14
+shell-integration-features = no-cursor
+cursor-style = block
