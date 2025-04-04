@@ -90,9 +90,10 @@ alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
 alias gcn="git commit --no-verify"
-alias ms="minikube start --insecure-registry=\"registry.levelup.cce.af.mil\""
+alias ms="minikube start"
 alias md="minikube delete"
 alias av="aws-vault exec octi -- "
+alias dsh="docker run -it --entrypoint /bin/sh"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -103,10 +104,6 @@ type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo pacman -Syyu;"
-
-type dnf5 >/dev/null 2>&1 && alias se="dnf5 search"
-type dnf5 >/dev/null 2>&1 && alias in="sudo dnf5 install"
-type dnf5 >/dev/null 2>&1 && alias up="sudo dnf5 upgrade -y"
 
 type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
