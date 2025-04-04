@@ -158,6 +158,6 @@ unset __conda_setup
 eval "$(mcfly init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$PATH:$HOME/.rvm/bin"
-
+export AWS_VAULT_BACKEND=pass
 # opam configuration
 # [[ ! -r /home/omary/.opam/opam-init/init.zsh ]] || source /home/omary/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

@@ -19,7 +19,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   zoxide cargo-update tree-sitter-cli editorconfig starship git-delta
 ~/.cargo/bin/cargo install ripgrep --features pcre2
 ~/.cargo/bin/cargo install --locked yazi-fm yazi-cli
-~/.cargo/bin/cargo install --locked --force xplr
 
 # CaC service daemon
 sudo systemctl enable --now pcscd
