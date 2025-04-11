@@ -129,7 +129,7 @@ function gitfind() {
 
 function gitfd() {
   fd -t d -H .git | while read -r repo; do
-    (echo "$repo" && cd "$repo/.." && git pull)
+    (echo "$repo" && cd "$repo/.." && ggl)
   done
 }
 
