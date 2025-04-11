@@ -27,3 +27,13 @@ desc = "Go to Work"
 on = ["g", "p"]
 run = "cd ~/Pictures/"
 desc = "Go to Pictures"
+
+[[manager.prepend_keymap]]
+on = ["g", "."]
+run = "cd ~/.dotfiles"
+desc = "Go to Dotfiles"
+
+[[manager.prepend_keymap]]
+on = ["g", "c"]
+run = "plugin vcs-files"
+desc = "Show Git files changes"
