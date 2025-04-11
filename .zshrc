@@ -94,6 +94,7 @@ alias ms="minikube start"
 alias md="minikube delete"
 alias av="aws-vault exec octi -- "
 alias dsh="docker run -it --entrypoint /bin/sh"
+alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
