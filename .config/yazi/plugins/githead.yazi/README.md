@@ -3,21 +3,22 @@
 Git status header for yazi inspired by [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#what-do-different-symbols-in-git-status-mean).
 
 ![preview](https://github.com/llanosrocas/githead.yazi/blob/main/.github/images/preview.png)
+![preview](https://github.com/llanosrocas/githead.yazi/blob/main/.github/images/preview-2.png)
 
 All supported features are listed [here](#features)
 
 ## Requirements
 
-- yazi version >= 25.2.11
+- yazi version >= [25.5.31](https://github.com/sxyazi/yazi/releases/tag/v25.5.31).
 - Font with symbol support. For example [Nerd Fonts](https://www.nerdfonts.com/).
 
 ## Installation
 
 ```sh
-ya pack -a llanosrocas/githead
+ya pkg add llanosrocas/githead
 ```
 
-Or manually copy `init.lua` to the `~/.config/yazi/plugins/githead.yazi/init.lua`
+Or manually copy `main.lua` to the `~/.config/yazi/plugins/githead.yazi/main.lua`
 
 ## Usage
 
@@ -27,7 +28,7 @@ Add this to your `~/.config/yazi/init.lua`:
 require("githead"):setup()
 ```
 
-Read more about indicators [here](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#what-do-different-symbols-in-git-status-mean).
+Read more about symbols [here](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#what-do-different-symbols-in-git-status-mean).
 
 Optionally, configure header:
 
@@ -71,6 +72,23 @@ require("githead"):setup({
 })
 ```
 
+```
+/current/dir on ( main) ⇣2⇡3 $1 rebase 1/2 ~2 +4 !1 ?5
+|            |   |     | | |  |  |          |  |  |  |
+|            |   |     | | |  |  |          |  |  |  └─── untracked_symbol
+|            |   |     | | |  |  |          |  |  └────── unstaged_symbol
+|            |   |     | | |  |  |          |  └───────── staged_symbol
+|            |   |     | | |  |  |          └──────────── state_symbol
+|            |   |     | | |  |  └─────────────────────── state_prefix
+|            |   |     | | |  └────────────────────────── stashes_symbol
+|            |   |     | | └───────────────────────────── ahead_symbol
+|            |   |     | └─────────────────────────────── behind_symbol
+|            |   |     └───────────────────────────────── branch_borders
+|            |   └─────────────────────────────────────── branch_symbol
+|            └─────────────────────────────────────────── branch_prefix
+└──────────────────────────────────────────────────────── cwd
+```
+
 ## Features
 
 - [x] Current branch (or current commit if branch is not presented)
@@ -80,6 +98,8 @@ require("githead"):setup({
   - [x] merge
   - [x] cherry
   - [x] rebase (+ done counter)
+  - [x] revert
+  - [x] bisect (only if other states are not present)
 - [x] Staged
 - [x] Unstaged
 - [x] Untracked
@@ -89,7 +109,7 @@ require("githead"):setup({
 The goal is to use minimum amount of shell commands.
 
 ```shell
-git status --ignore-submodules=dirty --branch --show-stash
+git status --ignore-submodules=dirty --branch --show-stash --ahead-behind
 ```
 
 This command provides information about branches, stashes, staged files, unstaged files, untracked files, and other statistics.

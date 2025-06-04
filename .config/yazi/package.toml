@@ -1,12 +1,12 @@
 [[plugin.deps]]
 use = "llanosrocas/githead"
-rev = "7104df2"
-hash = "407bdfbed7b052dad108eeac88270f25"
+rev = "8df5b68"
+hash = "f9d28d35e8e500a802b95a8b46117123"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "a1738e8"
-hash = "36405f8781fcaf33ceab24dffd5cea19"
+rev = "63f9650"
+hash = "70898957e9e4c1ca291ff26e8fdc434"
 
 [flavor]
 deps = []

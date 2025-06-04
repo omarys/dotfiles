@@ -36,7 +36,7 @@ plugins=(
   # composer
   cp
   docker
-  docker-compose
+  # docker-compose
   # dnf
   conda
   extract
@@ -85,7 +85,7 @@ alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
-alias upp="rustup update; cargo install-update -a; brew up; brew upgrade;"
+alias upp="eos-update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade;"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
@@ -93,7 +93,9 @@ alias gcn="git commit --no-verify"
 alias ms="minikube start"
 alias md="minikube delete"
 alias av="aws-vault exec octi -- "
-alias dsh="docker run -it --entrypoint /bin/sh"
+# alias dsh="docker run -it --entrypoint /bin/sh"
+alias docker="podman"
+alias psh="podman run -it --entrypoint /bin/sh"
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
 
 # Conditional aliases
@@ -134,6 +136,11 @@ function gitfd() {
   done
 }
 
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new `printf %q "$PREV"`"
+}
+
 if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
@@ -158,6 +165,16 @@ unset __conda_setup
 . "$HOME/.cargo/env"
 eval "$(mcfly init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(navi widget zsh)"
+export FZF_CTRL_R_OPTS="
+  --reverse
+  --cycle
+  --info=right
+  --color header:italic
+  --header 'alt+s (pet new)'
+  --preview 'echo {}' --preview-window down:3:hidden:wrap 
+  --bind '?:toggle-preview'
+  --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
 export AWS_VAULT_BACKEND=pass
 # opam configuration
