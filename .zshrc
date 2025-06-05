@@ -110,6 +110,8 @@ type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
 
 type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
+type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --no-annotate --no-header --no-hashes --output-file src/requirements.txt"
+
 type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
