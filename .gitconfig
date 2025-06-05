@@ -9,13 +9,13 @@
   verbose = true
 [core]
 	editor = nvim
-  pager = delta 
+  pager = delta
 	autocrlf = input
 [interactive]
   diffFilter = delta --color-only --features=interactive
 [delta]
   navigate = true
-  light = false
+  dark = true
   side-by-side = true
   line-numbers = true
   features = decorations

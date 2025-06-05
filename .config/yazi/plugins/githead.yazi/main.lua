@@ -209,6 +209,10 @@ return {
 		function Header:githead()
 			local status = this.output
 
+      if not status then
+        return ui.Line({})
+      end
+
 			local branch = config.show_branch and self:get_branch(status) or ""
 			local behind_ahead = config.show_behind_ahead and self:get_behind_ahead(status) or ""
 			local stashes = config.show_stashes and self:get_stashes(status) or ""
@@ -232,8 +236,7 @@ return {
 
 		local callback = function()
 			local cwd = cx.active.current.cwd
-
-			ya.mgr_emit("plugin", {
+			ya.emit("plugin", {
 				this._id,
 				ya.quote(tostring(cwd), true),
 			})
@@ -251,7 +254,7 @@ return {
 	entry = function(_, job)
 		local args = job.args or job
 		local command = Command("git")
-			:args({ "status", "--ignore-submodules=dirty", "--branch", "--show-stash", "--ahead-behind" })
+			:arg({ "status", "--ignore-submodules=dirty", "--branch", "--show-stash", "--ahead-behind" })
 			:cwd(args[1])
 			:env("LANGUAGE", "en_US.UTF-8")
 			:stdout(Command.PIPED)

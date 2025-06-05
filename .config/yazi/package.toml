@@ -1,12 +1,17 @@
 [[plugin.deps]]
 use = "llanosrocas/githead"
-rev = "7104df2"
-hash = "407bdfbed7b052dad108eeac88270f25"
+rev = "c90882f"
+hash = "3c3933ed61aa24d802d6b06d3556484"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "a1738e8"
-hash = "36405f8781fcaf33ceab24dffd5cea19"
+rev = "c0ad8a3"
+hash = "70898957e9e4c1ca291ff26e8fdc434"
+
+[[plugin.deps]]
+use = "wylie109/duckdb"
+rev = "3f8c863"
+hash = "87b9233a74325e95011670ed20bbd0d4"
 
 [flavor]
 deps = []

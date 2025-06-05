@@ -38,7 +38,7 @@ plugins=(
   docker
   docker-compose
   # dnf
-  conda
+  # conda
   extract
   fzf
   gem
@@ -112,6 +112,10 @@ type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
 type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
 type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
 
+type navi >/dev/null 2>&1 && alias cheat="navi --cheatsh"
+
+type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --no-annotate --no-header --no-hashes --output-file src/requirements.txt"
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -157,6 +161,8 @@ unset __conda_setup
 . "$HOME/.cargo/env"
 eval "$(mcfly init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(navi widget zsh)"
 export PATH="$PATH:$HOME/.rvm/bin"
 export AWS_VAULT_BACKEND=pass
 # opam configuration
