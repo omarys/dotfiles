@@ -94,8 +94,7 @@ alias ms="minikube start"
 alias md="minikube delete"
 alias av="aws-vault exec octi -- "
 alias dsh="docker run -it --entrypoint /bin/sh"
-alias docker="podman"
-alias psh="podman run -it --entrypoint /bin/sh"
+# alias psh="podman run -it --entrypoint /bin/sh"
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
 
 # Conditional aliases
@@ -107,6 +106,8 @@ type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo pacman -Syyu;"
+
+type podman >/dev/null 2>&1 && alias docker="podman"
 
 type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
