@@ -9,11 +9,6 @@ rev = "63f9650"
 hash = "70898957e9e4c1ca291ff26e8fdc434"
 
 [[plugin.deps]]
-use = "wylie109/duckdb"
-rev = "3f8c863"
-hash = "87b9233a74325e95011670ed20bbd0d4"
-
-[[plugin.deps]]
 use = "wylie102/duckdb"
 rev = "3f8c863"
 hash = "87b9233a74325e95011670ed20bbd0d4"
