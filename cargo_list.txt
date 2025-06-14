@@ -1,35 +1,17 @@
-bat v0.25.0:
-    bat
-bottom v0.10.2:
-    btm
-cargo-update v16.3.1:
-    cargo-install-update
-    cargo-install-update-config
-dysk v2.10.1:
-    dysk
-editorconfig v1.0.0:
-    editorconfig
-fd-find v10.2.0:
-    fd
-fnm v1.38.1:
-    fnm
-git-delta v0.18.2:
-    delta
-hoard-rs v1.4.2:
-    hoard
-lsd v1.1.5:
-    lsd
-mcfly v0.9.3:
-    mcfly
-ripgrep v14.1.1:
-    rg
-rm-improved v0.13.1:
-    rip
-tree-sitter-cli v0.25.6:
-    tree-sitter
-yazi-cli v25.5.31:
-    ya
-yazi-fm v25.5.31:
-    yazi
-zoxide v0.9.8:
-    zoxide
+bat 
+bottom 
+cargo-update 
+dysk 
+editorconfig 
+fd-find 
+fnm 
+git-delta 
+hoard-rs 
+lsd 
+mcfly 
+ripgrep 
+rm-improved 
+tree-sitter-cli 
+yazi-cli 
+yazi-fm 
+zoxide 
