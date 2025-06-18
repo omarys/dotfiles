@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$PATH:$HOME/.ghcup
 
 # default browser
 export BROWSER=/usr/bin/firefox
@@ -87,7 +87,7 @@ alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
-alias upp="eos-update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade;"
+alias upp="eos-update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
@@ -106,8 +106,6 @@ type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
-type pacman >/dev/null 2>&1 && alias up="flatpak update -y; \
-  sudo pacman -Syyu;"
 
 type podman >/dev/null 2>&1 && alias docker="podman"
 
@@ -186,6 +184,4 @@ export FZF_CTRL_R_OPTS="
   --bind '?:toggle-preview'
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
-export AWS_VAULT_BACKEND=pass
-# opam configuration
-# [[ ! -r /home/omary/.opam/opam-init/init.zsh ]] || source /home/omary/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# export AWS_VAULT_BACKEND=pass
