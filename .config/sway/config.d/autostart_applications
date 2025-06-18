@@ -16,9 +16,9 @@ exec gnome-keyring-daemon --daemonize --start --components=gpg,pkcs11,secrets,ss
 ## exec tail -f $SWAYSOCK.wob | wob --border-color '#ffdcbb8c' --background-color '#cc3a3a3a' --bar-color '#ffdcbb8c'
 #exec tail -f $SWAYSOCK.wob | wob
 
-     
+
 # Welcome App
-# exec dex -a -s /etc/xdg/autostart/:~/.config/autostart/  
+# exec dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 
 # Sway Fader
-# exec python3 ~/.config/sway/scripts/swayfader.py      
+# exec python3 ~/.config/sway/scripts/swayfader.py

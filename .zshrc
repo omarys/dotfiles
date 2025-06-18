@@ -1,3 +1,5 @@
+#! /usr/bin/env zsh
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$PATH:$HOME/.ghcup
 
@@ -72,7 +74,7 @@ plugins=(
   zsh-autosuggestions
 )
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 
 export EDITOR='nvim'
 
@@ -113,10 +115,10 @@ type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____
 
 type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --no-annotate --no-header --no-hashes --output-file src/requirements.txt"
 
-type wl-paste >/dev/null 2>&1 && alias ggit="git clone \"$(wl-paste)\""
+type wl-paste >/dev/null 2>&1 && alias ggit='git clone $(wl-paste)'
 type wl-copy >/dev/null 2>&1 && alias clipkey="wl-copy < ~/.ssh/id_ed25519.pub"
-type wl-paste >/dev/null 2>&1 && alias vid="mpv $(wl-paste)"
-type wl-paste >/dev/null 2>&1 && alias novid="mpv $(wl-paste) --no-video"
+type wl-paste >/dev/null 2>&1 && alias vid='mpv $(wl-paste)'
+type wl-paste >/dev/null 2>&1 && alias novid='$(wl-paste) --no-video'
 
 type navi >/dev/null 2>&1 && alias cheat="navi --cheatsh"
 
@@ -126,7 +128,7 @@ function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
+		builtin cd -- "$cwd" || exit
 	fi
 	rm -f -- "$tmp"
 }
@@ -143,31 +145,11 @@ function gitfd() {
   done
 }
 
-function prev() {
-  PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new `printf %q "$PREV"`"
-}
-
 if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
 
 bindkey '^ ' autosuggest-accept
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/omary/.anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/omary/.anaconda/etc/profile.d/conda.sh" ]; then
-        . "/home/omary/.anaconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/omary/.anaconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 . "$HOME/.cargo/env"
 eval "$(mcfly init zsh)"
@@ -180,7 +162,7 @@ export FZF_CTRL_R_OPTS="
   --info=right
   --color header:italic
   --header 'alt+s (pet new)'
-  --preview 'echo {}' --preview-window down:3:hidden:wrap 
+  --preview 'echo {}' --preview-window down:3:hidden:wrap
   --bind '?:toggle-preview'
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
