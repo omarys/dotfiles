@@ -1,5 +1,6 @@
 sed -i -e "s/\r//g"
 sed -i -e "s/\e\[[0-9;]*m//g"
+%! col -xb
 
 bluetoothctl > scan on > trust > pair > connect
 
