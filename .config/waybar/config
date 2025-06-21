@@ -3,7 +3,7 @@
     "position": "top",
 
     "modules-left": [ "custom/launcher", "sway/workspaces", ],
- 
+
     "modules-center": [ "sway/mode", "sway/window", ],
 
     "modules-right": [

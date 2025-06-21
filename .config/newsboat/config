@@ -7,7 +7,7 @@ reload-time 360
 show-title-bar no
 article-sort-order date-asc
 goto-next-feed no
-show-read-feeds no 
+show-read-feeds no
 download-retries 3
 download-timeout 30
 confirm-exit yes

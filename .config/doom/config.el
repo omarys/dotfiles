@@ -63,13 +63,6 @@
 
 (org-roam-db-autosync-mode)
 
-(after! evil-snipe
-  (evil-snipe-mode -1))
-
-(map! :map general-override-mode-map :nv "s" #'evil-substitute)
-(map! :map general-override-mode-map :nv "S" #'evil-change-whole-line)
-
-
 (plist-put! +ligatures-extra-symbols
             :and           nil
             :or            nil

@@ -1,0 +1,17 @@
+bat
+bottom
+cargo-update
+dysk
+editorconfig
+fd-find
+fnm
+git-delta
+hoard-rs
+lsd
+mcfly
+ripgrep
+rm-improved
+tree-sitter-cli
+yazi-cli
+yazi-fm
+zoxide
