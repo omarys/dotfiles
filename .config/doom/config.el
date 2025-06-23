@@ -143,9 +143,16 @@
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq comp-async-report-warnings-errors nil)
 
-
+(use-package! gptel)
+:config
+(gptel-make-ollama "Ollama" ; Name for the backend
+  :host "localhost:11434" ;  Ollama host
+  :stream t             ; Enable streaming responses
+  :models '("devstral:latest" "deepcoder:latest")) ; List of available models
+(setq gptel-mode 'org)
+(setq-default gptel-model "devstral:latest")
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
 ;;   (after! PACKAGE
 ;;     (setq x y))
