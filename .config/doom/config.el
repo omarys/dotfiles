@@ -147,11 +147,23 @@
 :config
 (gptel-make-ollama "Ollama" ; Name for the backend
   :host "localhost:11434" ;  Ollama host
+  :header t
   :stream t             ; Enable streaming responses
-  :models '("devstral:latest" "deepcoder:latest")) ; List of available models
+  :models '("devstral:latest"
+            "deepcoder:latest"
+            "deepseek-r1:latest"
+            "magistral:latest")) ; List of available models
 (setq gptel-mode 'org)
 (setq-default gptel-model "devstral:latest")
-;; Whenever you reconfigure a package, make sure to wrap your config in an
+
+(map! :leader
+      (:prefix-map ("m l" . "LLM")
+       :desc "Launch Gptel" "g" #'gptel
+       :desc "Gptel Menu" "m" #'gptel-menu
+       :desc "Abort Gptel" "a" #'gptel-abort
+       :desc "Send to Gptel" "RET" #'gptel-send))
+
+;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
 ;;   (after! PACKAGE

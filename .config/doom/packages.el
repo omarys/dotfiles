@@ -8,14 +8,24 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
                                         ;(package! some-package)
+(package! adaptive-wrap)
+(package! buck)
 (package! dracula-theme)
 (package! evil-tutor)
+(package! flymake-ruff)
 (package! gptel :recipe (:nonrecursive t))
 (package! glab)
 (package! gogs)
+(package! grip-mode)
 (package! gtea)
-(package! buck)
+(package! gptel)
+(package! beacon)
 
+(use-package adaptive-wrap
+  :ensure t
+  :init
+  (add-hook 'html-mode-hook #'adaptive-wrap-prefix-mode)
+  (add-hook 'LaTeX-mode-hook #'adaptive-wrap-prefix-mode))
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format
