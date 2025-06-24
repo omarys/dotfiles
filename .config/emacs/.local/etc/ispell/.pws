@@ -1,4 +1,4 @@
-personal_ws-1.1 en 82
+personal_ws-1.1 en 83
 ansible
 anthropogenic
 aphotic
@@ -31,6 +31,7 @@ isolator
 isolines
 jupyter
 kibana
+kubernetes
 landforms
 linkedin
 linters
