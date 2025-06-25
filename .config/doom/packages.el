@@ -20,6 +20,7 @@
 (package! gtea)
 (package! gptel)
 (package! beacon)
+(package! sublimity)
 
 (use-package adaptive-wrap
   :ensure t

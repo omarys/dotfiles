@@ -164,6 +164,7 @@
        :desc "Abort Gptel" "a" #'gptel-abort
        :desc "Send to Gptel" "RET" #'gptel-send))
 
+(beacon-mode 1)
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
