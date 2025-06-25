@@ -150,11 +150,12 @@
   :header t
   :stream t             ; Enable streaming responses
   :models '("devstral:latest"
-            "deepcoder:latest"
+            "deepseek-coder-v2:latest"
             "deepseek-r1:latest"
-            "magistral:latest")) ; List of available models
+            "gemma3:latest"
+            "qwen2.5-coder:latest")) ; List of available models
 (setq gptel-mode 'org)
-(setq-default gptel-model "devstral:latest")
+(setq-default gptel-model "gemma3:latest")
 
 (map! :leader
       (:prefix-map ("m l" . "LLM")
