@@ -76,29 +76,9 @@
             :bool          nil
             :list          nil)
 
-
 (let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
   (dolist (sym ligatures-to-disable)
     (plist-put! +ligatures-extra-symbols sym nil)))
-
-
-;; (setq mu4e-maildir "~/.mail"
-;;       mu4e-attachment-dir "~/Downloads")
-
-;; (setq user-mail-address "scottomary@proton.me"
-;;       user-full-name  "Scott O'Mary")
-
-;; ;; Get mail
-;; (setq mu4e-get-mail-command "mbsync protonmail"
-;;       mu4e-change-filenames-when-moving t   ; needed for mbsync
-;;       mu4e-update-interval 120)             ; update every 2 minutes
-
-;; ;; Send mail
-;; (setq message-send-mail-function 'smtpmail-send-it
-;;       smtpmail-auth-credentials "~/.authinfo.gpg"
-;;       smtpmail-smtp-server "127.0.0.1"
-;;       smtpmail-stream-type 'starttls
-;;       smtpmail-smtp-service 1025)
 
 (require 'elfeed-org)
 (elfeed-org)
