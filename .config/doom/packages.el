@@ -9,17 +9,17 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
                                         ;(package! some-package)
 (package! adaptive-wrap)
+(package! beacon)
 (package! buck)
 (package! dracula-theme)
 (package! evil-tutor)
+(package! flycheck-aspell)
 (package! flymake-ruff)
-(package! gptel :recipe (:nonrecursive t))
 (package! glab)
+(package! gptel :recipe (:nonrecursive t))
 (package! gogs)
 (package! grip-mode)
 (package! gtea)
-(package! gptel)
-(package! beacon)
 
 (use-package adaptive-wrap
   :ensure t
