@@ -20,7 +20,8 @@
 (package! gogs)
 (package! grip-mode)
 (package! gtea)
-(package! sublimity)
+(package! typescript-mode)
+(package! wttrin)
 
 (use-package flymake-ruff
   :ensure t

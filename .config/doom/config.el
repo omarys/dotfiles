@@ -145,6 +145,12 @@
        :desc "Send to Gptel" "RET" #'gptel-send))
 
 (beacon-mode 1)
+(setq lsp-use-plists "true")
+(setq lsp-idle-delay 0.500)
+
+(map! :leader
+      (:prefix-map ("m f" . "Firefox")
+       :desc  "Launch in Firefox" "f" #'browse-url-firefox))
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
