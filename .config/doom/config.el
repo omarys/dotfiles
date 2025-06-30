@@ -155,7 +155,7 @@
 (setq wttrin-default-cities '("Grove" "Oklahoma"))
 
 ;; (require 'flycheck-textlint)
-;; (setq flycheck-textlint-config "~/Dev/Org/.textlintrc.json")
+(setq flycheck-textlint-config ".config/textlint/.textlintrc.json")
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
