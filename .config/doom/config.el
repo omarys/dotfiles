@@ -151,6 +151,11 @@
 (map! :leader
       (:prefix-map ("m f" . "Firefox")
        :desc  "Launch in Firefox" "f" #'browse-url-firefox))
+
+(setq wttrin-default-cities '("Grove" "Oklahoma"))
+
+;; (require 'flycheck-textlint)
+;; (setq flycheck-textlint-config "~/Dev/Org/.textlintrc.json")
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
