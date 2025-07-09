@@ -1,0 +1,10 @@
+{
+  "plugins": {},
+  "filters": {},
+  "rules": {
+    "no-todo": {
+      "severity": "warning"
+    },
+    "write-good": true
+  }
+}

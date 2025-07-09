@@ -30,6 +30,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 
 plugins=(
   ansible
+  archlinux
   aws
   brew
   # bun
