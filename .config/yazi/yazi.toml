@@ -25,3 +25,13 @@ prepend_preloaders = [
   { name = "*.txt", run = "duckdb", multi = false },
   { name = "*.xlsx", run = "duckdb", multi = false },
 ]
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*"
+run = "git"
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*/"
+run = "git"
