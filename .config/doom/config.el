@@ -150,7 +150,7 @@
   :config
   (global-lsp-bridge-mode))
 
-(setq lsp-bridge-tex-lsp-server texlab)
+(setq lsp-bridge-tex-lsp-server "texlab")
 
 (map! :leader
       (:prefix-map ("m f" . "Firefox")
