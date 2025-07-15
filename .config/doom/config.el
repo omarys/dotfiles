@@ -145,8 +145,12 @@
        :desc "Send to Gptel" "RET" #'gptel-send))
 
 (beacon-mode 1)
-(setq lsp-use-plists "true")
-(setq lsp-idle-delay 0.500)
+
+(use-package! lsp-bridge
+  :config
+  (global-lsp-bridge-mode))
+
+(setq lsp-bridge-tex-lsp-server texlab)
 
 (map! :leader
       (:prefix-map ("m f" . "Firefox")
@@ -156,6 +160,15 @@
 
 ;; (require 'flycheck-textlint)
 (setq flycheck-textlint-config "~/.config/textlint/.textlintrc")
+
+(after! lsp-mode
+  (defun ak-lsp-ignore-semgrep-rulesRefreshed (workspace notification)
+    "Ignore semgrep/rulesRefreshed notification."
+    (when (equal (gethash "method" notification) "semgrep/rulesRefreshed")
+      (lsp--info "Ignored semgrep/rulesRefreshed notification")
+      t)) ;; Return t to indicate the notification is handled
+
+  (advice-add 'lsp--on-notification :before-until #'ak-lsp-ignore-semgrep-rulesRefreshed))
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;

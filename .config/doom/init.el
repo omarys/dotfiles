@@ -88,7 +88,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary +docsets)              ; navigate your code and its documentation
-       (lsp +peek)               ; M-x vscode
+       lsp               ; M-x vscode
        (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        (pass +auth)     ; password manager for nerds
@@ -150,7 +150,7 @@
        ;; (php +lsp)          ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +pyright +poetry +tree-sitter +ruff)            ; beautiful is better than ugly
+       (python +lsp +ruff +tree-sitter)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;; (racket +lsp +xp)   ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
