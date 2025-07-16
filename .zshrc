@@ -168,3 +168,12 @@ export FZF_CTRL_R_OPTS="
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
 # export AWS_VAULT_BACKEND=pass
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/omary/.opam/opam-init/init.zsh' ]] || source '/home/omary/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration

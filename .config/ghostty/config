@@ -1,4 +1,3 @@
-command = ~/.config/ghostty/init.sh
 font-family = "CaskaydiaCove Nerd Font Mono"
 shell-integration = zsh
 theme = Dracula
@@ -6,3 +5,8 @@ window-decoration = true
 font-size = 14
 shell-integration-features = no-cursor
 cursor-style = block
+keybind = ctrl+h=previous_tab
+keybind = ctrl+l=next_tab
+keybind = ctrl+a>t=new_tab
+keybind = ctrl+a>x=close_tab
+keybind = ctrl+a>r=reload_config
