@@ -39,7 +39,7 @@ plugins=(
   # composer
   cp
   docker
-  # docker-compose
+  docker-compose
   # dnf
   # conda
   extract
@@ -71,6 +71,7 @@ plugins=(
   systemd
   tmux
   uv
+  # yarn
   zoxide
   zsh-autosuggestions
 )
