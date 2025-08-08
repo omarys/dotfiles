@@ -21,6 +21,20 @@
 (setq doom-font "CaskaydiaCove Nerd Font Mono:pixelsize=18")
 (unless (doom-font-exists-p doom-font)
   (setq doom-font nil))
+
+(remove-hook 'after-init-hook #'savehist-mode)
+
+(let ((file-path "~/.passwords/Keys/gemini_api.key"))
+  (if (file-exists-p file-path)
+      (let ((file-contents
+             (with-temp-buffer
+               (insert-file-contents file-path)
+               (buffer-string))))
+        (setq
+         gptel-model 'gemini-2.5-pro-exp-03-25
+         gptel-backend (gptel-make-gemini "Gemini" :key file-contents :stream t)))
+    (message "File not found: %s" file-path)))
+;; (gptel-make-gemini "Gemini" :key (setq file-path "/home/omary/.passwords/keys/gemini_api.key") :stream t)
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
@@ -125,17 +139,17 @@
 
 (use-package! gptel)
 :config
-(gptel-make-ollama "Ollama" ; Name for the backend
-  :host "localhost:11434" ;  Ollama host
+(gptel-make-ollama "Ollama"             ; Name for the backend
+  :host "localhost:11434"               ;  Ollama host
   :header t
-  :stream t             ; Enable streaming responses
+  :stream t                             ; Enable streaming responses
   :models '("devstral:latest"
             "deepseek-coder-v2:latest"
             "deepseek-r1:latest"
             "gemma3:latest"
             "qwen2.5-coder:latest")) ; List of available models
 (setq gptel-mode 'org)
-(setq-default gptel-model "gemma3:latest")
+;; (setq-default gptel-model "gemma3:latest")
 
 (map! :leader
       (:prefix-map ("m l" . "LLM")
@@ -169,6 +183,15 @@
       t)) ;; Return t to indicate the notification is handled
 
   (advice-add 'lsp--on-notification :before-until #'ak-lsp-ignore-semgrep-rulesRefreshed))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 ;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
 ;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
 ;;
