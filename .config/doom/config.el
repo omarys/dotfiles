@@ -1,22 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Scott O'Mary"
       user-full-address "omaryscott@gmail.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(font . "CaskaydiaCove Nerd Font Mono-14"))
 (setq doom-font "CaskaydiaCove Nerd Font Mono:pixelsize=18")
 (unless (doom-font-exists-p doom-font)
@@ -34,32 +21,12 @@
          gptel-model 'gemini-2.5-pro-exp-03-25
          gptel-backend (gptel-make-gemini "Gemini" :key file-contents :stream t)))
     (message "File not found: %s" file-path)))
-;; (gptel-make-gemini "Gemini" :key (setq file-path "/home/omary/.passwords/keys/gemini_api.key") :stream t)
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
 (setq doom-theme 'dracula)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t
       evil-want-fine-undo t)
 
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
 (after! org
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
@@ -134,9 +101,6 @@
 (after! spell-fu
   (setq spell-fu-idle-delay 1))
 
-;; Silence compiler warnings as they can be pretty disruptive
-(setq comp-async-report-warnings-errors nil)
-
 (use-package! gptel)
 :config
 (gptel-make-ollama "Ollama"             ; Name for the backend
@@ -149,7 +113,6 @@
             "gemma3:latest"
             "qwen2.5-coder:latest")) ; List of available models
 (setq gptel-mode 'org)
-;; (setq-default gptel-model "gemma3:latest")
 
 (map! :leader
       (:prefix-map ("m l" . "LLM")
@@ -160,83 +123,29 @@
 
 (beacon-mode 1)
 
-(use-package! lsp-bridge
-  :config
-  (global-lsp-bridge-mode))
-
-(setq lsp-bridge-tex-lsp-server "texlab")
-
 (map! :leader
       (:prefix-map ("m f" . "Firefox")
        :desc  "Launch in Firefox" "f" #'browse-url-firefox))
 
 (setq wttrin-default-cities '("Grove" "Oklahoma"))
 
-;; (require 'flycheck-textlint)
-(setq flycheck-textlint-config "~/.config/textlint/.textlintrc")
-
-(after! lsp-mode
-  (defun ak-lsp-ignore-semgrep-rulesRefreshed (workspace notification)
-    "Ignore semgrep/rulesRefreshed notification."
-    (when (equal (gethash "method" notification) "semgrep/rulesRefreshed")
-      (lsp--info "Ignored semgrep/rulesRefreshed notification")
-      t)) ;; Return t to indicate the notification is handled
-
-  (advice-add 'lsp--on-notification :before-until #'ak-lsp-ignore-semgrep-rulesRefreshed))
-
-;; accept completion from copilot and fallback to company
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-;; Whenever you reconfigure a package, make sure Launch gptelaunch gptel wrap your config in an
-;; `after!' block, otherwise Doom's s defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
+              ("C-<tab>" . 'copilot-accept-completion-by-word)
+              ("C-n" . 'copilot-next-completion)
+              ("C-p" . 'copilot-previous-completion))
 
-;; (with-eval-after-load 'ox-latex)
-;; (add-to-list 'org-latex-classes
-;;              '("org-plain-latex"
-;;                "\\documentclass{article}
-;;            [NO-DEFAULT-PACKAGES]
-;;            [PACKAGES]
-;;            [EXTRA]"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  :config
+  (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+  (add-to-list 'copilot-indentation-alist '(org-mode 2))
+  (add-to-list 'copilot-indentation-alist '(text-mode 2))
+  (add-to-list 'copilot-indentation-alist '(closure-mode 2))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
 
-
-;; (setq org-latex-pdf-process
-;;       '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+(after! flycheck
+  (add-to-list 'flycheck-checkers 'textlint)
+  (setq flycheck-textlint-config "~/.config/textlint/.textlintrc")) ;; Optional: specify a custom config file

@@ -4,7 +4,9 @@
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
-
+(straight-use-package-mode 1)
+(use-package evil-commentary
+    :straight t)
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
                                         ;(package! some-package)
@@ -28,15 +30,10 @@
   (add-hook 'html-mode-hook #'adaptive-wrap-prefix-mode)
   (add-hook 'LaTeX-mode-hook #'adaptive-wrap-prefix-mode))
 
-(when (package! lsp-bridge
-        :recipe (:host github
-                 :repo "manateelazycat/lsp-bridge"
-                 :branch "master"
-                 :files ("*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
-                 ;; do not perform byte compilation or native compilation for lsp-bridge
-                 :build (:not compile)))
-  (package! markdown-mode)
-  (package! yasnippet))
+(use-package eglot-booster
+  :straight ( eglot-booster :type git :host nil :repo "https://github.com/jdtsmith/eglot-booster")
+  :after eglot
+  :config (eglot-booster-mode))
 
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))

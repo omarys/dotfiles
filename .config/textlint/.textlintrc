@@ -1,10 +1,6 @@
 {
-  "plugins": {},
-  "filters": {},
   "rules": {
-    "no-todo": {
-      "severity": "warning"
-    },
+    "no-todo": true,
     "write-good": true
   }
 }
