@@ -1,4 +1,4 @@
-personal_ws-1.1 en 83
+personal_ws-1.1 en 86
 ansible
 anthropogenic
 aphotic
@@ -29,9 +29,11 @@ benchmarking
 iocs
 isolator
 isolines
+jira
 jupyter
 kibana
 kubernetes
+kustomize
 landforms
 linkedin
 linters
@@ -39,6 +41,7 @@ lithospheric
 meds
 microservices
 middleware
+minio
 misconfiguration
 modeline
 config
