@@ -40,7 +40,7 @@ plugins=(
   cp
   docker
   docker-compose
-  # dnf
+  dnf
   # conda
   extract
   fzf
@@ -91,7 +91,6 @@ alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
-alias upp="eos-update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zzz="exit"
@@ -108,10 +107,14 @@ type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
+
+type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type podman >/dev/null 2>&1 && alias docker="podman"
+type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type dnf >/dev/null 2>&1 && alias se="dnf search"
+type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
 type tree >/dev/null 2>&1 && alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
