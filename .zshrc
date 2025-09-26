@@ -43,6 +43,7 @@ plugins=(
   dnf
   # conda
   extract
+  fnm
   fzf
   gem
   git
