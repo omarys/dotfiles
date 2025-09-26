@@ -8,10 +8,15 @@ fnm
 git-delta
 hoard-rs
 lsd
+mani
 mcfly
+navi
 ripgrep
 rm-improved
+starship
+tealdeer
 tree-sitter-cli
+yazi-build
 yazi-cli
 yazi-fm
 zoxide

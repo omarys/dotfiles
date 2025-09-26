@@ -127,8 +127,6 @@
       (:prefix-map ("m f" . "Firefox")
        :desc  "Launch in Firefox" "f" #'browse-url-firefox))
 
-(setq wttrin-default-cities '("Grove" "Oklahoma"))
-
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map

@@ -98,7 +98,6 @@ alias zzz="exit"
 alias gcn="git commit --no-verify"
 alias ms="minikube start"
 alias md="minikube delete"
-alias av="aws-vault exec octi -- "
 alias dsh="docker run -it --entrypoint /bin/sh"
 # alias psh="podman run -it --entrypoint /bin/sh"
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
@@ -113,7 +112,7 @@ type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; rustup update; carg
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
@@ -182,3 +181,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # This section can be safely removed at any time if needed.
 [[ ! -r '/home/omary/.opam/opam-init/init.zsh' ]] || source '/home/omary/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. "$HOME/.local/share/../bin/env"
