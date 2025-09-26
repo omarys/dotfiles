@@ -138,18 +138,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-function gitfind() {
-  find . -type d -name ".git" -print0 | while IFS= read -r -d $'\0' dir; do
-    (echo "$dir" && cd "$dir/.." && git pull)
-  done
-}
-
-function gitfd() {
-  fd -t d -H .git | while read -r repo; do
-    (echo "$repo" && cd "$repo/.." && ggl)
-  done
-}
-
 if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
@@ -171,19 +159,3 @@ export FZF_CTRL_R_OPTS="
   --bind '?:toggle-preview'
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
-# export AWS_VAULT_BACKEND=pass
-
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/home/omary/.opam/opam-init/init.zsh' ]] || source '/home/omary/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-. "$HOME/.local/share/../bin/env"
