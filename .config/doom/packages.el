@@ -22,7 +22,6 @@
 (package! grip-mode)
 (package! gtea)
 (package! typescript-mode)
-(package! wttrin)
 
 (use-package adaptive-wrap
   :ensure t
