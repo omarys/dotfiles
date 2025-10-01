@@ -72,7 +72,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 # Neovim source code clone/build
 git clone https://github.com/neovim/neovim.git ~/Dev/neovim
 cd ~/Dev/neovim || exit
-make && sudo make install
+make CMAKE_BUILD_TYPE=Release && sudo make install
 
 # NPM editor dependencies
 sudo npm install -g neovim marked js-beautify stylelint prettier
@@ -82,9 +82,9 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm ~/.config/nvim/.git
 
 # Emacs source code clone/build
-git clone https://git.savannah.gnu.org/git/emacs.git ~/Dev/emacs
+git clone git@github.com:emacs-mirror/emacs.git ~/Dev/emacs
 cd ~/Dev/emacs || exit
-git checkout emacs-29
+git checkout emacs-30
 git pull
 ./autogen.sh
 ./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
