@@ -1,5 +1,6 @@
 # RPM Fusion
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
+sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
 # Terra
 sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 # Upgrade core group and system
@@ -30,8 +31,8 @@ curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme
 sudo systemctl disable NetworkManager-wait-online.service
 sudo rm /etc/xdg/autostart/org.gnome.Software.desktop
 # Install Auto Suggestions & Oh My Zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
 # Install dev packages (mostly dependencies for emacs)
 sudo dnf builddep emacs
@@ -57,7 +58,7 @@ flatpak install com.mattermost.Desktop info.febvre.Komikku org.gnome.Aisleriot \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-[ -f ~/.cargo/env ] && source "$HOME/.cargo/env"
+[ -f /home/omary/.cargo/env ] && source /home/omary/.cargo/env
 cargo install ripgrep --features pcre2
 cargo install --force yazi-build
 cargo install bat bottom cargo-update dysk editorconfig fd-find fnm git-delta hoard-rs \
