@@ -37,18 +37,23 @@ plugins=(
   colorize
   common-aliases
   # composer
+  # conda
   cp
   docker
   docker-compose
   dnf
-  # conda
   extract
   fzf
   gem
   git
+  git-auto-fetch
   # git-flow
   gitignore
   golang
+  helm
+  httpie
+  jj
+  k9s
   kubectl
   # laravel
   man
@@ -59,6 +64,7 @@ plugins=(
   npm
   nvm
   opentofu
+  pass
   # perl
   # podman
   pre-commit
@@ -70,8 +76,9 @@ plugins=(
   sudo
   systemd
   tmux
+  toolbox
   uv
-  # yarn
+  yarn
   zoxide
   zsh-autosuggestions
 )
