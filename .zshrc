@@ -79,7 +79,6 @@ plugins=(
   tmux
   toolbox
   uv
-  yarn
   zoxide
   zsh-autosuggestions
 )
