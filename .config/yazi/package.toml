@@ -5,12 +5,12 @@ hash = "10c3bc6cd6f3223e18f2483320a9e24a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "d1c8baa"
+rev = "9a52857"
 hash = "4ee57085277d616acfa0ef1fef37dc00"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "d1c8baa"
+rev = "9a52857"
 hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
 [flavor]
