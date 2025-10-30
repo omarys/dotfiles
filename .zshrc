@@ -135,6 +135,8 @@ type navi >/dev/null 2>&1 && alias cheat="navi --cheatsh"
 
 type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --no-annotate --no-header --no-hashes --output-file src/requirements.txt"
 
+type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
