@@ -1,0 +1,12 @@
+maximized = false
+mouse-cursor-icon = "arrow"
+
+[font]
+normal = ["CaskaydiaCove Nerd Font Mono"]
+size = 14.0
+
+[box-drawing]
+mode = "font-glyph"
+
+[box-drawing.sizes]
+default = [2, 4]
