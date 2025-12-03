@@ -14,3 +14,12 @@ run = "git"
 id = "git"
 name = "*/"
 run = "git"
+
+[opener]
+
+neovide_edit = [
+  { run = 'neovide "$@"', desc = "Neovide", block = false, for = "unix" },
+]
+
+[open]
+rules = [{ mime = "text/*", use = ["neovide_edit", "system_default"] }]
