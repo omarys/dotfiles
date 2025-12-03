@@ -137,6 +137,8 @@ type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --n
 
 type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
+type neovide >/dev/null 2>&1 && alias nvd="neovide"
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
