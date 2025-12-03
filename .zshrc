@@ -153,7 +153,6 @@ fi
 bindkey '^ ' autosuggest-accept
 
 . "$HOME/.cargo/env"
-eval "$(mcfly init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(navi widget zsh)"
