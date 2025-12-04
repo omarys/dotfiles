@@ -16,7 +16,7 @@ name = "*/"
 run = "git"
 
 [[opener.neovide_edit]]
-run = 'neovide "$@"'
+run = 'neovide --fork "$@"'
 desc = "Neovide"
 block = false
 for = "unix"
