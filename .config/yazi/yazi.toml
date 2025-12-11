@@ -15,11 +15,21 @@ id = "git"
 name = "*/"
 run = "git"
 
-[[opener.neovide_edit]]
-run = 'neovide --fork "$@"'
-desc = "Neovide"
-block = false
-for = "unix"
+[opener]
+neovide = [{ run = 'neovide "$@"', block = false, orphan = true }]
 
 [open]
-rules = [{ mime = "text/*", use = ["neovide_edit", "system_default"] }]
+rules = [
+  { mime = "text/*", use = "neovide" },
+  { name = "*.txt", use = "neovide" },
+  { name = "*.md", use = "neovide" },
+  { name = "*.json", use = "neovide" },
+  { name = "*.py", use = "neovide" },
+  { name = "*.tf", use = "neovide" },
+  { name = "*.tfvars", use = "neovide" },
+  { name = "*.toml", use = "neovide" },
+  { name = "*.yaml", use = "neovide" },
+  { name = "*.yml", use = "neovide" },
+  { name = "*.gitignore", use = "neovide" },
+  { name = "Dockerfile", use = "neovide" },
+]
