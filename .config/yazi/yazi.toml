@@ -16,7 +16,7 @@ name = "*/"
 run = "git"
 
 [opener]
-neovide = [{ run = 'neovide "$@"', block = false, orphan = true }]
+neovide = [{ run = 'neovide --fork "$@"', block = false, orphan = true }]
 
 [open]
 rules = [
