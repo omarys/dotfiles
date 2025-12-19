@@ -16,20 +16,12 @@ name = "*/"
 run = "git"
 
 [opener]
-neovide = [{ run = 'neovide "$@"', block = false, orphan = true }]
+neovide-fallback = [
+  { run = 'neovide "$@" || ${EDITOR:-vi} "$@"', desc = "Neovide (Fallback to Editor)", block = false, orphan = true, for = "unix" },
+]
 
 [open]
-rules = [
-  { mime = "text/*", use = "neovide" },
-  { name = "*.txt", use = "neovide" },
-  { name = "*.md", use = "neovide" },
-  { name = "*.json", use = "neovide" },
-  { name = "*.py", use = "neovide" },
-  { name = "*.tf", use = "neovide" },
-  { name = "*.tfvars", use = "neovide" },
-  { name = "*.toml", use = "neovide" },
-  { name = "*.yaml", use = "neovide" },
-  { name = "*.yml", use = "neovide" },
-  { name = "*.gitignore", use = "neovide" },
-  { name = "Dockerfile", use = "neovide" },
+prepend_rules = [
+  { mime = "text/*", use = "neovide-fallback" },
+  { name = "*", use = "neovide-fallback" },
 ]
