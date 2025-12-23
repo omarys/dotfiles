@@ -17,11 +17,17 @@ run = "git"
 
 [opener]
 neovide-fallback = [
-  { run = 'neovide "$@" || ${EDITOR:-vi} "$@"', desc = "Neovide (Fallback to Editor)", block = false, orphan = true, for = "unix" },
+  { run = 'neovide "$@" || ${EDITOR:-vi} "$@"', desc = "Neovide", block = false, orphan = true, for = "unix" },
 ]
 
 [open]
 prepend_rules = [
   { mime = "text/*", use = "neovide-fallback" },
+
+  { mime = "application/gzip", use = "open" },
+  { mime = "application/x-tar", use = "open" },
+  { mime = "application/zip", use = "open" },
+  { mime = "application/x-7z-compressed", use = "open" },
+
   { name = "*", use = "neovide-fallback" },
 ]
