@@ -5,13 +5,13 @@ hash = "10c3bc6cd6f3223e18f2483320a9e24a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "19dc890"
+rev = "7ca66b4"
 hash = "4ee57085277d616acfa0ef1fef37dc00"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "19dc890"
-hash = "27ca02f49fd236b5cc7bf03c243859fe"
+rev = "7ca66b4"
+hash = "d2aa1b2f32c8b4fd1775e8f5c45f8fab"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
