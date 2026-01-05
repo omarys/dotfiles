@@ -10,7 +10,7 @@
 .config/nvim/*
 .config/tmux/plugins
 .config/weechat/sec.conf
-.config/yazi/plugins
+.config/yazi/plugins/*
 .local/bin
 .local/share/fonts
 .w3m/*.gz

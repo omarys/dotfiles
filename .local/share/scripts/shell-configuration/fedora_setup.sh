@@ -83,13 +83,13 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm ~/.config/nvim/.git
 
 # Emacs source code clone/build
-git clone git@github.com:emacs-mirror/emacs.git ~/Dev/emacs
-cd ~/Dev/emacs || exit
-git checkout emacs-30
-git pull
-./autogen.sh
-./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
-make -j"$(nproc)" && sudo make install
+# git clone git@github.com:emacs-mirror/emacs.git ~/Dev/emacs
+# cd ~/Dev/emacs || exit
+# git checkout emacs-30
+# git pull
+# ./autogen.sh
+# ./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
+# make -j"$(nproc)" && sudo make install
 
 # Doom Emacs setup
 git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
@@ -110,9 +110,9 @@ unzip Noto.zip -d ~/.local/share/fonts/
 cd ~/Downloads || exit
 curl -LO https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip
 unzip unclass-certificates_pkcs7_DoD.zip
-openssl pkcs7 -in ~/Downloads/certificates_pkcs7_v5_13_dod/certificates_pkcs7_v5_13_dod_der.p7b \
-  -inform der -print_certs -out ~/Downloads/certificates_pkcs7_v5_13_dod/dod_CAs.pem
-sudo trust anchor --store certificates_pkcs7_v5_13_dod/dod_CAs.pem
+openssl pkcs7 -in ~/Downloads/Certificates_PKCS7_v5_14_DoD/Certificates_PKCS7_v5_14_DoD.der.p7b \
+  -inform der -print_certs -out ~/Downloads/Certificates_PKCS7_v5_14_DoD/dod_CAs.pem
+sudo trust anchor --store Certificates_PKCS7_v5_14_DoD/dod_CAs.pem
 
 sudo dnf remove docker docker-client docker-client-latest docker-common docker-latest \
   docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
