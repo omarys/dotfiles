@@ -1,8 +1,10 @@
-personal_ws-1.1 en 86
+personal_ws-1.1 en 91
 ansible
 anthropogenic
 aphotic
 apis
+appgate
+argocd
 backend
 biome
 biometric
@@ -22,6 +24,7 @@ dev
 elisp
 exfiltration
 hardcoded
+hashicorp
 homomorphic
 hulu
 invertible
@@ -48,6 +51,7 @@ config
 morreall's
 nitrous
 opencti
+opensearch
 openssl
 orthotic
 outprocessing
@@ -74,6 +78,7 @@ terraform
 timeboxing
 o'mary
 scalable
+to
 tricare
 tsgt
 ultrathin

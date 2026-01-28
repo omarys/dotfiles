@@ -1,17 +1,17 @@
 [[plugin.deps]]
 use = "llanosrocas/githead"
-rev = "71dabe4"
-hash = "73d2758775276ae7d824b43e53d0b350"
+rev = "317d09f"
+hash = "41dc37a724b2afd21da4f1ea6c1182d8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "03cdd4b"
-hash = "4ee57085277d616acfa0ef1fef37dc00"
+rev = "e07bf41"
+hash = "f69e4737c2fb8ceec58a2950faf13c46"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "03cdd4b"
-hash = "36a484acf6a0a0219c543ccb4cee218f"
+rev = "e07bf41"
+hash = "270915fa8282a19908449530ff66f7e2"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"

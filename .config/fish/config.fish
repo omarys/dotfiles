@@ -1,19 +1,10 @@
-. ~/.config/fish/alias.fish
-
-# make nvim the default editor
 set -x EDITOR nvim
-
-# make nvim usable with git
 set -x GIT_EDITOR nvim
-
-# Silence fish greeting
 set -g fish_greeting ''
-
-# enable nerd fonts
 set -g theme_nerd_fonts yes
 
 if test -d $HOME/.local/bin/
-    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.emacs.d/bin $PATH
+    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.config/emacs/bin $PATH
 end
 
 if test -d /var/lib/flatpak/
@@ -51,20 +42,10 @@ function y
     end
     /bin/rm -f -- $tmp
 end
-# persistently add to path
-# function add_to_path --description 'Persistently prepends paths to your PATH'
-#   for path in $argv
-#     if not contains $path $fish_user_paths
-#       set --universal fish_user_paths $fish_user_paths $argv
-#     end
-#   end
-# end
 
-# Ensure fisherman and plugins are installed
-# if not test -f $HOME/.config/fish/functions/fisher.fish
-#   echo "==> Fisherman not found.  Installing."
-#   curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-#   fisher
-# end
+function using
+    type -q $argv[1]
+end
 
+. ~/.config/fish/alias.fish
 starship init fish | source
