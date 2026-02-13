@@ -12,6 +12,11 @@ set -g fish_greeting ''
 # enable nerd fonts
 set -g theme_nerd_fonts yes
 
+if status is-interactive
+    and not set -q TMUX
+    exec tmux
+end
+
 if test -d $HOME/.local/bin/
     set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.emacs.d/bin $PATH
 end

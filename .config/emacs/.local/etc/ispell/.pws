@@ -1,8 +1,10 @@
-personal_ws-1.1 en 86
+personal_ws-1.1 en 96
 ansible
 anthropogenic
 aphotic
 apis
+appgate
+argocd
 backend
 biome
 biometric
@@ -21,14 +23,18 @@ degauss
 dev
 elisp
 exfiltration
+gitlab
 hardcoded
+hashicorp
 homomorphic
 hulu
+initcontainers
 invertible
 benchmarking
 iocs
 isolator
 isolines
+istio
 jira
 jupyter
 kibana
@@ -41,6 +47,7 @@ lithospheric
 meds
 microservices
 middleware
+minikube
 minio
 misconfiguration
 modeline
@@ -48,17 +55,20 @@ config
 morreall's
 nitrous
 opencti
+opensearch
 openssl
 orthotic
 outprocessing
 ozonosphere
 pcap
+pentest
 performant
 pilferable
 powershell
 programmatically
 pseudocode
 pts
+rabbitmq
 recency
 repos
 roadmap
