@@ -1,15 +1,8 @@
 . ~/.config/fish/alias.fish
 
-# make nvim the default editor
 set -x EDITOR nvim
-
-# make nvim usable with git
 set -x GIT_EDITOR nvim
-
-# Silence fish greeting
 set -g fish_greeting ''
-
-# enable nerd fonts
 set -g theme_nerd_fonts yes
 
 if status is-interactive
@@ -18,7 +11,7 @@ if status is-interactive
 end
 
 if test -d $HOME/.local/bin/
-    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.emacs.d/bin $PATH
+    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.config/emacs/bin $PATH
 end
 
 if test -d /var/lib/flatpak/
@@ -39,37 +32,5 @@ end
 if not contains "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH
     set --global --export INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH
 end
-
-function fish_user_key_bindings
-    bind ctrl-space accept-autosuggestion
-end
-
-function y
-    set -l tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file=$tmp
-    set cwd (/bin/cat -- $tmp)
-    if test -s $tmp
-        if test -n "$cwd" -a "$cwd" != "$PWD"
-            cd -- $cwd
-            commandline -f repaint # updates the prompt
-        end
-    end
-    /bin/rm -f -- $tmp
-end
-# persistently add to path
-# function add_to_path --description 'Persistently prepends paths to your PATH'
-#   for path in $argv
-#     if not contains $path $fish_user_paths
-#       set --universal fish_user_paths $fish_user_paths $argv
-#     end
-#   end
-# end
-
-# Ensure fisherman and plugins are installed
-# if not test -f $HOME/.config/fish/functions/fisher.fish
-#   echo "==> Fisherman not found.  Installing."
-#   curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-#   fisher
-# end
 
 starship init fish | source
