@@ -23,6 +23,8 @@
 (package! gtea)
 (package! typescript-mode)
 
+; (package! cli2eli :recipe (:host github :repo "nohzafk/cli2eli"))
+
 (use-package adaptive-wrap
   :ensure t
   :init
