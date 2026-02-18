@@ -147,10 +147,6 @@
   (add-to-list 'copilot-indentation-alist '(closure-mode 2))
   (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
 
-(after! flycheck
-  (add-to-list 'flycheck-checkers 'textlint)
-  (setq flycheck-textlint-config "~/.config/textlint/.textlintrc")) ;; Optional: specify a custom config file
-
 (after! eglot
   (setq-default eglot-workspace-configuration
                 '((:yaml . (:schemas (:kubernetes "/*.yaml")
@@ -161,9 +157,9 @@
   :config (eglot-booster-mode))
 
 (after! flycheck
+  (add-to-list 'flycheck-checkers 'textlint)
+  (setq flycheck-textlint-config "~/.config/textlint/.textlintrc") ;; Optional: specify a custom config file
 
-
-(after! flycheck
   (flycheck-define-checker terraform-tfsec
     "A Terraform security scanner."
     :command ("tfsec" "--format" "csv" source)
@@ -190,8 +186,7 @@
     :command ("trivy" "config" "--format" "json" source)
     :error-parser flycheck-parse-checkstyle ; Requires a small wrapper or JSON parser
     :modes (yaml-mode terraform-mode))
-  
-  (add-to-list 'flycheck-checkers 'k8s-trivy))
-  (add-to-list 'flycheck-checkers 'checkov))
+
   (add-to-list 'flycheck-checkers 'terraform-tfsec)
+  (add-to-list 'flycheck-checkers 'k8s-trivy)
   (add-to-list 'flycheck-checkers 'checkov))
