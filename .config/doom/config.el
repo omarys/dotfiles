@@ -150,3 +150,48 @@
 (after! flycheck
   (add-to-list 'flycheck-checkers 'textlint)
   (setq flycheck-textlint-config "~/.config/textlint/.textlintrc")) ;; Optional: specify a custom config file
+
+(after! eglot
+  (setq-default eglot-workspace-configuration
+                '((:yaml . (:schemas (:kubernetes "/*.yaml")
+                            :validate t
+                            :hover t)))))
+(use-package! eglot-booster
+  :after eglot
+  :config (eglot-booster-mode))
+
+(after! flycheck
+
+
+(after! flycheck
+  (flycheck-define-checker terraform-tfsec
+    "A Terraform security scanner."
+    :command ("tfsec" "--format" "csv" source)
+    :error-patterns
+    ((warning line-start (file-name) "," line "," (message) line-end))
+    :modes terraform-mode)
+
+  (flycheck-define-checker checkov
+    "A static code analysis tool for infrastructure-as-code."
+    :command ("checkov" "-f" source "--output" "cli" "--quiet")
+    :error-patterns
+    ((error line-start "Check: " (id) ":" (message) " failed in file " (file-name) ":" line line-end))
+    :modes (yaml-mode terraform-mode))
+
+  (flycheck-define-checker checkov
+    "A static code analysis tool for infrastructure-as-code."
+    :command ("checkov" "-f" source "--output" "json")
+    :error-parser flycheck-parse-checkstyle ; Checkov's JSON can be mapped here
+    :modes (yaml-mode terraform-mode)
+    :next-checkers ((warning . terraform-tflint))) ; Chain other checkers if you use them
+
+  (flycheck-define-checker k8s-trivy
+    "A Kubernetes/IaC scanner using Trivy."
+    :command ("trivy" "config" "--format" "json" source)
+    :error-parser flycheck-parse-checkstyle ; Requires a small wrapper or JSON parser
+    :modes (yaml-mode terraform-mode))
+  
+  (add-to-list 'flycheck-checkers 'k8s-trivy))
+  (add-to-list 'flycheck-checkers 'checkov))
+  (add-to-list 'flycheck-checkers 'terraform-tfsec)
+  (add-to-list 'flycheck-checkers 'checkov))
