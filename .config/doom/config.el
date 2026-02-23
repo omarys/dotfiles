@@ -11,17 +11,6 @@
 
 (remove-hook 'after-init-hook #'savehist-mode)
 
-(let ((file-path "~/.passwords/Keys/gemini_api.key"))
-  (if (file-exists-p file-path)
-      (let ((file-contents
-             (with-temp-buffer
-               (insert-file-contents file-path)
-               (buffer-string))))
-        (setq
-         gptel-model 'gemini-2.5-pro-exp-03-25
-         gptel-backend (gptel-make-gemini "Gemini" :key file-contents :stream t)))
-    (message "File not found: %s" file-path)))
-
 (setq doom-theme 'dracula)
 
 (setq display-line-numbers-type t
@@ -104,19 +93,6 @@
 (after! spell-fu
   (setq spell-fu-idle-delay 1))
 
-(use-package! gptel)
-:config
-(gptel-make-ollama "Ollama"             ; Name for the backend
-  :host "localhost:11434"               ;  Ollama host
-  :header t
-  :stream t                             ; Enable streaming responses
-  :models '("devstral:latest"
-            "deepseek-coder-v2:latest"
-            "deepseek-r1:latest"
-            "gemma3:latest"
-            "qwen2.5-coder:latest")) ; List of available models
-(setq gptel-mode 'org)
-
 (map! :leader
       (:prefix-map ("m l" . "LLM")
        :desc "Launch Gptel" "g" #'gptel
@@ -190,3 +166,16 @@
   (add-to-list 'flycheck-checkers 'terraform-tfsec)
   (add-to-list 'flycheck-checkers 'k8s-trivy)
   (add-to-list 'flycheck-checkers 'checkov))
+
+(use-package! gptel
+  :config
+  (setq! gptel-model 'gemini-2.5-pro)
+  (setq! gptel-backend
+         (gptel-make-gemini "Gemini"
+           :key (lambda ()
+                  (let ((secret (plist-get (car (auth-source-search
+                                                 :host "api.generative.googleapis.com"
+                                                 :user "apikey"))
+                                           :secret)))
+                    (if (functionp secret) (funcall secret) secret)))
+           :stream t)))
