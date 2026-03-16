@@ -31,8 +31,8 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
-(after! org
-  (setq org-time-stamp-formats '("<%Y-%m-%d %a %H:%M>" . "<%Y-%m-%d %a %H:%M>")))
+;; (after! org
+;;   (setq org-time-stamp-formats '("<%Y-%m-%d %a %H:%M>" . "<%Y-%m-%d %a %H:%M>")))
 
 (org-roam-db-autosync-mode)
 
@@ -179,3 +179,6 @@
                                            :secret)))
                     (if (functionp secret) (funcall secret) secret)))
            :stream t)))
+
+(after! vterm
+  (add-to-list 'vterm-keymap-exceptions "C-SPC"))
