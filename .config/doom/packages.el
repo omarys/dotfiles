@@ -6,7 +6,7 @@
 ;; use 'M-x doom/reload'.
 (straight-use-package-mode 1)
 (use-package evil-commentary
-    :straight t)
+  :straight t)
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
                                         ;(package! some-package)
@@ -15,6 +15,7 @@
 (package! buck)
 (package! dracula-theme)
 (package! evil-tutor)
+(package! exec-path-from-shell)
 (package! flycheck-aspell)
 (package! glab)
 (package! gptel :recipe (:nonrecursive t))

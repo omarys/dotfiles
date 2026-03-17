@@ -34,6 +34,27 @@
 ;; (after! org
 ;;   (setq org-time-stamp-formats '("<%Y-%m-%d %a %H:%M>" . "<%Y-%m-%d %a %H:%M>")))
 
+(after! org-roam
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ${title}\n#+date: %U\n\n")
+           :unnarrowed t)
+          ("p" "project" plain "* Overview\n\n%?\n\n* Tasks\n** TODO Define initial tasks\n"
+           :target (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ${title}\n#+category: ${title}\n#+filetags: :Project:\n")
+           :unnarrowed t)
+          ("t" "tech/dev" plain "%?"
+           :target (file+head "tech/%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ${title}\n#+filetags: :Tech:\n\n* Reference/Links\n\n* Notes\n")
+           :unnarrowed t)))
+
+  ;; Ensure the backlinks buffer shows up on the right side and is readable
+  (setq org-roam-mode-sections
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section)))
+
 (org-roam-db-autosync-mode)
 
 (plist-put! +ligatures-extra-symbols
@@ -98,6 +119,8 @@
        :desc "Launch Gptel" "g" #'gptel
        :desc "Gptel Menu" "m" #'gptel-menu
        :desc "Abort Gptel" "a" #'gptel-abort
+       :desc "Add snippet to gptel" "c" #'gptel-add
+       :desc "Add file to gptel" "f" #'gptel-add-file
        :desc "Send to Gptel" "RET" #'gptel-send))
 
 (beacon-mode 1)
@@ -108,34 +131,81 @@
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)
-              ("C-n" . 'copilot-next-completion)
-              ("C-p" . 'copilot-previous-completion))
-
   :config
   (add-to-list 'copilot-indentation-alist '(prog-mode 2))
   (add-to-list 'copilot-indentation-alist '(org-mode 2))
   (add-to-list 'copilot-indentation-alist '(text-mode 2))
   (add-to-list 'copilot-indentation-alist '(closure-mode 2))
-  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2))
+
+  ;; 1. Standard Copilot keybindings (when Company is NOT active)
+  (map! :map copilot-completion-map
+        "<tab>"   #'copilot-accept-completion
+        "TAB"     #'copilot-accept-completion
+        "C-TAB"   #'copilot-accept-completion-by-word
+        "C-<tab>" #'copilot-accept-completion-by-word
+        "C-n"     #'copilot-next-completion
+        "C-p"     #'copilot-previous-completion))
+
+;; 2. The Traffic Cop (Resolves conflicts when Company IS active)
+(after! (company copilot)
+  (defun my/copilot-accept-if-visible ()
+    "Accept Copilot if visible, otherwise accept Company."
+    (interactive)
+    (if (copilot--overlay-visible)
+        (copilot-accept-completion)
+      (company-complete-selection)))
+
+  ;; 3. Tell Company to use our new function for TAB
+  (map! :map company-active-map
+        "<tab>" #'my/copilot-accept-if-visible
+        "TAB"   #'my/copilot-accept-if-visible))
 
 (after! eglot
   (setq-default eglot-workspace-configuration
-                '((:yaml . (:schemas (:kubernetes "/*.yaml")
-                            :validate t
-                            :hover t)))))
+                '(:yaml (:schemas (:kubernetes ["/*.yaml" "!kustomization.yaml" "!kustomization.yml"]
+                                   :https://json.schemastore.org/kustomization.json ["kustomization.yaml" "kustomization.yml"])
+                                  :validate t
+                                  :hover t
+                                  :schemaStore (:enable t))
+                  :copilot (:editorConfiguration (:enableAutoCompletions t)
+                            :pluginConfiguration (:inlineSuggest (:enable t))))))
+
 (use-package! eglot-booster
   :after eglot
   :config (eglot-booster-mode))
 
+;; 1. The custom parser function goes at the top level
+(defun my-flycheck-parse-trivy-json (output checker buffer)
+  "Parse Trivy JSON output into Flycheck errors."
+  (let ((errors nil)
+        (json-data (condition-case nil
+                       (json-parse-string output :object-type 'alist :array-type 'list)
+                     (error nil))))
+    (when json-data
+      (let ((results (alist-get 'Results json-data)))
+        (dolist (result results)
+          (let ((target (alist-get 'Target result))
+                (misconfigs (alist-get 'Misconfigurations result)))
+            (dolist (m misconfigs)
+              (let* ((line (or (alist-get 'StartLine (alist-get 'IacMetadata m)) 1))
+                     (msg (format "[%s] %s" (alist-get 'ID m) (alist-get 'Title m)))
+                     (severity-raw (alist-get 'Severity m))
+                     (level (if (member severity-raw '("HIGH" "CRITICAL")) 'error 'warning)))
+                (push (flycheck-error-new-at
+                       line nil level msg
+                       :checker checker
+                       :buffer buffer
+                       :filename target)
+                      errors)))))))
+    (nreverse errors)))
+
+;; 2. Your consolidated Flycheck block
 (after! flycheck
   (add-to-list 'flycheck-checkers 'textlint)
-  (setq flycheck-textlint-config "~/.config/textlint/.textlintrc") ;; Optional: specify a custom config file
+  (setq flycheck-textlint-config "~/.config/textlint/.textlintrc")
 
+  ;; Terraform tfsec
   (flycheck-define-checker terraform-tfsec
     "A Terraform security scanner."
     :command ("tfsec" "--format" "csv" source)
@@ -143,6 +213,7 @@
     ((warning line-start (file-name) "," line "," (message) line-end))
     :modes terraform-mode)
 
+  ;; Checkov
   (flycheck-define-checker checkov
     "A static code analysis tool for infrastructure-as-code."
     :command ("checkov" "-f" source "--output" "cli" "--quiet")
@@ -150,22 +221,20 @@
     ((error line-start "Check: " (id) ":" (message) " failed in file " (file-name) ":" line line-end))
     :modes (yaml-mode terraform-mode))
 
-  (flycheck-define-checker checkov
-    "A static code analysis tool for infrastructure-as-code."
-    :command ("checkov" "-f" source "--output" "json")
-    :error-parser flycheck-parse-checkstyle ; Checkov's JSON can be mapped here
-    :modes (yaml-mode terraform-mode)
-    :next-checkers ((warning . terraform-tflint))) ; Chain other checkers if you use them
-
-  (flycheck-define-checker k8s-trivy
-    "A Kubernetes/IaC scanner using Trivy."
+  ;; Our new custom Trivy JSON checker
+  (flycheck-define-checker k8s-trivy-json
+    "A Kubernetes/IaC scanner using Trivy with a custom JSON parser."
     :command ("trivy" "config" "--format" "json" source)
-    :error-parser flycheck-parse-checkstyle ; Requires a small wrapper or JSON parser
+    :error-parser my-flycheck-parse-trivy-json
     :modes (yaml-mode terraform-mode))
 
+  ;; Register the checkers
   (add-to-list 'flycheck-checkers 'terraform-tfsec)
-  (add-to-list 'flycheck-checkers 'k8s-trivy)
-  (add-to-list 'flycheck-checkers 'checkov))
+  (add-to-list 'flycheck-checkers 'checkov)
+  (add-to-list 'flycheck-checkers 'k8s-trivy-json)
+
+  (flycheck-add-next-checker 'terraform-tfsec '(warning . k8s-trivy-json))
+  (flycheck-add-next-checker 'k8s-trivy-json '(warning . checkov)))
 
 (use-package! gptel
   :config
@@ -182,3 +251,13 @@
 
 (after! vterm
   (add-to-list 'vterm-keymap-exceptions "C-SPC"))
+
+(when (memq window-system '(mac ns x))
+  (setq exec-path-from-shell-variables '("PATH" "MANPATH" "FNM_DIR" "FNM_MULTISHELL_PATH"))
+  (exec-path-from-shell-initialize))
+
+(when (boundp 'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode 1)
+  (setq pixel-scroll-precision-interpolate-page t
+        pixel-scroll-precision-interpolate-mice t
+        pixel-scroll-precision-use-momentum t))
