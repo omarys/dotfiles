@@ -1,10 +1,12 @@
 !./config/nvim/lua/config/keymaps.lua
 !./config/nvim/lua/plugins/core.lua
 !.config/emacs/.local/etc/ispell/.pws
+!.config/emacs/.local/.gitkeep
 *.bak
 */lvim/lazy-lock.json
 .config/emacs
 .config/emacs/eln-cache
+.config/emacs/.local/*
 .config/fish/fish_variables
 .config/mangal/*
 .config/nvim/*
