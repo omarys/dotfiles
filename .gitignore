@@ -27,3 +27,7 @@ Dracula.hct
 node_modules/*
 package-lock.json
 pipup.sh
+.config/fish/completions/
+.config/fish/conf.d/
+.config/sway/plugins/
+.config/zellij/plugins/
