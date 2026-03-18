@@ -154,7 +154,6 @@ fi
 
 bindkey '^ ' autosuggest-accept
 
-. "$HOME/.cargo/env"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(navi widget zsh)"
@@ -168,3 +167,4 @@ export FZF_CTRL_R_OPTS="
   --bind '?:toggle-preview'
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.cargo/bin:$PATH"

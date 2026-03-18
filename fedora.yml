@@ -1,0 +1,360 @@
+---
+- name: Provision Fedora Workstation (XFS Edition)
+  hosts: localhost
+  connection: local
+  become: true
+
+  vars:
+    user_name: "omary"
+    user_home: "/home/{{ user_name }}"
+    target_fs_type: "xfs"
+    font_version: "v3.4.0"
+    
+    core_packages:
+      - cargo
+      - curl
+      - dnf-plugins-core
+      - emacs-pgtk
+      - file
+      - git
+      - gnupg2
+      - keepassxc
+      - make
+      - neovim
+      - opensc
+      - pass
+      - pcsc-lite
+      - pcsc-lite-ccid
+      - pcsc-tools
+      - procps-ng
+      - python3-neovim
+      - rust
+      - steam
+      - stow
+      - unzip
+      - util-linux-user
+      - zsh
+
+    homebrew_packages:
+      - argocd
+      - awscli
+      - black
+      - checkov
+      - dive
+      - docker-credential-helper
+      - fzf
+      - glab
+      - glow
+      - grex
+      - hadolint
+      - helm
+      - jq
+      - k9s
+      - ksops
+      - kubernetes-cli
+      - kustomize
+      - lazygit
+      - mani
+      - minikube
+      - navi
+      - node
+      - ollama
+      - opentofu
+      - pre-commit
+      - presenterm
+      - prettier
+      - python@3.13
+      - semgrep
+      - silicon
+      - sops
+      - tealdeer
+      - terraform
+      - tflint
+      - tfsec
+      - tree-sitter
+      - trivy
+      - uv
+      - yq
+
+    cargo_packages:
+      - bat
+      - bottom
+      - cargo-update
+      - dysk
+      - fd-find
+      - fnm
+      - git-delta
+      - hoard-rs
+      - lsd
+      - mani
+      - navi
+      - rm-improved
+      - sd
+      - starship
+      - zoxide
+
+    flatpak_packages:
+      - com.mattermost.Desktop
+      - info.febvre.Komikku
+      - org.gnome.Aisleriot
+      - org.gnome.Mahjongg
+      - org.gnome.Podcasts
+      - org.gnome.Solanum
+      - us.zoom.Zoom
+
+  tasks:
+    - name: 1. Optimize Filesystem and Install Core Packages
+      block:
+        - name: Optimize Mount Options
+          ansible.builtin.mount:
+            path: /
+            src: "/dev/nvme1n1p3"
+            fstype: "{{ target_fs_type }}"
+            opts: "noatime,lazytime"
+            state: present
+
+        - name: Install Development Groups
+          ansible.builtin.dnf:
+            name: "@development-tools"
+            state: present
+
+        - name: Install System Packages
+          ansible.builtin.dnf:
+            name: "{{ core_packages }}"
+            state: present
+
+    - name: 2. Docker CE Setup
+      block:
+        - name: Purge old Docker versions
+          ansible.builtin.dnf:
+            name: [docker, docker-client, docker-common, docker-latest, docker-engine]
+            state: absent
+
+        - name: Add Docker Repo
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/fedora/docker-ce.repo
+            dest: /etc/yum.repos.d/docker-ce.repo
+            mode: '0644'
+
+        - name: Install Docker CE
+          ansible.builtin.dnf:
+            name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
+            state: present
+            update_cache: yes
+
+        - name: Enable Docker Service
+          ansible.builtin.systemd:
+            name: docker
+            enabled: yes
+            state: started
+            daemon_reload: yes
+
+        - name: User to Docker Group
+          ansible.builtin.user:
+            name: "{{ user_name }}"
+            groups: docker
+            append: yes
+
+    - name: 3. Install and Configure Linuxbrew
+      become: false
+      block:
+        - name: Check if Homebrew is installed
+          ansible.builtin.stat:
+            path: "/home/linuxbrew/.linuxbrew/bin/brew"
+          register: brew_check
+
+        - name: Install Homebrew via Official Script
+          ansible.builtin.shell:
+            cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          when: not brew_check.stat.exists
+          environment:
+            NONINTERACTIVE: "1"
+
+        - name: Ensure Homebrew is in zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+            create: yes
+
+        - name: Install Homebrew Packages
+          community.general.homebrew:
+            name: "{{ homebrew_packages }}"
+            state: present
+            path: "/home/linuxbrew/.linuxbrew/bin"
+
+    - name: 4. Install Rust Toolchain and Cargo Apps
+      become: false
+      block:
+        - name: Install standard Cargo packages
+          community.general.cargo:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ cargo_packages }}"
+
+        - name: Install Ripgrep with pcre2 support
+          ansible.builtin.shell:
+            cmd: cargo install ripgrep --features pcre2
+          args:
+            creates: "{{ user_home }}/.cargo/bin/rg"
+
+        - name: Install Yazi with special build instructions
+          ansible.builtin.shell: |
+            cargo install --force yazi-build
+            cargo install yazi-fm yazi-cli
+          args:
+            creates: "{{ user_home }}/.cargo/bin/yazi"
+
+        - name: Ensure Cargo bin is in PATH via zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+            create: yes
+
+    - name: 5. Install Ghostty Terminal
+      block:
+        - name: Enable Ghostty COPR Repository
+          community.general.copr:
+            name: scottames/ghostty
+            state: enabled
+
+        - name: Install Ghostty
+          ansible.builtin.dnf:
+            name: ghostty
+            state: present
+
+    - name: 6. Install Graphical Applications (Flatpak)
+      block:
+        - name: Ensure Flatpak package manager is installed
+          ansible.builtin.dnf:
+            name: flatpak
+            state: present
+
+        - name: Add Flathub repository
+          community.general.flatpak_remote:
+            name: flathub
+            state: present
+            flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+            method: system
+
+        - name: Install Flatpak applications
+          community.general.flatpak:
+            name: "{{ item }}"
+            state: present
+            remote: flathub
+            method: system
+          loop: "{{ flatpak_packages }}"
+
+    - name: 7. Configure SmartCard (CAC) and DoD Certificates
+      block:
+        - name: Enable and start PC/SC Smart Card Daemon
+          ansible.builtin.systemd:
+            name: pcscd
+            enabled: yes
+            state: started
+
+        - name: Ensure certificate extraction directory exists
+          ansible.builtin.file:
+            path: /tmp/dod_certs
+            state: directory
+
+        - name: Download DoD PKI Certificate Zip
+          ansible.builtin.get_url:
+            url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
+            dest: "/tmp/dod_certs.zip"
+            validate_certs: no 
+            headers:
+              User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+
+        - name: Unzip DoD Certificates
+          ansible.builtin.unarchive:
+            src: "/tmp/dod_certs.zip"
+            dest: "/tmp/dod_certs"
+            remote_src: yes
+
+        - name: Install DoD PEM certificates to system trust
+          ansible.builtin.shell: |
+            find /tmp/dod_certs -type f -name '*.pem' -exec cp {} /etc/pki/ca-trust/source/anchors/ \;
+          register: dod_copy
+          changed_when: dod_copy.stdout != ""
+
+        - name: Update System CA Trust
+          ansible.builtin.command: update-ca-trust extract
+
+    - name: 8. Final User Environment (ZSH, Fonts, Tmux)
+      become: false
+      block:
+        - name: Create font directory
+          ansible.builtin.file:
+            path: "{{ user_home }}/.local/share/fonts"
+            state: directory
+
+        - name: Install Caskaydia Cove
+          ansible.builtin.unarchive:
+            src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/CascadiaCode.zip"
+            dest: "{{ user_home }}/.local/share/fonts"
+            remote_src: yes
+
+        - name: Clone Oh-My-Zsh
+          ansible.builtin.git:
+            repo: https://github.com/ohmyzsh/ohmyzsh.git
+            dest: "{{ user_home }}/.oh-my-zsh"
+            depth: 1
+
+        - name: Clone zsh-autosuggestions
+          ansible.builtin.git:
+            repo: https://github.com/zsh-users/zsh-autosuggestions
+            dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+            depth: 1
+
+        - name: Install Tmux Package Manager (TPM)
+          ansible.builtin.git:
+            repo: https://github.com/tmux-plugins/tpm
+            dest: "{{ user_home }}/.config/tmux/plugins/tpm"
+            depth: 1
+
+        - name: Execute headless TPM plugin installation
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
+          register: tpm_install
+          changed_when: "'Installing' in tpm_install.stdout"
+          ignore_errors: yes
+
+    - name: 9. Configure Doom Emacs and LazyVim
+      become: false
+      block:
+        - name: Clone Doom Emacs Framework
+          ansible.builtin.git:
+            repo: https://github.com/doomemacs/doomemacs
+            dest: "{{ user_home }}/.config/emacs"
+            depth: 1
+
+        - name: Sync Doom Emacs packages
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.config/emacs/bin/doom sync -u"
+          ignore_errors: yes
+          register: doom_sync
+          changed_when: "'Installing' in doom_sync.stdout or 'Updating' in doom_sync.stdout"
+
+        - name: Fetch LazyVim Starter Template to temporary directory
+          ansible.builtin.git:
+            repo: https://github.com/LazyVim/starter
+            dest: "/tmp/lazyvim_starter"
+            depth: 1
+
+        - name: Merge LazyVim template with stowed overrides
+          ansible.builtin.shell:
+            cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
+          # The '-n' flag stands for 'no-clobber'. It copies the base files in, 
+          # but strictly refuses to overwrite any of the files/symlinks you already stowed.
+
+        - name: Headless LazyVim plugin installation
+          ansible.builtin.shell:
+            cmd: "nvim --headless '+Lazy! sync' +qa"
+          args:
+            creates: "{{ user_home }}/.local/share/nvim/lazy"
+
+        - name: Headless LazyVim plugin installation
+          ansible.builtin.shell:
+            cmd: "nvim --headless '+Lazy! sync' +qa"
+          args:
+            creates: "{{ user_home }}/.local/share/nvim/lazy"
