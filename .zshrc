@@ -92,7 +92,7 @@ export EDITOR='nvim'
 
 # Standard aliases
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
-alias cargup="rustup update; cargo install-update -a"
+alias cargup="cargo install-update -a"
 alias clr="clear"
 alias dsh="docker run -it --entrypoint /bin/sh"
 alias gcn="git commit --no-verify"
@@ -114,11 +114,11 @@ type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
 
-type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
