@@ -9,7 +9,7 @@
     user_home: "/home/{{ user_name }}"
     target_fs_type: "xfs"
     font_version: "v3.4.0"
-    
+
     core_packages:
       - cargo
       - curl
@@ -17,6 +17,7 @@
       - emacs-pgtk
       - file
       - git
+      - gnome-tweaks
       - gnupg2
       - keepassxc
       - make
@@ -88,6 +89,7 @@
       - lsd
       - mani
       - navi
+      - neovide
       - rm-improved
       - sd
       - starship
@@ -103,17 +105,33 @@
       - us.zoom.Zoom
 
   tasks:
-    - name: 1. Optimize Filesystem and Install Core Packages
+    - name: 1. Install Core Packages
       block:
-        - name: Optimize Mount Options
-          ansible.builtin.mount:
-            path: /
-            src: "/dev/nvme1n1p3"
-            fstype: "{{ target_fs_type }}"
-            opts: "noatime,lazytime"
+        - name: Install RPM Fusion Free
+          ansible.builtin.dnf:
+            name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
             state: present
+            disable_gpg_check: yes
 
-        - name: Install Development Groups
+        - name: Install RPM Fusion Non-Free
+          ansible.builtin.dnf:
+            name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+            state: present
+            disable_gpg_check: yes
+
+        - name: Add Terra Repository
+          ansible.builtin.get_url:
+            url: https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+            dest: /etc/yum.repos.d/terra.repo
+            mode: "0644"
+
+        - name: Install Terra Release Package
+          ansible.builtin.dnf:
+            name: terra-release
+            state: present
+            update_cache: yes
+
+        - name: Install Development Tools Group
           ansible.builtin.dnf:
             name: "@development-tools"
             state: present
@@ -127,18 +145,26 @@
       block:
         - name: Purge old Docker versions
           ansible.builtin.dnf:
-            name: [docker, docker-client, docker-common, docker-latest, docker-engine]
+            name:
+              [
+                docker,
+                docker-client,
+                docker-common,
+                docker-latest,
+                docker-engine,
+              ]
             state: absent
 
         - name: Add Docker Repo
           ansible.builtin.get_url:
             url: https://download.docker.com/linux/fedora/docker-ce.repo
             dest: /etc/yum.repos.d/docker-ce.repo
-            mode: '0644'
+            mode: "0644"
 
         - name: Install Docker CE
           ansible.builtin.dnf:
-            name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
+            name:
+              [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
             state: present
             update_cache: yes
 
@@ -261,7 +287,7 @@
           ansible.builtin.get_url:
             url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
             dest: "/tmp/dod_certs.zip"
-            validate_certs: no 
+            validate_certs: no
             headers:
               User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 
@@ -344,7 +370,7 @@
         - name: Merge LazyVim template with stowed overrides
           ansible.builtin.shell:
             cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
-          # The '-n' flag stands for 'no-clobber'. It copies the base files in, 
+          # The '-n' flag stands for 'no-clobber'. It copies the base files in,
           # but strictly refuses to overwrite any of the files/symlinks you already stowed.
 
         - name: Headless LazyVim plugin installation
