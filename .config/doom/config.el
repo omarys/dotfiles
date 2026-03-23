@@ -13,7 +13,9 @@
 
 (setq display-line-numbers-type t)
 
-(setq org-directory "~/org/")
+(run-with-idle-timer 2 nil (lambda () (require 'gptel)))
+(require 'transient)
+(setq gptel-model 'gemini-2.5-flash)
 
 (after! org
   (map! :map org-mode-map
@@ -30,41 +32,24 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
         org-todo-keywords-for-agenda '((sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "CANCELED"))))
 
-(org-roam-db-autosync-mode)
+(after! org-roam
+  (setq org-roam-directory "~/Dev/Org/Roam/"
+        org-roam-db-location "~/Dev/Org/Roam/org-roam.db")
 
-;; (plist-put! +ligatures-extra-symbols
-;;             :and           nil
-;;             :or            nil
-;;             :for           nil
-;;             :not           nil
-;;             :true          nil
-;;             :false         nil
-;;             :int           nil
-;;             :float         nil
-;;             :str           nil
-;;             :bool          nil
-;;             :list          nil)
+  (unless (file-exists-p org-roam-directory)
+    (make-directory org-roam-directory t))
 
-(let ((ligatures-to-disable '(:true :false :int :float :str :bool :list :and :or :for :not)))
-  (dolist (sym ligatures-to-disable)
-    (plist-put! +ligatures-extra-symbols sym nil)))
+  (org-roam-db-autosync-mode))
+
+(plist-put! +ligatures-extra-symbols
+            :and nil :or nil :for nil :not nil :true nil :false nil :int nil
+            :float nil :str nil :bool nil :list nil)
 
 (require 'elfeed-org)
 (elfeed-org)
 (setq rmh-elfeed-org-files (list "~/Dev/Org/Elfeed/elfeed.org"))
 (setq elfeed-db-directory "~/.elfeed")
 (setq elfeed-use-curl t)
-
-(map! :leader
-      (:prefix-map ("o" . "open")
-                   (:desc "elfeed" "l" #'elfeed)))
-
-(map! :leader
-      (:prefix-map ("e" . "easy")
-                   (:prefix ("e" . "elfeed")
-                    :desc "Filter feeds" "f" #'elfeed-search-set-filter
-                    :desc "Clear filter" "c" #'elfeed-search-clear-filter
-                    :desc "Update feeds" "u" #'elfeed-update)))
 
 (defun window-split-toggle ()
   "Toggle between horizontal and vertical split with two windows."
@@ -92,30 +77,16 @@
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word))
   :config
-  ;; This bit is crucial: It tells Copilot to take priority over
-  ;; Corfu/Company when a suggestion is visible.
-  (defun my-copilot-tab-or-default ()
-    (interactive)
-    (if (copilot--overlay-visible-p)
-        (copilot-accept-completion)
-      (execute-kbd-macro (kbd "TAB")))))
+  (setq copilot-indent-offset-alist '((t . nil)))
 
-;; Optional: If you find TAB conflicts too annoying, use the "Fish" style
-;; where Right Arrow accepts the suggestion.
-;; (define-key copilot-completion-map (kbd "<right>") 'copilot-accept-completion)
-
-
-;; Eglot Booster usually works out of the box with Corfu,
-;; but this ensures they stay snappy.
-(after! eglot
-  (setq completion-category-defaults nil))
+  (map! :map copilot-completion-map
+        "<tab>" #'copilot-accept-completion
+        "TAB"    #'copilot-accept-completion
+        "C-TAB"  #'copilot-accept-completion-by-word))
 
 (after! eglot
+  (setq completion-category-defaults nil)
   (setq-default eglot-workspace-configuration
                 '(:yaml (:schemas (:kubernetes ["/*.yaml" "!kustomization.yaml" "!kustomization.yml"]
                                    :https://json.schemastore.org/kustomization.json ["kustomization.yaml" "kustomization.yml"])
@@ -197,12 +168,57 @@
 (after! auth-source
   (add-to-list 'auth-sources 'pass))
 
-(use-package! gptel
-  :config
-  (setq! gptel-model 'gemini-1.5-pro)
-  (setq! gptel-backend
-         (gptel-make-gemini "Gemini"
-           :key (lambda ()
-                  ;; This looks specifically in your password-store
-                  (auth-source-pass-get 'secret "gemini_api_key"))
-           :stream t)))
+(after! gptel
+  (setopt gptel-backend
+          (gptel-make-gemini "Gemini"
+            :key (lambda () (auth-source-pass-get 'secret "gemini_api_key"))
+            :stream t))
+
+  (setq gptel-model 'gemini-2.5-flash
+        gptel-models '(gemini-3.1-pro-preview
+                       gemini-3-flash-preview
+                       gemini-3-deep-think-preview
+                       gemini-2.5-pro
+                       gemini-2.5-flash))
+
+  (map! :leader
+        (:prefix-map ("o" . "open")
+         :desc "Gemini Model Switcher" "m" #'my-gptel-model-switcher)))
+
+(defun my-gptel-model-indicator ()
+  "Display the current gptel model name in a condensed format."
+  (when (bound-and-true-p gptel-model)
+    (let ((model-name (symbol-name gptel-model)))
+      (cond
+       ((string-match "3.1-pro" model-name)  " [G:Pro]")
+       ((string-match "3-flash" model-name) " [G:Flash]")
+       ((string-match "deep-think" model-name) " [G:Deep]")
+       ((string-match "2.5-pro" model-name)  " [G:2.5P]")
+       (t (concat " [G:" model-name "]"))))))
+
+;; Add the indicator to the global mode line
+(add-to-list 'global-mode-string '(:eval (my-gptel-model-indicator)))
+
+
+(transient-define-prefix my-gptel-model-switcher ()
+  ["Gemini Models (March 2026)"
+   ("p" "3.1 Pro (Reasoning)" (lambda () (interactive)
+                                (setq gptel-model 'gemini-3.1-pro-preview)
+                                (force-mode-line-update)
+                                (message "Switched to Gemini 3.1 Pro")))
+   ("f" "3 Flash (Speed)"     (lambda () (interactive)
+                                (setq gptel-model 'gemini-3-flash-preview)
+                                (force-mode-line-update)
+                                (message "Switched to Gemini 3 Flash")))
+   ("d" "Deep Think (Expert)" (lambda () (interactive)
+                                (setq gptel-model 'gemini-3-deep-think-preview)
+                                (force-mode-line-update)
+                                (message "Switched to Deep Think")))
+   ("s" "2.5 Pro (Stable)"    (lambda () (interactive)
+                                (setq gptel-model 'gemini-2.5-pro)
+                                (force-mode-line-update)
+                                (message "Switched to Gemini 2.5 Pro")))
+   ("a" "2.5 Flash (Stable)"  (lambda () (interactive)
+                                (setq gptel-model 'gemini-2.5-flash)
+                                (force-mode-line-update)
+                                (message "Switched to Gemini 2.5 Flash")))])
