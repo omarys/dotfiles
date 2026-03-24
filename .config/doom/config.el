@@ -86,15 +86,14 @@
         "C-TAB"  #'copilot-accept-completion-by-word))
 
 (after! eglot
-  (setq completion-category-defaults nil)
   (setq-default eglot-workspace-configuration
-                '(:yaml (:schemas (:kubernetes ["/*.yaml" "!kustomization.yaml" "!kustomization.yml"]
-                                   :https://json.schemastore.org/kustomization.json ["kustomization.yaml" "kustomization.yml"])
-                                  :validate t
-                                  :hover t
-                                  :schemaStore (:enable t))
-                  :copilot (:editorConfiguration (:enableAutoCompletions t)
-                            :pluginConfiguration (:inlineSuggest (:enable t))))))
+                '(:yaml (:schemas [(:kubernetes ["/*.yaml" "!kustomization.yaml"])
+                                   "https://json.schemastore.org/kustomization.json" ["kustomization.yaml"]])
+                  :validate t
+                  :hover t
+                  :completion t))
+  (setq eglot-stay-out-of '(mode-line)))
+
 
 (after! vterm
   (add-to-list 'vterm-keymap-exceptions "C-SPC"))
@@ -194,6 +193,7 @@
        ((string-match "3-flash" model-name) " [G:Flash]")
        ((string-match "deep-think" model-name) " [G:Deep]")
        ((string-match "2.5-pro" model-name)  " [G:2.5P]")
+       ((string-match "2.5-flash" model-name)  " [G:2.5F]")
        (t (concat " [G:" model-name "]"))))))
 
 ;; Add the indicator to the global mode line
@@ -222,3 +222,17 @@
                                 (setq gptel-model 'gemini-2.5-flash)
                                 (force-mode-line-update)
                                 (message "Switched to Gemini 2.5 Flash")))])
+
+(defun my-copilot-modeline-indicator ()
+  "Display a Copilot icon/status in the modeline."
+  (when (bound-and-true-p copilot-mode)
+    (propertize " 🤖 " 'face 'warning)))
+
+(add-to-list 'global-mode-string '(:eval (my-copilot-modeline-indicator)))
+
+(defun my-eglot-modeline-indicator ()
+  "Display an LSP indicator if Eglot is active in the current buffer."
+  (when (bound-and-true-p eglot--managed-mode)
+    (propertize " [LSP]" 'face 'success))) ;; 'success' usually makes it green in Doom
+
+(add-to-list 'global-mode-string '(:eval (my-eglot-modeline-indicator)))
