@@ -168,3 +168,4 @@ export FZF_CTRL_R_OPTS="
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
+export AWS_VAULT_BACKEND=pass
