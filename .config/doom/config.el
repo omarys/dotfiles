@@ -87,7 +87,7 @@
 
 (after! eglot
   (setq-default eglot-workspace-configuration
-                '(:yaml (:schemas [(:kubernetes ["/*.yaml" "!kustomization.yaml"])
+                '(:yaml (:schemas [(:kubernetes ["/*.yaml" "!kustomization.yaml" "!*.sops.yaml"])
                                    "https://json.schemastore.org/kustomization.json" ["kustomization.yaml"]])
                   :validate t
                   :hover t
