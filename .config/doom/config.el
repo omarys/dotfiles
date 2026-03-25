@@ -2,20 +2,26 @@
 
 (setq user-full-name "Scott O'Mary"
       user-full-address "omaryscott@gmail.com")
-
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(font . "CaskaydiaCove Nerd Font Mono-14"))
 (setq doom-font "CaskaydiaCove Nerd Font Mono:pixelsize=18")
 (unless (doom-font-exists-p doom-font)
   (setq doom-font nil))
-
 (setq doom-theme 'dracula)
-
 (setq display-line-numbers-type t)
-
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
 (run-with-idle-timer 2 nil (lambda () (require 'gptel)))
 (require 'transient)
 (setq gptel-model 'gemini-2.5-flash)
+
+(after! spell-fu
+  (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
+  (dolist (hook '(yaml-mode-hook
+                  yaml-ts-mode-hook
+                  conf-mode-hook
+                  json-mode-hook))
+    (add-hook hook (lambda () (spell-fu-mode -1)))))
 
 (after! org
   (map! :map org-mode-map
@@ -35,21 +41,27 @@
 (after! org-roam
   (setq org-roam-directory "~/Dev/Org/Roam/"
         org-roam-db-location "~/Dev/Org/Roam/org-roam.db")
-
   (unless (file-exists-p org-roam-directory)
     (make-directory org-roam-directory t))
-
   (org-roam-db-autosync-mode))
 
 (plist-put! +ligatures-extra-symbols
             :and nil :or nil :for nil :not nil :true nil :false nil :int nil
             :float nil :str nil :bool nil :list nil)
 
-(require 'elfeed-org)
-(elfeed-org)
-(setq rmh-elfeed-org-files (list "~/Dev/Org/Elfeed/elfeed.org"))
-(setq elfeed-db-directory "~/.elfeed")
-(setq elfeed-use-curl t)
+(setq rmh-elfeed-org-files (list "~/Dev/Org/Elfeed/elfeed.org")
+      elfeed-db-directory "~/.elfeed"
+      elfeed-use-curl t)
+
+(after! elfeed
+  (require 'elfeed-org)
+  (elfeed-org)
+  (defun my/elfeed-load-and-update ()
+    (interactive)
+    (elfeed)
+    (elfeed-update))
+  (map! :leader
+        :desc "Open & update Elfeed" "o n" #'my/elfeed-load-and-update))
 
 (defun window-split-toggle ()
   "Toggle between horizontal and vertical split with two windows."
