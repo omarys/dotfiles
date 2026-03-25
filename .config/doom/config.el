@@ -248,3 +248,6 @@
     (propertize " [LSP]" 'face 'success))) ;; 'success' usually makes it green in Doom
 
 (add-to-list 'global-mode-string '(:eval (my-eglot-modeline-indicator)))
+
+(after! treemacs
+  (setq treemacs-follow-mode t))
