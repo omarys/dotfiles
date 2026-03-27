@@ -152,6 +152,17 @@ if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
 
+function jcrsd() {
+  aws sso login --profile jcrsd
+  export AWS_PROFILE=jcrsd
+  echo "jcrsd SSO login successful. AWS_PROFILE set to jcrsd"
+}
+
+function octi() {
+  export AWS_PROFILE=octi
+  echo "AWS_PROFILE set to octi"
+}
+
 bindkey '^ ' autosuggest-accept
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
