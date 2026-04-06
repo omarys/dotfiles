@@ -35,7 +35,7 @@ plugins=(
   brew
   # bun
   colorize
-  common-aliases
+  # common-aliases
   # composer
   # conda
   cp
@@ -99,6 +99,10 @@ alias gcn="git commit --no-verify"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias ls="lsd"
+alias l='lsd -l'
+alias la='lsd -a'
+alias lla='lsd -la'
+alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias md="minikube delete"
 alias ms="minikube start"
