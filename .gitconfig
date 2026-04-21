@@ -11,6 +11,7 @@
 	editor = nvim
   pager = delta
 	autocrlf = input
+  excludesfile = /home/omary/.gitignore_global
 [interactive]
   diffFilter = delta --color-only --features=interactive
 [delta]
@@ -37,6 +38,7 @@
 	repo = /home/omary/Dev/Org
 [merge]
   conflictstyle = zdiff3
+  tool = nvimdiff
 [diff]
   colorMoved = default
 [pull]
