@@ -54,6 +54,7 @@ plugins=(
   helm
   httpie
   jj
+  k8sgpt
   k9s
   kubectl
   # laravel
@@ -106,7 +107,7 @@ alias la='lsd -a'
 alias lla='lsd -la'
 alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias md="minikube delete"
+alias md="minikube delete --all --purge"
 alias ms="minikube start"
 alias rm="rip"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
@@ -169,6 +170,13 @@ function octi() {
   echo "AWS_PROFILE set to octi"
 }
 
+function fwup() {
+  fwupdmgr refresh --force
+  fwupdmgr get-devices
+  fwupdmgr get-updates
+  fwupdmgr update
+}
+
 bindkey '^ ' autosuggest-accept
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -186,3 +194,7 @@ export FZF_CTRL_R_OPTS="
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
 export AWS_VAULT_BACKEND=pass
+export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
+
+# opencode
+export PATH=/home/omary/.opencode/bin:$PATH
