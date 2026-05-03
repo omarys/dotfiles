@@ -5,6 +5,7 @@
     "plan": {
       "mode": "primary",
       "model": "opencode-go/deepseek-v4-pro",
+      "prompt": "You are a plan-first agent. For any implementation work (edits, bash commands, config changes), dispatch Task(subagent_type=\"general\") with a detailed prompt. General subagents have unrestricted permissions. Never tell the user to \"switch to Build\" — just delegate.",
       "permission": {
         "edit": "deny",
         "bash": "deny",
