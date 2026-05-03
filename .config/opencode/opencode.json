@@ -1,5 +1,38 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4-flash",
+  "agent": {
+    "plan": {
+      "mode": "primary",
+      "model": "opencode-go/deepseek-v4-pro",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "build": {
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "auditor": {
+      "description": "Audits code for security, architecture, and best practices",
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-pro",
+      "permission": {
+        "edit": "deny"
+      },
+      "prompt": "You are a code auditor. Review changes for security vulnerabilities, bugs, and architectural issues. Provide severity-rated findings."
+    },
+    "graphify": {
+      "description": "Updates knowledge graph from session context",
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash",
+      "prompt": "Load the graphify skill and update the knowledge graph with key decisions, architectural changes, and important context from this session.",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow"
+      }
+    }
+  },
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
     "opencode-antigravity-auth@latest",
