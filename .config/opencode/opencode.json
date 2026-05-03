@@ -7,10 +7,19 @@
       "model": "opencode-go/deepseek-v4-pro",
       "permission": {
         "edit": "deny",
-        "bash": "deny"
+        "bash": "deny",
+        "task": "allow"
       }
     },
     "build": {
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "general": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "explore": {
+      "mode": "subagent",
       "model": "opencode-go/deepseek-v4-flash"
     },
     "auditor": {
