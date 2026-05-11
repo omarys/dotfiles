@@ -1,39 +1,39 @@
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "a"]
 run = "cd ~/Videos"
 desc = "Go to Anime"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "d"]
 run = "cd ~/Downloads"
 desc = "Go to Downloads"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "D"]
 run = "cd ~/Documents"
 desc = "Go to Documents"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "w"]
 run = "cd ~/Dev"
 desc = "Go to Dev"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "W"]
 run = "cd ~/Work"
 desc = "Go to Work"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "p"]
 run = "cd ~/Pictures/"
 desc = "Go to Pictures"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "."]
 run = "cd ~/.dotfiles"
 desc = "Go to Dotfiles"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = ["g", "c"]
 run = "plugin vcs-files"
 desc = "Show Git files changes"

@@ -1,2 +1,7 @@
 GEMINI.md
+AGENTS.md
+.context/
 .codex
+update-agent-context.sh
+memory-bank/
+graphify-out
