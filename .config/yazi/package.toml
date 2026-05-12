@@ -1,9 +1,4 @@
 [[plugin.deps]]
-use = "llanosrocas/githead"
-rev = "317d09f"
-hash = "41dc37a724b2afd21da4f1ea6c1182d8"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
 rev = "1db18bb"
 hash = "6b141fbed3c74b45558fbc7088c805ee"
@@ -17,6 +12,31 @@ hash = "c8d30a70659f1b880407e61c564ab4e8"
 use = "Rolv-Apneseth/starship"
 rev = "a837101"
 hash = "635b0feb9215772d22020eb0abf0bb34"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "1db18bb"
+hash = "9c7987da2d2a2120dac33abb64132004"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "1db18bb"
+hash = "7a4b4237223aaa94e589d1c01a23542a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "1db18bb"
+hash = "8b1af6b5a69797ee951f2a80ce570818"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "1db18bb"
+hash = "f0c8c378184d5f8abd1b095a443d336d"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "1db18bb"
+hash = "eff8ff12fa4e5f035a10d8aeeb4c258d"
 
 [flavor]
 deps = []
