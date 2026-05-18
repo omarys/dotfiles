@@ -20,6 +20,7 @@ ggl       | git pull origin $(current_branch)
 ggp       | git push origin $(current_branch)
 gpristine | git reset --hard && git clean -dffx
 grhh      | git reset --hard
+jjbc      | jj bookmark create
 jjn       | jj new
 jjrb      | jj rebase
 jjsq      | jj squash
