@@ -1,7 +1,19 @@
 #! /usr/bin/env zsh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$PATH:$HOME/.ghcup
+# export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$HOME/.bun/bin:$PATH:$HOME/.ghcup
+
+# 1. Let Linuxbrew initialize first (which prepends it to the front)
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# 2. Capture whatever Brew/Snaps/Flatpaks did, and force the final recommended order
+# This ensures User -> Local -> DNF -> Everything Else (including Brew)
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.config/emacs/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH"
+
+# 3. Remove duplicate entries to keep the PATH clean (Optional but recommended)
+export PATH="$(echo "$PATH" | awk -v RS=':' '!a[$0]++ {if (NR>1) printf ":"; printf "%s", $0}')"
 
 # default browser
 export BROWSER=/usr/bin/firefox
@@ -179,7 +191,7 @@ function fwup() {
 
 bindkey '^ ' autosuggest-accept
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(navi widget zsh)"
 export FZF_CTRL_R_OPTS="
@@ -198,3 +210,11 @@ export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
 
 # opencode
 export PATH=/home/omary/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+eval "$(mise activate zsh)"

@@ -23,6 +23,7 @@
       - gnupg2
       - keepassxc
       - make
+      - mise
       - neovim
       - opensc
       - openssl
@@ -139,7 +140,14 @@
       block:
         - name: Purge old Docker versions
           ansible.builtin.dnf:
-            name: [docker, docker-client, docker-common, docker-latest, docker-engine]
+            name:
+              [
+                docker,
+                docker-client,
+                docker-common,
+                docker-latest,
+                docker-engine,
+              ]
             state: absent
         - name: Add Docker Repo
           ansible.builtin.get_url:
@@ -148,7 +156,8 @@
             mode: "0644"
         - name: Install Docker CE
           ansible.builtin.dnf:
-            name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
+            name:
+              [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
             state: present
             update_cache: yes
         - name: Enable Docker Service
@@ -268,7 +277,7 @@
           changed_when: dod_copy.stdout != ""
         - name: Update System CA Trust
           ansible.builtin.command: update-ca-trust extract
-    - name: 8. Final User Environment (ZSH, Fonts, Tmux)
+    - name: 8. Final User Environment (ZSH, Fonts, Tmux, Mise)
       become: false
       block:
         - name: Create font directory
@@ -301,6 +310,16 @@
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
           ignore_errors: yes
+        - name: Create global npm directory
+          ansible-builtin.file:
+            path: "{{ user_home }}/.npm-global"
+            state: directory
+        - name: Configure NPM Prefix
+          ansible.builtin.shell:
+            cmd: "npm config set prefix '~/.npm-global'"
+        - name: Configure Mise
+          ansible.builtin.shell:
+            cmd: "mise use -g node@lts"
     - name: 9. Configure Doom Emacs and LazyVim
       become: false
       block:

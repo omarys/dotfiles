@@ -31,16 +31,12 @@
         "edit": "deny"
       },
       "prompt": "You are a code auditor. Review changes for security vulnerabilities, bugs, and architectural issues. Provide severity-rated findings."
-    },
-    "graphify": {
-      "description": "Updates knowledge graph from session context",
-      "mode": "subagent",
-      "model": "opencode-go/deepseek-v4-flash",
-      "prompt": "Load the graphify skill and update the knowledge graph with key decisions, architectural changes, and important context from this session.",
-      "permission": {
-        "edit": "deny",
-        "bash": "allow"
-      }
+    }
+  },
+  "mcp": {
+    "context-mode": {
+      "type": "local",
+      "command": ["context-mode"]
     }
   },
   "plugin": [
@@ -48,6 +44,7 @@
     "opencode-antigravity-auth@latest",
     "@tarquinen/opencode-dcp@latest",
     "@franlol/opencode-md-table-formatter@latest",
-    "@mohak34/opencode-notifier@latest"
+    "@mohak34/opencode-notifier@latest",
+    "context-mode"
   ]
 }
