@@ -34,3 +34,7 @@ if not contains "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH
 end
 
 starship init fish | source
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/home/omary/.local/bin" $PATH

@@ -133,7 +133,7 @@ type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
 
-type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; npm update -g; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
@@ -218,3 +218,7 @@ export PATH=/home/omary/.opencode/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/omary/.local/bin:$PATH"
