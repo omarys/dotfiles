@@ -14,7 +14,7 @@
     "npm:pi-web-access",
     "npm:pi-subagents"
   ],
-  "lastChangelogVersion": "0.75.4",
+  "lastChangelogVersion": "0.75.5",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",

@@ -1,0 +1,14 @@
+{
+  "id":  "3bf5a8a4-6dd3-4e0c-8ae3-8de02d94d449",
+  "name":  "/home/omary/.dotfiles",
+  "projectResources":  {
+    "resources":  [
+      {
+        "gitFolder":  {
+          "folderUri":  "file:///home/omary/.dotfiles",
+          "allowWrite":  true
+        }
+      }
+    ]
+  }
+}
