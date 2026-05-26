@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 # RPM Fusion
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
 sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
@@ -58,7 +60,9 @@ flatpak install com.mattermost.Desktop info.febvre.Komikku org.gnome.Aisleriot \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Rust packages install
-[ -f /home/omary/.cargo/env ] && source /home/omary/.cargo/env
+if [ -f /home/omary/.cargo/env ]; then
+  source /home/omary/.cargo/env
+fi
 cargo install ripgrep --features pcre2
 cargo install --force yazi-build
 cargo install bat bottom cargo-update dysk editorconfig fd-find fnm git-delta hoard-rs \
