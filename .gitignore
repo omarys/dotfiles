@@ -1,7 +1,7 @@
 !.config/emacs/.local/etc/ispell/.pws
 !.config/emacs/.local/.gitkeep
 *.bak
-*/lvim/lazy-lock.json
+.config/nvim/lazy-lock.json
 .config/emacs
 .config/emacs/eln-cache
 .config/emacs/.local/*
