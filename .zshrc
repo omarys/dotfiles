@@ -66,7 +66,6 @@ plugins=(
   helm
   httpie
   jj
-  k8sgpt
   k9s
   kubectl
   # laravel
@@ -206,7 +205,7 @@ export FZF_CTRL_R_OPTS="
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
 export AWS_VAULT_BACKEND=pass
-export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
+# export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
 
 # opencode
 export PATH=/home/omary/.opencode/bin:$PATH
