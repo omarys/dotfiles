@@ -12,6 +12,7 @@
 .config/yazi/plugins/*
 .local/bin
 .local/share/fonts
+.ruff_cache/
 .w3m/*.gz
 .w3m/cookie*
 .w3m/history
