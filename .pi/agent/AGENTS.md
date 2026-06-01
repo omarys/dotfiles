@@ -64,7 +64,16 @@ Avoid loading:
 
 unless directly relevant.
 
-When output is large, use RTK/context-efficient commands to summarize, filter, count, or extract relevant fields instead of dumping raw output.
+**Always prefix shell commands with `rtk`** for token-optimized output. `rtk` is a CLI proxy that reduces token consumption from shell output. Use `rtk` for all `bash` tool calls:
+
+```bash
+rtk git status
+rtk rg "pattern" -- path/
+rtk tofu fmt -recursive -check
+rtk kubectl kustomize overlays/prod
+```
+
+Use `rtk gain` to check token savings and `rtk proxy <cmd>` only when raw unfiltered output is explicitly needed.
 
 ## Project discovery
 
@@ -177,30 +186,59 @@ Treat connector defaults as risky until reviewed.
 Keep RBAC/ABAC/Keycloak changes auditable.
 Do not change connector scope, confidence, markings, labels, or data source behavior without highlighting the impact.
 
-## Extensions and RTK
+## Context-mode
 
-Use Pi extensions only when they reduce context, improve safety, or materially improve the result.
-Do not use an extension just because it exists.
+Use context-mode tools (`ctx_execute`, `ctx_batch_execute`, `ctx_search`, `ctx_index`, `ctx_fetch_and_index`) as the default interface for all non-trivial command execution and data processing.
 
-Prefer RTK/context-efficient workflows by default:
+- Prefer `ctx_execute` over `bash` for: multi-line scripts, data filtering/aggregation/transformation, any command whose output may be large, or when you need to derive an answer from data without loading raw bytes into context.
+- Prefer `ctx_batch_execute` over sequential `bash` calls for: multi-command research, parallel reads, multi-file analysis, or any time you'd run 3+ related commands.
+- Use `ctx_search` to recall previously indexed content (docs, prior decisions, errors, plans) instead of re-reading raw files.
+- Use `ctx_index` to store large reference docs, API specs, or skill content for later retrieval.
+- Prefer `ctx_execute_file` when the file is large and you only need derived facts (counts, pattern matches, aggregates) — keep raw bytes out of context.
 
-- Use focused commands with narrow paths and patterns.
-- Prefer `rg`, `fd`, `jq`, `yq`, `git diff --name-only`, and project scripts over broad shell output.
-- Prefer commands that return file names, counts, symbols, keys, or nearby matching blocks before reading full files.
-- Avoid `cat` on large files.
-- Avoid full rendered manifests, full Terraform plans, large logs, and full generated output unless explicitly needed.
-- When command output is noisy, summarize, filter, or let RTK/context tools compact it before reasoning over it.
+When command output is noisy, filter, summarize, or let context-mode compact it before reasoning over it.
 
-Use extension categories this way:
+## Subagent orchestration
 
-- RTK/context tools: large searches, noisy shell output, repo exploration, token reduction.
-- Todo tools: multi-step tasks that need persistence across reloads or compaction.
-- Advisor/subagents: bounded reviews, architecture tradeoffs, or independent checks.
-- Simplify tools: post-change maintainability review.
-- Guardrails: secrets, destructive commands, unsafe paths, and live infrastructure risk.
-- Web access: current external docs, CVEs, provider behavior, or version-specific facts.
+Use subagents for all non-trivial work. Every request follows this pattern:
 
-Parent agent remains responsible for final decisions.
+1. **Scout** (recon): use `scout` for fast codebase reconnaissance — map relevant files, entry points, data flow, risks, and where to start. Use before you understand the code.
+2. **Planner** (plan): use `planner` to create a concrete implementation plan from gathered context. Use before bigger changes, refactors, or multi-file work.
+3. **Worker** (implement): use `worker` for implementation work. It edits files, validates, and escalates unapproved decisions instead of guessing. Only one worker writes at a time to the active worktree.
+4. **Reviewer** (review): use `reviewer` to check implemented work against the plan — correctness, tests, edge cases, simplicity. Run reviewers from fresh context for adversarial review. Use parallel reviewers with distinct angles for complex changes.
+5. **Oracle** (decide): use `oracle` for second opinions, challenging assumptions, catching drift, and architecture tradeoffs. Use before acting on risky or ambiguous decisions.
+
+**Role selection rules:**
+
+| Situation | Agent |
+|-----------|-------|
+| Don't understand the code yet | `scout` |
+| Need external docs/research | `researcher` + `scout` |
+| Non-trivial change, need a plan | `planner` |
+| Ready to implement approved plan | `worker` |
+| Implementation done, need review | `reviewer` |
+| Risky decision, need second opinion | `oracle` |
+| Simple one-line fix, no ambiguity | Direct edit (no subagent) |
+
+**Orchestration loop for implementation work:**
+
+```
+clarify → scout → planner → async worker → fresh-context reviewers → fix worker → final review
+```
+
+- Launch every subagent as `async: true` by default. Continue local inspection while children run.
+- Keep writes single-threaded. Only one writer edits the active worktree at a time.
+- Reviewers run from `context: "fresh"` for adversarial review unless forked context is explicitly requested.
+- Packaged `planner`, `worker`, and `oracle` default to forked context.
+- Children must not launch subagents unless explicitly assigned `tools: subagent`.
+
+**Parallel execution for non-write work:**
+
+- Recon and research can run in parallel (`scout` + `researcher`).
+- Review can run in parallel (multiple `reviewer` agents with distinct angles: correctness, tests, simplicity, security).
+- Validation can run in parallel after implementation.
+
+**Use other extensions only when they reduce context, improve safety, or materially improve the result. Do not use an extension just because it exists.**
 
 ## Communication
 

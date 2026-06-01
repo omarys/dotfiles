@@ -1,0 +1,14 @@
+{
+  "id": "bbc6dba3-8da8-4a92-a84e-313261a5bb66",
+  "name": "/home/omary/.config/doom",
+  "projectResources": {
+    "resources": [
+      {
+        "gitFolder": {
+          "folderUri": "file:///home/omary/.config/doom",
+          "allowWrite": true
+        }
+      }
+    ]
+  }
+}
