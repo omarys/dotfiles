@@ -55,7 +55,6 @@ plugins=(
   docker-compose
   dnf
   extract
-  fnm
   fzf
   gem
   git
@@ -191,7 +190,6 @@ function fwup() {
 bindkey '^ ' autosuggest-accept
 
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(navi widget zsh)"
 export FZF_CTRL_R_OPTS="
   --reverse
@@ -221,3 +219,6 @@ eval "$(mise activate zsh)"
 
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
+
+# Pi
+export PATH="/home/omary/.npm-global/bin:$PATH"
