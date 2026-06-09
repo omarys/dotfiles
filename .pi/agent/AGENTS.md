@@ -239,15 +239,6 @@ When saving to Mem0, save a concise summary, not raw data.
 
 If Mem0 conflicts with the current user request, repo files, or project AGENTS.md, treat Mem0 as stale.
 
-For context sources, prefer:
-
-1. Current user request
-2. Repository `AGENTS.md`
-3. Repository files
-4. context-mode indexed/session context
-5. Mem0 durable memory
-6. This global file for fallback behavior
-
 ## Subagent orchestration
 
 Use subagents for all non-trivial work. Every request follows this pattern:

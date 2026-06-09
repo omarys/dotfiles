@@ -2,7 +2,7 @@
 @/home/omary/.codex/CONTEXT-MODE.md
 @/home/omary/.codex/MEM0.md
 
-# Source of truth order
+## Source of truth order
 
 Prefer sources in this order:
 
