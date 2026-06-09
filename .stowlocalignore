@@ -1,0 +1,5 @@
+fedora.yml
+ansible/
+.git
+Makefile
+README.org

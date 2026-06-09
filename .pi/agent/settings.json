@@ -1,0 +1,120 @@
+{
+  "packages": [
+    "npm:context-mode",
+    "npm:pi-rtk-optimizer",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-simplify",
+    "npm:@juicesharp/rpiv-advisor",
+    "npm:@juicesharp/rpiv-btw",
+    "npm:@aliou/pi-guardrails",
+    "npm:@tintinweb/pi-subagents",
+    "npm:@juicesharp/rpiv-i18n",
+    "npm:@juicesharp/rpiv-args",
+    "npm:pi-web-access",
+    "npm:pi-subagents"
+  ],
+  "lastChangelogVersion": "0.78.0",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-pro",
+  "defaultThinkingLevel": "high",
+  "observational-memory": {
+    "observationThresholdTokens": 1000,
+    "compactionThresholdTokens": 50000,
+    "reflectionThresholdTokens": 30000,
+    "observerMaxTurnsPerRun": 8,
+    "reflectorMaxTurnsPerPass": 12,
+    "prunerMaxTurnsPerPass": 12,
+    "passive": false,
+    "compactionModel": {
+      "provider": "opencode-go",
+      "id": "deepseek-v4-flash"
+    }
+  },
+  "compaction": {
+    "keepRecentTokens": 20000
+  },
+  "mcpServers": {
+    "context-mode": {
+      "command": "context-mode"
+    }
+  },
+  "subagents": {
+    "agentOverrides": {
+      "scout": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "thinking": "medium",
+        "skills": [
+          "pi-agent"
+        ],
+        "fallbackModels": [
+          "openai-codex/gpt-5.4-mini"
+        ]
+      },
+      "planner": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "thinking": "medium",
+        "skills": [
+          "pi-agent"
+        ],
+        "fallbackModels": [
+          "opencode-go/deepseek-v4-pro"
+        ]
+      },
+      "worker": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "thinking": "low",
+        "skills": [
+          "pi-agent"
+        ],
+        "fallbackModels": [
+          "openai-codex/gpt-5.4-mini"
+        ]
+      },
+      "reviewer": {
+        "model": "openai-codex/gpt-5.5",
+        "thinking": "medium",
+        "skills": [
+          "pi-agent"
+        ],
+        "fallbackModels": [
+          "openai-codex/gpt-5.4"
+        ]
+      },
+      "delegate": {
+        "model": "opencode-go/deepseek-v4-flash",
+        "thinking": "medium",
+        "fallbackModels": [
+          "openai-codex/gpt-5.4-mini"
+        ]
+      },
+      "oracle": {
+        "model": "opencode-go/qwen3.6-plus",
+        "thinking": "medium",
+        "skills": [
+          "pi-agent"
+        ],
+        "fallbackModels": [
+          "openai-codex/gpt-5.5"
+        ]
+      }
+    }
+  },
+  "enabledModels": [
+    "openai-codex/gpt-5.2",
+    "openai-codex/gpt-5.3-codex",
+    "openai-codex/gpt-5.3-codex-spark",
+    "openai-codex/gpt-5.4",
+    "openai-codex/gpt-5.4-mini",
+    "openai-codex/gpt-5.5",
+    "opencode-go/deepseek-v4-flash",
+    "opencode-go/deepseek-v4-pro",
+    "opencode-go/glm-5",
+    "opencode-go/glm-5.1",
+    "opencode-go/mimo-v2.5",
+    "opencode-go/mimo-v2.5-pro",
+    "opencode-go/minimax-m2.5",
+    "opencode-go/minimax-m2.7",
+    "opencode-go/qwen3.6-plus"
+  ]
+}

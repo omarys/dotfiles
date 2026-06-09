@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no' ?>
+<opml version="2.0">
+  <head>
+    <title>AntennaPod Subscriptions</title>
+    <dateCreated>25 Mar 26 14:03:54 -0500</dateCreated>
+  </head>
+  <body>
+    <outline text=".NET Rocks!" title=".NET Rocks!" type="rss" xmlUrl="http://www.pwop.com/feed.aspx?show=dotnetrocks&amp;filetype=master" htmlUrl="http://www.dotnetrocks.com" />
+    <outline text="A.K. 47 - Selections from the Works of Alexandra Kollontai" title="A.K. 47 - Selections from the Works of Alexandra Kollontai" type="rss" xmlUrl="https://rss.buzzsprout.com/251881.rss" htmlUrl="http://www.kristenghodsee.com" />
+    <outline text="Arrested DevOps" title="Arrested DevOps" type="rss" xmlUrl="https://www.arresteddevops.com/episode/index.xml" htmlUrl="https://www.arresteddevops.com/" />
+    <outline text="Backend Banter" title="Backend Banter" type="rss" xmlUrl="https://anchor.fm/s/f39e007c/podcast/rss" htmlUrl="https://www.boot.dev" />
+    <outline text="Beyond Good and Evil by Friedrich Nietzsche (1844 - 1900)" title="Beyond Good and Evil by Friedrich Nietzsche (1844 - 1900)" type="rss" xmlUrl="https://librivox.org/rss/152" htmlUrl="https://librivox.org/beyond-good-and-evil-by-friedrich-nietzsche/" />
+    <outline text="Blowback" title="Blowback" type="rss" xmlUrl="https://feeds.megaphone.fm/ARML4460792039" htmlUrl="https://redcircle.com/shows/blowback" />
+    <outline text="C. Town Archive" title="C. Town Archive" type="rss" xmlUrl="https://cmtown.org/cumtown.xml" htmlUrl="cmtown.org" />
+    <outline text="Campaign: Skyjacks" title="Campaign: Skyjacks" type="rss" xmlUrl="https://feeds.megaphone.fm/OSPN2193291028" htmlUrl="http://www.oneshotpodcast.com/category/campaign/campaign-podcast/" />
+    <outline text="Capital: A Critical Analysis of Capitalist Production by Karl Marx" title="Capital: A Critical Analysis of Capitalist Production by Karl Marx" type="rss" xmlUrl="http://www.loyalbooks.com/book/capital-volume-1-by-karl-marx/feed" htmlUrl="http://www.loyalbooks.com/book/capital-volume-1-by-karl-marx" />
+    <outline text="Capital: a critical analysis of capitalist production, Vol 1 by Karl Marx (1818 - 1883)" title="Capital: a critical analysis of capitalist production, Vol 1 by Karl Marx (1818 - 1883)" type="rss" xmlUrl="https://librivox.org/rss/1010" htmlUrl="https://librivox.org/capital-volume-1-by-karl-marx/" />
+    <outline text="Chapo Trap House" title="Chapo Trap House" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:211911700/sounds.rss" htmlUrl="https://www.patreon.com/chapotraphouse" />
+    <outline text="Chapo Trap House" title="Chapo Trap House" type="rss" xmlUrl="https://jumble.top/f/chapotraphouse.xml" htmlUrl="https://www.patreon.com/chapotraphouse" />
+    <outline text="ChimaeraCast | Dungeon World Actual Play" title="ChimaeraCast | Dungeon World Actual Play" type="rss" xmlUrl="https://thechimaera.com/chimaeracast/?format=rss" htmlUrl="https://thechimaera.com/chimaeracast/" />
+    <outline text="Coding Blocks" title="Coding Blocks" type="rss" xmlUrl="https://www.codingblocks.net/podcast-feed.xml" htmlUrl="https://www.codingblocks.net" />
+    <outline text="Communist Manifesto (version 2), The by Friedrich Engels (1820 - 1895) and Karl Marx (1818 - 1883)" title="Communist Manifesto (version 2), The by Friedrich Engels (1820 - 1895) and Karl Marx (1818 - 1883)" type="rss" xmlUrl="https://librivox.org/rss/4011" htmlUrl="https://librivox.org/the-communist-manifesto-version-2-by-karl-marx-and-friedrich-engels/" />
+    <outline text="Conquest of Bread (version 2), The by Peter Kropotkin (1842 - 1921)" title="Conquest of Bread (version 2), The by Peter Kropotkin (1842 - 1921)" type="rss" xmlUrl="https://librivox.org/rss/12150" htmlUrl="https://librivox.org/conquest-bread-2-by-peter-kropotkin/" />
+    <outline text="Critical Role" title="Critical Role" type="rss" xmlUrl="https://feeds.simplecast.com/LXz4Q9rJ" htmlUrl="https://www.siriusxm.com" />
+    <outline text="Critical Role &amp; Sagas of Sundry" title="Critical Role &amp; Sagas of Sundry" type="rss" xmlUrl="https://feeds.megaphone.fm/DYEAN7027366551" htmlUrl="https://geekandsundry.podbean.com" />
+    <outline text="Crudely Drawn Swords - A Dungeon World Actual Play Podcast" title="Crudely Drawn Swords - A Dungeon World Actual Play Podcast" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:196669918/sounds.rss" htmlUrl="https://www.redbubble.com/people/cds-podcast" />
+    <outline text="CushVlogs Audio - Matt Christman - Chapo Trap House" title="CushVlogs Audio - Matt Christman - Chapo Trap House" type="rss" xmlUrl="https://anchor.fm/s/19346b24/podcast/rss" htmlUrl="https://podcasters.spotify.com/pod/show/jackson-jacker" />
+    <outline text="Darknet Diaries" title="Darknet Diaries" type="rss" xmlUrl="https://podcast.darknetdiaries.com" htmlUrl="https://darknetdiaries.com/" />
+    <outline text="Developer Tea" title="Developer Tea" type="rss" xmlUrl="https://feeds.simplecast.com/dLRotFGk" htmlUrl="http://www.developertea.com" />
+    <outline text="DevOps Paradox" title="DevOps Paradox" type="rss" xmlUrl="https://devopsparadox.libsyn.com/rss" htmlUrl="https://www.devopsparadox.com/" />
+    <outline text="Dimension 20" title="Dimension 20" type="rss" xmlUrl="https://www.spreaker.com/show/4113133/episodes/feed" htmlUrl="http://dropout.tv" />
+    <outline text="Dungeons and Daddies" title="Dungeons and Daddies" type="rss" xmlUrl="https://feeds.acast.com/public/shows/46e42ca7-4921-5f04-a297-1970e72fd86d" htmlUrl="http://dungeonsanddaddies.com" />
+    <outline text="Elm Town" title="Elm Town" type="rss" xmlUrl="https://feeds.simplecast.com/8tQUlnkG" htmlUrl="https://elm.town" />
+    <outline text="EOS 10" title="EOS 10" type="rss" xmlUrl="https://feed.podbean.com/planetm/feed.xml" htmlUrl="https://www.planetm.io/eos10" />
+    <outline text="Fear the Boot, Actual Play" title="Fear the Boot, Actual Play" type="rss" xmlUrl="http://ap.feartheboot.com/index.php/feed/podcast" htmlUrl="http://ap.feartheboot.com" />
+    <outline text="Friends at the Table" title="Friends at the Table" type="rss" xmlUrl="https://friendsatthetable.libsyn.com/rss" htmlUrl="https://friendsatthetable.net" />
+    <outline text="Get in the Trunk - A Delta Green Anthology Series" title="Get in the Trunk - A Delta Green Anthology Series" type="rss" xmlUrl="https://feeds.acast.com/public/shows/63c5a0fd76f6370010cd46d3" htmlUrl="https://www.glasscannonnetwork.com/shows/get-in-the-trunk" />
+    <outline text="Girl In Space" title="Girl In Space" type="rss" xmlUrl="https://feeds.megaphone.fm/girlinspace" htmlUrl="https://www.girlinspacepodcast.com" />
+    <outline text="Go Time: Golang, Software Engineering" title="Go Time: Golang, Software Engineering" type="rss" xmlUrl="https://changelog.com/gotime/feed" htmlUrl="https://changelog.com/gotime" />
+    <outline text="God and the State by Mikhail Bakunin (1814 - 1876)" title="God and the State by Mikhail Bakunin (1814 - 1876)" type="rss" xmlUrl="https://librivox.org/rss/745" htmlUrl="https://librivox.org/god-and-the-state-by-mikhail-bakunin/" />
+    <outline text="Greetings Adventurers - Dungeons and Dragons 5e Actual Play" title="Greetings Adventurers - Dungeons and Dragons 5e Actual Play" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6148f0896701c5001adfa2ca" htmlUrl="https://geeklyinc.com/category/drunks-and-dragons/" />
+    <outline text="Grubstakers" title="Grubstakers" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:394696287/sounds.rss" htmlUrl="http://patreon.com/grubstakers" />
+    <outline text="Hanselminutes with Scott Hanselman" title="Hanselminutes with Scott Hanselman" type="rss" xmlUrl="https://feeds.simplecast.com/gvtxUiIf" htmlUrl="https://www.hanselminutes.com" />
+    <outline text="Haunted City - A Blades in the Dark Campaign" title="Haunted City - A Blades in the Dark Campaign" type="rss" xmlUrl="https://feeds.acast.com/public/shows/63a46d7969cd8e00119d1ed4" htmlUrl="https://www.glasscannonnetwork.com/shows/haunted-city" />
+    <outline text="Kubernetes Podcast from Google" title="Kubernetes Podcast from Google" type="rss" xmlUrl="https://feeds.libsyn.com/419861/rss" htmlUrl="https://kubernetespodcast.com" />
+    <outline text="Late Night Linux" title="Late Night Linux" type="rss" xmlUrl="https://latenightlinux.com/feed/mp3" htmlUrl="https://latenightlinux.com" />
+    <outline text="Lions Led By Donkeys Podcast" title="Lions Led By Donkeys Podcast" type="rss" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:457245963/sounds.rss" htmlUrl="https://www.patreon.com/lionsledbydonkeys" />
+    <outline text="Little Apocalypses: A Blades in the Dark Podcast" title="Little Apocalypses: A Blades in the Dark Podcast" type="rss" xmlUrl="https://feeds.redcircle.com/1b5b60c8-ec83-48fc-bce7-acabb4f79b11" htmlUrl="https://redcircle.com/shows/little-apocalypses-a-bitd-podcast" />
+    <outline text="Looking Backward: 2000-1887 by Edward Bellamy (1850 - 1898)" title="Looking Backward: 2000-1887 by Edward Bellamy (1850 - 1898)" type="rss" xmlUrl="https://librivox.org/rss/3226" htmlUrl="https://librivox.org/looking-backward-2000-1887-by-edward-bellamy/" />
+    <outline text="Mana &amp; Steel: A Shadowrun Podcast" title="Mana &amp; Steel: A Shadowrun Podcast" type="rss" xmlUrl="https://manaandsteel.libsyn.com/rss" htmlUrl="http://manaandsteel.libsyn.com/website" />
+    <outline text="Marx Madness" title="Marx Madness" type="rss" xmlUrl="https://pinecast.com/feed/marxmadness" htmlUrl="https://www.marxists.org/archive" />
+    <outline text="Memoirs of a Revolutionist, Vol. 1 by Peter Kropotkin (1842 - 1921)" title="Memoirs of a Revolutionist, Vol. 1 by Peter Kropotkin (1842 - 1921)" type="rss" xmlUrl="https://librivox.org/rss/5793" htmlUrl="https://librivox.org/memoirs-of-a-revolutionist-volume-1-by-peter-kropotkin/" />
+    <outline text="Memoirs of a Revolutionist, Vol. 2 by Peter Kropotkin (1842 - 1921)" title="Memoirs of a Revolutionist, Vol. 2 by Peter Kropotkin (1842 - 1921)" type="rss" xmlUrl="https://librivox.org/rss/5999" htmlUrl="https://librivox.org/memoirs-of-a-revolutionist-vol-2-by-peter-kropotkin-2/" />
+    <outline text="Mutual Aid: A Factor of Evolution by Peter Kropotkin" title="Mutual Aid: A Factor of Evolution by Peter Kropotkin" type="rss" xmlUrl="http://www.loyalbooks.com/book/mutual-aid-a-factor-of-evolution-by-peter-kropotkin/feed" htmlUrl="http://www.loyalbooks.com/book/mutual-aid-a-factor-of-evolution-by-peter-kropotkin" />
+    <outline text="MYCTP" title="MYCTP" type="rss" xmlUrl="https://anchor.fm/s/68adea68/podcast/rss" htmlUrl="https://podcasters.spotify.com/pod/show/dante049" />
+    <outline text="Not Another D&amp;D Podcast" title="Not Another D&amp;D Podcast" type="rss" xmlUrl="https://rss.art19.com/not-another-d-and-d-podcast" htmlUrl="https://headgum.com/not-another-dd-podcast" />
+    <outline text="Oak's Peak: A Dungeon World Campaign" title="Oak's Peak: A Dungeon World Campaign" type="rss" xmlUrl="https://rss.buzzsprout.com/2135476.rss" htmlUrl="http://www.discord.gg/BMFC" />
+    <outline text="Openly Gamer Theatre [GamersTable RPG Actual Plays]" title="Openly Gamer Theatre [GamersTable RPG Actual Plays]" type="rss" xmlUrl="https://anchor.fm/s/7d39210/podcast/rss" htmlUrl="http://gamerstable.com/ogt" />
+    <outline text="Pendejo Time" title="Pendejo Time" type="rss" xmlUrl="https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/a9744127-969c-4331-8eb8-b2d7003bb04b/86f8d453-92e0-4d3d-96ee-b2d7003bb061/podcast.rss" htmlUrl="https://l.instagram.com/?u=http%3A%2F%2Flinktr.ee%2Fpendejotime&amp;e=AT0t-YW6wNuwMQb5BVzEZetmxMas_tTKNvIk4VIeJvZeboghFfpf_kDy_1CWnstmI-trUV3yIQVvJ0fRU7VzxGL4eIQnF5elbG8FxFA" />
+    <outline text="Pink Fohawk" title="Pink Fohawk" type="rss" xmlUrl="https://feed.podbean.com/pinkfohawk/feed.xml" htmlUrl="https://pinkfohawk.podbean.com" />
+    <outline text="Pretending to be People" title="Pretending to be People" type="rss" xmlUrl="https://feeds.libsyn.com/575895/rss" htmlUrl="https://www.pretendingpod.com/" />
+    <outline text="Programming Throwdown" title="Programming Throwdown" type="rss" xmlUrl="https://www.programmingthrowdown.com/rss/pt.rss" htmlUrl="https://www.programmingthrowdown.com/" />
+    <outline text="Python Bytes" title="Python Bytes" type="rss" xmlUrl="https://pythonbytes.fm/episodes/rss" htmlUrl="https://pythonbytes.fm/" />
+    <outline text="Ragged Trousered Philanthropists, The by Robert Tressell (1870 - 1911)" title="Ragged Trousered Philanthropists, The by Robert Tressell (1870 - 1911)" type="rss" xmlUrl="https://librivox.org/rss/4323" htmlUrl="https://librivox.org/the-ragged-trousered-philanthropists-by-robert-tressell/" />
+    <outline text="Reading Marx's Capital (audio)" title="Reading Marx's Capital (audio)" type="rss" xmlUrl="https://davidharvey.org/audiofeed.xml" htmlUrl="http://davidharvey.org" />
+    <outline text="Red Moon Roleplaying" title="Red Moon Roleplaying" type="rss" xmlUrl="https://feeds.simplecast.com/oYuoCFr6" htmlUrl="https://www.redmoonroleplaying.com/podcast/" />
+    <outline text="Relative Dimension" title="Relative Dimension" type="rss" xmlUrl="https://feed.podbean.com/relativedimension/feed.xml" htmlUrl="http://relativedimension.com/feed" />
+    <outline text="Run Button Podcast" title="Run Button Podcast" type="rss" xmlUrl="https://runbutton.libsyn.com/rss" htmlUrl="http://Contentburger.biz" />
+    <outline text="Rustacean Station" title="Rustacean Station" type="rss" xmlUrl="https://rustacean-station.org/podcast.rss" htmlUrl="https://rustacean-station.org" />
+    <outline text="SAYER" title="SAYER" type="rss" xmlUrl="https://feeds.feedburner.com/sayer" htmlUrl="https://iamsayer.com" />
+    <outline text="Scum and Villainy Podcast" title="Scum and Villainy Podcast" type="rss" xmlUrl="https://anchor.fm/s/43f4ca84/podcast/rss" htmlUrl="https://anchor.fm/scum-and-villainy" />
+    <outline text="ShopTalk" title="ShopTalk" type="rss" xmlUrl="https://shoptalkshow.com/feed/podcast/" htmlUrl="https://shoptalkshow.com/series/default-podcast/" />
+    <outline text="Sins &amp; Consequences: A Blades in the Dark Actual Play Series" title="Sins &amp; Consequences: A Blades in the Dark Actual Play Series" type="rss" xmlUrl="https://www.spreaker.com/show/6104177/episodes/feed?key=WBFgeAqa6wDA" htmlUrl="https://www.spreaker.com/podcast/sins-consequences-a-blades-in-the-dark-actual-play-series--6104177" />
+    <outline text="Socialism: Utopian and Scientific by Friedrich Engels (1820 - 1895)" title="Socialism: Utopian and Scientific by Friedrich Engels (1820 - 1895)" type="rss" xmlUrl="https://librivox.org/rss/5522" htmlUrl="https://librivox.org/socialism-utopian-and-scientific-by-friedrich-engels/" />
+    <outline text="Soft Skills Engineering" title="Soft Skills Engineering" type="rss" xmlUrl="https://softskills.audio/feed.xml" htmlUrl="https://softskills.audio/" />
+    <outline text="Software Engineering Daily" title="Software Engineering Daily" type="rss" xmlUrl="https://softwareengineeringdaily.com/feed/podcast/" htmlUrl="https://softwareengineeringdaily.com/" />
+    <outline text="Software Engineering Radio" title="Software Engineering Radio" xmlUrl="https://se-radio.net/rss" htmlUrl="https://se-radio.net" />
+    <outline text="Spout Lore" title="Spout Lore" type="rss" xmlUrl="https://feeds.megaphone.fm/spoutlore" htmlUrl="http://spoutlore.com" />
+    <outline text="Stealth and Spirits: A Blades in the Dark campaign" title="Stealth and Spirits: A Blades in the Dark campaign" type="rss" xmlUrl="https://feeds.redcircle.com/65ddffa3-fc72-43e6-814d-4436d0a39885" htmlUrl="https://redcircle.com/shows/placeholder-rift6" />
+    <outline text="Syntax - Tasty Web Development Treats" title="Syntax - Tasty Web Development Treats" type="rss" xmlUrl="https://feed.syntax.fm/rss" htmlUrl="https://syntax.fm" />
+    <outline text="Talk Python To Me" title="Talk Python To Me" type="rss" xmlUrl="https://talkpython.fm/episodes/rss" htmlUrl="https://talkpython.fm/" />
+    <outline text="Teatime With Jesse" title="Teatime With Jesse" type="rss" xmlUrl="https://feeds.megaphone.fm/teatimewithjesse" htmlUrl="http://www.jessesteahouse.com" />
+    <outline text="The Adventure Zone" title="The Adventure Zone" type="rss" xmlUrl="https://feeds.simplecast.com/cYQVc__c" htmlUrl="https://adventurezone.simplecast.com" />
+    <outline text="The Arcology Shadowrun Community Podcast" title="The Arcology Shadowrun Community Podcast" type="rss" xmlUrl="https://arcologypodcast.libsyn.com/rss" htmlUrl="http://arcologypodcast.shadowcasters.network/" />
+    <outline text="The Arcology Shadowrun Community Podcast: Lone Star Actual Play" title="The Arcology Shadowrun Community Podcast: Lone Star Actual Play" type="rss" xmlUrl="https://www.dasixes.com/podcastfeed.php?pwd=appletini&amp;feed=2" htmlUrl="http://arcologypodcast.shadowcasters.network/" />
+    <outline text="The Arcology Shadowrun Community Podcast: Pirates Actual Play" title="The Arcology Shadowrun Community Podcast: Pirates Actual Play" type="rss" xmlUrl="https://www.dasixes.com/podcastfeed.php?pwd=appletini&amp;feed=1" htmlUrl="http://arcologypodcast.shadowcasters.network/" />
+    <outline text="The Communist Manifesto by Karl Marx and Friedrich Engels" title="The Communist Manifesto by Karl Marx and Friedrich Engels" type="rss" xmlUrl="http://www.loyalbooks.com/book/the-communist-manifesto-by-karl-marx-and-friendrich-engels/feed" htmlUrl="http://www.loyalbooks.com/book/the-communist-manifesto-by-karl-marx-and-friendrich-engels" />
+    <outline text="The Critshow" title="The Critshow" type="rss" xmlUrl="https://feeds.megaphone.fm/thecritshow" htmlUrl="http://thecritshowpodcast.com" />
+    <outline text="The Glass Cannon Podcast" title="The Glass Cannon Podcast" type="rss" xmlUrl="https://feeds.megaphone.fm/QCD8414694967" htmlUrl="https://glasscannonnetwork.com/" />
+    <outline text="The Glass Cannon Podcast" title="The Glass Cannon Podcast" type="rss" xmlUrl="https://audioboom.com/channels/4072907.rss" htmlUrl="https://audioboom.com/channels/4072907" />
+    <outline text="The Good Friends of Jackson Elias" title="The Good Friends of Jackson Elias" type="rss" xmlUrl="http://blasphemoustomes.com/category/podcast/feed/" htmlUrl="https://blasphemoustomes.com/category/podcast/" />
+    <outline text="The Harvestmen: A Blades in the Dark Actual Play" title="The Harvestmen: A Blades in the Dark Actual Play" type="rss" xmlUrl="https://rss.buzzsprout.com/971905.rss" htmlUrl="https://www.buzzsprout.com/971905" />
+    <outline text="The Humans of DevOps Podcast Series" title="The Humans of DevOps Podcast Series" type="rss" xmlUrl="https://audioboom.com/channels/5002511.rss" htmlUrl="https://audioboom.com/channels/5002511" />
+    <outline text="The Magpies: A Blades in the Dark Actual Play" title="The Magpies: A Blades in the Dark Actual Play" type="rss" xmlUrl="https://feeds.simplecast.com/yGdbbBoo" htmlUrl="https://themagpies.simplecast.com" />
+    <outline text="The New World Compendium | A New World MMO Podcast" title="The New World Compendium | A New World MMO Podcast" type="rss" xmlUrl="https://anchor.fm/s/837480a0/podcast/rss" htmlUrl="https://www.dungeoncrawlernetwork.com/category/pod/nwc/" />
+    <outline text="The Penumbra Podcast" title="The Penumbra Podcast" type="rss" xmlUrl="https://feeds.acast.com/public/shows/6831c608381499796b234652" htmlUrl="https://redcircle.com/shows/the-penumbra-podcast" />
+    <outline text="The Strange Case of Starship Iris" title="The Strange Case of Starship Iris" type="rss" xmlUrl="https://feeds.megaphone.fm/FAFO3490609621" htmlUrl="https://www.spreaker.com/show/the-strange-case-of-starship-iris" />
+    <outline text="The White Vault" title="The White Vault" type="rss" xmlUrl="https://feeds.megaphone.fm/SBP7754210900" htmlUrl="http://thewhitevault.com" />
+    <outline text="Thus Spake Zarathustra: A Book for All and None by Friedrich Nietzsche (1844 - 1900)" title="Thus Spake Zarathustra: A Book for All and None by Friedrich Nietzsche (1844 - 1900)" type="rss" xmlUrl="https://librivox.org/rss/509" htmlUrl="https://librivox.org/thus-spake-zarathustra-by-friedrich-nietzsche/" />
+    <outline text="Time For Chaos - A Call of Cthulhu Masks of Nyarlathotep Campaign" title="Time For Chaos - A Call of Cthulhu Masks of Nyarlathotep Campaign" type="rss" xmlUrl="https://feeds.acast.com/public/shows/63b72b25938ea90011f220c3" htmlUrl="https://www.glasscannonnetwork.com/shows/time-for-chaos" />
+    <outline text="Trashfuture Bonus Content Feed (Bootleg)" title="Trashfuture Bonus Content Feed (Bootleg)" type="rss" xmlUrl="https://ankino.xyz/trashfuture_blackwolf_feed.xml" htmlUrl="https://www.patreon.com/trashfuture" />
+    <outline text="Unseen" title="Unseen" type="rss" xmlUrl="https://feeds.megaphone.fm/unseen" htmlUrl="https://unseen.show" />
+    <outline text="VAST Horizon" title="VAST Horizon" type="rss" xmlUrl="https://feeds.megaphone.fm/SBP6322056253" htmlUrl="http://vasthorizonpodcast.com/" />
+    <outline text="Wage-Labour and Capital by Karl Marx" title="Wage-Labour and Capital by Karl Marx" type="rss" xmlUrl="http://www.loyalbooks.com/book/wage-labour-and-capital-by-marx-karl/feed" htmlUrl="http://www.loyalbooks.com/book/wage-labour-and-capital-by-marx-karl" />
+    <outline text="We're Alive" title="We're Alive" type="rss" xmlUrl="https://feeds.acast.com/public/shows/d1b39068-c10f-5817-8324-88ba173183cd" htmlUrl="https://www.werealive.com" />
+    <outline text="Wolf 359" title="Wolf 359" type="rss" xmlUrl="https://feeds.megaphone.fm/wolf359radio" htmlUrl="http://www.wolf359.fm" />
+    <outline text="Working Code" title="Working Code" type="rss" xmlUrl="https://feeds.redcircle.com/30227421-bc27-45c2-bfb4-861def7dd4cc" htmlUrl="https://redcircle.com/shows/workingcode" />
+    <outline text="You Can't Win" title="You Can't Win" type="rss" xmlUrl="https://youcantwin.info/rss" htmlUrl="http://youcantwin.info" />
+    <outline text="You'll Hear It" title="You'll Hear It" type="rss" xmlUrl="https://feeds.transistor.fm/youll-hear-it-music-advice" htmlUrl="https://youllhearit.com" />
+  </body>
+</opml>

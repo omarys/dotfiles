@@ -1,7 +1,19 @@
 #! /usr/bin/env zsh
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$PATH:$HOME/.ghcup
+# export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$HOME/.bun/bin:$PATH:$HOME/.ghcup
+
+# 1. Let Linuxbrew initialize first (which prepends it to the front)
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# 2. Capture whatever Brew/Snaps/Flatpaks did, and force the final recommended order
+# This ensures User -> Local -> DNF -> Everything Else (including Brew)
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.config/emacs/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH"
+
+# 3. Remove duplicate entries to keep the PATH clean (Optional but recommended)
+export PATH="$(echo "$PATH" | awk -v RS=':' '!a[$0]++ {if (NR>1) printf ":"; printf "%s", $0}')"
 
 # default browser
 export BROWSER=/usr/bin/firefox
@@ -35,7 +47,7 @@ plugins=(
   brew
   # bun
   colorize
-  common-aliases
+  # common-aliases
   # composer
   # conda
   cp
@@ -43,7 +55,6 @@ plugins=(
   docker-compose
   dnf
   extract
-  fnm
   fzf
   gem
   git
@@ -92,14 +103,22 @@ export EDITOR='nvim'
 
 # Standard aliases
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
+alias cargup="cargo install-update -a"
 alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
+# alias psh="podman run -it --entrypoint /bin/sh"
 alias dsh="docker run -it --entrypoint /bin/sh"
 alias gcn="git commit --no-verify"
+alias gcoo="git checkout --ours ."
+alias gcot="git checkout --theirs ."
+alias l='lsd -l'
+alias la='lsd -a'
+alias lla='lsd -la'
 alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
 alias ls="lsd"
+alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
-alias md="minikube delete"
+alias md="minikube delete --all --purge"
 alias ms="minikube start"
 alias rm="rip"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
@@ -112,11 +131,11 @@ type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
 
-type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; npm update -g; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; rustup update; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
@@ -150,11 +169,27 @@ if [[ -f ~/.cht ]]; then
   alias cht="cat ~/.cht"
 fi
 
+function jcrsd() {
+  aws sso login --profile jcrsd
+  export AWS_PROFILE=jcrsd
+  echo "jcrsd SSO login successful. AWS_PROFILE set to jcrsd"
+}
+
+function octi() {
+  export AWS_PROFILE=octi
+  echo "AWS_PROFILE set to octi"
+}
+
+function fwup() {
+  fwupdmgr refresh --force
+  fwupdmgr get-devices
+  fwupdmgr get-updates
+  fwupdmgr update
+}
+
 bindkey '^ ' autosuggest-accept
 
-. "$HOME/.cargo/env"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(fnm env --use-on-cd --shell zsh)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(navi widget zsh)"
 export FZF_CTRL_R_OPTS="
   --reverse
@@ -166,3 +201,24 @@ export FZF_CTRL_R_OPTS="
   --bind '?:toggle-preview'
   --bind 'alt-s:execute(pet new --tag {2..})+abort'"
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
+export AWS_VAULT_BACKEND=pass
+# export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
+
+# opencode
+export PATH=/home/omary/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+eval "$(mise activate zsh)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/omary/.local/bin:$PATH"
+
+# Pi
+export PATH="/home/omary/.npm-global/bin:$PATH"
