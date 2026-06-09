@@ -198,6 +198,47 @@ Use context-mode tools (`ctx_execute`, `ctx_batch_execute`, `ctx_search`, `ctx_i
 
 When command output is noisy, filter, summarize, or let context-mode compact it before reasoning over it.
 
+## Mem0
+
+Use Mem0 only for durable cross-session memory, not repo/session context.
+
+Search Mem0 when a task may depend on:
+
+- stable user preferences
+- recurring workflow conventions
+- long-lived project or architecture decisions
+- repeated troubleshooting lessons
+- deployment or security assumptions that remain useful across sessions
+
+Save to Mem0 only when the fact is likely to remain useful for weeks or months.
+
+Good Mem0 candidates:
+
+- user workflow preferences
+- stable project conventions
+- architecture decisions
+- repeated troubleshooting lessons
+- durable security or deployment assumptions
+
+Do not save to Mem0:
+
+- secrets
+- tokens
+- passwords
+- API keys
+- private keys
+- certificates
+- kubeconfigs
+- raw vulnerability scan dumps
+- pod logs
+- command output
+- temporary file paths
+- one-off debugging state
+
+When saving to Mem0, save a concise summary, not raw data.
+
+If Mem0 conflicts with the current user request, repo files, or project AGENTS.md, treat Mem0 as stale.
+
 ## Subagent orchestration
 
 Use subagents for all non-trivial work. Every request follows this pattern:
@@ -210,15 +251,15 @@ Use subagents for all non-trivial work. Every request follows this pattern:
 
 **Role selection rules:**
 
-| Situation | Agent |
-|-----------|-------|
-| Don't understand the code yet | `scout` |
-| Need external docs/research | `researcher` + `scout` |
-| Non-trivial change, need a plan | `planner` |
-| Ready to implement approved plan | `worker` |
-| Implementation done, need review | `reviewer` |
-| Risky decision, need second opinion | `oracle` |
-| Simple one-line fix, no ambiguity | Direct edit (no subagent) |
+| Situation                           | Agent                     |
+| ----------------------------------- | ------------------------- |
+| Don't understand the code yet       | `scout`                   |
+| Need external docs/research         | `researcher` + `scout`    |
+| Non-trivial change, need a plan     | `planner`                 |
+| Ready to implement approved plan    | `worker`                  |
+| Implementation done, need review    | `reviewer`                |
+| Risky decision, need second opinion | `oracle`                  |
+| Simple one-line fix, no ambiguity   | Direct edit (no subagent) |
 
 **Orchestration loop for implementation work:**
 
