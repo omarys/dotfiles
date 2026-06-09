@@ -30,9 +30,14 @@ trust_level = "trusted"
 
 [features]
 hooks = true
+plugin_hooks = true
 
 [mcp_servers.context-mode]
 command = "context-mode"
+
+[mcp_servers.mem0]
+url = "https://mcp.mem0.ai/mcp"
+bearer_token_env_var = "MEM0_API_KEY"
 
 [hooks.state]
 
@@ -77,3 +82,8 @@ enabled = false
 [hooks.state."/home/omary/.dotfiles/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232aea2d74a"
 enabled = false
+
+[marketplaces.mem0-plugins]
+last_updated = "2026-06-04T15:39:34Z"
+source_type = "git"
+source = "https://github.com/mem0ai/mem0.git"

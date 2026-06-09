@@ -12,9 +12,10 @@
     "npm:@juicesharp/rpiv-i18n",
     "npm:@juicesharp/rpiv-args",
     "npm:pi-web-access",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:pi-mcp-adapter"
   ],
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",
@@ -37,6 +38,10 @@
   "mcpServers": {
     "context-mode": {
       "command": "context-mode"
+    },
+    "mem0": {
+      "command": "uvx",
+      "args": ["mem0-mcp-server"]
     }
   },
   "subagents": {
@@ -44,59 +49,37 @@
       "scout": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "planner": {
         "model": "opencode-go/deepseek-v4-pro",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "opencode-go/deepseek-v4-pro"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["opencode-go/deepseek-v4-pro"]
       },
       "worker": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "low",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "reviewer": {
         "model": "openai-codex/gpt-5.5",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4"]
       },
       "delegate": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "oracle": {
         "model": "opencode-go/qwen3.6-plus",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.5"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.5"]
       }
     }
   },

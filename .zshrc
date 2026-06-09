@@ -216,6 +216,8 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
 
+# mem0
+export MEM0_API_KEY="$(pass show mem0_api_key | head -n1)"
 
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
