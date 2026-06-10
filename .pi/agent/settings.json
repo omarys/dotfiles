@@ -45,66 +45,41 @@
       "scout": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "planner": {
         "model": "opencode-go/deepseek-v4-pro",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "opencode-go/deepseek-v4-pro"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["opencode-go/deepseek-v4-pro"]
       },
       "worker": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "low",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "reviewer": {
-        "model": "openai-codex/gpt-5.5",
+        "model": "opencode-go/minimax-m2.7",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.4"]
       },
       "delegate": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "fallbackModels": ["openai-codex/gpt-5.4-mini"]
       },
       "oracle": {
         "model": "opencode-go/qwen3.6-plus",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.5"
-        ]
+        "skills": ["pi-agent"],
+        "fallbackModels": ["openai-codex/gpt-5.5"]
       }
     }
   },
   "enabledModels": [
-    "openai-codex/gpt-5.2",
-    "openai-codex/gpt-5.3-codex",
-    "openai-codex/gpt-5.3-codex-spark",
     "openai-codex/gpt-5.4",
     "openai-codex/gpt-5.4-mini",
     "openai-codex/gpt-5.5",

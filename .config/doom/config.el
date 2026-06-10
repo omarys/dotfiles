@@ -29,87 +29,87 @@
     :n "M-k" #'org-metaup)
 
   (setq org-directory "~/Dev/Org/"
-        org-journal-dir "~/Dev/Org/Journal/"
-        ;; Breathtaking, clear todo states mapping perfectly to GTD
-        org-todo-keywords
-        '((sequence "TODO(t)" "STRT(s)" "WAIT(w)" "|" "DONE(d)" "KILL(k)"))
-        ;; Gorgeous aesthetic styling matching the Dracula theme
-        org-todo-keyword-faces
-        '(("TODO" . (:foreground "#ff5555" :weight bold))
-          ("STRT" . (:foreground "#f1fa8c" :weight bold))
-          ("WAIT" . (:foreground "#ffb86c" :weight bold))
-          ("DONE" . (:foreground "#50fa7b" :weight bold))
-          ("KILL" . (:foreground "#6272a4" :weight bold :strike-through t)))
-        ;; Quality of life logging & visuals
-        org-log-done 'time
-        org-log-into-drawer t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t
-        org-hide-emphasis-markers t
-        org-pretty-entities t)
+    org-journal-dir "~/Dev/Org/Journal/"
+    ;; Breathtaking, clear todo states mapping perfectly to GTD
+    org-todo-keywords
+    '((sequence "TODO(t)" "STRT(s)" "WAIT(w)" "|" "DONE(d)" "KILL(k)"))
+    ;; Gorgeous aesthetic styling matching the Dracula theme
+    org-todo-keyword-faces
+    '(("TODO" . (:foreground "#ff5555" :weight bold)
+        ("STRT" . (:foreground "#f1fa8c" :weight bold))
+        ("WAIT" . (:foreground "#ffb86c" :weight bold))
+        ("DONE" . (:foreground "#50fa7b" :weight bold))
+        ("KILL" . (:foreground "#6272a4" :weight bold :strike-through t))))
+    ;; Quality of life logging & visuals
+    org-log-done 'time
+    org-log-into-drawer t
+    org-fontify-done-headline t
+    org-fontify-quote-and-verse-blocks t
+    org-hide-emphasis-markers t
+    org-pretty-entities t)
 
   ;; Dynamic directory-based agenda files (loads instantly and catches new captures in real-time)
   (setq org-agenda-files
-        (list
-         (concat org-directory "Agenda/inbox.org")
-         (concat org-directory "Agenda/personal.org")
-         (concat org-directory "Agenda/work.org")
-         (concat org-directory "Agenda/school.org")
-         (concat org-directory "Roam/Inbox/")
-         (concat org-directory "Roam/Jira/")
-         (concat org-directory "Roam/Tasks/")
-         (concat org-directory "Roam/Projects/")
-         (concat org-directory "Roam/Meetings/")))
+    (list
+      (concat org-directory "Agenda/inbox.org")
+      (concat org-directory "Agenda/personal.org")
+      (concat org-directory "Agenda/work.org")
+      (concat org-directory "Agenda/school.org")
+      (concat org-directory "Roam/Inbox/")
+      (concat org-directory "Roam/Jira/")
+      (concat org-directory "Roam/Tasks/")
+      (concat org-directory "Roam/Projects/")
+      (concat org-directory "Roam/Meetings/")))
 
   ;; Refresh the Agenda view automatically when any capture is finalized
   (add-hook 'org-capture-after-finalize-hook
-            (lambda ()
-              (when (get-buffer "*Org Agenda*")
-                (with-current-buffer "*Org Agenda*"
-                  (org-agenda-redo t)))))
+    (lambda ()
+      (when (get-buffer "*Org Agenda*")
+        (with-current-buffer "*Org Agenda*"
+          (org-agenda-redo t)))))
 
   ;; Premium Outlining & Refiling (move tasks between inbox, personal, and work files seamlessly)
   (setq org-refile-targets
-        '((nil :maxlevel . 3)
-          ("personal.org" :maxlevel . 3)
-          ("work.org" :maxlevel . 3)
-          ("school.org" :maxlevel . 3))
-        org-refile-use-outline-path 'file
-        org-outline-path-complete-in-steps nil)
+    '((nil :maxlevel . 3
+        ("personal.org" :maxlevel . 3)
+        ("work.org" :maxlevel . 3)
+        ("school.org" :maxlevel . 3)))
+    org-refile-use-outline-path 'file
+    org-outline-path-complete-in-steps nil)
 
   ;; Global quick capture templates for capturing reminders and quick tasks from anywhere in Emacs
   (setq org-capture-templates
-        '(("t" "Personal Todo" entry
-           (file+headline "~/Dev/Org/Agenda/inbox.org" "Personal Tasks")
-           "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n%i\n%a"
-           :prepend t)
-          ("w" "Work Todo" entry
-           (file+headline "~/Dev/Org/Agenda/inbox.org" "Work Tasks")
-           "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n%i\n%a"
-           :prepend t)
-          ("r" "Reminder" entry
-           (file+headline "~/Dev/Org/Agenda/inbox.org" "Reminders")
-           "* TODO %? :reminder:\nSCHEDULED: %^t\n:PROPERTIES:\n:Created: %U\n:END:\n%i"
-           :prepend t)))
+    '(("t" "Personal Todo" entry
+        (file+headline "~/Dev/Org/Agenda/inbox.org" "Personal Tasks")
+        "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n%i\n%a"
+        :prepend t
+        ("w" "Work Todo" entry
+          (file+headline "~/Dev/Org/Agenda/inbox.org" "Work Tasks")
+          "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n%i\n%a"
+          :prepend t)
+        ("r" "Reminder" entry
+          (file+headline "~/Dev/Org/Agenda/inbox.org" "Reminders")
+          "* TODO %? :reminder:\nSCHEDULED: %^t\n:PROPERTIES:\n:Created: %U\n:END:\n%i"
+          :prepend t))))
 
   ;; Premium Custom Unified Dashboard
   (setq org-agenda-custom-commands
-        '(("d" "Unified Work & Life Dashboard"
-           ((agenda "" ((org-agenda-span 'day)
-                        (org-agenda-start-on-weekday nil)
-                        (org-agenda-overriding-header "⚡ Today's Schedule & Deadlines")))
-            (todo "STRT"
-                  ((org-agenda-overriding-header "🔥 Active / In-Progress Tasks")))
-            (tags-todo "inbox"
-                       ((org-agenda-overriding-header "📥 Inbox & Quick Reminders (Need Refiling)")))
-            (tags-todo "jira"
-                       ((org-agenda-overriding-header "🎫 Jira Ticket Stubs")))
-            (tags-todo "work|task"
-                       ((org-agenda-overriding-header "💼 Active Work Tasks")))
-            (tags-todo "personal|family|school"
-                       ((org-agenda-overriding-header "🏡 Active Personal & Life Tasks")))
-            (todo "WAIT"
-                  ((org-agenda-overriding-header "⏳ Blocked / Waiting on Others")))))))
+    '(("d" "Unified Work & Life Dashboard"
+        ((agenda "" ((org-agenda-span 'day
+                       (org-agenda-start-on-weekday nil)
+                       (org-agenda-overriding-header "⚡ Today's Schedule & Deadlines")))
+           (todo "STRT"
+             ((org-agenda-overriding-header "🔥 Active / In-Progress Tasks")))
+           (tags-todo "inbox"
+             ((org-agenda-overriding-header "📥 Inbox & Quick Reminders (Need Refiling)")))
+           (tags-todo "jira"
+             ((org-agenda-overriding-header "🎫 Jira Ticket Stubs")))
+           (tags-todo "work|task"
+             ((org-agenda-overriding-header "💼 Active Work Tasks")))
+           (tags-todo "personal|family|school"
+             ((org-agenda-overriding-header "🏡 Active Personal & Life Tasks")))
+           (todo "WAIT"
+             ((org-agenda-overriding-header "⏳ Blocked / Waiting on Others"))))))))
 
   ;; Directly launch the dashboard bypassing the dispatcher menu
   (defun my/org-agenda-dashboard ()
@@ -118,11 +118,11 @@
     (org-agenda nil "d"))
 
   (map! :leader
-        :desc "Unified Agenda Dashboard" "o d" #'my/org-agenda-dashboard))
+    :desc "Unified Agenda Dashboard" "o d" #'my/org-agenda-dashboard))
 
 (after! org-roam
   (setq org-roam-directory "~/Dev/Org/Roam/"
-        org-roam-db-location "~/Dev/Org/Roam/org-roam.db")
+    org-roam-db-location "~/Dev/Org/Roam/org-roam.db")
 
   (unless (file-exists-p org-roam-directory)
     (make-directory org-roam-directory t))
@@ -152,35 +152,35 @@
 
   ;; Org-roam node capture templates (clean, flat, collision-proof structure)
   (setq org-roam-capture-templates
-        '(("d" "Default Note" plain
-           "%?"
-           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+created: %U\n")
-           :unnarrowed t)
+    '(("d" "Default Note" plain
+        "%?"
+        :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                  "#+title: ${title}\n#+created: %U\n")
+        :unnarrowed t
 
-          ("j" "Jira Ticket Stub" plain
-           "* TODO ${title} :jira:\n:PROPERTIES:\n:Jira-Key: %^{Jira key, optional}\n:Created: %U\n:END:\n\n** Description\n%^{Description}\n\n** Definition of Done\n%(my/org-capture-jira-dod)\n\n** Notes\n%?"
-           :target (file+head "Jira/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags: :jira:ticket:\n#+created: %U\n")
-           :unnarrowed t)
+        ("j" "Jira Ticket Stub" plain
+          "* TODO ${title} :jira:\n:PROPERTIES:\n:Jira-Key: %^{Jira key, optional}\n:Created: %U\n:END:\n\n** Description\n%^{Description}\n\n** Definition of Done\n%(my/org-capture-jira-dod)\n\n** Notes\n%?"
+          :target (file+head "Jira/%<%Y%m%d%H%M%S>-${slug}.org"
+                    "#+title: ${title}\n#+filetags: :jira:ticket:\n#+created: %U\n")
+          :unnarrowed t)
 
-          ("i" "Inbox Roam Note" plain
-           "* TODO ${title} :inbox:\n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"
-           :target (file+head "Inbox/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags: :inbox:\n#+created: %U\n")
-           :unnarrowed t)
+        ("i" "Inbox Roam Note" plain
+          "* TODO ${title} :inbox:\n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"
+          :target (file+head "Inbox/%<%Y%m%d%H%M%S>-${slug}.org"
+                    "#+title: ${title}\n#+filetags: :inbox:\n#+created: %U\n")
+          :unnarrowed t)
 
-          ("w" "Work Task Note" plain
-           "* TODO ${title} :work:task:\n:PROPERTIES:\n:Created: %U\n:Context: %^{Context|OpenCTI|Kubernetes|Terraform|AWS|Docs|Other}\n:END:\n\n** Background / Why\n%?\n\n** Next Action Items\n- [ ] "
-           :target (file+head "Tasks/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags: :work:task:\n#+created: %U\n")
-           :unnarrowed t)
+        ("w" "Work Task Note" plain
+          "* TODO ${title} :work:task:\n:PROPERTIES:\n:Created: %U\n:Context: %^{Context|OpenCTI|Kubernetes|Terraform|AWS|Docs|Other}\n:END:\n\n** Background / Why\n%?\n\n** Next Action Items\n- [ ] "
+          :target (file+head "Tasks/%<%Y%m%d%H%M%S>-${slug}.org"
+                    "#+title: ${title}\n#+filetags: :work:task:\n#+created: %U\n")
+          :unnarrowed t)
 
-          ("m" "Meeting Notes" plain
-           "* ${title} :meeting:\n:PROPERTIES:\n:Created: %U\n:Attendees: %^{Attendees}\n:END:\n\n** Agenda / Purpose\n%?\n\n** Notes & Discussion\n\n** Decisions\n- \n\n** Action Items\n- [ ] "
-           :target (file+head "Meetings/%<%Y%m%d%H%M%S>-${slug}.org"
-                              "#+title: ${title}\n#+filetags: :meeting:work:\n#+created: %U\n")
-           :unnarrowed t)))
+        ("m" "Meeting Notes" plain
+          "* ${title} :meeting:\n:PROPERTIES:\n:Created: %U\n:Attendees: %^{Attendees}\n:END:\n\n** Agenda / Purpose\n%?\n\n** Notes & Discussion\n\n** Decisions\n- \n\n** Action Items\n- [ ] "
+          :target (file+head "Meetings/%<%Y%m%d%H%M%S>-${slug}.org"
+                    "#+title: ${title}\n#+filetags: :meeting:work:\n#+created: %U\n")
+          :unnarrowed t))))
 
   ;; Org-roam daily/journal capture templates
   (setq org-roam-dailies-directory "Daily/")
@@ -311,9 +311,9 @@
     "A Dockerfile linter using Hadolint."
     :command ("hadolint" "--format" "tty" source)
     :error-patterns
-    ((info line-start (file-name) ":" line " " (id) " DL" (message) line-end)
-     (warning line-start (file-name) ":" line " " (id) " SC" (message) line-end)
-     (error line-start (file-name) ":" line " " (id) " " (message) line-end))
+    ((info line-start (file-name) ":" line " " (id) " DL" (message) line-end
+       (warning line-start (file-name) ":" line " " (id) " SC" (message) line-end)
+       (error line-start (file-name) ":" line " " (id) " " (message) line-end)))
     :modes dockerfile-mode))
 
 (add-to-list 'flycheck-checkers 'dockerfile-hadolint)
@@ -363,8 +363,8 @@
 
 (defun my/org-capture-jira-dod ()
   "Prompt for Definition of Done checklist items."
-  (let ((items '())
-        (item ""))
+  (let ((items '()
+          (item "")))
     (while (not (string-empty-p
                   (setq item (read-string "Done criterion, blank to finish: "))))
       (push item items))
@@ -372,3 +372,8 @@
       (lambda (x) (concat "- [ ] " x))
       (nreverse items)
       "\n")))
+
+(after! org-journal
+  (setq org-journal-file-format "%Y%m%d.org.gpg")
+  (setq org-journal-enable-encryption t)
+  (setq epa-file-encrypt-to nil))

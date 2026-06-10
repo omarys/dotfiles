@@ -1,4 +1,5 @@
 [tools]
+aube = "latest"
 node = "latest"
 "pipx:checkov" = "latest"
 python = "latest"
