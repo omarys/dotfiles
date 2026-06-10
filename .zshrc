@@ -104,17 +104,18 @@ export EDITOR='nvim'
 # Standard aliases
 alias bigvim="nvim -u ~/.dotfiles/.config/nvim/large-file.vim"
 alias cargup="cargo install-update -a"
+alias cargup="rustup update; cargo install-update -a"
 alias clr="clear"
+# alias psh="podman run -it --entrypoint /bin/sh"
 alias dsh="docker run -it --entrypoint /bin/sh"
 alias gcn="git commit --no-verify"
-alias gcot="git checkout --theirs ."
 alias gcoo="git checkout --ours ."
-alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
-alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
-alias ls="lsd"
+alias gcot="git checkout --theirs ."
 alias l='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
+alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
+alias ls="lsd"
 alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
 alias md="minikube delete --all --purge"
@@ -123,7 +124,6 @@ alias rm="rip"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zshconfig="nvim ~/.zshrc"
 alias zzz="exit"
-# alias psh="podman run -it --entrypoint /bin/sh"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -216,11 +216,11 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
 
+# mem0
+export MEM0_API_KEY="$(pass show mem0_api_key | head -n1)"
+
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
 
 # Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
-
-# Mem0
-export MEM0_API_KEY="$(pass list mem0-api-key | head -n 1 | awk '{print $1}')"

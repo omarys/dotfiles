@@ -38,6 +38,10 @@
   "mcpServers": {
     "context-mode": {
       "command": "context-mode"
+    },
+    "mem0": {
+      "command": "uvx",
+      "args": ["mem0-mcp-server"]
     }
   },
   "subagents": {
