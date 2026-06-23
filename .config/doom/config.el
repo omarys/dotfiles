@@ -11,9 +11,21 @@
 (setq display-line-numbers-type t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(run-with-idle-timer 2 nil (lambda () (require 'gptel)))
 (require 'transient)
-(setq gptel-model 'gemini-2.5-flash)
+
+(after! gptel
+  ;; OpenCode Go subscription — proxies through opencode.ai with OpenAI-compatible API
+  ;; API docs: https://opencode.ai/docs/go/
+  (gptel-make-openai "OpenCode Go"
+    :host "opencode.ai"
+    :endpoint "/zen/go/v1/chat/completions"
+    :stream t
+    :key (lambda ()
+           (string-trim
+            (shell-command-to-string "pass show doom_gptel_key")))
+    :models '(deepseek-v4-pro deepseek-v4-flash))
+  (setq gptel-model 'deepseek-v4-pro
+        gptel-backend (gptel-get-backend "OpenCode Go")))
 
 (after! spell-fu
   (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
@@ -35,18 +47,20 @@
     '((sequence "TODO(t)" "STRT(s)" "WAIT(w)" "|" "DONE(d)" "KILL(k)"))
     ;; Gorgeous aesthetic styling matching the Dracula theme
     org-todo-keyword-faces
-    '(("TODO" . (:foreground "#ff5555" :weight bold)
-        ("STRT" . (:foreground "#f1fa8c" :weight bold))
-        ("WAIT" . (:foreground "#ffb86c" :weight bold))
-        ("DONE" . (:foreground "#50fa7b" :weight bold))
-        ("KILL" . (:foreground "#6272a4" :weight bold :strike-through t))))
+    '(("TODO" . (:foreground "#ff5555" :weight bold))
+       ("STRT" . (:foreground "#f1fa8c" :weight bold))
+       ("WAIT" . (:foreground "#ffb86c" :weight bold))
+       ("DONE" . (:foreground "#50fa7b" :weight bold))
+       ("KILL" . (:foreground "#6272a4" :weight bold :strike-through t)))
     ;; Quality of life logging & visuals
     org-log-done 'time
     org-log-into-drawer t
     org-fontify-done-headline t
     org-fontify-quote-and-verse-blocks t
     org-hide-emphasis-markers t
-    org-pretty-entities t)
+    org-pretty-entities t
+    ;; Override org-id-locations-file to match our org-directory
+    org-id-locations-file (expand-file-name ".orgids" org-directory))
 
   ;; Dynamic directory-based agenda files (loads instantly and catches new captures in real-time)
   (setq org-agenda-files
@@ -70,10 +84,10 @@
 
   ;; Premium Outlining & Refiling (move tasks between inbox, personal, and work files seamlessly)
   (setq org-refile-targets
-    '((nil :maxlevel . 3
-        ("personal.org" :maxlevel . 3)
-        ("work.org" :maxlevel . 3)
-        ("school.org" :maxlevel . 3)))
+    '((nil :maxlevel . 3)
+       ("personal.org" :maxlevel . 3)
+       ("work.org" :maxlevel . 3)
+       ("school.org" :maxlevel . 3))
     org-refile-use-outline-path 'file
     org-outline-path-complete-in-steps nil)
 
@@ -95,21 +109,21 @@
   ;; Premium Custom Unified Dashboard
   (setq org-agenda-custom-commands
     '(("d" "Unified Work & Life Dashboard"
-        ((agenda "" ((org-agenda-span 'day
-                       (org-agenda-start-on-weekday nil)
-                       (org-agenda-overriding-header "⚡ Today's Schedule & Deadlines")))
-           (todo "STRT"
-             ((org-agenda-overriding-header "🔥 Active / In-Progress Tasks")))
-           (tags-todo "inbox"
-             ((org-agenda-overriding-header "📥 Inbox & Quick Reminders (Need Refiling)")))
-           (tags-todo "jira"
-             ((org-agenda-overriding-header "🎫 Jira Ticket Stubs")))
-           (tags-todo "work|task"
-             ((org-agenda-overriding-header "💼 Active Work Tasks")))
-           (tags-todo "personal|family|school"
-             ((org-agenda-overriding-header "🏡 Active Personal & Life Tasks")))
-           (todo "WAIT"
-             ((org-agenda-overriding-header "⏳ Blocked / Waiting on Others"))))))))
+        ((agenda "" ((org-agenda-span 'day)
+                      (org-agenda-start-on-weekday nil)
+                      (org-agenda-overriding-header "⚡ Today's Schedule & Deadlines")))
+          (todo "STRT"
+            ((org-agenda-overriding-header "🔥 Active / In-Progress Tasks")))
+          (tags-todo "inbox"
+            ((org-agenda-overriding-header "📥 Inbox & Quick Reminders (Need Refiling)")))
+          (tags-todo "jira"
+            ((org-agenda-overriding-header "🎫 Jira Ticket Stubs")))
+          (tags-todo "work|task"
+            ((org-agenda-overriding-header "💼 Active Work Tasks")))
+          (tags-todo "personal|family|school"
+            ((org-agenda-overriding-header "🏡 Active Personal & Life Tasks")))
+          (todo "WAIT"
+            ((org-agenda-overriding-header "⏳ Blocked / Waiting on Others")))))))
 
   ;; Directly launch the dashboard bypassing the dispatcher menu
   (defun my/org-agenda-dashboard ()
@@ -156,31 +170,31 @@
         "%?"
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                   "#+title: ${title}\n#+created: %U\n")
-        :unnarrowed t
+        :unnarrowed t)
 
-        ("j" "Jira Ticket Stub" plain
-          "* TODO ${title} :jira:\n:PROPERTIES:\n:Jira-Key: %^{Jira key, optional}\n:Created: %U\n:END:\n\n** Description\n%^{Description}\n\n** Definition of Done\n%(my/org-capture-jira-dod)\n\n** Notes\n%?"
-          :target (file+head "Jira/%<%Y%m%d%H%M%S>-${slug}.org"
-                    "#+title: ${title}\n#+filetags: :jira:ticket:\n#+created: %U\n")
-          :unnarrowed t)
+       ("j" "Jira Ticket Stub" plain
+         "* TODO ${title} :jira:\n:PROPERTIES:\n:Jira-Key: %^{Jira key, optional}\n:Created: %U\n:END:\n\n** Description\n%^{Description}\n\n** Definition of Done\n%(my/org-capture-jira-dod)\n\n** Notes\n%?"
+         :target (file+head "Jira/%<%Y%m%d%H%M%S>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :jira:ticket:\n#+created: %U\n")
+         :unnarrowed t)
 
-        ("i" "Inbox Roam Note" plain
-          "* TODO ${title} :inbox:\n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"
-          :target (file+head "Inbox/%<%Y%m%d%H%M%S>-${slug}.org"
-                    "#+title: ${title}\n#+filetags: :inbox:\n#+created: %U\n")
-          :unnarrowed t)
+       ("i" "Inbox Roam Note" plain
+         "* TODO ${title} :inbox:\n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"
+         :target (file+head "Inbox/%<%Y%m%d%H%M%S>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :inbox:\n#+created: %U\n")
+         :unnarrowed t)
 
-        ("w" "Work Task Note" plain
-          "* TODO ${title} :work:task:\n:PROPERTIES:\n:Created: %U\n:Context: %^{Context|OpenCTI|Kubernetes|Terraform|AWS|Docs|Other}\n:END:\n\n** Background / Why\n%?\n\n** Next Action Items\n- [ ] "
-          :target (file+head "Tasks/%<%Y%m%d%H%M%S>-${slug}.org"
-                    "#+title: ${title}\n#+filetags: :work:task:\n#+created: %U\n")
-          :unnarrowed t)
+       ("w" "Work Task Note" plain
+         "* TODO ${title} :work:task:\n:PROPERTIES:\n:Created: %U\n:Context: %^{Context|OpenCTI|Kubernetes|Terraform|AWS|Docs|Other}\n:END:\n\n** Background / Why\n%?\n\n** Next Action Items\n- [ ] "
+         :target (file+head "Tasks/%<%Y%m%d%H%M%S>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :work:task:\n#+created: %U\n")
+         :unnarrowed t)
 
-        ("m" "Meeting Notes" plain
-          "* ${title} :meeting:\n:PROPERTIES:\n:Created: %U\n:Attendees: %^{Attendees}\n:END:\n\n** Agenda / Purpose\n%?\n\n** Notes & Discussion\n\n** Decisions\n- \n\n** Action Items\n- [ ] "
-          :target (file+head "Meetings/%<%Y%m%d%H%M%S>-${slug}.org"
-                    "#+title: ${title}\n#+filetags: :meeting:work:\n#+created: %U\n")
-          :unnarrowed t))))
+       ("m" "Meeting Notes" plain
+         "* ${title} :meeting:\n:PROPERTIES:\n:Created: %U\n:Attendees: %^{Attendees}\n:END:\n\n** Agenda / Purpose\n%?\n\n** Notes & Discussion\n\n** Decisions\n- \n\n** Action Items\n- [ ] "
+         :target (file+head "Meetings/%<%Y%m%d%H%M%S>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :meeting:work:\n#+created: %U\n")
+         :unnarrowed t)))
 
   ;; Org-roam daily/journal capture templates
   (setq org-roam-dailies-directory "Daily/")
@@ -311,9 +325,9 @@
     "A Dockerfile linter using Hadolint."
     :command ("hadolint" "--format" "tty" source)
     :error-patterns
-    ((info line-start (file-name) ":" line " " (id) " DL" (message) line-end
-       (warning line-start (file-name) ":" line " " (id) " SC" (message) line-end)
-       (error line-start (file-name) ":" line " " (id) " " (message) line-end)))
+    ((info line-start (file-name) ":" line " " (id) " DL" (message) line-end)
+      (warning line-start (file-name) ":" line " " (id) " SC" (message) line-end)
+      (error line-start (file-name) ":" line " " (id) " " (message) line-end))
     :modes dockerfile-mode))
 
 (add-to-list 'flycheck-checkers 'dockerfile-hadolint)
@@ -328,9 +342,6 @@
 (when (memq window-system '(mac ns x))
   (setq exec-path-from-shell-variables '("PATH" "MANPATH" "FNM_DIR" "FNM_MULTISHELL_PATH"))
   (exec-path-from-shell-initialize))
-
-(after! auth-source
-  (add-to-list 'auth-sources 'pass))
 
 (defun my-copilot-modeline-indicator ()
   "Display a Copilot icon/status in the modeline."
@@ -363,8 +374,8 @@
 
 (defun my/org-capture-jira-dod ()
   "Prompt for Definition of Done checklist items."
-  (let ((items '()
-          (item "")))
+  (let ((items '())
+        (item ""))
     (while (not (string-empty-p
                   (setq item (read-string "Done criterion, blank to finish: "))))
       (push item items))
@@ -374,6 +385,26 @@
       "\n")))
 
 (after! org-journal
-  (setq org-journal-file-format "%Y%m%d.org.gpg")
-  (setq org-journal-enable-encryption t)
-  (setq epa-file-encrypt-to nil))
+  (setq org-journal-file-format "%Y%m%d.org.gpg"
+    org-journal-encrypt-journal t))
+
+;; Extract GPG key from gitconfig so it stays in sync automatically
+(defun my/encrypt-key ()
+  "Return the GPG signing key from ~/.gitconfig-dev as an EPA-compatible list."
+  (let ((key (ignore-errors
+               (string-trim
+                 (shell-command-to-string
+                   "git config --file ~/Dev/.gitconfig-dev user.signingkey")))))
+    (if (or (null key) (string-empty-p key)) '("BF94127D49AD1B6D") (list key))))
+
+(setq epa-file-encrypt-to (my/encrypt-key))
+
+;; Smooth GPG encryption — use Emacs minibuffer for passphrase
+(after! epa
+  (setq epa-pinentry-mode 'loopback))
+
+(map! :leader
+  :desc "New journal entry"  "ojj" #'org-journal-new-entry
+  :desc "Next journal entry" "ojn" #'org-journal-next-entry
+  :desc "Prev journal entry" "ojp" #'org-journal-previous-entry
+  :desc "Search journal"     "ojs" #'org-journal-search-forever)

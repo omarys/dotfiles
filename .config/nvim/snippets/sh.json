@@ -1,0 +1,7 @@
+{
+  "Bash Strict Mode": {
+    "prefix": "shb",
+    "body": ["#!/usr/bin/env bash", "", "set -euo pipefail", ""],
+    "description": "Standard bash header with strict error handling"
+  }
+}
