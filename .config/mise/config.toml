@@ -1,6 +1,11 @@
 [tools]
+"aqua:tealdeer-rs/tealdeer" = "latest"
 aube = "latest"
+mani = "latest"
+navi = "latest"
 node = "latest"
 "pipx:checkov" = "latest"
+pre-commit = "latest"
 python = "latest"
+rtk = "latest"
 trufflehog = "latest"

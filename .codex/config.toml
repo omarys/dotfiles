@@ -84,7 +84,7 @@ trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232a
 enabled = false
 
 [marketplaces.context-mode]
-last_updated = "2026-06-17T01:08:12Z"
-last_revision = "0744efe2384ff3db1877e3ce18a3b8fb22290c36"
+last_updated = "2026-06-26T19:38:44Z"
+last_revision = "0b4c96deba3d3d33269542c24a7f4843f0681efc"
 source_type = "git"
 source = "https://github.com/mksglu/context-mode.git"
