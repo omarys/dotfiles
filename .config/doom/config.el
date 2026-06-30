@@ -22,10 +22,10 @@
     :stream t
     :key (lambda ()
            (string-trim
-            (shell-command-to-string "pass show doom_gptel_key")))
+             (shell-command-to-string "pass show doom_gptel_key")))
     :models '(deepseek-v4-pro deepseek-v4-flash))
   (setq gptel-model 'deepseek-v4-pro
-        gptel-backend (gptel-get-backend "OpenCode Go")))
+    gptel-backend (gptel-get-backend "OpenCode Go")))
 
 (after! spell-fu
   (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
@@ -375,7 +375,7 @@
 (defun my/org-capture-jira-dod ()
   "Prompt for Definition of Done checklist items."
   (let ((items '())
-        (item ""))
+         (item ""))
     (while (not (string-empty-p
                   (setq item (read-string "Done criterion, blank to finish: "))))
       (push item items))
@@ -408,3 +408,7 @@
   :desc "Next journal entry" "ojn" #'org-journal-next-entry
   :desc "Prev journal entry" "ojp" #'org-journal-previous-entry
   :desc "Search journal"     "ojs" #'org-journal-search-forever)
+
+(use-package! mise
+  :config
+  (global-mise-mode))
