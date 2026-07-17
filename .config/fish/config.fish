@@ -13,7 +13,15 @@ set -g fish_greeting ''
 set -g theme_nerd_fonts yes
 
 if test -d $HOME/.local/bin/
-    set -gx PATH $HOME/.local/bin $HOME/.cargo/bin $HOME/.emacs.d/bin $PATH
+    set -gx PATH $HOME/.local/bin $PATH
+end
+
+if test -d $HOME/.cargo/bin/
+    set -gx PATH $HOME/.cargo/bin $PATH
+end
+
+if test -d $HOME/.config/emacs/bin/
+    set -gx PATH $HOME/.config/emacs/bin $PATH
 end
 
 if test -d /var/lib/flatpak/
