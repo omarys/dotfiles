@@ -1,4 +1,4 @@
-font-family = "CaskaydiaCove Nerd Font Mono"
+font-family = "RobotoMono Nerd Font"
 shell-integration = zsh
 theme = Dracula
 window-decoration = true

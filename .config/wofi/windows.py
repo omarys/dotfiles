@@ -21,7 +21,6 @@ def get_windows():
     # Select outputs that are active
     windows = []
     for output in data["nodes"]:
-
         # The scratchpad (under __i3) is not supported
         if output.get("name") != "__i3" and output.get("type") == "output":
             workspaces = output.get("nodes", [])
@@ -43,7 +42,6 @@ def extract_nodes_iterative(workspace):
     nodes = workspace.get("nodes", [])
 
     for node in nodes:
-
         # Leaf node
         if not node.get("nodes"):
             all_nodes.append(node)
@@ -100,7 +98,6 @@ def switch_window(id):
 
 # Entry point
 if __name__ == "__main__":
-
     parser = ArgumentParser(description="Wofi based window switcher")
 
     windows = get_windows()
@@ -113,7 +110,6 @@ if __name__ == "__main__":
 
     # Otherwise no point in running
     if selected:
-
         selected_id = parse_id(windows, parsed_windows, selected)
 
         switch_window(selected_id)

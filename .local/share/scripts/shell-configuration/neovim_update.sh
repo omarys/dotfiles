@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 cd ~/Dev/neovim || exit
 git pull
 make CMAKE_BUILD_TYPE=Release

@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 cd ~/Dev/emacs || exit
 git pull
 git checkout emacs-30

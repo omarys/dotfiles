@@ -4,29 +4,19 @@ run = "cd ~/Videos"
 desc = "Go to Anime"
 
 [[mgr.prepend_keymap]]
-on = ["g", "d"]
-run = "cd ~/Downloads"
-desc = "Go to Downloads"
-
-[[mgr.prepend_keymap]]
 on = ["g", "D"]
 run = "cd ~/Documents"
 desc = "Go to Documents"
 
 [[mgr.prepend_keymap]]
-on = ["g", "w"]
+on = ["g", "d"]
 run = "cd ~/Dev"
-desc = "Go to Dev"
+desc = "Go to Dev/"
 
 [[mgr.prepend_keymap]]
-on = ["g", "W"]
+on = ["g", "w"]
 run = "cd ~/Work"
-desc = "Go to Work"
-
-[[mgr.prepend_keymap]]
-on = ["g", "p"]
-run = "cd ~/Pictures/"
-desc = "Go to Pictures"
+desc = "Go to Work/"
 
 [[mgr.prepend_keymap]]
 on = ["g", "."]
@@ -34,26 +24,41 @@ run = "cd ~/.dotfiles"
 desc = "Go to Dotfiles"
 
 [[mgr.prepend_keymap]]
+on = ["T"]
+run = "plugin toggle-pane min-preview"
+desc = "Toggle preview pane"
+
+[[mgr.prepend_keymap]]
+on = ["f"]
+run = "plugin jump-to-char"
+desc = "Jump to file by first character"
+
+[[mgr.prepend_keymap]]
+on = ["c", "m"]
+run = "plugin chmod"
+desc = "chmod selected files"
+
+[[mgr.prepend_keymap]]
+on = ["d", "f"]
+run = "plugin diff"
+desc = "Diff selected file with hovered file"
+
+[[mgr.prepend_keymap]]
 on = ["g", "c"]
 run = "plugin vcs-files"
 desc = "Show Git files changes"
 
 [[mgr.prepend_keymap]]
-on = "H"
-run = "plugin duckdb -1"
-desc = "Scroll one column to the left"
+on = ["g", "p"]
+run = "cd ~/Pictures/"
+desc = "Go to Pictures"
 
 [[mgr.prepend_keymap]]
-on = "L"
-run = "plugin duckdb +1"
-desc = "Scroll one column to the right"
+on = ["d"]
+run = "gio"
+desc = "Move to trash"
 
 [[mgr.prepend_keymap]]
-on = ["g", "o"]
-run = "plugin duckdb -open"
-desc = "open with duckdb"
-
-[[mgr.prepend_keymap]]
-on = ["g", "u"]
-run = "plugin duckdb -ui"
-desc = "open with duckdb ui"
+on = ["D"]
+run = "remove"
+desc = "Permanently delete"

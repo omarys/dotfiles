@@ -34,7 +34,7 @@ rm ~/.config/nvim/.git
 curl -sSL mangal.metafates.one/install | sh
 
 # Fonts!
-cd ~/Downloads
+cd ~/Downloads || exit
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
 mkdir ~/.local/share/fonts
@@ -50,12 +50,12 @@ openssl pkcs7 -in ~/Downloads/certs/Certificates_PKCS7_v5_14_DoD/certificates_pk
 sudo trust anchor --store dod_CAs.pem
 
 # Add CAC reader capability ofr Chrome
-cd ~
+cd ~ || exit
 modutil -dbdir sql:.pki/nssdb/ -add "CAC Module" -libfile /usr/lib64/onepin-opensc-pkcs11.so
 
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Install OMZ & Auto Suggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

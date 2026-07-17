@@ -6,26 +6,26 @@ bluetoothctl > scan on > trust > pair > connect
 
 Alias     | Command
 ----------|----------------------------------------------------------------------------------------
-uva       | uv add
-uvexp     | uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet
-uvlu      | uv lock --upgrade
-uvsu      | uv sync --upgrade
-uvup      | uv self update
-uvv       | uv venv
+dbl       | docker build
+dcin      | docker container inspect
+dclsa     | docker container ls -a
+dils      | docker image ls
+drit      | docker container run --interactive --tty
+dsta      | docker stop $(podman ps -q)
+dtop      | docker top
 gaa       | git add --all
 gdup      | git diff @{upstream}
 gdw       | git diff --word-diff
 ggl       | git pull origin $(current_branch)
 ggp       | git push origin $(current_branch)
-grhh      | git reset --hard
 gpristine | git reset --hard && git clean -dffx
-dbl       | docker build
-dils      | docker image ls
-dcin      | docker container inspect
-dclsa     | docker container ls -a
-drit      | docker container run --interactive --tty
-dsta      | docker stop $(podman ps -q)
-dtop      | docker top
+grhh      | git reset --hard
+jjn       | jj new
+jjrb      | jj rebase
+jjsq      | jj squash
+jjst      | jj status
+prcau     | pre-commit autoupdate
+prcra     | pre-commit run --all-files
 tt        | tofu
 tta       | tofu apply
 ttc       | tofu console
@@ -34,11 +34,15 @@ ttf       | tofu fmt
 tti       | tofu init
 tto       | tofu output
 ttp       | tofu plan
-ttv       | tofu validate
+ttr       | tofu refresh
 tts       | tofu state
 ttsh      | tofu show
-ttr       | tofu refresh
 ttt       | tofu test
+ttv       | tofu validate
 ttws      | tofu workspace
-prcau     | `pre-commit autoupdate`
-prcra     | `pre-commit run --all-files`
+uva       | uv add
+uvexp     | uv export --format requirements-txt --no-hashes --output-file requirements.txt --quiet
+uvlu      | uv lock --upgrade
+uvsu      | uv sync --upgrade
+uvup      | uv self update
+uvv       | uv venv

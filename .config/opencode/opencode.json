@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4-flash",
+  "agent": {
+    "plan": {
+      "mode": "primary",
+      "model": "opencode-go/deepseek-v4-pro",
+      "prompt": "You are a plan-first agent. For any implementation work (edits, bash commands, config changes), dispatch Task(subagent_type=\"general\") with a detailed prompt. General subagents have unrestricted permissions. Never tell the user to \"switch to Build\" — just delegate.",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "task": "allow"
+      }
+    },
+    "build": {
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "general": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "explore": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "auditor": {
+      "description": "Audits code for security, architecture, and best practices",
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-pro",
+      "permission": {
+        "edit": "deny"
+      },
+      "prompt": "You are a code auditor. Review changes for security vulnerabilities, bugs, and architectural issues. Provide severity-rated findings."
+    }
+  },
+  "mcp": {
+    "context-mode": {
+      "type": "local",
+      "command": ["context-mode"]
+    }
+  },
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "opencode-antigravity-auth@latest",
+    "@tarquinen/opencode-dcp@latest",
+    "@franlol/opencode-md-table-formatter@latest",
+    "@mohak34/opencode-notifier@latest",
+    "context-mode"
+  ]
+}

@@ -38,9 +38,9 @@ flatpak install org.keepassxc.KeePassXC com.discordapp.Discord \
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install alacritty
-cd ~/Downloads
+cd ~/Downloads || exit
 git clone https://github.com/alacritty/alacritty.git ~/Dev/alacritty
-cd alacritty
+cd alacritty || exit
 cargo build --release --no-default-features --features=wayland
 sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
 sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
@@ -61,7 +61,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # Neovim source code clone/build
 git clone https://github.com/neovim/neovim.git ~/Dev/neovim
-cd ~/Dev/neovim
+cd ~/Dev/neovim || exit
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
 
@@ -71,14 +71,14 @@ rm ~/.config/nvim/.git
 
 # Emacs source code clone/build
 git clone https://git.savannah.gnu.org/git/emacs.git ~/Dev/emacs
-cd ~/Dev/emacs
+cd ~/Dev/emacs || exit
 git checkout emacs-29
 git pull
 ./autogen.sh
 ./configure --with-cairo --with-modules --without-compress-install --with-gnutls --with-mailutils --with-native-compilation \
   --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft \
   --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
-make -j$(nproc)
+make "-j$(nproc)"
 sudo make install
 
 # Doom Emacs setup
@@ -124,7 +124,7 @@ curl -sSL mangal.metafates.one/install | sh
 # brew install ktlint
 
 # Fonts!
-cd ~/Downloads
+cd ~/Downloads || exit
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
 mkdir ~/.local/share/fonts
 unzip CascadiaCode.zip -d ~/.local/share/fonts/

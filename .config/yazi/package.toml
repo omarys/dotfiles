@@ -1,22 +1,42 @@
 [[plugin.deps]]
-use = "llanosrocas/githead"
-rev = "76fe4b8"
-hash = "10c3bc6cd6f3223e18f2483320a9e24a"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "7ca66b4"
-hash = "4ee57085277d616acfa0ef1fef37dc00"
+rev = "39aaf6d"
+hash = "bc5da419b4337d0122ac531e705fa7b6"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "7ca66b4"
-hash = "d2aa1b2f32c8b4fd1775e8f5c45f8fab"
+rev = "39aaf6d"
+hash = "88e56a64b7ce7c4314427452343fef17"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
-rev = "eca1861"
-hash = "e519d894e94ded741e06aae4d4775981"
+rev = "159eaba"
+hash = "7de446280b1ba8c49ffd86dbc24bbbe6"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "39aaf6d"
+hash = "15e5b67a241172cbb86b8fbf9e63692"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "39aaf6d"
+hash = "7a4b4237223aaa94e589d1c01a23542a"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "39aaf6d"
+hash = "8b1af6b5a69797ee951f2a80ce570818"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "39aaf6d"
+hash = "f0c8c378184d5f8abd1b095a443d336d"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "39aaf6d"
+hash = "7b625412411be411153886894d9acaf"
 
 [flavor]
 deps = []
