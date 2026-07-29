@@ -3,9 +3,10 @@
     "mem0": {
       "command": "uvx",
       "args": ["mem0-mcp-server"],
+      "lifecycle": "keep-alive",
       "env": {
         "MEM0_API_KEY": "${MEM0_API_KEY}",
-        "MEM0_DEFAULT_USER_ID": "scott-pi-agent"
+        "MEM0_DEFAULT_USER_ID": "omary-pi-agent"
       }
     }
   }

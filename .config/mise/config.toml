@@ -1,13 +1,13 @@
 [tools]
 "aqua:tealdeer-rs/tealdeer" = "1.8.1"
-"aube" = "1.25.1"
+aube = "1.34.0"
 "navi" = "2.24.0"
-"node" = "26.4.0"
-"pre-commit" = "4.6.0"
+node = "26.5.1"
+pre-commit = "4.6.1"
 "python" = "3.14.6"
-"rtk" = "0.43.0"
-"ruff" = "0.15.20"
-"trufflehog" = "3.95.7"
+rtk = "0.44.1"
+ruff = "0.16.0"
+trufflehog = "3.96.0"
 
 [settings]
 experimental = true

@@ -13,9 +13,10 @@
     "npm:@juicesharp/rpiv-args",
     "npm:pi-web-access",
     "npm:pi-subagents",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:bigpowers"
   ],
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.6",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-pro",
   "defaultThinkingLevel": "high",
@@ -37,13 +38,19 @@
   },
   "mcpServers": {
     "context-mode": {
-      "command": "context-mode"
+      "command": "context-mode",
+      "lifecycle": "keep-alive"
     },
     "mem0": {
       "command": "uvx",
       "args": [
         "mem0-mcp-server"
-      ]
+      ],
+      "lifecycle": "keep-alive",
+      "env": {
+        "MEM0_API_KEY": "${MEM0_API_KEY}",
+        "MEM0_DEFAULT_USER_ID": "omary-pi-agent"
+      }
     }
   },
   "subagents": {
@@ -53,9 +60,6 @@
         "thinking": "medium",
         "skills": [
           "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
         ]
       },
       "planner": {
@@ -63,9 +67,6 @@
         "thinking": "medium",
         "skills": [
           "pi-agent"
-        ],
-        "fallbackModels": [
-          "opencode-go/deepseek-v4-pro"
         ]
       },
       "worker": {
@@ -73,9 +74,6 @@
         "thinking": "low",
         "skills": [
           "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
         ]
       },
       "reviewer": {
@@ -83,26 +81,17 @@
         "thinking": "medium",
         "skills": [
           "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.4"
         ]
       },
       "delegate": {
         "model": "opencode-go/deepseek-v4-flash",
-        "thinking": "medium",
-        "fallbackModels": [
-          "openai-codex/gpt-5.4-mini"
-        ]
+        "thinking": "medium"
       },
       "oracle": {
         "model": "opencode-go/qwen3.6-plus",
         "thinking": "medium",
         "skills": [
           "pi-agent"
-        ],
-        "fallbackModels": [
-          "openai-codex/gpt-5.5"
         ]
       }
     }
@@ -113,10 +102,8 @@
     "openai-codex/gpt-5.5",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/deepseek-v4-pro",
-    "opencode-go/glm-5",
     "opencode-go/glm-5.1",
     "opencode-go/mimo-v2.5-pro",
-    "opencode-go/minimax-m2.5",
     "opencode-go/minimax-m2.7",
     "opencode-go/qwen3.6-plus"
   ],

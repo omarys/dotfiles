@@ -205,6 +205,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export AWS_VAULT_BACKEND=pass
 # export GEMINI_API_KEY="$(pass gemini_api_key_framework)"
 
+# chafa
+export CHAFA_PRESET="symbols"
+
 # opencode
 export PATH=/home/omary/.opencode/bin:$PATH
 

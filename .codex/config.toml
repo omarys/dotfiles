@@ -1,4 +1,4 @@
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 [projects."/home/omary/Work"]
@@ -25,8 +25,15 @@ trust_level = "trusted"
 [projects."/home/omary/.dotfiles"]
 trust_level = "trusted"
 
+[projects."/home/omary/Work/cti-mani/services-mani"]
+trust_level = "trusted"
+
+[projects."/home/omary/Dev/D-OS-Save-Editor"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+"gpt-5.6-sol" = 2
 
 [features]
 hooks = true
@@ -84,7 +91,7 @@ trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232a
 enabled = false
 
 [marketplaces.context-mode]
-last_updated = "2026-06-29T18:57:12Z"
-last_revision = "4dedadc09dbc55f117933237c1a7a851441972bc"
+last_updated = "2026-07-13T13:18:02Z"
+last_revision = "d31941ec6b31c5c4f1ad45de32f76d67c2225209"
 source_type = "git"
 source = "https://github.com/mksglu/context-mode.git"
