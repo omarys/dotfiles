@@ -1,4 +1,5 @@
-base = "dracula"
+base = "ocean"
+syntax = "base16-ocean.dark"
 
 [ui]
 toc_bg = "#282a36"

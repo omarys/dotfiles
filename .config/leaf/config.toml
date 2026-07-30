@@ -19,7 +19,7 @@
 # theme = "dracula"
 
 # Custom theme example:
-theme = "~/.config/leaf/dracula.toml"
+theme = "dracula.toml"
 #
 # On Windows, use single quotes to avoid escaping backslashes:
 # theme = 'C:\path\to\custom-theme.toml'
