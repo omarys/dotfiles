@@ -412,3 +412,9 @@
 (use-package! mise
   :config
   (global-mise-mode))
+
+;; Use 'ssh' as default tramp method (or 'scp')
+(setq tramp-default-method "ssh")
+
+;; Tell tramp to respect your SSH config file
+(customize-set-variable 'tramp-use-ssh-controlmaster-options nil)

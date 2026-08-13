@@ -21,11 +21,15 @@ image = [{ run = 'xdg-open "$@"', desc = "Open", orphan = true }]
 neovide-fallback = [
   { run = 'neovide "$@" || ${EDITOR:-vi} "$@"', desc = "Neovide", block = false, orphan = true, for = "unix" },
 ]
+play = [
+  { run = 'celluloid "$@"', desc = "Play", block = false, orphan = true, for = "unix" },
+]
 
 [open]
 prepend_rules = [
   { mime = "image/*", use = "image" },
   { mime = "text/*", use = "neovide-fallback" },
+  { mime = "video/*", use = "play" },
   { mime = "application/gzip", use = "open" },
   { mime = "application/x-tar", use = "open" },
   { mime = "application/zip", use = "open" },

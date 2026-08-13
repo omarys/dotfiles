@@ -1,0 +1,4 @@
+[tools]
+ruff = "latest"
+shellcheck = "latest"
+yamlfmt = "latest"

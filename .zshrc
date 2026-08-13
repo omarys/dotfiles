@@ -114,7 +114,7 @@ alias gcot="git checkout --theirs ."
 alias l='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
-alias lofi="mpv \"https://www.youtube.com/watch?v=jfKfPfyJRdk\" --no-video"
+alias lofi="mpv \"https://music.youtube.com/watch?v=X4VbdwhkE10\" --no-video"
 alias ls="lsd"
 alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
@@ -124,6 +124,7 @@ alias rm="rip"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zshconfig="nvim ~/.zshrc"
 alias zzz="exit"
+alias sshforge="ssh -i ~/.ssh/id_ed25519_forge_docker1 'open@10.126.88.13'"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -208,8 +209,6 @@ export AWS_VAULT_BACKEND=pass
 # chafa
 export CHAFA_PRESET="symbols"
 
-# opencode
-export PATH=/home/omary/.opencode/bin:$PATH
 
 # bun completions
 [ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
