@@ -14,7 +14,8 @@
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-mcp-adapter",
-    "npm:bigpowers"
+    "npm:bigpowers",
+    "npm:@vigolium/piolium"
   ],
   "lastChangelogVersion": "0.84.1",
   "defaultProvider": "opencode-go",
