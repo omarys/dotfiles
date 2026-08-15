@@ -15,7 +15,8 @@
     "npm:pi-subagents",
     "npm:pi-mcp-adapter",
     "npm:bigpowers",
-    "npm:@vigolium/piolium"
+    "npm:@vigolium/piolium",
+    "npm:@dietrichgebert/ponytail"
   ],
   "lastChangelogVersion": "0.84.1",
   "defaultProvider": "opencode-go",

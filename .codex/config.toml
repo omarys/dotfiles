@@ -1,4 +1,4 @@
-model = "gpt-5.6-sol"
+model = "gpt-5.6-luna"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 [projects."/home/omary/Work"]
@@ -47,6 +47,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/omary/Work/cti-mani/purple-forge-kit/purple-forge-kubernetes"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/cti-mani/purple-forge-kit/kit-vpn-s3-terraform"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
@@ -109,7 +112,7 @@ trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232a
 enabled = false
 
 [marketplaces.context-mode]
-last_updated = "2026-08-12T12:56:49Z"
-last_revision = "a5f02966d11761124d514d589eca94012aa41c4c"
+last_updated = "2026-08-14T23:56:22Z"
+last_revision = "7cbc6e1744dd6bc4041c55cfc742093927e0123d"
 source_type = "git"
 source = "https://github.com/mksglu/context-mode.git"

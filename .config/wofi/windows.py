@@ -90,7 +90,7 @@ def parse_id(windows, parsed_windows, selected):
 
 # Switches the focus to the given id
 def switch_window(id):
-    command = "swaymsg [con_id={}] focus".format(id)
+    command = f"swaymsg [con_id={id}] focus"
 
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     process.communicate()[0]

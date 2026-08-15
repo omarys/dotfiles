@@ -6,27 +6,57 @@ return {
   },
   config = function()
     require("codecompanion").setup({
-      strategies = {
-        chat = {
-          adapter = "ollama",
+      adapters = {
+        http = {
+          opts = {
+            show_model_choices = false,
+          },
+          -- OpenCode Go
+          opencode_go = function()
+            return require("codecompanion.adapters").extend("openai", {
+              name = "opencode_go",
+              formatted_name = "OpenCode Go",
+              url = "https://opencode.ai/zen/go/v1/chat/completions",
+
+              env = {
+                api_key = "cmd:pass show opencode_go_key_code_companion",
+              },
+
+              schema = {
+                model = {
+                  default = "deepseek-v4-flash",
+                },
+              },
+            })
+          end,
         },
-        inline = {
-          adapter = "ollama",
+
+        acp = {
+          -- OpenAI Codex
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chat-gpt",
+              },
+            })
+          end,
         },
       },
-      adapters = {
-        ollama = function()
-          return require("codecompanion.adapters").extend("ollama", {
-            schema = {
-              model = {
-                default = "qwen2.5-coder:latest", -- Ensure this matches `ollama list`
-              },
-              num_ctx = {
-                default = 16384,
-              },
-            },
-          })
-        end,
+
+      interactions = {
+        chat = {
+          adapter = {
+            name = "opencode_go",
+            model = "deepseek-v4-flash",
+          },
+        },
+
+        inline = {
+          adapter = {
+            name = "opencode_go",
+            model = "deepseek-v4-flash",
+          },
+        },
       },
       opts = {
         log_level = "DEBUG",
