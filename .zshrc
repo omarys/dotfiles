@@ -136,7 +136,7 @@ type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; npm update -g; carg
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update; codex update; agy update; pi update --extensions; npm update -g;"
+type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update; codex update; agy update; pi update --extensions; npm update -g; fd "mise.toml" -X sh -c 'for f; do (cd "$(dirname "$f")" && mise upgrade --bump); done' _ {};"
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
@@ -157,13 +157,22 @@ type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
 type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd" || exit
+# function y() {
+# 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+# 	yazi "$@" --cwd-file="$tmp"
+# 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+# 		builtin cd -- "$cwd" || exit
+# 	fi
+# 	rm -f -- "$tmp"
+# }
+
+function spf() {
+	local spf_last_dir="${XDG_STATE_HOME:-$HOME/.local/state}/superfile/lastdir"
+	command spf "$@"
+	if [ -f "$spf_last_dir" ]; then
+		source "$spf_last_dir"
+		rm -f -- "$spf_last_dir" > /dev/null
 	fi
-	rm -f -- "$tmp"
 }
 
 if [[ -f ~/.cht ]]; then

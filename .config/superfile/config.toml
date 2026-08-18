@@ -13,11 +13,11 @@
 
 #-- File Editor
 # Default: $EDITOR
-editor = ""
+editor = "neovide"
 
 #-- Directory Editor
 #
-dir_editor = ""
+dir_editor = "neovide"
 
 #-- Auto check for update
 auto_check_update = true
@@ -176,9 +176,89 @@ zoxide_support = true
 #   pdf = "zathura"
 #   conf = "nvim"
 [open_with]
-text = "neovide \"$@\" || ${EDITOR:-nvim} \"$@\""
+# Configuration and Text files
+conf = "neovide"
+config = "neovide"
+txt = "neovide"
+md = "neovide"
+markdown = "neovide"
+org = "neovide"
+toml = "neovide"
+yaml = "neovide"
+yml = "neovide"
+json = "neovide"
+jsonc = "neovide"
+xml = "neovide"
+ini = "neovide"
+env = "neovide"
+cht = "neovide"
+log = "neovide"
+csv = "neovide"
+tsv = "neovide"
+
+# Code & Scripts
+sh = "neovide"
+bash = "neovide"
+zsh = "neovide"
+fish = "neovide"
+lua = "neovide"
+py = "neovide"
+rs = "neovide"
+go = "neovide"
+c = "neovide"
+cpp = "neovide"
+h = "neovide"
+hpp = "neovide"
+js = "neovide"
+ts = "neovide"
+jsx = "neovide"
+tsx = "neovide"
+css = "neovide"
+scss = "neovide"
+html = "neovide"
+vue = "neovide"
+svelte = "neovide"
+sql = "neovide"
+java = "neovide"
+kt = "neovide"
+rb = "neovide"
+tf = "neovide"
+tfvars = "neovide"
+
+# Images (matching yazi image handler: xdg-open)
+png = "xdg-open"
+jpg = "xdg-open"
+jpeg = "xdg-open"
+webp = "xdg-open"
+gif = "xdg-open"
+svg = "xdg-open"
+bmp = "xdg-open"
+ico = "xdg-open"
+tiff = "xdg-open"
+
+# Video & Audio (matching yazi video handler: celluloid)
+mp4 = "celluloid"
+mkv = "celluloid"
+avi = "celluloid"
+mov = "celluloid"
+webm = "celluloid"
+flv = "celluloid"
+wmv = "celluloid"
+mp3 = "celluloid"
+flac = "celluloid"
+wav = "celluloid"
+ogg = "celluloid"
+m4a = "celluloid"
+
+# Archives (matching yazi archive handler: open)
 zip = "open"
 tar = "open"
+gz = "open"
 gzip = "open"
 7z = "open"
-default = "neovide \"$@\" || ${EDITOR:-vi} \"$@\""
+rar = "open"
+xz = "open"
+bz2 = "open"
+
+# Documents / PDFs
+pdf = "xdg-open"
