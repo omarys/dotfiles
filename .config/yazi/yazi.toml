@@ -17,12 +17,12 @@ max_width = 1920
 max_height = 1080
 
 [opener]
-image = [{ run = 'xdg-open "$@"', desc = "Open", orphan = true }]
+image = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
 neovide-fallback = [
-  { run = 'neovide "$@" || ${EDITOR:-vi} "$@"', desc = "Neovide", block = false, orphan = true, for = "unix" },
+  { run = 'neovide %s || ${EDITOR:-vi} %s', desc = "Neovide", block = false, orphan = true, for = "unix" },
 ]
 play = [
-  { run = 'celluloid "$@"', desc = "Play", block = false, orphan = true, for = "unix" },
+  { run = 'celluloid %s', desc = "Play", block = false, orphan = true, for = "unix" },
 ]
 
 [open]

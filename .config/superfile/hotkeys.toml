@@ -56,7 +56,7 @@ open_current_directory_with_editor = ['E', '']
 #-- Other Actions
 pinned_directory = ['P', '']
 toggle_dot_file = ['.', 'ctrl+h']
-change_panel_mode = ['v', 'space']
+change_panel_mode = ['v', '']
 open_help_menu = ['?', 'f1']
 open_spf_prompt = ['>', '']
 open_command_line = [':', ';']
@@ -86,7 +86,7 @@ parent_directory = ['h', 'left']
 search_bar = ['/', '']
 
 #-- Selection Mode Actions
-file_panel_select_mode_items_select_down = ['J', 'shift+down']
+file_panel_select_mode_items_select_down = ['space', 'J']
 file_panel_select_mode_items_select_up = ['K', 'shift+up']
 file_panel_select_all_items = ['A', 'ctrl+a']
 

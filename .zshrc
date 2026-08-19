@@ -44,7 +44,7 @@ plugins=(
   ansible
   archlinux
   aws
-  brew
+  # brew - fights with broot for `br`
   # bun
   colorize
   # common-aliases
@@ -157,14 +157,14 @@ type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
 type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
-# function y() {
-# 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-# 	yazi "$@" --cwd-file="$tmp"
-# 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-# 		builtin cd -- "$cwd" || exit
-# 	fi
-# 	rm -f -- "$tmp"
-# }
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd" || exit
+	fi
+	rm -f -- "$tmp"
+}
 
 function spf() {
 	local spf_last_dir="${XDG_STATE_HOME:-$HOME/.local/state}/superfile/lastdir"
@@ -238,3 +238,5 @@ export PATH="/home/omary/.local/bin:$PATH"
 
 # Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
+
+source /home/omary/.config/broot/launcher/bash/bb

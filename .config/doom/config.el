@@ -418,3 +418,18 @@
 
 ;; Tell tramp to respect your SSH config file
 (customize-set-variable 'tramp-use-ssh-controlmaster-options nil)
+
+(defun my/dired-open-marked-in-buffers ()
+  "Open all marked files cleanly into separate buffers without splitting the screen."
+  (interactive)
+  (let ((files (dired-get-marked-files)))
+    (if (and (cdr files) (not (y-or-n-p (format "Open %d files?" (length files)))))
+      (user-error "Aborted")
+      (dolist (file files)
+        ;; To open in background buffers, use: (find-file-noselect file)
+        ;; To open and cycle, use standard find-file:
+        (find-file file)))))
+
+;; Map the function to "F" inside Dired / Dirvish buffers
+(after! dired
+  (define-key dired-mode-map (kbd "F") #'my/dired-open-marked-in-buffers))
