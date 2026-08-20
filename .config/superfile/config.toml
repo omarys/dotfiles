@@ -250,15 +250,17 @@ wav = "celluloid"
 ogg = "celluloid"
 m4a = "celluloid"
 
-# Archives (matching yazi archive handler: open)
-zip = "open"
-tar = "open"
-gz = "open"
-gzip = "open"
-7z = "open"
-rar = "open"
-xz = "open"
-bz2 = "open"
+# Archives & Comic Books (matching default system opener: xdg-open)
+zip = "xdg-open"
+tar = "xdg-open"
+gz = "xdg-open"
+gzip = "xdg-open"
+7z = "xdg-open"
+rar = "xdg-open"
+xz = "xdg-open"
+bz2 = "xdg-open"
+cbz = "xdg-open"
+cbr = "xdg-open"
 
 # Documents / PDFs
 pdf = "xdg-open"

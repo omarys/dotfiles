@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "context-mode": {
+      "tools": [
+        "*"
+      ],
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "context-mode@latest"
+      ]
+    },
+    "mem0": {
+      "tools": [
+        "*"
+      ],
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mem0-mcp-server"
+      ],
+      "env": {
+        "MEM0_API_KEY": "${MEM0_API_KEY}",
+        "MEM0_DEFAULT_USER_ID": "omary-pi-agent"
+      }
+    }
+  }
+}

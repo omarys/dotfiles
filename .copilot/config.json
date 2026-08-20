@@ -1,0 +1,27 @@
+// User settings belong in settings.json.
+// This file is managed automatically.
+{
+  "firstLaunchAt": "2026-08-19T17:01:59.286Z",
+  "appTipShown": true,
+  "lastLoggedInUser": {
+    "host": "https://github.com",
+    "login": "omarys"
+  },
+  "loggedInUsers": [
+    {
+      "host": "https://github.com",
+      "login": "omarys"
+    }
+  ],
+  "reasoningSummariesCleanupDone": true,
+  "installedPlugins": [
+    {
+      "name": "ponytail",
+      "marketplace": "ponytail",
+      "installed_at": "2026-08-19T17:20:42.439Z",
+      "cache_path": "/home/omary/.copilot/installed-plugins/ponytail/ponytail",
+      "source_sha": "f1ea0f202b2a7dbcfbbcdccefa8be18498f7e0971296f8dbba260a8e750eaf14",
+      "enabled": true
+    }
+  ]
+}
