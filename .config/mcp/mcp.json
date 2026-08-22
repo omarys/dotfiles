@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "context-mode": {
+      "command": "npx",
+      "args": ["-y", "context-mode@latest"]
+    },
     "mem0": {
       "command": "uvx",
       "args": ["mem0-mcp-server"],

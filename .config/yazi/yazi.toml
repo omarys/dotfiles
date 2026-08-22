@@ -17,9 +17,10 @@ max_width = 1920
 max_height = 1080
 
 [opener]
+open = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
 image = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
 neovide-fallback = [
-  { run = 'neovide %s || ${EDITOR:-vi} %s', desc = "Neovide", block = false, orphan = true, for = "unix" },
+  { run = 'neovide %s', desc = "Neovide", block = false, orphan = true, for = "unix" },
 ]
 play = [
   { run = 'celluloid %s', desc = "Play", block = false, orphan = true, for = "unix" },
@@ -31,8 +32,13 @@ prepend_rules = [
   { mime = "text/*", use = "neovide-fallback" },
   { mime = "video/*", use = "play" },
   { mime = "application/gzip", use = "open" },
+  { mime = "application/pdf", use = "open" },
   { mime = "application/x-tar", use = "open" },
   { mime = "application/zip", use = "open" },
   { mime = "application/x-7z-compressed", use = "open" },
+  { mime = "application/vnd.comicbook+zip", use = "open" },
+  { mime = "application/x-cbz", use = "open" },
+  { url = "*.cbz", use = "open" },
+  { url = "*.cbr", use = "open" },
   { mime = "*", use = "neovide-fallback" },
 ]

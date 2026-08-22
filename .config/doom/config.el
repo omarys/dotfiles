@@ -14,18 +14,17 @@
 (require 'transient)
 
 (after! gptel
-  ;; OpenCode Go subscription — proxies through opencode.ai with OpenAI-compatible API
-  ;; API docs: https://opencode.ai/docs/go/
-  (gptel-make-openai "OpenCode Go"
-    :host "opencode.ai"
-    :endpoint "/zen/go/v1/chat/completions"
+  (gptel-make-openai "ChatGPT"
     :stream t
     :key (lambda ()
            (string-trim
-             (shell-command-to-string "pass show doom_gptel_key")))
-    :models '(deepseek-v4-pro deepseek-v4-flash))
-  (setq gptel-model 'deepseek-v4-pro
-    gptel-backend (gptel-get-backend "OpenCode Go")))
+             (shell-command-to-string "pass show codex_secret_key")))
+    :models '((gpt-5.6-luna
+               :description "GPT-5.6 Luna"
+               :capabilities (media tool-use json url responses-api)
+               :request-params (:reasoning_effort "medium"))))
+  (setq gptel-model 'gpt-5.6-luna
+        gptel-backend (gptel-get-backend "ChatGPT")))
 
 (after! spell-fu
   (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
@@ -259,9 +258,12 @@
   (setq copilot-indent-offset-alist '((t . nil)))
 
   (map! :map copilot-completion-map
-    "<tab>" #'copilot-accept-completion
-    "TAB"    #'copilot-accept-completion
-    "C-TAB"  #'copilot-accept-completion-by-word))
+        "C-SPC"     #'copilot-accept-completion
+        "<C-space>" #'copilot-accept-completion
+        "C-@"       #'copilot-accept-completion
+        "<tab>"     #'copilot-accept-completion
+        "TAB"       #'copilot-accept-completion
+        "C-TAB"     #'copilot-accept-completion-by-word))
 
 (after! eglot
   (setq-default eglot-workspace-configuration
