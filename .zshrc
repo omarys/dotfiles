@@ -230,8 +230,6 @@ eval "$(mise activate zsh)"
 # mem0
 export MEM0_API_KEY="$(pass show mem0_api_key | head -n1)"
 
-# code companion (nvim)
-export OPENCODE_GO_KEY_CODE_COMPANION="$( pass show opencode_go_key_code_companion | head -n1)"
 
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
