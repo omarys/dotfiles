@@ -119,7 +119,7 @@ The Claude Code and Codex plugins run two tiny Node.js lifecycle hooks, so `node
 ```
 /plugin install ponytail@ponytail
 ```
-(You have to send two separate prompts for the install to work)
+(You have to send two separate prompts for the install to work) 
 
 Same steps in the Claude Code Desktop app's Code tab: type the two `/plugin` commands above into the prompt box, or click the **+** button next to it, choose **Plugins** → **Add plugin** to browse your configured marketplaces, and manage marketplaces from **Customize** in the sidebar.
 

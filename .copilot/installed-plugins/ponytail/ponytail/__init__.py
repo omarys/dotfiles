@@ -5,9 +5,8 @@ from __future__ import annotations
 import json
 import os
 import re
-from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 DEFAULT_MODE = "full"
 RUNTIME_MODES = {"off", "lite", "full", "ultra"}
@@ -46,10 +45,7 @@ def _config_dir() -> Path:
     if os.environ.get("XDG_CONFIG_HOME"):
         return Path(os.environ["XDG_CONFIG_HOME"]) / "ponytail"
     if os.name == "nt":
-        return (
-            Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
-            / "ponytail"
-        )
+        return Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming")) / "ponytail"
     return Path.home() / ".config" / "ponytail"
 
 
@@ -154,9 +150,7 @@ def _slash_access_denied(event: Any, gateway: Any, command: str) -> bool:
         return True
 
 
-def rewrite_gateway_command(
-    event: Any = None, gateway: Any = None, **_: Any
-) -> dict[str, str] | None:
+def rewrite_gateway_command(event: Any = None, gateway: Any = None, **_: Any) -> dict[str, str] | None:
     """Rewrite authorized gateway /ponytail-* commands into normal agent prompts."""
     text = str(getattr(event, "text", "") or "").strip()
     if not text.startswith("/"):

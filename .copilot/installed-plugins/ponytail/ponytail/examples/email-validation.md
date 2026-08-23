@@ -16,16 +16,16 @@ import re
 def validate_email(email: str) -> bool:
     """
     Validates an email address using a regular expression.
-
+    
     Args:
         email (str): The email address to validate
-
+        
     Returns:
         bool: True if valid, False otherwise
     """
     # Regular expression pattern for email validation
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-
+    
     return re.match(pattern, email) is not None
 
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         "spaces in@email.com",        # Invalid
         "user@domain..com",           # Invalid (double dot)
     ]
-
+    
     for email in test_emails:
         result = validate_email(email)
         print(f"{email:<30} -> {result}")
@@ -55,40 +55,40 @@ import re
 def validate_email_advanced(email: str) -> tuple[bool, str]:
     """
     Advanced email validation with detailed feedback.
-
+    
     Args:
         email (str): The email address to validate
-
+        
     Returns:
         tuple: (is_valid, message)
     """
     # Basic checks
     if not email or not isinstance(email, str):
         return False, "Email must be a non-empty string"
-
+    
     email = email.strip()
-
+    
     if len(email) > 254:
         return False, "Email is too long (max 254 characters)"
-
+    
     # Regular expression pattern
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-
+    
     if not re.match(pattern, email):
         return False, "Email format is invalid"
-
+    
     # Additional checks
     local_part, domain = email.rsplit('@', 1)
-
+    
     if len(local_part) > 64:
         return False, "Local part is too long (max 64 characters)"
-
+    
     if local_part.startswith('.') or local_part.endswith('.'):
         return False, "Local part cannot start or end with a dot"
-
+    
     if '..' in email:
         return False, "Email cannot contain consecutive dots"
-
+    
     return True, "Email is valid"
 
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
         ".invalid@domain.com",
         "user@domain",
     ]
-
+    
     for email in test_emails:
         is_valid, message = validate_email_advanced(email)
         print(f"{email:<35} -> {is_valid:5} ({message})")
@@ -115,7 +115,7 @@ def validate_email_production(email: str) -> bool:
     """
     Validates email using the email_validator library.
     More reliable for production use.
-
+    
     Install with: pip install email-validator
     """
     try:

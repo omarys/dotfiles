@@ -30,7 +30,7 @@ const handleSearch = async (query) => {
     resultsContainer.innerHTML = '';
     return;
   }
-
+  
   try {
     const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
     const data = await response.json();
@@ -61,13 +61,13 @@ const handleSearch = async (query) => {
     loadingIndicator.style.display = 'none';
     return;
   }
-
+  
   loadingIndicator.style.display = 'block';
-
+  
   try {
     const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
     if (!response.ok) throw new Error('Search failed');
-
+    
     const data = await response.json();
     displayResults(data);
   } catch (error) {
@@ -97,15 +97,15 @@ function displayResults(data) {
 function debounce(func, delay, options = {}) {
   let timeoutId;
   let lastArgs;
-
+  
   const debounced = function (...args) {
     lastArgs = args;
     clearTimeout(timeoutId);
-
+    
     if (options.immediate && !timeoutId) {
       func(...args);
     }
-
+    
     timeoutId = setTimeout(() => {
       if (!options.immediate) {
         func(...lastArgs);
@@ -113,10 +113,10 @@ function debounce(func, delay, options = {}) {
       timeoutId = null;
     }, delay);
   };
-
+  
   // Allow manual cancellation
   debounced.cancel = () => clearTimeout(timeoutId);
-
+  
   return debounced;
 }
 
@@ -133,9 +133,9 @@ searchInput.addEventListener('blur', () => {
 
 ```html
 <div class="search-container">
-  <input
-    type="text"
-    id="search"
+  <input 
+    type="text" 
+    id="search" 
     placeholder="Search..."
     autocomplete="off"
   >
@@ -148,7 +148,7 @@ searchInput.addEventListener('blur', () => {
     max-width: 500px;
     margin: 20px auto;
   }
-
+  
   #search {
     width: 100%;
     padding: 10px;
@@ -156,21 +156,21 @@ searchInput.addEventListener('blur', () => {
     border: 1px solid #ddd;
     border-radius: 4px;
   }
-
+  
   #results {
     margin-top: 10px;
   }
-
+  
   .result {
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
   }
-
+  
   .result:hover {
     background-color: #f5f5f5;
   }
-
+  
   .error {
     color: red;
     padding: 10px;

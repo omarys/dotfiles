@@ -66,10 +66,10 @@ rate_limit = parse("5/minute")
 @app.get("/api/data")
 async def get_data(request: Request):
     client_id = request.client.host
-
+    
     if not limiter.hit(rate_limit, client_id):
         raise HTTPException(status_code=429, detail="Rate limit exceeded")
-
+    
     return {"message": "Success"}
 ```
 
@@ -94,23 +94,23 @@ TIME_WINDOW = 60  # seconds
 async def rate_limit_middleware(request: Request, call_next):
     client_ip = request.client.host
     now = datetime.now()
-
+    
     # Clean old requests outside time window
     request_history[client_ip] = [
         req_time for req_time in request_history[client_ip]
         if now - req_time < timedelta(seconds=TIME_WINDOW)
     ]
-
+    
     # Check if limit exceeded
     if len(request_history[client_ip]) >= RATE_LIMIT:
         return JSONResponse(
             status_code=429,
             content={"detail": "Rate limit exceeded"}
         )
-
+    
     # Record this request
     request_history[client_ip].append(now)
-
+    
     return await call_next(request)
 
 @app.get("/api/data")

@@ -1,11 +1,14 @@
 name: publish
+
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
+
 permissions:
   id-token: write
   contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest

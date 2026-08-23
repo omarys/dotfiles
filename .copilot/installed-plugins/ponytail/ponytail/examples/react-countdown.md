@@ -58,10 +58,10 @@ export function CountdownTimer({ initialSeconds = 60 }) {
 ```jsx
 import { useState, useEffect } from 'react';
 
-export function AdvancedCountdownTimer({
+export function AdvancedCountdownTimer({ 
   initialSeconds = 3600,
   onComplete = () => {},
-  showMilliseconds = false
+  showMilliseconds = false 
 }) {
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
   const [isActive, setIsActive] = useState(false);
@@ -112,8 +112,8 @@ export function AdvancedCountdownTimer({
         {formatTime(timeLeft)}
       </div>
       <div className="progress-bar">
-        <div
-          className="progress-fill"
+        <div 
+          className="progress-fill" 
           style={{ width: `${progressPercent}%` }}
         />
       </div>
@@ -268,7 +268,7 @@ export function StyledCountdownTimer({ initialSeconds = 60 }) {
         <Button onClick={() => setIsActive(!isActive)}>
           {isActive ? 'Pause' : 'Start'}
         </Button>
-        <Button
+        <Button 
           variant="danger"
           onClick={() => {
             setSeconds(initialSeconds);
@@ -346,7 +346,7 @@ export function StyledCountdownTimer({ initialSeconds = 60 }) {
 <CountdownTimer initialSeconds={30} />
 
 // Advanced with callback
-<AdvancedCountdownTimer
+<AdvancedCountdownTimer 
   initialSeconds={300}
   onComplete={() => alert('Time\'s up!')}
 />
@@ -360,12 +360,12 @@ export function StyledCountdownTimer({ initialSeconds = 60 }) {
 
 ## Features
 
-✅ **Basic Timer** - Simple countdown with start/pause/reset
-✅ **Advanced Timer** - Formatted display (HH:MM:SS), progress bar, callbacks
-✅ **Custom Hook** - Reusable logic for any component
-✅ **Styled Components** - Beautiful UI with animations
-✅ **Warning State** - Visual feedback when time is running out
-✅ **Completion Callback** - Execute code when timer finishes
+✅ **Basic Timer** - Simple countdown with start/pause/reset  
+✅ **Advanced Timer** - Formatted display (HH:MM:SS), progress bar, callbacks  
+✅ **Custom Hook** - Reusable logic for any component  
+✅ **Styled Components** - Beautiful UI with animations  
+✅ **Warning State** - Visual feedback when time is running out  
+✅ **Completion Callback** - Execute code when timer finishes  
 
 Choose the version that best fits your needs!
 

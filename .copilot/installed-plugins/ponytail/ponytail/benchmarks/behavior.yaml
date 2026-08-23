@@ -11,19 +11,23 @@
 # baseline is included as the control: the no-skill arm should mostly FAIL these
 # gates, the ponytail arm should pass them. That delta is the point.
 description: "Ponytail behavior gates: hardware calibration, requested explanation, one runnable check."
+
 providers:
   - id: anthropic:messages:claude-opus-4-8
-    config: {max_tokens: 8192, temperature: 1}
+    config: { max_tokens: 8192, temperature: 1 }
+
 prompts:
   - id: file://arms/baseline.js
     label: baseline (no skill)
   - id: file://arms/ponytail.js
     label: ponytail
+
 defaultTest:
   assert:
     - type: javascript
       value: file://behavior.js
       metric: behavior
+
 tests:
   - vars:
       probe: hardware
