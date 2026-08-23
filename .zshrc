@@ -239,4 +239,4 @@ export PATH="/home/omary/.local/bin:$PATH"
 # Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
 
-source /home/omary/.config/broot/launcher/bash/bb
+source /home/omary/.config/broot/launcher/bash/br

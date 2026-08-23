@@ -18,7 +18,7 @@
     "npm:@vigolium/piolium",
     "npm:@dietrichgebert/ponytail"
   ],
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
@@ -56,15 +56,15 @@
   "subagents": {
     "agentOverrides": {
       "scout": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "thinking": "medium",
+        "model": "opencode-go/mimo-v2.5",
+        "thinking": "low",
         "skills": [
           "pi-agent"
         ]
       },
       "planner": {
         "model": "opencode-go/deepseek-v4-pro",
-        "thinking": "medium",
+        "thinking": "high",
         "skills": [
           "pi-agent"
         ]
@@ -77,19 +77,19 @@
         ]
       },
       "reviewer": {
-        "model": "opencode-go/minimax-m2.7",
+        "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
         "skills": [
           "pi-agent"
         ]
       },
       "delegate": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "thinking": "medium"
+        "model": "opencode-go/mimo-v2.5-pro",
+        "thinking": "low"
       },
       "oracle": {
-        "model": "opencode-go/qwen3.6-plus",
-        "thinking": "medium",
+        "model": "opencode-go/kimi-k3",
+        "thinking": "high",
         "skills": [
           "pi-agent"
         ]
@@ -97,15 +97,15 @@
     }
   },
   "enabledModels": [
-    "openai-codex/gpt-5.4",
-    "openai-codex/gpt-5.4-mini",
-    "openai-codex/gpt-5.5",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/deepseek-v4-pro",
-    "opencode-go/glm-5.1",
-    "opencode-go/mimo-v2.5-pro",
-    "opencode-go/minimax-m2.7",
-    "opencode-go/qwen3.6-plus"
+    "opencode-go/kimi-k3",
+    "opencode-go/qwen3.7-plus",
+    "opencode-go/qwen3.8-max",
+    "opencode-go/glm-5.2",
+    "opencode-go/glm-5.3",
+    "opencode-go/mimo-v2.5",
+    "opencode-go/mimo-v2.5-pro"
   ],
   "theme": "dark"
 }

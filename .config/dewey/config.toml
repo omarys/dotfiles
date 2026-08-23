@@ -1,0 +1,7 @@
+library_dir = "/home/omary/Documents/Manga"
+db_path = "/home/omary/.local/share/dewey/dewey.db"
+log_file = "/home/omary/.local/state/dewey/dewey.log"
+continuum_bin = "continuum"
+labrador_bin = "labrador"
+auto_scan_on_startup = true
+seed_sample_data = false
