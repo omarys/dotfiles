@@ -1,11 +1,11 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:vcs-files"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "853240b2454c93a93fd03fc9fd7e06e8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "5bb0bfab901d3601c370eafdd66edd31"
 
 [[plugin.deps]]
@@ -15,27 +15,27 @@ hash = "9776f378459072b6c2875eae5addc49d"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "5b2fbef7d1513ce38ff72623a071a5e"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "7a4b4237223aaa94e589d1c01a23542a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "14558d2829c0aa05e99c57de8f74d199"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "87472b05a8c420100f6a2b9cde1e7746"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "efa4d79"
+rev = "72f9e3c"
 hash = "f281261ff04ad7ec867c3f802a50835f"
 
 [flavor]

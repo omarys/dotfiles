@@ -238,3 +238,5 @@ export PATH="/home/omary/.local/bin:$PATH"
 export PATH="/home/omary/.npm-global/bin:$PATH"
 
 source /home/omary/.config/broot/launcher/bash/bb
+export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock"
+eval "$(/home/omary/.local/bin/mise activate zsh)"
