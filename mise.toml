@@ -1,22 +1,41 @@
 [tools]
+python = "3.14.7"
+pre-commit = "latest"
 ruff = "latest"
 shellcheck = "latest"
+trufflehog = "latest"
 yamlfmt = "latest"
-yazi = "latest"
+
+[tasks.init]
+description = "Install Ansible and galaxy collections required for provisioning"
+run = """
+echo "Installing/verifying ansible-core..."
+python3 -m pip install --upgrade --quiet ansible-core
+echo "Installing/verifying community.general Ansible collection..."
+ansible-galaxy collection install community.general --upgrade
+"""
 
 [tasks.stow]
 description = "Symlink all dotfiles using GNU Stow"
 run = """
-	@echo "Symlinking dotfiles with stow..."
-  description = "Symlink all dotfiles using GNU Stow"
-  stow tmux
-  stow nvim
-  stow emacs
-""""
+echo "Symlinking dotfiles with stow..."
+stow tmux
+stow nvim
+stow emacs
+"""
 
 [tasks.provision]
-description = "Run Ansible provisioning"
+description = "Run Ansible provisioning for Fedora Workstation"
+depends = ["init"]
 run = """
-	@echo "Running Ansible provisioning..."
-  ansible-playbook fedora.yml --ask-become-pass
-""""
+echo "Running Ansible provisioning for Fedora..."
+ansible-playbook fedora.yml --ask-become-pass
+"""
+
+[tasks.provision-bazzite]
+description = "Run Ansible provisioning for Bazzite (Immutable/Atomic)"
+depends = ["init"]
+run = """
+echo "Running Ansible provisioning for Bazzite..."
+ansible-playbook bazzite.yml --ask-become-pass
+"""

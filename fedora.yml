@@ -110,12 +110,12 @@
       block:
         - name: Install RPM Fusion Free
           ansible.builtin.dnf:
-            name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+            name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
             state: present
             disable_gpg_check: yes
         - name: Install RPM Fusion Non-Free
           ansible.builtin.dnf:
-            name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+            name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
             state: present
             disable_gpg_check: yes
         - name: Add Terra Repository
@@ -199,10 +199,9 @@
             cmd: cargo install ripgrep --features pcre2
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
-        - name: Install Yazi with special build instructions
+        - name: Install Yazi from git source
           ansible.builtin.shell: |
-            cargo install --force yazi-build
-            cargo install yazi-fm yazi-cli
+            cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build
           args:
             creates: "{{ user_home }}/.cargo/bin/yazi"
         - name: Ensure Cargo bin is in PATH via zshrc
@@ -303,23 +302,57 @@
           changed_when: "'Installing' in tpm_install.stdout"
           ignore_errors: yes
         - name: Create global npm directory
-          ansible-builtin.file:
+          ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
             state: directory
         - name: Configure NPM Prefix
           ansible.builtin.shell:
             cmd: "npm config set prefix '~/.npm-global'"
+        - name: Install pi and codex CLI agents via npm
+          ansible.builtin.shell:
+            cmd: "npm install -g @earendil-works/pi-coding-agent @openai/codex"
+          environment:
+            PATH: "{{ user_home }}/.npm-global/bin:{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+          register: npm_agents
+          changed_when: "'added' in npm_agents.stdout or 'updated' in npm_agents.stdout"
+        - name: Check if Antigravity CLI (agy) is installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.local/bin/agy"
+          register: agy_bin_check
+        - name: Install Antigravity CLI (agy)
+          ansible.builtin.shell:
+            cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
+          when: not agy_bin_check.stat.exists
         - name: Configure Mise
           ansible.builtin.shell:
             cmd: "mise use -g node@lts"
     - name: 9. Configure Doom Emacs and LazyVim
       become: false
       block:
+        - name: Check if Doom Emacs is installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.config/emacs/bin/doom"
+          register: doom_bin_check
+        - name: Check if ~/.config/emacs is a symlink or non-git directory
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.config/emacs"
+          register: emacs_dir_check
+          when: not doom_bin_check.stat.exists
+        - name: Remove symlinked ~/.config/emacs before cloning Doom Emacs
+          ansible.builtin.file:
+            path: "{{ user_home }}/.config/emacs"
+            state: absent
+          when:
+            - not doom_bin_check.stat.exists
+            - emacs_dir_check.stat.exists is defined
+            - emacs_dir_check.stat.exists
+            - emacs_dir_check.stat.islnk | default(false)
         - name: Clone Doom Emacs Framework
           ansible.builtin.git:
             repo: https://github.com/doomemacs/doomemacs
             dest: "{{ user_home }}/.config/emacs"
             depth: 1
+          when: not doom_bin_check.stat.exists
         - name: Sync Doom Emacs packages
           ansible.builtin.shell:
             cmd: "{{ user_home }}/.config/emacs/bin/doom sync -u"
