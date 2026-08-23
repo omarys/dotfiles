@@ -1,14 +1,13 @@
-- name: Provision Fedora Workstation (XFS Edition)
+- name: Provision Fedora Workstation
   hosts: localhost
   connection: local
-  become: true
+  become: false
   vars:
-    user_name: "omary"
-    user_home: "/home/{{ user_name }}"
+    user_name: "{{ ansible_facts['user_id'] | default('omary') }}"
+    user_home: "{{ ansible_facts['env']['HOME'] | default('/home/' + user_name) }}"
     user_env:
-      PATH: "{{ user_home }}/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_facts['env']['PATH'] }}"
+      PATH: "{{ user_home }}/.local/bin:{{ user_home }}/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_facts['env']['PATH'] }}"
       NONINTERACTIVE: "1"
-    target_fs_type: "xfs"
     font_version: "v3.4.0"
     core_packages:
       - cargo
@@ -18,12 +17,13 @@
       - emacs-pgtk
       - file
       - fzf
+      - ghostty
       - git
       - gnome-tweaks
       - gnupg2
       - keepassxc
       - make
-      - mise
+      - mpv
       - neovim
       - opensc
       - openssl
@@ -33,70 +33,14 @@
       - pcsc-tools
       - procps-ng
       - python3-neovim
+      - ripgrep
       - rust
       - steam
       - stow
       - unzip
       - util-linux-user
       - zsh
-    homebrew_packages:
-      - argocd
-      - awscli
-      - black
-      - checkov
-      - dive
-      - docker-credential-helper
-      - fnm
-      - glab
-      - glow
-      - grex
-      - hadolint
-      - helm
-      - jq
-      - k9s
-      - ksops
-      - kubernetes-cli
-      - kustomize
-      - lazygit
-      - mani
-      - minikube
-      - navi
-      - node
-      - ollama
-      - opentofu
-      - pre-commit
-      - presenterm
-      - prettier
-      - python@3.13
-      - semgrep
-      - silicon
-      - sops
-      - tealdeer
-      - tflint
-      - tfsec
-      - tree-sitter
-      - trivy
-      - uv
-      - yq
-    cargo_packages:
-      - bat
-      - bottom
-      - cargo-update
-      - dysk
-      - fd-find
-      - fnm
-      - git-delta
-      - hoard-rs
-      - lsd
-      - mani
-      - navi
-      - neovide
-      - rm-improved
-      - sd
-      - starship
-      - tealdeer
-      - yazi-build
-      - zoxide
+    # GUI Applications via Flatpak (Flathub User/System)
     flatpak_packages:
       - com.mattermost.Desktop
       - info.febvre.Komikku
@@ -105,19 +49,27 @@
       - org.gnome.Podcasts
       - org.gnome.Solanum
       - us.zoom.Zoom
+    # Homebrew fallback packages (only those not covered by mise or cargo)
+    homebrew_packages:
+      - docker-credential-helper
+      - ksops
   tasks:
-    - name: 1. Install Core Packages
+    # =========================================================================
+    # 1. System Packages & Repositories (DNF, RPM Fusion, Terra, Ghostty)
+    # =========================================================================
+    - name: 1. Install System Repositories and Core Packages
+      become: true
       block:
         - name: Install RPM Fusion Free
           ansible.builtin.dnf:
             name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
             state: present
-            disable_gpg_check: yes
+            disable_gpg_check: true
         - name: Install RPM Fusion Non-Free
           ansible.builtin.dnf:
             name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
             state: present
-            disable_gpg_check: yes
+            disable_gpg_check: true
         - name: Add Terra Repository
           ansible.builtin.get_url:
             url: https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
@@ -127,7 +79,11 @@
           ansible.builtin.dnf:
             name: terra-release
             state: present
-            update_cache: yes
+            update_cache: true
+        - name: Enable Ghostty COPR Repository
+          community.general.copr:
+            name: scottames/ghostty
+            state: enabled
         - name: Install Development Tools Group
           ansible.builtin.dnf:
             name: "@development-tools"
@@ -136,13 +92,18 @@
           ansible.builtin.dnf:
             name: "{{ core_packages }}"
             state: present
-    - name: 2. Docker CE Setup
+
+    # =========================================================================
+    # 2. Docker CE Setup
+    # =========================================================================
+    - name: 2. Configure Docker CE
+      become: true
       block:
         - name: Purge old Docker versions
           ansible.builtin.dnf:
             name: [docker, docker-client, docker-common, docker-latest, docker-engine]
             state: absent
-        - name: Add Docker Repo
+        - name: Add Docker CE Repository
           ansible.builtin.get_url:
             url: https://download.docker.com/linux/fedora/docker-ce.repo
             dest: /etc/yum.repos.d/docker-ce.repo
@@ -151,26 +112,203 @@
           ansible.builtin.dnf:
             name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
             state: present
-            update_cache: yes
+            update_cache: true
         - name: Enable Docker Service
           ansible.builtin.systemd:
             name: docker
-            enabled: yes
+            enabled: true
             state: started
-            daemon_reload: yes
-        - name: User to Docker Group
+            daemon_reload: true
+        - name: Add User to Docker Group
           ansible.builtin.user:
             name: "{{ user_name }}"
             groups: docker
-            append: yes
-    - name: 3. Install and Configure Linuxbrew
-      become: false
+            append: true
+
+    # =========================================================================
+    # 3. Flatpak Applications & Standalone Firefox
+    # =========================================================================
+    - name: 3. Install GUI Applications via Flatpak
+      block:
+        - name: Ensure Flatpak package manager is installed
+          become: true
+          ansible.builtin.dnf:
+            name: flatpak
+            state: present
+        - name: Ensure Flathub repository is configured
+          community.general.flatpak_remote:
+            name: flathub
+            state: present
+            flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+            method: user
+        - name: Install Flatpak applications
+          community.general.flatpak:
+            name: "{{ item }}"
+            state: present
+            remote: flathub
+            method: user
+          loop: "{{ flatpak_packages }}"
+        - name: Remove default Flatpak Firefox (in favor of Standalone Native Firefox)
+          community.general.flatpak:
+            name: org.mozilla.firefox
+            state: absent
+            method: "{{ item }}"
+          loop:
+            - system
+            - user
+          ignore_errors: true
+        - name: Remove Flatpak KeePassXC (in favor of RPM KeePassXC)
+          community.general.flatpak:
+            name: org.keepassxc.KeePassXC
+            state: absent
+            method: "{{ item }}"
+          loop:
+            - system
+            - user
+          ignore_errors: true
+
+    - name: Configure Mozilla Firefox (Standalone Native Edition)
+      block:
+        - name: Ensure ~/.local directories exist
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: directory
+            mode: "0755"
+          loop:
+            - "{{ user_home }}/.local/lib"
+            - "{{ user_home }}/.local/bin"
+            - "{{ user_home }}/.local/share/applications"
+        - name: Check if Standalone Firefox is already installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.local/lib/firefox/firefox"
+          register: firefox_bin_check
+        - name: Download Mozilla Firefox Standalone Tarball
+          ansible.builtin.get_url:
+            url: "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+            dest: "/tmp/firefox.tar.xz"
+            mode: "0644"
+          when: not firefox_bin_check.stat.exists
+        - name: Extract Mozilla Firefox Standalone
+          ansible.builtin.unarchive:
+            src: "/tmp/firefox.tar.xz"
+            dest: "{{ user_home }}/.local/lib"
+            remote_src: true
+          when: not firefox_bin_check.stat.exists
+        - name: Clean up temporary Firefox archive
+          ansible.builtin.file:
+            path: "/tmp/firefox.tar.xz"
+            state: absent
+          when: not firefox_bin_check.stat.exists
+        - name: Symlink Firefox executable to ~/.local/bin/firefox
+          ansible.builtin.file:
+            src: "{{ user_home }}/.local/lib/firefox/firefox"
+            dest: "{{ user_home }}/.local/bin/firefox"
+            state: link
+            force: true
+        - name: Create Desktop Entry for Standalone Firefox
+          ansible.builtin.copy:
+            dest: "{{ user_home }}/.local/share/applications/firefox.desktop"
+            mode: "0644"
+            content: |
+              [Desktop Entry]
+              Version=1.0
+              Name=Firefox
+              Comment=Browse the World Wide Web
+              GenericName=Web Browser
+              Keywords=Internet;WWW;Browser;Web;Explorer
+              Exec={{ user_home }}/.local/bin/firefox %u
+              Terminal=false
+              X-MultipleArgs=false
+              Type=Application
+              Icon={{ user_home }}/.local/lib/firefox/browser/chrome/icons/default/default128.png
+              Categories=Network;WebBrowser;
+              MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+              StartupNotify=true
+              StartupWMClass=firefox
+              Actions=new-window;new-private-window;
+
+              [Desktop Action new-window]
+              Name=Open a New Window
+              Exec={{ user_home }}/.local/bin/firefox -new-window
+
+              [Desktop Action new-private-window]
+              Name=Open a New Private Window
+              Exec={{ user_home }}/.local/bin/firefox -private-window
+        - name: Ensure ~/.mozilla/native-messaging-hosts directory exists
+          ansible.builtin.file:
+            path: "{{ user_home }}/.mozilla/native-messaging-hosts"
+            state: directory
+            mode: "0755"
+        - name: Configure KeePassXC Native Messaging Host for Mozilla Firefox
+          ansible.builtin.copy:
+            dest: "{{ user_home }}/.mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json"
+            mode: "0644"
+            content: |
+              {
+                  "allowed_extensions": [
+                      "keepassxc-browser@keepassxc.org"
+                  ],
+                  "description": "KeePassXC integration with native messaging support",
+                  "name": "org.keepassxc.keepassxc_browser",
+                  "path": "/usr/bin/keepassxc-proxy",
+                  "type": "stdio"
+              }
+
+    # =========================================================================
+    # 4. Mise Installation and Scoped Toolchains
+    # =========================================================================
+    - name: 4. Configure Mise & Pre-Commit Dependencies
+      block:
+        - name: Check if Mise is installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.local/bin/mise"
+          register: mise_bin_check
+        - name: Install Mise via official standalone installer
+          ansible.builtin.shell:
+            cmd: curl -fsSL https://mise.run | sh
+          when: not mise_bin_check.stat.exists
+        - name: Ensure Mise configuration directory exists
+          ansible.builtin.file:
+            path: "{{ user_home }}/.config/mise"
+            state: directory
+            mode: "0755"
+        - name: Ensure Global Mise configuration (~/.config/mise/config.toml)
+          ansible.builtin.copy:
+            dest: "{{ user_home }}/.config/mise/config.toml"
+            mode: "0644"
+            content: |
+              [tools]
+              # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
+              "aqua:tealdeer-rs/tealdeer" = "1.8.1"
+              aube = "1.41.0"
+              navi = "2.24.0"
+              node = "26.7.0"
+              pre-commit = "4.6.2"
+              python = "3.14.7"
+              rtk = "0.45.0"
+              ruff = "0.16.3"
+              shellcheck = "0.11.0"
+              trufflehog = "3.97.0"
+              yamlfmt = "0.21.0"
+
+              [settings]
+              experimental = true
+        - name: Run mise install for global pre-commit dependencies
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.local/bin/mise install"
+          environment:
+            PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+
+    # =========================================================================
+    # 5. Linuxbrew Fallback Packages
+    # =========================================================================
+    - name: 5. Configure Linuxbrew (Fallback Tools)
       block:
         - name: Check if Homebrew is installed
           ansible.builtin.stat:
             path: "/home/linuxbrew/.linuxbrew/bin/brew"
           register: brew_check
-        - name: Install Homebrew via Official Script
+        - name: Install Homebrew if missing
           ansible.builtin.shell:
             cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           when: not brew_check.stat.exists
@@ -180,106 +318,29 @@
           ansible.builtin.lineinfile:
             path: "{{ user_home }}/.zshrc"
             line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-            create: yes
-        - name: Install Homebrew Packages
+            create: true
+        - name: Install supplemental Homebrew packages
           community.general.homebrew:
             name: "{{ homebrew_packages }}"
             state: present
             path: "/home/linuxbrew/.linuxbrew/bin"
-    - name: 4. Install Rust Toolchain and Cargo Apps
-      become: false
-      block:
-        - name: Install standard Cargo packages
-          community.general.cargo:
-            name: "{{ item }}"
-            state: present
-          loop: "{{ cargo_packages }}"
-        - name: Install Ripgrep with pcre2 support
-          ansible.builtin.shell:
-            cmd: cargo install ripgrep --features pcre2
-          args:
-            creates: "{{ user_home }}/.cargo/bin/rg"
-        - name: Install Yazi from git source
-          ansible.builtin.shell: |
-            cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build
-          args:
-            creates: "{{ user_home }}/.cargo/bin/yazi"
-        - name: Ensure Cargo bin is in PATH via zshrc
-          ansible.builtin.lineinfile:
-            path: "{{ user_home }}/.zshrc"
-            line: 'export PATH="$HOME/.cargo/bin:$PATH"'
-            create: yes
-    - name: 5. Install Ghostty Terminal
-      block:
-        - name: Enable Ghostty COPR Repository
-          community.general.copr:
-            name: scottames/ghostty
-            state: enabled
-        - name: Install Ghostty
-          ansible.builtin.dnf:
-            name: ghostty
-            state: present
-    - name: 6. Install Graphical Applications (Flatpak)
-      block:
-        - name: Ensure Flatpak package manager is installed
-          ansible.builtin.dnf:
-            name: flatpak
-            state: present
-        - name: Add Flathub repository
-          community.general.flatpak_remote:
-            name: flathub
-            state: present
-            flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-            method: system
-        - name: Install Flatpak applications
-          community.general.flatpak:
-            name: "{{ item }}"
-            state: present
-            remote: flathub
-            method: system
-          loop: "{{ flatpak_packages }}"
-    - name: 7. Configure SmartCard (CAC) and DoD Certificates
-      block:
-        - name: Enable and start PC/SC Smart Card Daemon
-          ansible.builtin.systemd:
-            name: pcscd
-            enabled: yes
-            state: started
-        - name: Ensure certificate extraction directory exists
-          ansible.builtin.file:
-            path: /tmp/dod_certs
-            state: directory
-        - name: Download DoD PKI Certificate Zip
-          ansible.builtin.get_url:
-            url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
-            dest: "/tmp/dod_certs.zip"
-            validate_certs: no
-            headers:
-              User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-        - name: Unzip DoD Certificates
-          ansible.builtin.unarchive:
-            src: "/tmp/dod_certs.zip"
-            dest: "/tmp/dod_certs"
-            remote_src: yes
-        - name: Install DoD PEM certificates to system trust
-          ansible.builtin.shell: |
-            find /tmp/dod_certs -type f -name '*.pem' -exec cp {} /etc/pki/ca-trust/source/anchors/ \;
-          register: dod_copy
-          changed_when: dod_copy.stdout != ""
-        - name: Update System CA Trust
-          ansible.builtin.command: update-ca-trust extract
-    - name: 8. Final User Environment (ZSH, Fonts, Tmux, Mise)
-      become: false
+          when: homebrew_packages | length > 0
+
+    # =========================================================================
+    # 6. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
+    # =========================================================================
+    - name: 6. Configure User Shell & Fonts
       block:
         - name: Create font directory
           ansible.builtin.file:
             path: "{{ user_home }}/.local/share/fonts"
             state: directory
-        - name: Install Caskaydia Cove
+            mode: "0755"
+        - name: Install Cascadia Code Nerd Font
           ansible.builtin.unarchive:
             src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/CascadiaCode.zip"
             dest: "{{ user_home }}/.local/share/fonts"
-            remote_src: yes
+            remote_src: true
         - name: Clone Oh-My-Zsh
           ansible.builtin.git:
             repo: https://github.com/ohmyzsh/ohmyzsh.git
@@ -300,11 +361,19 @@
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
-          ignore_errors: yes
+          ignore_errors: true
+        - name: Install Yazi from git source
+          ansible.builtin.shell:
+            cmd: "cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build"
+          environment:
+            PATH: "{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
+          args:
+            creates: "{{ user_home }}/.cargo/bin/yazi"
         - name: Create global npm directory
           ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
             state: directory
+            mode: "0755"
         - name: Configure NPM Prefix
           ansible.builtin.shell:
             cmd: "npm config set prefix '~/.npm-global'"
@@ -323,11 +392,17 @@
           ansible.builtin.shell:
             cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
           when: not agy_bin_check.stat.exists
-        - name: Configure Mise
-          ansible.builtin.shell:
-            cmd: "mise use -g node@lts"
-    - name: 9. Configure Doom Emacs and LazyVim
-      become: false
+        - name: Ensure mise activation in .zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
+            create: true
+            state: present
+
+    # =========================================================================
+    # 7. Doom Emacs and LazyVim
+    # =========================================================================
+    - name: 7. Configure Doom Emacs and LazyVim
       block:
         - name: Check if Doom Emacs is installed
           ansible.builtin.stat:
@@ -356,7 +431,9 @@
         - name: Sync Doom Emacs packages
           ansible.builtin.shell:
             cmd: "{{ user_home }}/.config/emacs/bin/doom sync -u"
-          ignore_errors: yes
+          environment:
+            PATH: "{{ user_home }}/.local/bin:{{ user_home }}/.config/emacs/bin:{{ ansible_facts['env']['PATH'] }}"
+          ignore_errors: true
           register: doom_sync
           changed_when: "'Installing' in doom_sync.stdout or 'Updating' in doom_sync.stdout"
         - name: Fetch LazyVim Starter Template to temporary directory
@@ -367,15 +444,49 @@
         - name: Merge LazyVim template with stowed overrides
           ansible.builtin.shell:
             cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
-            # The '-n' flag stands for 'no-clobber'. It copies the base files in,
-            # but strictly refuses to overwrite any of the files/symlinks you already stowed.
+        - name: Check if neovim is executable
+          ansible.builtin.shell:
+            cmd: command -v nvim || {{ user_home }}/.local/bin/mise which neovim || true
+          register: nvim_check
+          changed_when: false
         - name: Headless LazyVim plugin installation
           ansible.builtin.shell:
-            cmd: "nvim --headless '+Lazy! sync' +qa"
+            cmd: "{{ nvim_check.stdout }} --headless '+Lazy! sync' +qa"
+          when: nvim_check.stdout != ""
           args:
             creates: "{{ user_home }}/.local/share/nvim/lazy"
-        - name: Headless LazyVim plugin installation
-          ansible.builtin.shell:
-            cmd: "nvim --headless '+Lazy! sync' +qa"
-          args:
-            creates: "{{ user_home }}/.local/share/nvim/lazy"
+
+# =========================================================================
+# 8. (Commented Out) SmartCard (CAC) and DoD PKI Certificates
+# =========================================================================
+# - name: 8. Configure SmartCard (CAC) and DoD Certificates
+#   become: true
+#   block:
+#     - name: Enable and start PC/SC Smart Card Daemon
+#       ansible.builtin.systemd:
+#         name: pcscd
+#         enabled: true
+#         state: started
+#     - name: Ensure certificate extraction directory exists
+#       ansible.builtin.file:
+#         path: /tmp/dod_certs
+#         state: directory
+#     - name: Download DoD PKI Certificate Zip
+#       ansible.builtin.get_url:
+#         url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
+#         dest: "/tmp/dod_certs.zip"
+#         validate_certs: false
+#         headers:
+#           User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+#     - name: Unzip DoD Certificates
+#       ansible.builtin.unarchive:
+#         src: "/tmp/dod_certs.zip"
+#         dest: "/tmp/dod_certs"
+#         remote_src: true
+#     - name: Install DoD PEM certificates to system trust
+#       ansible.builtin.shell: |
+#         find /tmp/dod_certs -type f -name '*.pem' -exec cp {} /etc/pki/ca-trust/source/anchors/ \;
+#       register: dod_copy
+#       changed_when: dod_copy.stdout != ""
+#     - name: Update System CA Trust
+#       ansible.builtin.command: update-ca-trust extract
