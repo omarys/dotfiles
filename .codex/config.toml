@@ -1,4 +1,4 @@
-model = "gpt-5.6-luna"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 [projects."/home/omary/Work"]
@@ -65,6 +65,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/omary/Work/cti-mani/services-mani/rabbitmq"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/cti-mani/services-mani/seaweedfs"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]

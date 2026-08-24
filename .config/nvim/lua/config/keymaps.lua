@@ -19,10 +19,4 @@ vim.keymap.set(
   { silent = true, expr = true, desc = "Complete Copilot suggestion" }
 )
 vim.keymap.set("i", "<C-;>", "<Plug>(copilot-suggest)")
-vim.keymap.set("i", "<M-l>", function()
-  return vim.fn["copilot#AcceptWord"]()
-end, { expr = true })
-vim.keymap.set("i", "<M-S-l>", function()
-  return vim.fn["copilot#AcceptLine"]()
-end, { expr = true })
 -- vim.keymap.set("n", "<Leader>y", '"+y', { remap = true, desc = "Yank" })

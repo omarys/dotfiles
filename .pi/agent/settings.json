@@ -18,7 +18,7 @@
     "npm:@vigolium/piolium",
     "npm:@dietrichgebert/ponytail"
   ],
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",

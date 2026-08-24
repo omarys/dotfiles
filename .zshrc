@@ -8,6 +8,8 @@ if [ -d "/home/linuxbrew/.linuxbrew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+unalias br 2>/dev/null
+
 # 2. Capture whatever Brew/Snaps/Flatpaks did, and force the final recommended order
 # This ensures User -> Local -> DNF -> Everything Else (including Brew)
 export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.config/emacs/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH"
@@ -166,6 +168,20 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+function b() {
+    local cmd cmd_file code
+    cmd_file=$(mktemp)
+    if broot --outcmd "$cmd_file" "$@"; then
+        cmd=$(<"$cmd_file")
+        command rm -f "$cmd_file"
+        eval "$cmd"
+    else
+        code=$?
+        command rm -f "$cmd_file"
+        return "$code"
+    fi
+}
+
 function spf() {
 	local spf_last_dir="${XDG_STATE_HOME:-$HOME/.local/state}/superfile/lastdir"
 	command spf "$@"
@@ -245,3 +261,5 @@ if ! command -v docker >/dev/null 2>&1; then
   fi
   unset _podman_sock
 fi
+
+source /home/omary/.config/broot/launcher/bash/br
