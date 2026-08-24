@@ -49,6 +49,26 @@
       - org.gnome.Podcasts
       - org.gnome.Solanum
       - us.zoom.Zoom
+    # Rust CLI Tools via Cargo
+    cargo_packages:
+      - bat
+      - bottom
+      - broot
+      - cargo-update
+      - dysk
+      - emacs-lsp-booster
+      - fd-find
+      - git-delta
+      - hoard-rs
+      - leaf-markdown-viewer
+      - lsd
+      - neovide
+      - rm-improved
+      - sd
+      - starship
+      - tealdeer
+      - tree-sitter-cli
+      - zoxide
     # Homebrew fallback packages (only those not covered by mise or cargo)
     homebrew_packages:
       - docker-credential-helper
@@ -80,10 +100,6 @@
             name: terra-release
             state: present
             update_cache: true
-        - name: Enable Ghostty COPR Repository
-          community.general.copr:
-            name: scottames/ghostty
-            state: enabled
         - name: Install Development Tools Group
           ansible.builtin.dnf:
             name: "@development-tools"
@@ -92,7 +108,6 @@
           ansible.builtin.dnf:
             name: "{{ core_packages }}"
             state: present
-
     # =========================================================================
     # 2. Docker CE Setup
     # =========================================================================
@@ -124,7 +139,6 @@
             name: "{{ user_name }}"
             groups: docker
             append: true
-
     # =========================================================================
     # 3. Flatpak Applications & Standalone Firefox
     # =========================================================================
@@ -166,7 +180,6 @@
             - system
             - user
           ignore_errors: true
-
     - name: Configure Mozilla Firefox (Standalone Native Edition)
       block:
         - name: Ensure ~/.local directories exist
@@ -178,26 +191,17 @@
             - "{{ user_home }}/.local/lib"
             - "{{ user_home }}/.local/bin"
             - "{{ user_home }}/.local/share/applications"
+          check_mode: false
         - name: Check if Standalone Firefox is already installed
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/lib/firefox/firefox"
           register: firefox_bin_check
-        - name: Download Mozilla Firefox Standalone Tarball
-          ansible.builtin.get_url:
-            url: "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-            dest: "/tmp/firefox.tar.xz"
-            mode: "0644"
-          when: not firefox_bin_check.stat.exists
-        - name: Extract Mozilla Firefox Standalone
+        - name: Download and Extract Mozilla Firefox Standalone
           ansible.builtin.unarchive:
-            src: "/tmp/firefox.tar.xz"
+            src: "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
             dest: "{{ user_home }}/.local/lib"
             remote_src: true
-          when: not firefox_bin_check.stat.exists
-        - name: Clean up temporary Firefox archive
-          ansible.builtin.file:
-            path: "/tmp/firefox.tar.xz"
-            state: absent
+            creates: "{{ user_home }}/.local/lib/firefox/firefox"
           when: not firefox_bin_check.stat.exists
         - name: Symlink Firefox executable to ~/.local/bin/firefox
           ansible.builtin.file:
@@ -239,6 +243,7 @@
             path: "{{ user_home }}/.mozilla/native-messaging-hosts"
             state: directory
             mode: "0755"
+          check_mode: false
         - name: Configure KeePassXC Native Messaging Host for Mozilla Firefox
           ansible.builtin.copy:
             dest: "{{ user_home }}/.mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json"
@@ -253,7 +258,6 @@
                   "path": "/usr/bin/keepassxc-proxy",
                   "type": "stdio"
               }
-
     # =========================================================================
     # 4. Mise Installation and Scoped Toolchains
     # =========================================================================
@@ -272,6 +276,7 @@
             path: "{{ user_home }}/.config/mise"
             state: directory
             mode: "0755"
+          check_mode: false
         - name: Ensure Global Mise configuration (~/.config/mise/config.toml)
           ansible.builtin.copy:
             dest: "{{ user_home }}/.config/mise/config.toml"
@@ -298,7 +303,6 @@
             cmd: "{{ user_home }}/.local/bin/mise install"
           environment:
             PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
-
     # =========================================================================
     # 5. Linuxbrew Fallback Packages
     # =========================================================================
@@ -325,7 +329,6 @@
             state: present
             path: "/home/linuxbrew/.linuxbrew/bin"
           when: homebrew_packages | length > 0
-
     # =========================================================================
     # 6. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
     # =========================================================================
@@ -336,6 +339,7 @@
             path: "{{ user_home }}/.local/share/fonts"
             state: directory
             mode: "0755"
+          check_mode: false
         - name: Install Cascadia Code Nerd Font
           ansible.builtin.unarchive:
             src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/CascadiaCode.zip"
@@ -346,22 +350,35 @@
             repo: https://github.com/ohmyzsh/ohmyzsh.git
             dest: "{{ user_home }}/.oh-my-zsh"
             depth: 1
+            update: false
         - name: Clone zsh-autosuggestions
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
             depth: 1
+            update: false
         - name: Install Tmux Package Manager (TPM)
           ansible.builtin.git:
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
+            update: false
         - name: Execute headless TPM plugin installation
           ansible.builtin.shell:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
           ignore_errors: true
+        - name: Install Cargo CLI packages
+          community.general.cargo:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ cargo_packages }}"
+        - name: Install Ripgrep with pcre2 support
+          ansible.builtin.shell:
+            cmd: cargo install ripgrep --features pcre2
+          args:
+            creates: "{{ user_home }}/.cargo/bin/rg"
         - name: Install Yazi from git source
           ansible.builtin.shell:
             cmd: "cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build"
@@ -369,11 +386,17 @@
             PATH: "{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
           args:
             creates: "{{ user_home }}/.cargo/bin/yazi"
+        - name: Ensure Cargo bin is in PATH via zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+            create: true
         - name: Create global npm directory
           ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
             state: directory
             mode: "0755"
+          check_mode: false
         - name: Configure NPM Prefix
           ansible.builtin.shell:
             cmd: "npm config set prefix '~/.npm-global'"
@@ -398,7 +421,6 @@
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
-
     # =========================================================================
     # 7. Doom Emacs and LazyVim
     # =========================================================================
@@ -441,6 +463,7 @@
             repo: https://github.com/LazyVim/starter
             dest: "/tmp/lazyvim_starter"
             depth: 1
+            update: false
         - name: Merge LazyVim template with stowed overrides
           ansible.builtin.shell:
             cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"

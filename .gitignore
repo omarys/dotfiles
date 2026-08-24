@@ -47,6 +47,15 @@ pipup.sh
 .codex/installation_id
 .codex/models_cache.json
 
+.copilot/config.json
+.copilot/session-store.db*
+.copilot/session-state/
+.copilot/sidebar-sessions-state/
+.copilot/logs/
+.copilot/installed-plugins/
+.copilot/command-history-state.json
+.copilot/context-mode/
+
 .gemini/gemini-credentials.json
 .gemini/google_accounts.json
 .gemini/**/cache/
@@ -69,5 +78,11 @@ pipup.sh
 .omp/agent/
 
 .pi/agent/auth.json
+.pi/agent/mcp-cache.json
 .pi/agent/npm/
+.pi/agent/history*
+.pi/agent/sessions/
+.pi/agent/log/
 .pi/context-mode/
+.pi/history*
+.pi/sessions/
