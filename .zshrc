@@ -237,4 +237,11 @@ export PATH="/home/omary/.local/bin:$PATH"
 # Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
 
-export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock"
+# Fallback to rootless Podman socket only when native Docker is not installed
+if ! command -v docker >/dev/null 2>&1; then
+  _podman_sock="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock"
+  if [ -S "$_podman_sock" ]; then
+    export DOCKER_HOST="unix://$_podman_sock"
+  fi
+  unset _podman_sock
+fi
