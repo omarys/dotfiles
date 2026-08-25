@@ -1,0 +1,218 @@
+- name: Provision PineTab2 (Arch Linux ARM)
+  hosts: localhost
+  connection: local
+  become: false
+  vars:
+    user_name: "{{ ansible_facts['user_id'] | default('omary') }}"
+    user_home: "{{ ansible_facts['env']['HOME'] | default('/home/' + user_name) }}"
+    user_env:
+      PATH: "{{ user_home }}/.local/bin:{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
+      NONINTERACTIVE: "1"
+    font_version: "v3.4.0"
+    # Pre-compiled Pacman binaries (Zero ARM compilation overhead)
+    pacman_core_packages:
+      - base-devel
+      - bat
+      - bottom
+      - curl
+      - fd
+      - file
+      - flatpak
+      - foot
+      - fzf
+      - git
+      - git-delta
+      - gnupg
+      - lsd
+      - make
+      - mpv
+      - neovim
+      - pass
+      - python
+      - python-pynvim
+      - ripgrep
+      - rust
+      - cargo
+      - sd
+      - starship
+      - stow
+      - tree-sitter-cli
+      - unzip
+      - yazi
+      - zoxide
+      - zsh
+    # Minimal Cargo fallback packages (only crates not available in Arch core/extra)
+    cargo_fallback_packages:
+      - cargo-update
+      - dysk
+      - rm-improved
+    # Tablet GUI Applications via Flatpak
+    flatpak_packages:
+      - info.febvre.Komikku
+  tasks:
+    # =========================================================================
+    # 1. System Packages via Pacman
+    # =========================================================================
+    - name: 1. Install Pre-compiled System Packages via Pacman
+      become: true
+      community.general.pacman:
+        name: "{{ pacman_core_packages }}"
+        state: present
+        update_cache: true
+    # =========================================================================
+    # 2. Flatpak Tablet Applications
+    # =========================================================================
+    - name: 2. Configure Flatpak & Tablet Applications
+      block:
+        - name: Ensure Flathub repository is configured
+          community.general.flatpak_remote:
+            name: flathub
+            state: present
+            flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+            method: user
+        - name: Install Tablet Flatpak Applications
+          community.general.flatpak:
+            name: "{{ item }}"
+            state: present
+            remote: flathub
+            method: user
+          loop: "{{ flatpak_packages }}"
+          when: flatpak_packages | length > 0
+    # =========================================================================
+    # 3. Mise Installation and Scoped Toolchains
+    # =========================================================================
+    - name: 3. Configure Mise
+      block:
+        - name: Check if Mise is installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.local/bin/mise"
+          register: mise_bin_check
+        - name: Install Mise via official standalone installer
+          ansible.builtin.shell:
+            cmd: curl -fsSL https://mise.run | sh
+          when: not mise_bin_check.stat.exists
+        - name: Ensure Mise configuration directory exists
+          ansible.builtin.file:
+            path: "{{ user_home }}/.config/mise"
+            state: directory
+            mode: "0755"
+          check_mode: false
+        - name: Ensure Global Mise configuration (~/.config/mise/config.toml)
+          ansible.builtin.copy:
+            dest: "{{ user_home }}/.config/mise/config.toml"
+            mode: "0644"
+            content: |
+              [tools]
+              # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
+              "aqua:tealdeer-rs/tealdeer" = "1.8.1"
+              aube = "1.41.0"
+              navi = "2.24.0"
+              node = "26.7.0"
+              pre-commit = "4.6.2"
+              python = "3.14.7"
+              rtk = "0.45.0"
+              ruff = "0.16.3"
+              shellcheck = "0.11.0"
+              trufflehog = "3.97.0"
+              yamlfmt = "0.21.0"
+
+              [settings]
+              experimental = true
+        - name: Run mise install for global dependencies
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.local/bin/mise install"
+          environment:
+            PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+    # =========================================================================
+    # 4. Minimal Cargo Fallback Installs
+    # =========================================================================
+    - name: 4. Install Minimal Cargo Fallback Packages
+      block:
+        - name: Install crates not available in Arch repos
+          community.general.cargo:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ cargo_fallback_packages }}"
+          when: cargo_fallback_packages | length > 0
+        - name: Ensure Cargo bin is in PATH via zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+            create: true
+            state: present
+    # =========================================================================
+    # 5. User Shell, Fonts & Terminal Environment
+    # =========================================================================
+    - name: 5. Configure User Shell & Fonts
+      block:
+        - name: Ensure ~/.local directories exist
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: directory
+            mode: "0755"
+          loop:
+            - "{{ user_home }}/.local/bin"
+            - "{{ user_home }}/.local/share/fonts"
+            - "{{ user_home }}/.config/foot"
+          check_mode: false
+        - name: Install Cascadia Code Nerd Font
+          ansible.builtin.unarchive:
+            src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/CascadiaCode.zip"
+            dest: "{{ user_home }}/.local/share/fonts"
+            remote_src: true
+            creates: "{{ user_home }}/.local/share/fonts/CaskaydiaCoveNerdFont-Regular.ttf"
+        - name: Clone Oh-My-Zsh
+          ansible.builtin.git:
+            repo: https://github.com/ohmyzsh/ohmyzsh.git
+            dest: "{{ user_home }}/.oh-my-zsh"
+            depth: 1
+            update: false
+        - name: Clone zsh-autosuggestions
+          ansible.builtin.git:
+            repo: https://github.com/zsh-users/zsh-autosuggestions
+            dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+            depth: 1
+            update: false
+        - name: Install Tmux Package Manager (TPM)
+          ansible.builtin.git:
+            repo: https://github.com/tmux-plugins/tpm
+            dest: "{{ user_home }}/.config/tmux/plugins/tpm"
+            depth: 1
+            update: false
+        - name: Execute headless TPM plugin installation
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
+          register: tpm_install
+          changed_when: "'Installing' in tpm_install.stdout"
+          ignore_errors: true
+        - name: Ensure mise activation in .zshrc
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.zshrc"
+            line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
+            create: true
+            state: present
+    # =========================================================================
+    # 6. Neovim & LazyVim
+    # =========================================================================
+    - name: 6. Configure Neovim & LazyVim
+      block:
+        - name: Fetch LazyVim Starter Template to temporary directory
+          ansible.builtin.git:
+            repo: https://github.com/LazyVim/starter
+            dest: "/tmp/lazyvim_starter"
+            depth: 1
+            update: false
+        - name: Merge LazyVim template with stowed overrides
+          ansible.builtin.shell:
+            cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
+        - name: Check if neovim is executable
+          ansible.builtin.shell:
+            cmd: command -v nvim || {{ user_home }}/.local/bin/mise which neovim || true
+          register: nvim_check
+          changed_when: false
+        - name: Headless LazyVim plugin installation
+          ansible.builtin.shell:
+            cmd: "{{ nvim_check.stdout }} --headless '+Lazy! sync' +qa"
+          when: nvim_check.stdout != ""
+          args:
+            creates: "{{ user_home }}/.local/share/nvim/lazy"
