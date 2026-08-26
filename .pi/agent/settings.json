@@ -57,41 +57,31 @@
       "scout": {
         "model": "opencode-go/mimo-v2.5",
         "thinking": "low",
-        "skills": [
-          "pi-agent"
-        ]
+        "skills": ["pi-agent"]
       },
       "planner": {
         "model": "opencode-go/deepseek-v4-pro",
         "thinking": "high",
-        "skills": [
-          "pi-agent"
-        ]
+        "skills": ["pi-agent"]
       },
       "worker": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "low",
-        "skills": [
-          "pi-agent"
-        ]
+        "skills": ["pi-agent"]
       },
       "reviewer": {
         "model": "opencode-go/deepseek-v4-flash",
         "thinking": "medium",
-        "skills": [
-          "pi-agent"
-        ]
+        "skills": ["pi-agent"]
       },
       "delegate": {
-        "model": "opencode-go/mimo-v2.5-pro",
+        "model": "opencode-go/gpt-5.6-luna",
         "thinking": "low"
       },
       "oracle": {
         "model": "opencode-go/kimi-k3",
         "thinking": "high",
-        "skills": [
-          "pi-agent"
-        ]
+        "skills": ["pi-agent"]
       }
     }
   },
@@ -99,12 +89,10 @@
     "opencode-go/deepseek-v4-flash",
     "opencode-go/deepseek-v4-pro",
     "opencode-go/kimi-k3",
+    "opencode-go/gpt-5.6-luna",
+    "opencode-go/grok-4.6",
     "opencode-go/qwen3.7-plus",
-    "opencode-go/qwen3.8-max",
-    "opencode-go/glm-5.2",
-    "opencode-go/glm-5.3",
-    "opencode-go/mimo-v2.5",
-    "opencode-go/mimo-v2.5-pro"
+    "opencode-go/mimo-v2.5"
   ],
   "theme": "dark"
 }
