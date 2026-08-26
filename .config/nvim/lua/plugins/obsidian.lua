@@ -315,9 +315,9 @@ return {
     -- Wiki-link vs Markdown link style
     preferred_link_style = "wiki",
 
-    -- Completion engine integration (nvim-cmp / blink.cmp)
+    -- Completion settings (set nvim_cmp to false since LazyVim uses blink.cmp)
     completion = {
-      nvim_cmp = true,
+      nvim_cmp = false,
       min_chars = 2,
     },
 
@@ -414,12 +414,6 @@ return {
         ObsidianTag = { italic = true, fg = "#bb9af7" },
         ObsidianHighlightText = { bg = "#756b2c" },
       },
-    },
-
-    -- Backlink & link display options
-    backlinks = {
-      height = 10,
-      wrap = true,
     },
   },
 }

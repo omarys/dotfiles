@@ -49,3 +49,5 @@
 	helper = libsecret
 [rerere]
 	enabled = true
+[url "git@github.com:omarys/"]
+	insteadOf = https://github.com/omarys/
