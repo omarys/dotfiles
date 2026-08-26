@@ -135,7 +135,7 @@ alias gcot="git checkout --theirs ."
 alias l='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
-alias lofi="mpv \"https://music.youtube.com/watch?v=X4VbdwhkE10\" --no-video"
+alias lofi="mpv \"https://www.youtube.com/watch?v=rFZHOHl-L8A\" --no-video"
 alias ls="lsd"
 alias lt='lsd --tree'
 alias makessh="ssh-keygen -t ed25519 -C \"omaryscott@gmail.com\""
