@@ -28,7 +28,7 @@ play = [
 
 [open]
 prepend_rules = [
-  { mime = "image/*", use = "image" },
+  { mime = "image/*", use = "feh" },
   { mime = "text/*", use = "neovide-fallback" },
   { mime = "video/*", use = "play" },
   { mime = "application/gzip", use = "open" },

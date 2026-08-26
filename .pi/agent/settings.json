@@ -14,7 +14,6 @@
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-mcp-adapter",
-    "npm:bigpowers",
     "npm:@vigolium/piolium",
     "npm:@dietrichgebert/ponytail"
   ],

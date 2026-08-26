@@ -1,10 +1,10 @@
 [tools]
 # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
-"aqua:tealdeer-rs/tealdeer" = "1.8.1"
+"aqua:tealdeer-rs/tealdeer" = "1.9.0"
 aube = "2.1.0"
 navi = "2.24.0"
 neovim = "latest"
-node = "26.7.0"
+node = "26.8.0"
 pre-commit = "4.6.2"
 python = "3.14.7"
 rtk = "0.45.0"

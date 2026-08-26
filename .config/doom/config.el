@@ -18,13 +18,13 @@
     :stream t
     :key (lambda ()
            (string-trim
-             (shell-command-to-string "pass show codex_secret_key")))
+             (shell-command-to-string "pass show keys/codex-secret-key")))
     :models '((gpt-5.6-luna
-               :description "GPT-5.6 Luna"
-               :capabilities (media tool-use json url responses-api)
-               :request-params (:reasoning_effort "medium"))))
+                :description "GPT-5.6 Luna"
+                :capabilities (media tool-use json url responses-api)
+                :request-params (:reasoning_effort "medium"))))
   (setq gptel-model 'gpt-5.6-luna
-        gptel-backend (gptel-get-backend "ChatGPT")))
+    gptel-backend (gptel-get-backend "ChatGPT")))
 
 (after! spell-fu
   (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
@@ -258,12 +258,12 @@
   (setq copilot-indent-offset-alist '((t . nil)))
 
   (map! :map copilot-completion-map
-        "C-SPC"     #'copilot-accept-completion
-        "<C-space>" #'copilot-accept-completion
-        "C-@"       #'copilot-accept-completion
-        "<tab>"     #'copilot-accept-completion
-        "TAB"       #'copilot-accept-completion
-        "C-TAB"     #'copilot-accept-completion-by-word))
+    "C-SPC"     #'copilot-accept-completion
+    "<C-space>" #'copilot-accept-completion
+    "C-@"       #'copilot-accept-completion
+    "<tab>"     #'copilot-accept-completion
+    "TAB"       #'copilot-accept-completion
+    "C-TAB"     #'copilot-accept-completion-by-word))
 
 (after! eglot
   (setq-default eglot-workspace-configuration

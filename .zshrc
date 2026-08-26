@@ -1,21 +1,40 @@
 #! /usr/bin/env zsh
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.zig/bin:$HOME/.config/emacs/bin:$HOME/go/bin:/usr/local/bin:$HOME/.bun/bin:$PATH:$HOME/.ghcup
-
-# 1. Let Linuxbrew initialize first (which prepends it to the front)
+# Let Linuxbrew initialize first (which prepends it to the front)
 if [ -d "/home/linuxbrew/.linuxbrew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    # Reassert Fedora core paths ahead of Linuxbrew to ensure system binaries take precedence
+    path=(
+        "$HOME/.local/bin"
+        "$HOME/.cargo/bin"
+        "$HOME/.npm-global/bin"
+        "$HOME/.config/emacs/bin"
+        "$HOME/.zig/bin"
+        "$HOME/go/bin"
+        /usr/local/bin
+        /usr/local/sbin
+        /usr/bin
+        /usr/sbin
+        /bin
+        /sbin
+        /home/linuxbrew/.linuxbrew/bin
+        /home/linuxbrew/.linuxbrew/sbin
+        $path
+    )
+
+    # Remove duplicates while preserving order
+    typeset -U path
 fi
 
 unalias br 2>/dev/null
 
-# 2. Capture whatever Brew/Snaps/Flatpaks did, and force the final recommended order
-# This ensures User -> Local -> DNF -> Everything Else (including Brew)
-export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.config/emacs/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH"
-
-# 3. Remove duplicate entries to keep the PATH clean (Optional but recommended)
-export PATH="$(echo "$PATH" | awk -v RS=':' '!a[$0]++ {if (NR>1) printf ":"; printf "%s", $0}')"
+# # 2. Capture whatever Brew/Snaps/Flatpaks did, and force the final recommended order
+# # This ensures User -> Local -> DNF -> Everything Else (including Brew)
+# export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.config/emacs/bin:$HOME/.cargo/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH"
+#
+# # 3. Remove duplicate entries to keep the PATH clean (Optional but recommended)
+# export PATH="$(echo "$PATH" | awk -v RS=':' '!a[$0]++ {if (NR>1) printf ":"; printf "%s", $0}')"
 
 # default browser
 export BROWSER=/usr/bin/firefox
@@ -126,7 +145,6 @@ alias rm="rip"
 alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2q0EUFqO7OO-3\" --no-video --loop-playlist"
 alias zshconfig="nvim ~/.zshrc"
 alias zzz="exit"
-alias sshforge="ssh -i ~/.ssh/id_ed25519_forge_docker1 'open@10.126.88.13'"
 
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
@@ -244,8 +262,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
 
 # mem0
-export MEM0_API_KEY="$(pass show mem0_api_key | head -n1)"
-
+export MEM0_API_KEY="$(pass show keys/mem0-api-key | head -n1)"
 
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
@@ -261,5 +278,3 @@ if ! command -v docker >/dev/null 2>&1; then
   fi
   unset _podman_sock
 fi
-
-source /home/omary/.config/broot/launcher/bash/br

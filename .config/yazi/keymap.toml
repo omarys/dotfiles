@@ -1,4 +1,14 @@
 [[mgr.prepend_keymap]]
+on = ["g", "y"]
+run = "cd ~/.config/yazi"
+desc = "Go to Yazi config"
+
+[[mgr.prepend_keymap]]
+on = ["g", "v"]
+run = "cd ~/vaults"
+desc = "Go to Obsidian Vaults"
+
+[[mgr.prepend_keymap]]
 on = ["g", "a"]
 run = "cd ~/Videos"
 desc = "Go to Anime"

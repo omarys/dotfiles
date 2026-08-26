@@ -1,34 +1,48 @@
 projects:
   D-OS-Save-Editor:
+    path: ~/Dev/D-OS-Save-Editor
     url: github.com/omarys/continuum.git
     tags: [mine, gaming, python]
   Org:
+    path: ~/Dev/Org
     url: github.com/omarys/Org.git
     tags: [mine, docs, org]
   continuum:
+    path: ~/Dev/continuum
     url: github.com/omarys/continuum.git
     tags: [mine, comics, rust]
   dewey:
+    path: ~/Dev/dewey
     url: github.com/omarys/dewey.git
     tags: [mine, comics, rust]
   disco-elysium-save-editor:
+    path: ~/Dev/disco-elysium-save-editor
     url: github.com/omarys/disco-elysium-save-editor.git
     tags: [mine, gaming, python]
   extras:
+    path: ~/Dev/extras
     url: github.com/omarys/extras.git
     tags: [mine, misc]
   labrador:
+    path: ~/Dev/labrador
     url: github.com/omarys/labrador.git
     tags: [mine, comics, go]
   leaf:
+    path: ~/Dev/leaf
     url: github.com/RivoLink/leaf.git
     tags: [rust]
   mangal:
+    path: ~/Dev/mangal
     url: github.com/omarys/mangal.git
     tags: [fork, go]
   tyranny-save-editor:
+    path: ~/Dev/tyranny-save-editor
     url: github.com/omarys/tyranny-save-editor.git
     tags: [mine, gaming, python]
+  vaults:
+    path: ~/vaults
+    url: github.com/omarys/vaults.git
+    tags: [mine, docs, markdown]
 specs:
   custom:
     output: table
