@@ -14,17 +14,14 @@
 (require 'transient)
 
 (after! gptel
-  (gptel-make-openai "ChatGPT"
+  (require 'gptel-openai-oauth)
+  (gptel-make-openai-oauth "ChatGPT-Subscription"
     :stream t
-    :key (lambda ()
-           (string-trim
-             (shell-command-to-string "pass show keys/codex-secret-key")))
-    :models '((gpt-5.6-luna
-                :description "GPT-5.6 Luna"
-                :capabilities (media tool-use json url responses-api)
-                :request-params (:reasoning_effort "medium"))))
+    :models '(gpt-5.6-luna
+              gpt-5.6-terra
+              gpt-5.6-sol))
   (setq gptel-model 'gpt-5.6-luna
-    gptel-backend (gptel-get-backend "ChatGPT")))
+    gptel-backend (gptel-get-backend "ChatGPT-Subscription")))
 
 (after! spell-fu
   (add-hook 'prog-mode-hook (lambda () (spell-fu-mode -1)))
