@@ -1,5 +1,4 @@
-fedora.yml
-ansible/
+ansible/*
 .git
 Makefile
 README.org

@@ -16,6 +16,75 @@ image_previewer = "chafa"
 max_width = 1920
 max_height = 1080
 
+# =============================================================================
+# Piper Previewers (Pipe external commands for rich previews)
+# =============================================================================
+
+# Markdown: Leaf first (--inline=ansi), fallback to glow or bat
+[[plugin.prepend_previewers]]
+url = "*.{md,markdown,mdown,mkd,mdx}"
+run = 'piper -- if command -v leaf >/dev/null 2>&1; then leaf --inline=ansi --width=$w "$1"; elif command -v glow >/dev/null 2>&1; then CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"; else bat -p --color=always "$1"; fi'
+
+# Git Diffs & Patches via delta
+[[plugin.prepend_previewers]]
+url = "*.{diff,patch}"
+run = 'piper -- delta --dark "$1"'
+
+# JSON files formatted & colorized via jq
+[[plugin.prepend_previewers]]
+url = "*.json"
+run = 'piper -- jq -C . "$1" 2>/dev/null || bat -p --color=always "$1"'
+
+# PDF text preview via pdftotext
+[[plugin.prepend_previewers]]
+mime = "application/pdf"
+run = 'piper -- pdftotext -l 5 -nopgbrk "$1" - 2>/dev/null | bat -p -l man --color=always'
+
+# Audio & Video stream/tags metadata via ffprobe
+[[plugin.prepend_previewers]]
+mime = "{audio,video}/*"
+run = 'piper -- ffprobe -hide_banner -show_entries format=duration,bit_rate,size:format_tags "$1" 2>&1 | bat -p -l ini --color=always'
+
+# Man pages preview via man & bat
+[[plugin.prepend_previewers]]
+url = "*.[1-8]"
+run = 'piper -- man -l "$1" 2>/dev/null | bat -p -l man --color=always'
+
+# Tar archives: File list with icons
+[[plugin.prepend_previewers]]
+url = "*.tar*"
+run = 'piper --format=url -- tar tf "$1"'
+
+# Zip archives
+[[plugin.prepend_previewers]]
+url = "*.{zip,cbz}"
+run = 'piper --format=url -- unzip -Z1 "$1"'
+
+# 7z archives
+[[plugin.prepend_previewers]]
+url = "*.7z"
+run = 'piper -- 7z l "$1"'
+
+# CSV / TSV files
+[[plugin.prepend_previewers]]
+url = "*.{csv,tsv}"
+run = 'piper -- bat -p --color=always "$1"'
+
+# SQLite database schemas
+[[plugin.prepend_previewers]]
+mime = "application/{x-sqlite3,sqlite3,vnd.sqlite3}"
+run = 'piper -- sqlite3 "$1" ".schema --indent"'
+
+# Directory tree preview with lsd
+[[plugin.prepend_previewers]]
+url = "*/"
+run = 'piper -- lsd --tree --depth 3 --color=always "$1"'
+
+# Universal fallback previewer via bat for all other code/text files
+[[plugin.append_previewers]]
+url = "*"
+run = 'piper -- bat -p --color=always "$1"'
+
 [opener]
 open = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
 image = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
