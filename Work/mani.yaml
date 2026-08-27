@@ -5,3 +5,9 @@ projects:
   icam-mani:
     description: Mapping of all ICAM repositories to their respective locations in the mani repository
     url: https://code.levelup.cce.af.mil/scott.omary.1.ctr/icam-mani.git
+tasks:
+  psync:
+    desc: Sync all repos in parallel
+    spec: custom
+    target: all
+    cmd: mani sync --parallel

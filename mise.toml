@@ -5,6 +5,7 @@ ruff = "latest"
 shellcheck = "latest"
 trufflehog = "latest"
 yamlfmt = "latest"
+mani = "latest"
 
 [tasks.init]
 description = "Install Ansible and galaxy collections required for provisioning"

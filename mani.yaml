@@ -52,6 +52,11 @@ targets:
   all:
     all: true
 tasks:
+  psync:
+    desc: Sync all repos in parallel
+    spec: custom
+    target: all
+    cmd: mani sync --parallel
   git-status:
     desc: Show working tree
     spec: custom
