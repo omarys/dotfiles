@@ -1,4 +1,4 @@
-exclude: "(SKILL\\.md|\\.copilot/installed-plugins)"
+exclude: "(SKILL\\.md|\\.copilot/installed-plugins|\\.config/yazi/(plugins|flavors)/)"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

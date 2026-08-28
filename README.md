@@ -1,8 +1,9 @@
-#+title: Dotfiles
+# Dotfiles
 
-#+name: Clone Instructions
-#+begin_src sh
+## Clone Instructions
+
+```bash
 git clone https://github.com/omarys/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 stow .
-#+end_src
+```

@@ -70,9 +70,8 @@ trust_level = "trusted"
 [projects."/home/omary/Work/cti-mani/services-mani/seaweedfs"]
 trust_level = "trusted"
 
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-"gpt-5.6-sol" = 2
+[projects."/home/omary/Work/cti-mani/purple-forge-kit/siem-kubernetes"]
+trust_level = "trusted"
 
 [features]
 hooks = true
@@ -152,3 +151,6 @@ source = "https://github.com/DietrichGebert/ponytail.git"
 
 [plugins."ponytail@ponytail"]
 enabled = true
+
+[notice]
+hide_rate_limit_model_nudge = true
