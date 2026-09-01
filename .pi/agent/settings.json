@@ -17,9 +17,9 @@
     "npm:@vigolium/piolium",
     "npm:@dietrichgebert/ponytail"
   ],
-  "lastChangelogVersion": "0.84.3",
+  "lastChangelogVersion": "0.84.4",
   "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
+  "defaultModel": "kimi-k2.6",
   "defaultThinkingLevel": "high",
   "observational-memory": {
     "observationThresholdTokens": 1000,
@@ -39,7 +39,10 @@
   },
   "mcpServers": {
     "context-mode": {
-      "command": "context-mode",
+      "command": "/home/omary/.local/share/mise/installs/node/latest/bin/node",
+      "args": [
+        "/home/omary/.npm-global/lib/node_modules/context-mode/cli.bundle.mjs"
+      ],
       "lifecycle": "keep-alive"
     },
     "mem0": {

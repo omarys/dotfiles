@@ -1,11 +1,19 @@
 [tools]
-python = "3.14.7"
+"aqua:tealdeer-rs/tealdeer" = "latest"
+aube = "latest"
+mani = "latest"
+navi = "latest"
+neovim = "latest"
+node = "latest"
 pre-commit = "latest"
+python = "latest"
+rtk = "latest"
 ruff = "latest"
 shellcheck = "latest"
 trufflehog = "latest"
+usage = "latest"
+uv = "latest"
 yamlfmt = "latest"
-mani = "latest"
 
 [tasks.init]
 description = "Install Ansible and galaxy collections required for provisioning"
