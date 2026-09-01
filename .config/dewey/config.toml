@@ -1,4 +1,4 @@
-library_dir = "/home/omary/Documents/Manga"
+library_dir = "/home/omary/Documents/Dewey"
 db_path = "/home/omary/.local/share/dewey/dewey.db"
 log_file = "/home/omary/.local/state/dewey/dewey.log"
 continuum_bin = "continuum"
