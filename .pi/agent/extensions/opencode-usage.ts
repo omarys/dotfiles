@@ -1,0 +1,1 @@
+/home/omary/Dev/pi-check-opencode-go-usage/opencode-usage.ts

@@ -11,6 +11,8 @@ rtk = "latest"
 ruff = "latest"
 shellcheck = "latest"
 trufflehog = "latest"
+usage = "latest"
+uv = "latest"
 yamlfmt = "latest"
 
 [tasks.init]

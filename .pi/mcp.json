@@ -1,11 +1,13 @@
 {
   "mcpServers": {
     "context-mode": {
-      "command": "context-mode"
+      "command": "/home/omary/.local/share/mise/installs/node/latest/bin/node",
+      "args": [
+        "/home/omary/.npm-global/lib/node_modules/context-mode/cli.bundle.mjs"
+      ]
     },
     "mem0": {
-      "command": "uvx",
-      "args": ["mem0-mcp-server"],
+      "command": "mem0-mcp-server",
       "env": {
         "MEM0_API_KEY": "${MEM0_API_KEY}",
         "MEM0_DEFAULT_USER_ID": "omary-pi-agent"

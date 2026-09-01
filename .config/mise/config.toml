@@ -1,5 +1,12 @@
 [tools]
 # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
+bottom = "latest"
+delta = "latest"
+fd = "latest"
+lsd = "latest"
+tree-sitter = "latest"
+yamlfmt = "latest"
+zoxide = "latest"
 
 [settings]
 experimental = true
