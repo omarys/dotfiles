@@ -1,1 +1,0 @@
-{"data":{"usage":{"rolling":{"status":"ok","percent":3,"resetsAt":"2026-08-30T23:53:19.522Z"},"weekly":{"status":"ok","percent":9,"resetsAt":"2026-08-31T00:00:00.522Z"},"monthly":{"status":"ok","percent":0,"resetsAt":"2026-09-29T21:51:16.522Z"}},"models":["kimi-k3","deepseek-v4-pro","deepseek-v4-flash","qwen3.7-plus","mimo-v2.5","gpt-5.6-luna","grok-4.6"]},"at":1788128287651}
