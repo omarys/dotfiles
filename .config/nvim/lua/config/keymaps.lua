@@ -53,11 +53,22 @@ vim.keymap.set("i", "<C-x>", function()
   end
 end, { silent = true, desc = "Dismiss autocomplete & Copilot suggestion" })
 
-vim.keymap.set("i", "<C-;>", function()
+vim.keymap.set("i", "<C-\\>", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local ok, Completor = pcall(function()
+    local _, comp = debug.getupvalue(vim.lsp.inline_completion.select, 1)
+    return comp
+  end)
+  if ok and Completor and Completor.active and Completor.active[bufnr] then
+    Completor.active[bufnr]:request(1)
+    return
+  end
+  if vim.fn.exists("*copilot#Suggest") == 1 then
+    vim.fn.feedkeys(vim.fn["copilot#Suggest"](), "n")
+    return
+  end
   if vim.lsp and vim.lsp.inline_completion then
     vim.lsp.inline_completion.enable()
-  elseif vim.fn.exists("*copilot#Suggest") == 1 then
-    vim.fn.feedkeys(vim.fn["copilot#Suggest"](), "n")
   end
 end, { silent = true, desc = "Suggest Copilot completion" })
 -- vim.keymap.set("n", "<Leader>y", '"+y', { remap = true, desc = "Yank" })
