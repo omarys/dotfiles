@@ -147,6 +147,9 @@ alias vibe="mpv \"https://music.youtube.com/playlist?list=PLIwxj45VjSXUJr34vOVE2
 alias zshconfig="nvim ~/.zshrc"
 alias zzz="exit"
 
+type dewey >/dev/null 2>&1 && alias dew="dewey"
+type labrador >/dev/null 2>&1 && alias lab="labrador"
+
 # Conditional aliases
 type nala >/dev/null 2>&1 && alias se="nala search"
 type nala >/dev/null 2>&1 && alias in="sudo nala install"
