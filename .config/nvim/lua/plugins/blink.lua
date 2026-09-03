@@ -7,9 +7,12 @@ return {
         LazyVim.cmp.map({ "snippet_forward" }),
         "fallback",
       },
-      -- Accept Copilot / AI suggestion with <C-l>
-      ["<C-l>"] = {
+      -- Accept Copilot / AI suggestion with <C-space>
+      ["<C-space>"] = {
         LazyVim.cmp.map({ "ai_accept" }),
+        "show",
+        "show_documentation",
+        "hide_documentation",
         "fallback",
       },
       -- Dismiss autocomplete popup with <C-x>
@@ -20,4 +23,3 @@ return {
     },
   },
 }
-

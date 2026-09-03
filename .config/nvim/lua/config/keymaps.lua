@@ -4,7 +4,7 @@
 vim.keymap.set("n", "<Leader>fs", ":w<CR>", { remap = true, desc = "Save" })
 vim.keymap.set("n", "<Leader>ww", ":Neotree toggle<CR>", { remap = true, desc = "Toggle Neotree" })
 -- GitHub Copilot Keybindings (supporting both LazyVim native Copilot and copilot.vim)
-vim.keymap.set("i", "<C-l>", function()
+vim.keymap.set("i", "<C-space>", function()
   if LazyVim.cmp and LazyVim.cmp.actions and LazyVim.cmp.actions.ai_accept then
     if LazyVim.cmp.actions.ai_accept() then
       return
@@ -60,13 +60,6 @@ vim.keymap.set("i", "<C-;>", function()
     vim.fn.feedkeys(vim.fn["copilot#Suggest"](), "n")
   end
 end, { silent = true, desc = "Suggest Copilot completion" })
-vim.keymap.set("i", "<C-space>", function()
-  if vim.lsp and vim.lsp.inline_completion then
-    vim.lsp.inline_completion.enable()
-  elseif vim.fn.exists("*copilot#Complete") == 1 then
-    vim.fn.feedkeys(vim.fn["copilot#Complete"](), "n")
-  end
-end, { silent = true, desc = "Complete Copilot suggestion" })
 -- vim.keymap.set("n", "<Leader>y", '"+y', { remap = true, desc = "Yank" })
 
 -- Preview the current file in a vertical Neovim termainal split using Leaf
