@@ -12,6 +12,7 @@ version_check = true
 [downloader]
 async = true
 chapter_name_template = '[{padded-index}] {chapter}'
+concurrent = 3
 create_manga_dir = true
 create_volume_dir = false
 default_sources = []
@@ -43,7 +44,7 @@ user = 'metafates'
 [logs]
 json = false
 level = 'info'
-write = false
+write = true
 
 [mangadex]
 language = 'en'
