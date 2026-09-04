@@ -73,6 +73,9 @@ trust_level = "trusted"
 [projects."/home/omary/Work/cti-mani/purple-forge-kit/siem-kubernetes"]
 trust_level = "trusted"
 
+[projects."/home/omary/Work/icam-mani/icam-infrastructure/icam-keycloak_jcrs-d_package"]
+trust_level = "trusted"
+
 [features]
 hooks = true
 plugin_hooks = true
@@ -154,3 +157,6 @@ enabled = true
 
 [notice]
 hide_rate_limit_model_nudge = true
+
+[tui.model_availability_nux]
+gpt-6-astra = 1
