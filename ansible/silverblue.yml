@@ -143,6 +143,7 @@
               toolbox run -c {{ toolbox_container_name }} rpm -q {{ toolbox_build_packages
 
 
+
                  | reject('match', '^@')
                  | map('quote')
                  | join(' ') }}
