@@ -3,10 +3,6 @@ projects:
     path: ~/Dev/D-OS-Save-Editor
     url: git@github.com:omarys/continuum.git
     tags: [mine, gaming, python]
-  # Org:
-  #   path: ~/Dev/Org
-  #   url: git@github.com:omarys/Org.git
-  #   tags: [mine, docs, org]
   continuum:
     path: ~/Dev/continuum
     url: git@github.com:omarys/continuum.git
@@ -39,9 +35,9 @@ projects:
     path: ~/Dev/tyranny-save-editor
     url: git@github.com:omarys/tyranny-save-editor.git
     tags: [mine, gaming, python]
-  vaults:
-    path: ~/vaults
-    url: git@github.com:omarys/vaults.git
+  personal-vault:
+    path: ~/Documents/Vaults/personal-vault
+    url: git@github.com:omarys/personal-vault.git
     tags: [mine, docs, markdown]
 specs:
   custom:
