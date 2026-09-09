@@ -5,7 +5,8 @@
     },
     "rekal": {
       "command": "rekal",
-      "args": ["mcp"]
+      "args": ["mcp"],
+      "lifecycle": "keep-alive"
     }
   }
 }

@@ -30,7 +30,7 @@ local function create_zettel_from_file(is_visual)
     end
 
     -- Determine active vault directory
-    local vault_dir = vim.fn.expand("~/vaults/work")
+    local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
     local ok_obsidian, obsidian = pcall(require, "obsidian")
     if ok_obsidian then
       local client = obsidian.get_client()
@@ -47,7 +47,7 @@ local function create_zettel_from_file(is_visual)
     local new_file_path = notes_dir .. "/" .. note_id .. ".md"
 
     -- Determine backlink format
-    local is_in_vault = origin_path:find(vim.fn.expand("~/vaults"), 1, true) ~= nil
+    local is_in_vault = origin_path:find(vim.fn.expand("~/Documents/Vaults"), 1, true) ~= nil
     local backlink = ""
     if is_in_vault then
       backlink = string.format("- Origin Note: [[%s]]", origin_stem)
@@ -118,7 +118,8 @@ local function create_jira_ticket_note()
     end
 
     local is_epic = (choice == "Epic")
-    local key_prompt = is_epic and "Epic Jira Key (e.g. UPES-2885, optional): " or "Jira Key (e.g. UPES-1234, optional): "
+    local key_prompt = is_epic and "Epic Jira Key (e.g. UPES-2885, optional): "
+      or "Jira Key (e.g. UPES-1234, optional): "
 
     vim.ui.input({ prompt = key_prompt }, function(jira_key)
       jira_key = jira_key or ""
@@ -131,7 +132,7 @@ local function create_jira_ticket_note()
         end
 
         local function finalize(epic_target)
-          local vault_dir = vim.fn.expand("~/vaults/work")
+          local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
           local ok_obsidian, obsidian = pcall(require, "obsidian")
           if ok_obsidian then
             local client = obsidian.get_client()
@@ -204,7 +205,10 @@ local function create_jira_ticket_note()
             template_body = template_body:gsub("{{title}}", header_title)
             template_body = template_body:gsub("{{date}}", os.date("%Y-%m-%d"))
             template_body = template_body:gsub("{{time}}", os.date("%H:%M"))
-            template_body = template_body:gsub("(%-%s*%*%*Jira Key%*%*:)%s*\n", "%1 " .. (jira_key ~= "" and jira_key or "N/A") .. "\n")
+            template_body = template_body:gsub(
+              "(%-%s*%*%*Jira Key%*%*:)%s*\n",
+              "%1 " .. (jira_key ~= "" and jira_key or "N/A") .. "\n"
+            )
             template_body = template_body:gsub("(%-%s*%*%*Epic%*%*:)%s*%[%[%]%]", epic_line)
             template_body = template_body:gsub("(%-%s*%*%*Jira Link%*%*:)%s*\n", "%1 " .. jira_link .. "\n")
             final_text = table.concat(clean_frontmatter, "\n") .. template_body
@@ -378,8 +382,8 @@ return {
     "ObsidianCheck",
   },
   event = {
-    "BufReadPre " .. vim.fn.expand("~") .. "/vaults/**.md",
-    "BufNewFile " .. vim.fn.expand("~") .. "/vaults/**.md",
+    "BufReadPre " .. vim.fn.expand("~") .. "/Documents/Vaults/**.md",
+    "BufNewFile " .. vim.fn.expand("~") .. "/Documents/Vaults/**.md",
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -446,16 +450,12 @@ return {
     -- Workspaces: Structured for Educational & Professional Research
     workspaces = {
       {
-        name = "work",
-        path = "~/vaults/work",
-      },
-      {
-        name = "research",
-        path = "~/vaults/research",
-      },
-      {
         name = "personal",
-        path = "~/vaults/personal",
+        path = "~/Documents/Vaults/personal",
+      },
+      {
+        name = "work-root",
+        path = "~/Documents/Vaults/work",
       },
     },
 
@@ -473,10 +473,11 @@ return {
     -- Wiki-link vs Markdown link style
     preferred_link_style = "wiki",
 
-    -- Completion settings (set nvim_cmp to false since LazyVim uses blink.cmp)
+    -- Completion settings: nvim-cmp is disabled since LazyVim uses blink.cmp
+    -- Native blink.cmp completion provider is registered in lua/obsidian_blink.lua
     completion = {
       nvim_cmp = false,
-      min_chars = 2,
+      min_chars = 0,
     },
 
     -- Zettelkasten Note ID Generation:

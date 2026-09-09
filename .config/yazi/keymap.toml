@@ -5,7 +5,7 @@ desc = "Go to Yazi config"
 
 [[mgr.prepend_keymap]]
 on = ["g", "v"]
-run = "cd ~/vaults"
+run = "cd ~/Documents/Vaults"
 desc = "Go to Obsidian Vaults"
 
 [[mgr.prepend_keymap]]
