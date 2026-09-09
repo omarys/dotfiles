@@ -256,7 +256,6 @@ export AWS_VAULT_BACKEND=pass
 # chafa
 export CHAFA_PRESET="symbols"
 
-
 # bun completions
 [ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
 
@@ -265,13 +264,12 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
 
-# mem0
-export MEM0_API_KEY="$(pass show keys/mem0-api-key | head -n1)"
-
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
 
-# Pi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# User Global NPM & Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
 
 # Fallback to rootless Podman socket only when native Docker is not installed
@@ -282,5 +280,4 @@ if ! command -v docker >/dev/null 2>&1; then
   fi
   unset _podman_sock
 fi
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(/home/omary/.local/bin/mise activate zsh)"
