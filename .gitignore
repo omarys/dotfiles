@@ -36,7 +36,7 @@ pipup.sh
 .codex/auth.json
 .codex/cache/
 .codex/context-mode/
-.codex/history.jsonl
+.codex/history*
 .codex/log/
 .codex/logs_*.sqlite*
 .codex/state_*.sqlite*
@@ -56,35 +56,54 @@ pipup.sh
 .copilot/command-history-state.json
 .copilot/context-mode/
 
+# Gemini / Antigravity (agy) credentials, transcripts, runtime caches
 .gemini/gemini-credentials.json
 .gemini/google_accounts.json
+.gemini/oauth_creds.json
+.gemini/state.json
+.gemini/projects.json
+.gemini/installation_id
+.gemini/context-mode/
 .gemini/**/cache/
 .gemini/**/conversations/
+.gemini/**/annotations/
 .gemini/**/brain/
 .gemini/**/implicit/
-.gemini/**/history.jsonl
-.gemini/**/log/
+.gemini/**/history*
+.gemini/**/log*
+.gemini/**/cli.log
 .gemini/**/installation_id
 .gemini/**/last_check.timestamp
 .gemini/**/updater/
-.gemini/oauth_creds.json
-.gemini/state.json
-.gemini/installation_id
-.gemini/context-mode/
-.gemini/history/
+.gemini/**/jetski_state.pbtxt
+.gemini/**/conversation_summaries.db*
+.gemini/**/*.db*
+.gemini/**/*.pb*
 
 .opencode/
 .local/state/opencode/
 .omp/agent/
 
+# Pi runtime caches, auth, and session state
 .pi/agent/auth.json
+.pi/agent/trust.json
 .pi/agent/mcp-cache.json
+.pi/agent/mcp-npx-cache.json
+.pi/agent/mcp-onboarding.json
+.pi/agent/models-store.json
+.pi/agent/opencode-usage-cache.json
 .pi/agent/npm/
 .pi/agent/history*
 .pi/agent/sessions/
 .pi/agent/log/
+.pi/agents/.rpiv-managed*
 .pi/context-mode/
 .pi/history*
 .pi/sessions/
+.pi/web-search-cache/
+.pi/subagent-schedules/
+
+.config/opencode/opencode-notifier-state.json
+.config/opencode/context-mode/
 # mani #
 # mani #
