@@ -15,27 +15,35 @@
       - clang-devel
       - curl
       - dnf-plugins-core
+      - emacs-pgtk
       - file
-      - fontconfig-devel
-      - freetype-devel
       - fzf
+      - ghostty
       - git
       - gnome-tweaks
       - gnupg2
       - keepassxc
-      - libstdc++-static
       - make
       - mpv
+      - neovim
+      - opensc
+      - openssl
       - pass
+      - pcsc-lite
+      - pcsc-lite-ccid
+      - pcsc-tools
+      - procps-ng
+      - python3-neovim
       - ripgrep
       - rust
+      - steam
       - stow
-      - syncthing
       - unzip
       - util-linux-user
       - zsh
     # GUI Applications via Flatpak (Flathub User/System)
     flatpak_packages:
+      - com.mattermost.Desktop
       - info.febvre.Komikku
       - org.gnome.Aisleriot
       - org.gnome.Mahjongg
@@ -46,23 +54,26 @@
     cargo_packages:
       - bat
       - bottom
+      - broot
       - cargo-update
       - dysk
+      - emacs-lsp-booster
       - fd-find
       - git-delta
       - hoard-rs
       - leaf-markdown-viewer
       - lsd
+      - neovide
       - rm-improved
       - sd
       - starship
       - tealdeer
       - tree-sitter-cli
       - zoxide
-      # # Homebrew fallback packages (only those not covered by mise or cargo)
-      # homebrew_packages:
-      #   - docker-credential-helper
-      #   - ksops
+    # Homebrew fallback packages (only those not covered by mise or cargo)
+    homebrew_packages:
+      - docker-credential-helper
+      - ksops
   tasks:
     # =========================================================================
     # 1. System Packages & Repositories (DNF, RPM Fusion, Terra, Ghostty)
@@ -98,6 +109,37 @@
           ansible.builtin.dnf:
             name: "{{ core_packages }}"
             state: present
+    # =========================================================================
+    # 2. Docker CE Setup
+    # =========================================================================
+    - name: 2. Configure Docker CE
+      become: true
+      block:
+        - name: Purge old Docker versions
+          ansible.builtin.dnf:
+            name: [docker, docker-client, docker-common, docker-latest, docker-engine]
+            state: absent
+        - name: Add Docker CE Repository
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/fedora/docker-ce.repo
+            dest: /etc/yum.repos.d/docker-ce.repo
+            mode: "0644"
+        - name: Install Docker CE
+          ansible.builtin.dnf:
+            name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin]
+            state: present
+            update_cache: true
+        - name: Enable Docker Service
+          ansible.builtin.systemd:
+            name: docker
+            enabled: true
+            state: started
+            daemon_reload: true
+        - name: Add User to Docker Group
+          ansible.builtin.user:
+            name: "{{ user_name }}"
+            groups: docker
+            append: true
     # =========================================================================
     # 3. Flatpak Applications & Standalone Firefox
     # =========================================================================
@@ -243,16 +285,17 @@
             content: |
               [tools]
               # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
-              "aqua:tealdeer-rs/tealdeer" = "latest"
-              navi = "latest"
-              node = "latest"
-              pre-commit = "latest"
-              python = "latest"
-              rtk = "latest"
-              ruff = "latest"
-              shellcheck = "latest"
-              trufflehog = "latest"
-              yamlfmt = "latest"
+              "aqua:tealdeer-rs/tealdeer" = "1.8.1"
+              aube = "1.41.0"
+              navi = "2.24.0"
+              node = "26.7.0"
+              pre-commit = "4.6.2"
+              python = "3.14.7"
+              rtk = "0.45.0"
+              ruff = "0.16.3"
+              shellcheck = "0.11.0"
+              trufflehog = "3.97.0"
+              yamlfmt = "0.21.0"
 
               [settings]
               experimental = true
@@ -281,12 +324,12 @@
             path: "{{ user_home }}/.zshrc"
             line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
             create: true
-            # - name: Install supplemental Homebrew packages
-            #   community.general.homebrew:
-            #     name: "{{ homebrew_packages }}"
-            #     state: present
-            #     path: "/home/linuxbrew/.linuxbrew/bin"
-            #   when: homebrew_packages | length > 0
+        - name: Install supplemental Homebrew packages
+          community.general.homebrew:
+            name: "{{ homebrew_packages }}"
+            state: present
+            path: "/home/linuxbrew/.linuxbrew/bin"
+          when: homebrew_packages | length > 0
     # =========================================================================
     # 6. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
     # =========================================================================
@@ -337,19 +380,11 @@
             cmd: cargo install ripgrep --features pcre2
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
-        - name: Install Neovide from git
-          ansible.builtin.shell:
-            cmd: cargo install --git https://github.com/neovide/neovide
-          environment:
-            TMPDIR: /var/tmp
-          args:
-            creates: "{{ user_home }}/.cargo/bin/neovide"
         - name: Install Yazi from git source
           ansible.builtin.shell:
             cmd: "cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build"
           environment:
             PATH: "{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
-            TMPDIR: /var/tmp
           args:
             creates: "{{ user_home }}/.cargo/bin/yazi"
         - name: Ensure Cargo bin is in PATH via zshrc
@@ -379,7 +414,7 @@
           register: agy_bin_check
         - name: Install Antigravity CLI (agy)
           ansible.builtin.shell:
-            cmd: "curl -fsSL https://antigravity.google/cli/install.sh | bash"
+            cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
           when: not agy_bin_check.stat.exists
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
@@ -390,8 +425,40 @@
     # =========================================================================
     # 7. Doom Emacs and LazyVim
     # =========================================================================
-    - name: 7. Configure LazyVim
+    - name: 7. Configure Doom Emacs and LazyVim
       block:
+        - name: Check if Doom Emacs is installed
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.config/emacs/bin/doom"
+          register: doom_bin_check
+        - name: Check if ~/.config/emacs is a symlink or non-git directory
+          ansible.builtin.stat:
+            path: "{{ user_home }}/.config/emacs"
+          register: emacs_dir_check
+          when: not doom_bin_check.stat.exists
+        - name: Remove symlinked ~/.config/emacs before cloning Doom Emacs
+          ansible.builtin.file:
+            path: "{{ user_home }}/.config/emacs"
+            state: absent
+          when:
+            - not doom_bin_check.stat.exists
+            - emacs_dir_check.stat.exists is defined
+            - emacs_dir_check.stat.exists
+            - emacs_dir_check.stat.islnk | default(false)
+        - name: Clone Doom Emacs Framework
+          ansible.builtin.git:
+            repo: https://github.com/doomemacs/doomemacs
+            dest: "{{ user_home }}/.config/emacs"
+            depth: 1
+          when: not doom_bin_check.stat.exists
+        - name: Sync Doom Emacs packages
+          ansible.builtin.shell:
+            cmd: "{{ user_home }}/.config/emacs/bin/doom sync -u"
+          environment:
+            PATH: "{{ user_home }}/.local/bin:{{ user_home }}/.config/emacs/bin:{{ ansible_facts['env']['PATH'] }}"
+          ignore_errors: true
+          register: doom_sync
+          changed_when: "'Installing' in doom_sync.stdout or 'Updating' in doom_sync.stdout"
         - name: Fetch LazyVim Starter Template to temporary directory
           ansible.builtin.git:
             repo: https://github.com/LazyVim/starter
@@ -412,3 +479,38 @@
           when: nvim_check.stdout != ""
           args:
             creates: "{{ user_home }}/.local/share/nvim/lazy"
+
+# =========================================================================
+# 8. (Commented Out) SmartCard (CAC) and DoD PKI Certificates
+# =========================================================================
+# - name: 8. Configure SmartCard (CAC) and DoD Certificates
+#   become: true
+#   block:
+#     - name: Enable and start PC/SC Smart Card Daemon
+#       ansible.builtin.systemd:
+#         name: pcscd
+#         enabled: true
+#         state: started
+#     - name: Ensure certificate extraction directory exists
+#       ansible.builtin.file:
+#         path: /tmp/dod_certs
+#         state: directory
+#     - name: Download DoD PKI Certificate Zip
+#       ansible.builtin.get_url:
+#         url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
+#         dest: "/tmp/dod_certs.zip"
+#         validate_certs: false
+#         headers:
+#           User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+#     - name: Unzip DoD Certificates
+#       ansible.builtin.unarchive:
+#         src: "/tmp/dod_certs.zip"
+#         dest: "/tmp/dod_certs"
+#         remote_src: true
+#     - name: Install DoD PEM certificates to system trust
+#       ansible.builtin.shell: |
+#         find /tmp/dod_certs -type f -name '*.pem' -exec cp {} /etc/pki/ca-trust/source/anchors/ \;
+#       register: dod_copy
+#       changed_when: dod_copy.stdout != ""
+#     - name: Update System CA Trust
+#       ansible.builtin.command: update-ca-trust extract

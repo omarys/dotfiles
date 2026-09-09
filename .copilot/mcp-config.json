@@ -5,25 +5,18 @@
         "*"
       ],
       "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "context-mode@latest"
-      ]
+      "command": "context-mode",
+      "args": []
     },
-    "mem0": {
+    "rekal": {
       "tools": [
         "*"
       ],
       "type": "stdio",
-      "command": "uvx",
+      "command": "rekal",
       "args": [
-        "mem0-mcp-server"
-      ],
-      "env": {
-        "MEM0_API_KEY": "${MEM0_API_KEY}",
-        "MEM0_DEFAULT_USER_ID": "omary-pi-agent"
-      }
+        "mcp"
+      ]
     }
   }
 }

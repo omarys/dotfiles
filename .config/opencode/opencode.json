@@ -37,6 +37,10 @@
     "context-mode": {
       "type": "local",
       "command": ["context-mode"]
+    },
+    "rekal": {
+      "type": "local",
+      "command": ["rekal", "mcp"]
     }
   },
   "plugin": [

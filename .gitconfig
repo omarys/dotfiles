@@ -51,3 +51,6 @@
 	enabled = true
 [url "git@github.com:omarys/"]
 	insteadOf = https://github.com/omarys/
+[user]
+	email = scottomary@gmail.com
+	name = Scott O'Mary

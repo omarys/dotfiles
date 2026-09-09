@@ -282,3 +282,5 @@ if ! command -v docker >/dev/null 2>&1; then
   fi
   unset _podman_sock
 fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/omary/.local/bin/mise activate zsh)"
