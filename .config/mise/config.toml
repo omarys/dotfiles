@@ -1,7 +1,6 @@
 [tools]
 # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
 "aqua:tealdeer-rs/tealdeer" = "latest"
-navi = "latest"
 node = "latest"
 pre-commit = "latest"
 python = "latest"
