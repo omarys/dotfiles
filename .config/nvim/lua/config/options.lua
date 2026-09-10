@@ -4,3 +4,8 @@
 
 -- Disable default <Tab> mapping for GitHub Copilot (must be set before plugin initialization)
 vim.g.copilot_no_tab_map = true
+
+-- Folding options: use treesitter expression folding by default
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
+

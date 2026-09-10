@@ -354,6 +354,11 @@ local function smart_toggle_checkbox()
     return
   end
 
+  -- If line is a heading without a checkbox, do not prepend "- [ ]" to avoid breaking heading hierarchy
+  if line:match("^#+%s*") then
+    return
+  end
+
   -- Otherwise, delegate to standard obsidian checkbox toggle
   vim.cmd("ObsidianToggleCheckbox")
 end

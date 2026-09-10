@@ -13,7 +13,8 @@ Prefer sources in this order:
 5. `rekal` durable memory
 6. External web/docs, when current facts are needed
 
-If `rekal` conflicts with repo files or current user instructions, treat Mem0 as stale and follow the current/repo source.
+If `rekal` conflicts with repo files or current user instructions, treat Rekal
+as stale and follow the current or repository source.
 
 ## Notes
 

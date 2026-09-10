@@ -68,3 +68,14 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- Ensure treesitter folding is active for all markdown windows and tabs
+vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+  group = vim.api.nvim_create_augroup("markdown_treesitter_folding", { clear = true }),
+  pattern = { "markdown", "markdown.mdx", "pandoc" },
+  callback = function(event)
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
+  end,
+})
+
