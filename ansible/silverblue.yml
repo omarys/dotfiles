@@ -144,6 +144,10 @@
 
 
 
+
+
+
+
                  | reject('match', '^@')
                  | map('quote')
                  | join(' ') }}
@@ -383,44 +387,9 @@
           environment:
             PATH: "{{ system_user_path }}"
     # =========================================================================
-    # 5. Linuxbrew Fallback Packages
+    # 5. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
     # =========================================================================
-    - name: 5. Configure Linuxbrew (Fallback Tools)
-      block:
-        - name: Check if Homebrew is installed
-          ansible.builtin.stat:
-            path: "/home/linuxbrew/.linuxbrew/bin/brew"
-          register: brew_check
-        - name: Ensure Linuxbrew parent directory exists
-          become: true
-          ansible.builtin.file:
-            path: /home/linuxbrew
-            state: directory
-            owner: "{{ user_name }}"
-            group: "{{ user_name }}"
-            mode: "0755"
-          when: not brew_check.stat.exists
-        - name: Install Homebrew if missing
-          ansible.builtin.shell:
-            cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          when: not brew_check.stat.exists
-          environment:
-            NONINTERACTIVE: "1"
-        - name: Ensure Homebrew is in zshrc
-          ansible.builtin.lineinfile:
-            path: "{{ user_home }}/.zshrc"
-            line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-            create: true
-            # - name: Install supplemental Homebrew packages
-            #   community.general.homebrew:
-            #     name: "{{ homebrew_packages }}"
-            #     state: present
-            #     path: "/home/linuxbrew/.linuxbrew/bin"
-            #   when: homebrew_packages | length > 0
-    # =========================================================================
-    # 6. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
-    # =========================================================================
-    - name: 6. Configure User Shell & Fonts
+    - name: 5. Configure User Shell & Fonts
       block:
         - name: Create font directory
           ansible.builtin.file:

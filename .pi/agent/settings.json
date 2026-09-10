@@ -2,7 +2,7 @@
   "theme": "dark",
   "lastChangelogVersion": "0.85.1",
   "defaultProvider": "opencode-go",
-  "defaultModel": "kimi-k2.6",
+  "defaultModel": "deepseek-v4-flash",
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",

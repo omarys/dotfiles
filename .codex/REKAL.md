@@ -1,8 +1,8 @@
-# Mem0
+# Rekal
 
-Use Mem0 only for durable cross-session facts.
+Use Rekal only for durable cross-session facts.
 
-Search Mem0 at the start of work when the task may depend on:
+Search Rekal at the start of work when the task may depend on:
 
 - user preferences
 - stable project architecture decisions
@@ -10,9 +10,9 @@ Search Mem0 at the start of work when the task may depend on:
 - long-lived deployment/security assumptions
 - prior decisions that are not obvious from the current repo files
 
-Store a Mem0 memory only when the fact is likely to remain useful for weeks or months.
+Store a Rekal memory only when the fact is likely to remain useful for weeks or months.
 
-Good Mem0 candidates:
+Good Rekal candidates:
 
 - user workflow preferences
 - stable project conventions
@@ -20,7 +20,7 @@ Good Mem0 candidates:
 - repeated troubleshooting lessons
 - durable security or deployment assumptions
 
-Do not store in Mem0:
+Do not store in Rekal:
 
 - secrets, tokens, passwords, API keys, private keys, certificates, cookies, or kubeconfigs
 - raw vulnerability scan dumps
@@ -29,4 +29,4 @@ Do not store in Mem0:
 - temporary file paths
 - sensitive operational details that are not needed later
 
-When saving to Mem0, write a concise summary, not raw data.
+When saving to Rekal, write a concise summary, not raw data.

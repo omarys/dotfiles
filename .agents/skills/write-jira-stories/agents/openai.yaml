@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Write Jira Stories"
+  short_description: "Turn pending work into Jira-ready Stories"
+  default_prompt: "Use $write-jira-stories to update this project's sprint
+    backlog from its current implementation and planning documents."

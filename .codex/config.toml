@@ -1,4 +1,4 @@
-model = "gpt-6-astra"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 
@@ -20,6 +20,18 @@ enabled = true
 hide_rate_limit_model_nudge = true
 
 [projects."/home/omary/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/icam-mani/icam-infrastructure/icam-keycloak_jcrs-d_package"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/icam-mani/icam-keycloak-api-extension"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/cti-mani/purple-forge-kit/siem-kubernetes"]
+trust_level = "trusted"
+
+[projects."/home/omary/Work/icam-mani/icam-infrastructure/icam-remote-govcloud-dev-sandbox-environment"]
 trust_level = "trusted"
 
 [hooks.state]
@@ -68,3 +80,6 @@ trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232a
 
 [hooks.state."/home/omary/.dotfiles/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:9fc7312a4a274d40081f6734c6f6553d494e9cfde20fd01339995232aea2d74a"
+
+[tui.model_availability_nux]
+gpt-6-astra = 1

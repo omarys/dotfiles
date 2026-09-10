@@ -30,7 +30,7 @@ local function create_zettel_from_file(is_visual)
     end
 
     -- Determine active vault directory
-    local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
+    local vault_dir = vim.fn.expand("~/Documents/Vaults/work/work")
     local ok_obsidian, obsidian = pcall(require, "obsidian")
     if ok_obsidian then
       local client = obsidian.get_client()
@@ -132,7 +132,7 @@ local function create_jira_ticket_note()
         end
 
         local function finalize(epic_target)
-          local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
+          local vault_dir = vim.fn.expand("~/Documents/Vaults/work/work")
           local ok_obsidian, obsidian = pcall(require, "obsidian")
           if ok_obsidian then
             local client = obsidian.get_client()
@@ -450,12 +450,14 @@ return {
     -- Workspaces: Structured for Educational & Professional Research
     workspaces = {
       {
-        name = "personal",
-        path = "~/Documents/Vaults/personal",
+        name = "work",
+        path = "~/Documents/Vaults/work/work",
+        strict = true,
       },
       {
-        name = "work-root",
-        path = "~/Documents/Vaults/work",
+        name = "personal",
+        path = "~/Documents/Vaults/personal",
+        strict = true,
       },
     },
 
