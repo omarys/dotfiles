@@ -6,12 +6,15 @@ over Rekal memories.
 
 ## Recall memories
 
-Relevant memories are injected automatically under `## rekal memory`. Use that
-injected context when it applies.
+When the host configures automatic recall, relevant memories appear under
+`## rekal memory`. Use that injected context when it applies. Registering the
+Rekal MCP server alone does not establish a recall hook.
 
 Call `memory_build_context` only when the injected block is absent and the task
-depends on prior knowledge. Use `project` for repository-specific recall. Leave
-`project` unset only for user-wide preferences or conventions.
+depends on prior knowledge. Use the existing project's scope value for
+repository-specific recall. Omitting `project` removes the project filter;
+it does not restrict results to unscoped memories. Check each result's scope
+before applying it to the current project.
 
 ## Store memories
 
