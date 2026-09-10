@@ -5,9 +5,7 @@
   vars:
     user_name: "{{ ansible_facts['user_id'] | default('omary') }}"
     user_home: "{{ ansible_facts['env']['HOME'] | default('/home/' + user_name) }}"
-
     system_user_path: "{{ user_home }}/.npm-global/bin:{{ user_home }}/.cargo/bin:{{ user_home }}/.local/bin:/usr/local/bin:/usr/bin:/bin"
-
     user_env:
       PATH: "{{ system_user_path }}:/home/linuxbrew/.linuxbrew/bin"
       NONINTERACTIVE: "1"
@@ -88,10 +86,10 @@
         binary: tree-sitter
       - name: zoxide
         binary: zoxide
-      # # Homebrew fallback packages (only those not covered by mise or cargo)
-      # homebrew_packages:
-      #   - docker-credential-helper
-      #   - ksops
+        # # Homebrew fallback packages (only those not covered by mise or cargo)
+        # homebrew_packages:
+        #   - docker-credential-helper
+        #   - ksops
   tasks:
     # =========================================================================
     # 1. System Packages & Repositories (DNF, RPM Fusion, Terra, Ghostty)
@@ -104,19 +102,14 @@
             cmd: rpm-ostree status --json
           register: rpm_ostree_status
           changed_when: false
-
         - name: Install RPM Fusion repositories
           ansible.builtin.command:
             cmd: >-
-              rpm-ostree install
-              https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
-              https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
+              rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
           register: rpmfusion_install
           changed_when: rpmfusion_install.rc == 0
           when: >-
-            'rpmfusion-free-release' not in rpm_ostree_status.stdout or
-            'rpmfusion-nonfree-release' not in rpm_ostree_status.stdout
-
+            'rpmfusion-free-release' not in rpm_ostree_status.stdout or 'rpmfusion-nonfree-release' not in rpm_ostree_status.stdout
         - name: Add Terra Repository
           ansible.builtin.get_url:
             url: https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
@@ -140,40 +133,34 @@
             cmd: toolbox list -c
           register: toolbox_list_check
           changed_when: false
-
         - name: Create Rust/Cargo Toolbox container
           ansible.builtin.command:
             cmd: "toolbox -y create {{ toolbox_container_name }}"
           when: toolbox_container_name not in toolbox_list_check.stdout
-
         - name: Check if build dependencies are installed in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              rpm -q
-              {{ toolbox_build_packages
+              toolbox run -c {{ toolbox_container_name }} rpm -q {{ toolbox_build_packages
+
+
+
                  | reject('match', '^@')
                  | map('quote')
                  | join(' ') }}
           register: toolbox_pkgs_check
           failed_when: false
           changed_when: false
-
         - name: Install build dependencies in Toolbox container
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              sudo dnf5 install -y
-              {{ toolbox_build_packages | map('quote') | join(' ') }}
+              toolbox run -c {{ toolbox_container_name }} sudo dnf5 install -y {{ toolbox_build_packages | map('quote') | join(' ') }}
           when: toolbox_pkgs_check.rc != 0
-
         - name: Ensure ~/.local/bin directory exists
           ansible.builtin.file:
             path: "{{ user_home }}/.local/bin"
             state: directory
             mode: "0755"
           check_mode: false
-
         # Older revisions of this playbook created ~/.local/bin/cargo as a
         # Toolbox wrapper. Because Toolbox shares the user's HOME and PATH,
         # that wrapper recursively invoked toolbox -> cargo -> toolbox.
@@ -181,89 +168,51 @@
           ansible.builtin.file:
             path: "{{ user_home }}/.local/bin/cargo"
             state: absent
-
         - name: Verify Rust Toolbox container is usable
           ansible.builtin.command:
             cmd: "toolbox run -c {{ toolbox_container_name }} /usr/bin/true"
           register: toolbox_health
           changed_when: false
-
         - name: Verify Toolbox uses the packaged Cargo binary
           ansible.builtin.command:
             cmd: "toolbox run -c {{ toolbox_container_name }} /usr/bin/cargo --version"
           register: toolbox_cargo_version
           changed_when: false
-
         - name: Ensure Cargo bin directory exists in shared home
           ansible.builtin.file:
             path: "{{ user_home }}/.cargo/bin"
             state: directory
             mode: "0755"
-
         - name: Install Cargo CLI packages in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              env
-              CARGO_BUILD_JOBS=1
-              CARGO_INCREMENTAL=0
-              RAYON_NUM_THREADS=1
-              CARGO_HOME={{ user_home }}/.cargo
-              TMPDIR=/var/tmp
-              /usr/bin/cargo install --jobs 1 {{ item.name }}
+              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 {{ item.name }}
           args:
             creates: "{{ user_home }}/.cargo/bin/{{ item.binary }}"
           loop: "{{ cargo_packages }}"
-
         - name: Install Ripgrep with pcre2 support in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              env
-              CARGO_BUILD_JOBS=1
-              CARGO_INCREMENTAL=0
-              RAYON_NUM_THREADS=1
-              CARGO_HOME={{ user_home }}/.cargo
-              TMPDIR=/var/tmp
-              /usr/bin/cargo install --jobs 1 ripgrep --features pcre2
+              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 ripgrep --features pcre2
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
-
         - name: Install Neovide from git in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              env
-              CARGO_BUILD_JOBS=1
-              CARGO_INCREMENTAL=0
-              RAYON_NUM_THREADS=1
-              CARGO_HOME={{ user_home }}/.cargo
-              TMPDIR=/var/tmp
-              /usr/bin/cargo install --jobs 1 --git https://github.com/neovide/neovide
+              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 --git https://github.com/neovide/neovide
           args:
             creates: "{{ user_home }}/.cargo/bin/neovide"
-
         - name: Install Yazi from git source in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }}
-              env
-              CARGO_BUILD_JOBS=1
-              CARGO_INCREMENTAL=0
-              RAYON_NUM_THREADS=1
-              CARGO_HOME={{ user_home }}/.cargo
-              TMPDIR=/var/tmp
-              /usr/bin/cargo install --jobs 1 --force
-              --git https://github.com/sxyazi/yazi.git yazi-build
+              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 --force --git https://github.com/sxyazi/yazi.git yazi-build
           args:
             creates: "{{ user_home }}/.cargo/bin/yazi"
-
         - name: Verify Cargo-installed binaries are present in shared home
           ansible.builtin.stat:
             path: "{{ user_home }}/.cargo/bin/{{ item.binary }}"
           register: cargo_binary_stats
           loop: "{{ cargo_packages }}"
-
         - name: Assert Cargo-installed binaries are available to the host
           ansible.builtin.assert:
             that:
@@ -511,8 +460,7 @@
         - name: Report pending tmux activation
           ansible.builtin.debug:
             msg: >-
-              tmux has been requested through rpm-ostree but is not available in the current deployment.
-              Reboot and rerun the playbook to install TPM plugins.
+              tmux has been requested through rpm-ostree but is not available in the current deployment. Reboot and rerun the playbook to install TPM plugins.
           when: tmux_check.rc != 0
         - name: Execute headless TPM plugin installation
           ansible.builtin.shell:
@@ -534,8 +482,7 @@
         - name: Read current NPM prefix
           ansible.builtin.command:
             cmd: >-
-              {{ user_home }}/.local/bin/mise exec --
-              npm config get prefix
+              {{ user_home }}/.local/bin/mise exec -- npm config get prefix
           environment:
             PATH: "{{ system_user_path }}"
           register: npm_prefix
@@ -543,25 +490,19 @@
         - name: Configure NPM Prefix
           ansible.builtin.command:
             cmd: >-
-              {{ user_home }}/.local/bin/mise exec --
-              npm config set prefix {{ user_home }}/.npm-global
+              {{ user_home }}/.local/bin/mise exec -- npm config set prefix {{ user_home }}/.npm-global
           environment:
             PATH: "{{ system_user_path }}"
           when: npm_prefix.stdout != user_home + '/.npm-global'
         - name: Install pi and codex CLI agents via npm
           ansible.builtin.command:
             cmd: >-
-              {{ user_home }}/.local/bin/mise exec --
-              npm install -g
-              @earendil-works/pi-coding-agent
-              @openai/codex
+              {{ user_home }}/.local/bin/mise exec -- npm install -g @earendil-works/pi-coding-agent @openai/codex
           environment:
             PATH: "{{ system_user_path }}"
           register: npm_agents
           changed_when: >-
-            'added' in npm_agents.stdout or
-            'updated' in npm_agents.stdout or
-            'changed' in npm_agents.stdout
+            'added' in npm_agents.stdout or 'updated' in npm_agents.stdout or 'changed' in npm_agents.stdout
         - name: Check if Antigravity CLI (agy) is installed
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/agy"

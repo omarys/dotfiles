@@ -10,23 +10,35 @@
       NONINTERACTIVE: "1"
     font_version: "v3.4.0"
     core_packages:
+      - "@development-tools"
+      - cairo-gobject-devel
       - cargo
       - chafa
       - clang-devel
+      - cmake
       - curl
       - dnf-plugins-core
       - file
       - fontconfig-devel
       - freetype-devel
       - fzf
+      - gdk-pixbuf2-devel
+      - git
       - git
       - gnome-tweaks
       - gnupg2
+      - graphene-devel
+      - gtk4-devel
       - keepassxc
+      - libadwaita-devel
       - libstdc++-static
       - make
       - mpv
-      - pass
+      - openssl-devel
+      - pango-devel
+      - pcre2-devel
+      - pkgconf-pkg-config
+      - python3-neovim
       - ripgrep
       - rust
       - stow
@@ -36,6 +48,7 @@
       - zsh
     # GUI Applications via Flatpak (Flathub User/System)
     flatpak_packages:
+      - com.mattermost.Desktop
       - info.febvre.Komikku
       - org.gnome.Aisleriot
       - org.gnome.Mahjongg
@@ -46,8 +59,10 @@
     cargo_packages:
       - bat
       - bottom
+      - broot
       - cargo-update
       - dysk
+      - emacs-lsp-booster
       - fd-find
       - git-delta
       - hoard-rs
@@ -59,10 +74,6 @@
       - tealdeer
       - tree-sitter-cli
       - zoxide
-      # # Homebrew fallback packages (only those not covered by mise or cargo)
-      # homebrew_packages:
-      #   - docker-credential-helper
-      #   - ksops
   tasks:
     # =========================================================================
     # 1. System Packages & Repositories (DNF, RPM Fusion, Terra, Ghostty)
@@ -99,9 +110,9 @@
             name: "{{ core_packages }}"
             state: present
     # =========================================================================
-    # 3. Flatpak Applications & Standalone Firefox
+    # 2. Flatpak Applications & Standalone Firefox
     # =========================================================================
-    - name: 3. Install GUI Applications via Flatpak
+    - name: 2. Install GUI Applications via Flatpak
       block:
         - name: Ensure Flatpak package manager is installed
           become: true
@@ -121,15 +132,6 @@
             remote: flathub
             method: user
           loop: "{{ flatpak_packages }}"
-        - name: Remove default Flatpak Firefox (in favor of Standalone Native Firefox)
-          community.general.flatpak:
-            name: org.mozilla.firefox
-            state: absent
-            method: "{{ item }}"
-          loop:
-            - system
-            - user
-          ignore_errors: true
         - name: Remove Flatpak KeePassXC (in favor of RPM KeePassXC)
           community.general.flatpak:
             name: org.keepassxc.KeePassXC
@@ -139,88 +141,10 @@
             - system
             - user
           ignore_errors: true
-    - name: Configure Mozilla Firefox (Standalone Native Edition)
-      block:
-        - name: Ensure ~/.local directories exist
-          ansible.builtin.file:
-            path: "{{ item }}"
-            state: directory
-            mode: "0755"
-          loop:
-            - "{{ user_home }}/.local/lib"
-            - "{{ user_home }}/.local/bin"
-            - "{{ user_home }}/.local/share/applications"
-          check_mode: false
-        - name: Check if Standalone Firefox is already installed
-          ansible.builtin.stat:
-            path: "{{ user_home }}/.local/lib/firefox/firefox"
-          register: firefox_bin_check
-        - name: Download and Extract Mozilla Firefox Standalone
-          ansible.builtin.unarchive:
-            src: "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-            dest: "{{ user_home }}/.local/lib"
-            remote_src: true
-            creates: "{{ user_home }}/.local/lib/firefox/firefox"
-          when: not firefox_bin_check.stat.exists
-        - name: Symlink Firefox executable to ~/.local/bin/firefox
-          ansible.builtin.file:
-            src: "{{ user_home }}/.local/lib/firefox/firefox"
-            dest: "{{ user_home }}/.local/bin/firefox"
-            state: link
-            force: true
-        - name: Create Desktop Entry for Standalone Firefox
-          ansible.builtin.copy:
-            dest: "{{ user_home }}/.local/share/applications/firefox.desktop"
-            mode: "0644"
-            content: |
-              [Desktop Entry]
-              Version=1.0
-              Name=Firefox
-              Comment=Browse the World Wide Web
-              GenericName=Web Browser
-              Keywords=Internet;WWW;Browser;Web;Explorer
-              Exec={{ user_home }}/.local/bin/firefox %u
-              Terminal=false
-              X-MultipleArgs=false
-              Type=Application
-              Icon={{ user_home }}/.local/lib/firefox/browser/chrome/icons/default/default128.png
-              Categories=Network;WebBrowser;
-              MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
-              StartupNotify=true
-              StartupWMClass=firefox
-              Actions=new-window;new-private-window;
-
-              [Desktop Action new-window]
-              Name=Open a New Window
-              Exec={{ user_home }}/.local/bin/firefox -new-window
-
-              [Desktop Action new-private-window]
-              Name=Open a New Private Window
-              Exec={{ user_home }}/.local/bin/firefox -private-window
-        - name: Ensure ~/.mozilla/native-messaging-hosts directory exists
-          ansible.builtin.file:
-            path: "{{ user_home }}/.mozilla/native-messaging-hosts"
-            state: directory
-            mode: "0755"
-          check_mode: false
-        - name: Configure KeePassXC Native Messaging Host for Mozilla Firefox
-          ansible.builtin.copy:
-            dest: "{{ user_home }}/.mozilla/native-messaging-hosts/org.keepassxc.keepassxc_browser.json"
-            mode: "0644"
-            content: |
-              {
-                  "allowed_extensions": [
-                      "keepassxc-browser@keepassxc.org"
-                  ],
-                  "description": "KeePassXC integration with native messaging support",
-                  "name": "org.keepassxc.keepassxc_browser",
-                  "path": "/usr/bin/keepassxc-proxy",
-                  "type": "stdio"
-              }
     # =========================================================================
-    # 4. Mise Installation and Scoped Toolchains
+    # 3. Mise Installation and Scoped Toolchains
     # =========================================================================
-    - name: 4. Configure Mise & Pre-Commit Dependencies
+    - name: 3. Configure Mise & Pre-Commit Dependencies
       block:
         - name: Check if Mise is installed
           ansible.builtin.stat:
@@ -230,67 +154,10 @@
           ansible.builtin.shell:
             cmd: curl -fsSL https://mise.run | sh
           when: not mise_bin_check.stat.exists
-        - name: Ensure Mise configuration directory exists
-          ansible.builtin.file:
-            path: "{{ user_home }}/.config/mise"
-            state: directory
-            mode: "0755"
-          check_mode: false
-        - name: Ensure Global Mise configuration (~/.config/mise/config.toml)
-          ansible.builtin.copy:
-            dest: "{{ user_home }}/.config/mise/config.toml"
-            mode: "0644"
-            content: |
-              [tools]
-              # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
-              "aqua:tealdeer-rs/tealdeer" = "latest"
-              navi = "latest"
-              node = "latest"
-              pre-commit = "latest"
-              python = "latest"
-              rtk = "latest"
-              ruff = "latest"
-              shellcheck = "latest"
-              trufflehog = "latest"
-              yamlfmt = "latest"
-
-              [settings]
-              experimental = true
-        - name: Run mise install for global pre-commit dependencies
-          ansible.builtin.shell:
-            cmd: "{{ user_home }}/.local/bin/mise install"
-          environment:
-            PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
     # =========================================================================
-    # 5. Linuxbrew Fallback Packages
+    # 4. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
     # =========================================================================
-    - name: 5. Configure Linuxbrew (Fallback Tools)
-      block:
-        - name: Check if Homebrew is installed
-          ansible.builtin.stat:
-            path: "/home/linuxbrew/.linuxbrew/bin/brew"
-          register: brew_check
-        - name: Install Homebrew if missing
-          ansible.builtin.shell:
-            cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          when: not brew_check.stat.exists
-          environment:
-            NONINTERACTIVE: "1"
-        - name: Ensure Homebrew is in zshrc
-          ansible.builtin.lineinfile:
-            path: "{{ user_home }}/.zshrc"
-            line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-            create: true
-            # - name: Install supplemental Homebrew packages
-            #   community.general.homebrew:
-            #     name: "{{ homebrew_packages }}"
-            #     state: present
-            #     path: "/home/linuxbrew/.linuxbrew/bin"
-            #   when: homebrew_packages | length > 0
-    # =========================================================================
-    # 6. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
-    # =========================================================================
-    - name: 6. Configure User Shell & Fonts
+    - name: 4. Configure User Shell & Fonts
       block:
         - name: Create font directory
           ansible.builtin.file:
@@ -321,12 +188,25 @@
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
             update: false
+        - name: Ensure tmux configuration directory exists
+          ansible.builtin.file:
+            path: "{{ user_home }}/.config/tmux"
+            state: directory
+            mode: "0755"
+        - name: Ensure minimal TPM configuration exists in tmux.conf
+          ansible.builtin.lineinfile:
+            path: "{{ user_home }}/.config/tmux/tmux.conf"
+            line: "set -g @plugin 'tmux-plugins/tpm'"
+            create: true
+            mode: "0644"
         - name: Execute headless TPM plugin installation
           ansible.builtin.shell:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
+          environment:
+            TMUX_PLUGIN_MANAGER_PATH: "{{ user_home }}/.config/tmux/plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
-          ignore_errors: true
+          failed_when: false
         - name: Install Cargo CLI packages
           community.general.cargo:
             name: "{{ item }}"
@@ -334,29 +214,14 @@
           loop: "{{ cargo_packages }}"
         - name: Install Ripgrep with pcre2 support
           ansible.builtin.shell:
-            cmd: cargo install ripgrep --features pcre2
+            cmd: "cargo install ripgrep --features pcre2"
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
-        - name: Install Neovide from git
-          ansible.builtin.shell:
-            cmd: cargo install --git https://github.com/neovide/neovide
-          environment:
-            TMPDIR: /var/tmp
+        - name: Install Neovide from git in Toolbox
+          ansible.builtin.command:
+            cmd: "cargo install --git https://github.com/neovide/neovide"
           args:
             creates: "{{ user_home }}/.cargo/bin/neovide"
-        - name: Install Yazi from git source
-          ansible.builtin.shell:
-            cmd: "cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build"
-          environment:
-            PATH: "{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
-            TMPDIR: /var/tmp
-          args:
-            creates: "{{ user_home }}/.cargo/bin/yazi"
-        - name: Ensure Cargo bin is in PATH via zshrc
-          ansible.builtin.lineinfile:
-            path: "{{ user_home }}/.zshrc"
-            line: 'export PATH="$HOME/.cargo/bin:$PATH"'
-            create: true
         - name: Create global npm directory
           ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
@@ -379,7 +244,7 @@
           register: agy_bin_check
         - name: Install Antigravity CLI (agy)
           ansible.builtin.shell:
-            cmd: "curl -fsSL https://antigravity.google/cli/install.sh | bash"
+            cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
           when: not agy_bin_check.stat.exists
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
@@ -387,28 +252,3 @@
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
-    # =========================================================================
-    # 7. Doom Emacs and LazyVim
-    # =========================================================================
-    - name: 7. Configure LazyVim
-      block:
-        - name: Fetch LazyVim Starter Template to temporary directory
-          ansible.builtin.git:
-            repo: https://github.com/LazyVim/starter
-            dest: "/tmp/lazyvim_starter"
-            depth: 1
-            update: false
-        - name: Merge LazyVim template with stowed overrides
-          ansible.builtin.shell:
-            cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
-        - name: Check if neovim is executable
-          ansible.builtin.shell:
-            cmd: command -v nvim || {{ user_home }}/.local/bin/mise which neovim || true
-          register: nvim_check
-          changed_when: false
-        - name: Headless LazyVim plugin installation
-          ansible.builtin.shell:
-            cmd: "{{ nvim_check.stdout }} --headless '+Lazy! sync' +qa"
-          when: nvim_check.stdout != ""
-          args:
-            creates: "{{ user_home }}/.local/share/nvim/lazy"

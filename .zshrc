@@ -25,6 +25,22 @@ if [ -d "/home/linuxbrew/.linuxbrew" ]; then
 
     # Remove duplicates while preserving order
     typeset -U path
+
+else
+    # If Linuxbrew is not installed, just set the PATH to the default Fedora paths
+    path=(
+        "$HOME/.local/bin"
+        "$HOME/.cargo/bin"
+        "$HOME/.npm-global/bin"
+        "$HOME/.zig/bin"
+        "$HOME/go/bin"
+        /usr/local/bin
+        /usr/local/sbin
+        /usr/bin
+        /usr/sbin
+        /bin
+        /sbin
+    )
 fi
 
 unalias br 2>/dev/null
@@ -262,12 +278,9 @@ export CHAFA_PRESET="symbols"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-eval "$(mise activate zsh)"
 
 # Added by Antigravity CLI installer
 export PATH="/home/omary/.local/bin:$PATH"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # User Global NPM & Pi
 export PATH="/home/omary/.npm-global/bin:$PATH"
