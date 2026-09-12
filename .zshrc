@@ -12,6 +12,7 @@ if [ -d "/home/linuxbrew/.linuxbrew" ]; then
         "$HOME/.config/emacs/bin"
         "$HOME/.zig/bin"
         "$HOME/go/bin"
+        "$HOME/.bun/bin"
         /usr/local/bin
         /usr/local/sbin
         /usr/bin
@@ -34,6 +35,7 @@ else
         "$HOME/.npm-global/bin"
         "$HOME/.zig/bin"
         "$HOME/go/bin"
+        "$HOME/.bun/bin"
         /usr/local/bin
         /usr/local/sbin
         /usr/bin
@@ -275,15 +277,15 @@ export CHAFA_PRESET="symbols"
 # bun completions
 [ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# # bun
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Added by Antigravity CLI installer
-export PATH="/home/omary/.local/bin:$PATH"
-
-# User Global NPM & Pi
-export PATH="/home/omary/.npm-global/bin:$PATH"
+# # Added by Antigravity CLI installer
+# export PATH="/home/omary/.local/bin:$PATH"
+#
+# # User Global NPM & Pi
+# export PATH="/home/omary/.npm-global/bin:$PATH"
 
 # Fallback to rootless Podman socket only when native Docker is not installed
 if ! command -v docker >/dev/null 2>&1; then

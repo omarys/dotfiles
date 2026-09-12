@@ -78,4 +78,3 @@ vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
     vim.opt_local.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
   end,
 })
-
