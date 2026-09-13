@@ -25,6 +25,11 @@ max_height = 1080
 url = "*.{md,markdown,mdown,mkd,mdx}"
 run = 'piper -- if command -v leaf >/dev/null 2>&1; then leaf --inline=ansi --width=$w "$1"; elif command -v glow >/dev/null 2>&1; then CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"; else bat -p --color=always "$1"; fi'
 
+# Git Preview
+[[plugin.prepend_previewers]]
+url = "**.git/"
+run = 'preview-git'
+
 # Git Diffs & Patches via delta
 [[plugin.prepend_previewers]]
 url = "*.{diff,patch}"
