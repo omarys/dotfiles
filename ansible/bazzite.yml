@@ -96,6 +96,7 @@
             line: 'export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock"'
             create: true
             state: present
+            mode: "0644"
     # =========================================================================
     # 3. Flatpak Applications & Standalone Firefox
     # =========================================================================
@@ -122,7 +123,7 @@
           loop:
             - system
             - user
-          ignore_errors: true
+          failed_when: false
         - name: Remove Flatpak KeePassXC (in favor of layered RPM KeePassXC)
           community.general.flatpak:
             name: org.keepassxc.KeePassXC
@@ -131,7 +132,7 @@
           loop:
             - system
             - user
-          ignore_errors: true
+          failed_when: false
     - name: Configure Mozilla Firefox (Standalone Native Edition)
       block:
         - name: Ensure ~/.local directories exist
@@ -219,9 +220,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/mise"
           register: mise_bin_check
-        - name: Install Mise via official standalone installer
+        - name: Install Mise via official standalone installer # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: curl -fsSL https://mise.run | sh
+            cmd: set -o pipefail && curl -fsSL https://mise.run | sh
+            executable: /bin/bash
+          changed_when: true
           when: not mise_bin_check.stat.exists
         - name: Ensure Mise configuration directory exists
           ansible.builtin.file:
@@ -251,10 +254,11 @@
               [settings]
               experimental = true
         - name: Run mise install for global pre-commit dependencies
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.local/bin/mise install"
           environment:
             PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+          changed_when: false
     # =========================================================================
     # 5. Linuxbrew Fallback Packages
     # =========================================================================
@@ -267,6 +271,7 @@
         - name: Install Homebrew if missing
           ansible.builtin.shell:
             cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          changed_when: true
           when: not brew_check.stat.exists
           environment:
             NONINTERACTIVE: "1"
@@ -297,37 +302,40 @@
             repo: https://github.com/ohmyzsh/ohmyzsh.git
             dest: "{{ user_home }}/.oh-my-zsh"
             depth: 1
+            version: master
             update: false
         - name: Clone zsh-autosuggestions
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
             depth: 1
+            version: master
             update: false
         - name: Install Tmux Package Manager (TPM)
           ansible.builtin.git:
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
+            version: master
             update: false
         - name: Execute headless TPM plugin installation
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
-          ignore_errors: true
+          failed_when: false
         - name: Install Cargo CLI packages
           community.general.cargo:
             name: "{{ item }}"
             state: present
           loop: "{{ cargo_packages }}"
         - name: Install Ripgrep with pcre2 support
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: cargo install ripgrep --features pcre2
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
         - name: Install Yazi from git source
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "cargo install --force --git https://github.com/sxyazi/yazi.git yazi-build"
           environment:
             PATH: "{{ user_home }}/.cargo/bin:{{ ansible_facts['env']['PATH'] }}"
@@ -338,6 +346,7 @@
             path: "{{ user_home }}/.zshrc"
             line: 'export PATH="$HOME/.cargo/bin:$PATH"'
             create: true
+            mode: "0644"
         - name: Create global npm directory
           ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
@@ -345,10 +354,11 @@
             mode: "0755"
           check_mode: false
         - name: Configure NPM Prefix
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "npm config set prefix '~/.npm-global'"
+          changed_when: false
         - name: Install pi and codex CLI agents via npm
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "npm install -g @earendil-works/pi-coding-agent @openai/codex"
           environment:
             PATH: "{{ user_home }}/.npm-global/bin:{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
@@ -358,9 +368,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/agy"
           register: agy_bin_check
-        - name: Install Antigravity CLI (agy)
+        - name: Install Antigravity CLI (agy) # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
+            cmd: set -o pipefail && curl -fsSL https://antigravity.google/install.sh | sh
+            executable: /bin/bash
+          changed_when: true
           when: not agy_bin_check.stat.exists
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
@@ -368,6 +380,7 @@
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
+            mode: "0644"
     # =========================================================================
     # 7. Doom Emacs and LazyVim
     # =========================================================================
@@ -396,13 +409,14 @@
             repo: https://github.com/doomemacs/doomemacs
             dest: "{{ user_home }}/.config/emacs"
             depth: 1
+            version: master
           when: not doom_bin_check.stat.exists
         - name: Sync Doom Emacs packages
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.config/emacs/bin/doom sync -u"
           environment:
             PATH: "{{ user_home }}/.local/bin:{{ user_home }}/.config/emacs/bin:{{ ansible_facts['env']['PATH'] }}"
-          ignore_errors: true
+          failed_when: false
           register: doom_sync
           changed_when: "'Installing' in doom_sync.stdout or 'Updating' in doom_sync.stdout"
         - name: Fetch LazyVim Starter Template to temporary directory
@@ -410,10 +424,12 @@
             repo: https://github.com/LazyVim/starter
             dest: "/tmp/lazyvim_starter"
             depth: 1
+            version: main
             update: false
         - name: Merge LazyVim template with stowed overrides
           ansible.builtin.shell:
             cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
+          changed_when: false
         - name: Check if neovim is executable
           ansible.builtin.shell:
             cmd: command -v nvim || {{ user_home }}/.local/bin/mise which neovim || true

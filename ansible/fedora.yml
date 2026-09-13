@@ -140,7 +140,7 @@
           loop:
             - system
             - user
-          ignore_errors: true
+          failed_when: false
     # =========================================================================
     # 3. Mise Installation and Scoped Toolchains
     # =========================================================================
@@ -150,9 +150,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/mise"
           register: mise_bin_check
-        - name: Install Mise via official standalone installer
+        - name: Install Mise via official standalone installer # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: curl -fsSL https://mise.run | sh
+            cmd: set -o pipefail && curl -fsSL https://mise.run | sh
+            executable: /bin/bash
+          changed_when: true
           when: not mise_bin_check.stat.exists
     # =========================================================================
     # 4. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
@@ -170,23 +172,27 @@
             src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/CascadiaCode.zip"
             dest: "{{ user_home }}/.local/share/fonts"
             remote_src: true
+            mode: "0644"
         - name: Clone Oh-My-Zsh
           ansible.builtin.git:
             repo: https://github.com/ohmyzsh/ohmyzsh.git
             dest: "{{ user_home }}/.oh-my-zsh"
             depth: 1
+            version: master
             update: false
         - name: Clone zsh-autosuggestions
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
             depth: 1
+            version: master
             update: false
         - name: Install Tmux Package Manager (TPM)
           ansible.builtin.git:
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
+            version: master
             update: false
         - name: Ensure tmux configuration directory exists
           ansible.builtin.file:
@@ -200,7 +206,7 @@
             create: true
             mode: "0644"
         - name: Execute headless TPM plugin installation
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           environment:
             TMUX_PLUGIN_MANAGER_PATH: "{{ user_home }}/.config/tmux/plugins"
@@ -213,7 +219,7 @@
             state: present
           loop: "{{ cargo_packages }}"
         - name: Install Ripgrep with pcre2 support
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "cargo install ripgrep --features pcre2"
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
@@ -229,10 +235,11 @@
             mode: "0755"
           check_mode: false
         - name: Configure NPM Prefix
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "npm config set prefix '~/.npm-global'"
+          changed_when: false
         - name: Install pi and codex CLI agents via npm
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "npm install -g @earendil-works/pi-coding-agent @openai/codex"
           environment:
             PATH: "{{ user_home }}/.npm-global/bin:{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
@@ -242,9 +249,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/agy"
           register: agy_bin_check
-        - name: Install Antigravity CLI (agy)
+        - name: Install Antigravity CLI (agy) # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: "curl -fsSL https://antigravity.google/install.sh | sh"
+            cmd: set -o pipefail && curl -fsSL https://antigravity.google/install.sh | sh
+            executable: /bin/bash
+          changed_when: true
           when: not agy_bin_check.stat.exists
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
@@ -252,3 +261,4 @@
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
+            mode: "0644"

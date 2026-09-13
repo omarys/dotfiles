@@ -21,8 +21,9 @@ repos:
     rev: v0.21.0
     hooks:
       - id: yamlfmt
+        exclude: ^ansible/
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.6
+    rev: v0.16.7
     hooks:
       - id: ruff
         args: [--fix]
@@ -39,3 +40,7 @@ repos:
         pass_filenames: false
         always_run: true
         stages: [pre-commit, pre-push]
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v26.8.0
+    hooks:
+      - id: ansible-lint

@@ -31,6 +31,7 @@ pipup.sh
 .config/sway/plugins/
 .config/zellij/plugins/
 .config/yazi/plugins/
+.ansible/
 
 # Agent auth, runtime state, logs, and generated data.
 .codex/auth.json

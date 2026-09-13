@@ -87,9 +87,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/mise"
           register: mise_bin_check
-        - name: Install Mise via official standalone installer
+        - name: Install Mise via official standalone installer # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: curl -fsSL https://mise.run | sh
+            cmd: set -o pipefail && curl -fsSL https://mise.run | sh
+            executable: /bin/bash
+          changed_when: true
           when: not mise_bin_check.stat.exists
         - name: Ensure Mise configuration directory exists
           ansible.builtin.file:
@@ -119,8 +121,9 @@
               [settings]
               experimental = true
         - name: Run mise install for global dependencies
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.local/bin/mise install"
+          changed_when: false
           environment:
             PATH: "{{ user_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
     # =========================================================================
@@ -140,6 +143,7 @@
             line: 'export PATH="$HOME/.cargo/bin:$PATH"'
             create: true
             state: present
+            mode: "0644"
     # =========================================================================
     # 5. User Shell, Fonts & Terminal Environment
     # =========================================================================
@@ -161,36 +165,41 @@
             dest: "{{ user_home }}/.local/share/fonts"
             remote_src: true
             creates: "{{ user_home }}/.local/share/fonts/CaskaydiaCoveNerdFont-Regular.ttf"
+            mode: "0644"
         - name: Clone Oh-My-Zsh
           ansible.builtin.git:
             repo: https://github.com/ohmyzsh/ohmyzsh.git
             dest: "{{ user_home }}/.oh-my-zsh"
             depth: 1
+            version: master
             update: false
         - name: Clone zsh-autosuggestions
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
             depth: 1
+            version: master
             update: false
         - name: Install Tmux Package Manager (TPM)
           ansible.builtin.git:
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
+            version: master
             update: false
         - name: Execute headless TPM plugin installation
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
-          ignore_errors: true
+          failed_when: false
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
             path: "{{ user_home }}/.zshrc"
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
+            mode: "0644"
     # =========================================================================
     # 6. Neovim & LazyVim
     # =========================================================================
@@ -201,10 +210,12 @@
             repo: https://github.com/LazyVim/starter
             dest: "/tmp/lazyvim_starter"
             depth: 1
+            version: main
             update: false
         - name: Merge LazyVim template with stowed overrides
-          ansible.builtin.shell:
-            cmd: "cp -rn /tmp/lazyvim_starter/* {{ user_home }}/.config/nvim/"
+          ansible.builtin.command:
+            cmd: "cp -rn /tmp/lazyvim_starter/. {{ user_home }}/.config/nvim/"
+          changed_when: false
         - name: Check if neovim is executable
           ansible.builtin.shell:
             cmd: command -v nvim || {{ user_home }}/.local/bin/mise which neovim || true

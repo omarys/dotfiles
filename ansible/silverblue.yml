@@ -105,7 +105,9 @@
         - name: Install RPM Fusion repositories
           ansible.builtin.command:
             cmd: >-
-              rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
+              rpm-ostree install
+              https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
+              https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm
           register: rpmfusion_install
           changed_when: rpmfusion_install.rc == 0
           when: >-
@@ -136,22 +138,15 @@
         - name: Create Rust/Cargo Toolbox container
           ansible.builtin.command:
             cmd: "toolbox -y create {{ toolbox_container_name }}"
+          changed_when: true
           when: toolbox_container_name not in toolbox_list_check.stdout
         - name: Check if build dependencies are installed in Toolbox
           ansible.builtin.command:
             cmd: >-
               toolbox run -c {{ toolbox_container_name }} rpm -q {{ toolbox_build_packages
-
-
-
-
-
-
-
-
-                 | reject('match', '^@')
-                 | map('quote')
-                 | join(' ') }}
+              | reject('match', '^@')
+              | map('quote')
+              | join(' ') }}
           register: toolbox_pkgs_check
           failed_when: false
           changed_when: false
@@ -159,6 +154,7 @@
           ansible.builtin.command:
             cmd: >-
               toolbox run -c {{ toolbox_container_name }} sudo dnf5 install -y {{ toolbox_build_packages | map('quote') | join(' ') }}
+          changed_when: true
           when: toolbox_pkgs_check.rc != 0
         - name: Ensure ~/.local/bin directory exists
           ansible.builtin.file:
@@ -191,26 +187,38 @@
         - name: Install Cargo CLI packages in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 {{ item.name }}
+              toolbox run -c {{ toolbox_container_name }}
+              env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1
+              CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp
+              /usr/bin/cargo install --jobs 1 {{ item.name }}
           args:
             creates: "{{ user_home }}/.cargo/bin/{{ item.binary }}"
           loop: "{{ cargo_packages }}"
         - name: Install Ripgrep with pcre2 support in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 ripgrep --features pcre2
+              toolbox run -c {{ toolbox_container_name }}
+              env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1
+              CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp
+              /usr/bin/cargo install --jobs 1 ripgrep --features pcre2
           args:
             creates: "{{ user_home }}/.cargo/bin/rg"
         - name: Install Neovide from git in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 --git https://github.com/neovide/neovide
+              toolbox run -c {{ toolbox_container_name }}
+              env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1
+              CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp
+              /usr/bin/cargo install --jobs 1 --git https://github.com/neovide/neovide
           args:
             creates: "{{ user_home }}/.cargo/bin/neovide"
         - name: Install Yazi from git source in Toolbox
           ansible.builtin.command:
             cmd: >-
-              toolbox run -c {{ toolbox_container_name }} env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1 CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp /usr/bin/cargo install --jobs 1 --force --git https://github.com/sxyazi/yazi.git yazi-build
+              toolbox run -c {{ toolbox_container_name }}
+              env CARGO_BUILD_JOBS=1 CARGO_INCREMENTAL=0 RAYON_NUM_THREADS=1
+              CARGO_HOME={{ user_home }}/.cargo TMPDIR=/var/tmp
+              /usr/bin/cargo install --jobs 1 --force --git https://github.com/sxyazi/yazi.git yazi-build
           args:
             creates: "{{ user_home }}/.cargo/bin/yazi"
         - name: Verify Cargo-installed binaries are present in shared home
@@ -255,7 +263,7 @@
           loop:
             - system
             - user
-          ignore_errors: true
+          failed_when: false
         - name: Remove Flatpak KeePassXC (in favor of RPM KeePassXC)
           community.general.flatpak:
             name: org.keepassxc.KeePassXC
@@ -264,7 +272,7 @@
           loop:
             - system
             - user
-          ignore_errors: true
+          failed_when: false
     - name: Configure Mozilla Firefox (Standalone Native Edition)
       block:
         - name: Ensure ~/.local directories exist
@@ -352,9 +360,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/mise"
           register: mise_bin_check
-        - name: Install Mise via official standalone installer
+        - name: Install Mise via official standalone installer # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: curl -fsSL https://mise.run | sh
+            cmd: set -o pipefail && curl -fsSL https://mise.run | sh
+            executable: /bin/bash
+          changed_when: true
           when: not mise_bin_check.stat.exists
         - name: Ensure Mise configuration directory exists
           ansible.builtin.file:
@@ -383,10 +393,11 @@
               [settings]
               experimental = true
         - name: Run mise install for global pre-commit dependencies
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.local/bin/mise install"
           environment:
             PATH: "{{ system_user_path }}"
+          changed_when: false
     # =========================================================================
     # 5. User Environment (Fonts, Oh-My-Zsh, Tmux, CLI Tools)
     # =========================================================================
@@ -408,22 +419,25 @@
             repo: https://github.com/ohmyzsh/ohmyzsh.git
             dest: "{{ user_home }}/.oh-my-zsh"
             depth: 1
+            version: master
             update: false
         - name: Clone zsh-autosuggestions
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "{{ user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
             depth: 1
+            version: master
             update: false
         - name: Install Tmux Package Manager (TPM)
           ansible.builtin.git:
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ user_home }}/.config/tmux/plugins/tpm"
             depth: 1
+            version: master
             update: false
         - name: Check if tmux is available
-          ansible.builtin.shell:
-            cmd: command -v tmux
+          ansible.builtin.command:
+            cmd: which tmux
           register: tmux_check
           changed_when: false
           failed_when: false
@@ -433,7 +447,7 @@
               tmux has been requested through rpm-ostree but is not available in the current deployment. Reboot and rerun the playbook to install TPM plugins.
           when: tmux_check.rc != 0
         - name: Execute headless TPM plugin installation
-          ansible.builtin.shell:
+          ansible.builtin.command:
             cmd: "{{ user_home }}/.config/tmux/plugins/tpm/bin/install_plugins"
           register: tpm_install
           changed_when: "'Installing' in tpm_install.stdout"
@@ -443,6 +457,7 @@
             path: "{{ user_home }}/.zshrc"
             line: 'export PATH="$HOME/.cargo/bin:$PATH"'
             create: true
+            mode: "0644"
         - name: Create global npm directory
           ansible.builtin.file:
             path: "{{ user_home }}/.npm-global"
@@ -463,6 +478,7 @@
               {{ user_home }}/.local/bin/mise exec -- npm config set prefix {{ user_home }}/.npm-global
           environment:
             PATH: "{{ system_user_path }}"
+          changed_when: true
           when: npm_prefix.stdout != user_home + '/.npm-global'
         - name: Install pi and codex CLI agents via npm
           ansible.builtin.command:
@@ -477,9 +493,11 @@
           ansible.builtin.stat:
             path: "{{ user_home }}/.local/bin/agy"
           register: agy_bin_check
-        - name: Install Antigravity CLI (agy)
+        - name: Install Antigravity CLI (agy) # noqa: command-instead-of-module
           ansible.builtin.shell:
-            cmd: "curl -fsSL https://antigravity.google/cli/install.sh | bash"
+            cmd: set -o pipefail && curl -fsSL https://antigravity.google/cli/install.sh | bash
+            executable: /bin/bash
+          changed_when: true
           when: not agy_bin_check.stat.exists
         - name: Ensure mise activation in .zshrc
           ansible.builtin.lineinfile:
@@ -487,3 +505,4 @@
             line: 'eval "$({{ user_home }}/.local/bin/mise activate zsh)"'
             create: true
             state: present
+            mode: "0644"
