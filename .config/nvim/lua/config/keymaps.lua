@@ -93,3 +93,20 @@ vim.keymap.set("n", "<leader>tc", function()
   end
   vim.api.nvim_set_current_line(line)
 end, { desc = "Toggle Checkbox in Markdown" })
+
+-- Preview current markdown file with leaf in a modal float
+vim.keymap.set("n", "<leader>mp", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  if file == "" or vim.bo.filetype ~= "markdown" then
+    vim.notify("Current buffer is not a saved markdown file", vim.log.levels.WARN)
+    return
+  end
+
+  Snacks.terminal("leaf -w " .. vim.fn.shellescape(file), {
+    win = {
+      position = "float",
+      width = 0.90,
+    },
+    interactive = true,
+  })
+end, { desc = "Markdown Preview (Leaf)" })

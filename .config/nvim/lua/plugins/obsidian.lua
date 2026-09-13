@@ -30,7 +30,7 @@ local function create_zettel_from_file(is_visual)
     end
 
     -- Determine active vault directory
-    local vault_dir = vim.fn.expand("~/Documents/Vaults/work/work")
+    local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
     local ok_obsidian, obsidian = pcall(require, "obsidian")
     if ok_obsidian then
       local client = obsidian.get_client()
@@ -43,7 +43,7 @@ local function create_zettel_from_file(is_visual)
     vim.fn.mkdir(notes_dir, "p")
 
     local slug = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-    local note_id = os.date("%Y%m%d%H%M") .. "-" .. slug
+    local note_id = slug
     local new_file_path = notes_dir .. "/" .. note_id .. ".md"
 
     -- Determine backlink format
@@ -132,7 +132,7 @@ local function create_jira_ticket_note()
         end
 
         local function finalize(epic_target)
-          local vault_dir = vim.fn.expand("~/Documents/Vaults/work/work")
+          local vault_dir = vim.fn.expand("~/Documents/Vaults/work")
           local ok_obsidian, obsidian = pcall(require, "obsidian")
           if ok_obsidian then
             local client = obsidian.get_client()
@@ -141,13 +141,13 @@ local function create_jira_ticket_note()
             end
           end
 
-          local notes_dir = vault_dir .. "/notes"
-          vim.fn.mkdir(notes_dir, "p")
+          local jira_dir = vault_dir .. "/jira"
+          vim.fn.mkdir(jira_dir, "p")
 
           local slug_prefix = jira_key ~= "" and (jira_key:lower() .. "-") or ""
           local slug = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-          local note_id = os.date("%Y%m%d%H%M") .. "-" .. slug_prefix .. slug
-          local new_file_path = notes_dir .. "/" .. note_id .. ".md"
+          local note_id = slug_prefix .. slug
+          local new_file_path = jira_dir .. "/" .. note_id .. ".md"
           local timestamp = os.date("%Y-%m-%d %H:%M")
           local header_title = (jira_key ~= "" and ("[" .. jira_key .. "] ") or "") .. title
           local jira_link = jira_key ~= "" and ("https://jira.levelup.cce.af.mil/browse/" .. jira_key) or ""
@@ -456,7 +456,7 @@ return {
     workspaces = {
       {
         name = "work",
-        path = "~/Documents/Vaults/work/work",
+        path = "~/Documents/Vaults/work",
         strict = true,
       },
       {
@@ -487,20 +487,20 @@ return {
       min_chars = 0,
     },
 
-    -- Zettelkasten Note ID Generation:
-    -- Formats as YYYYMMDDHHMM or YYYYMMDDHHMM-kebab-case-title
+    -- Note ID Generation:
+    -- Formats as kebab-case-title (no datetime prefix)
     note_id_func = function(title)
-      local suffix = ""
-      if title ~= nil then
+      local name = ""
+      if title ~= nil and title ~= "" then
         -- Transform title into clean kebab-case
-        suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        name = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
       else
         -- 4 random letters if no title given
         for _ = 1, 4 do
-          suffix = suffix .. string.char(math.random(65, 90))
+          name = name .. string.char(math.random(97, 122))
         end
       end
-      return tostring(os.date("%Y%m%d%H%M")) .. "-" .. suffix
+      return name
     end,
 
     -- Frontmatter generator for structured Zettelkasten metadata
