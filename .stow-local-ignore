@@ -1,0 +1,9 @@
+ansible/*
+.git
+Makefile
+README.org
+
+# Keep local Codex state and the copy-only template out of Stow.
+^/\.codex/(?!AGENTS\.md$|CONTEXT-MODE\.md$|REKAL\.md$|RTK\.md$|hooks\.json$|skills(?:/|$)).*
+^/\.codex/skills/(?!grill-me(?:/|$)|security-best-practices(?:/|$)).*
+^/\.stowrc$

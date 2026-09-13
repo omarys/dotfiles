@@ -33,19 +33,22 @@ pipup.sh
 .config/yazi/plugins/
 
 # Agent auth, runtime state, logs, and generated data.
-.codex/auth.json
-.codex/cache/
-.codex/context-mode/
-.codex/history*
-.codex/log/
-.codex/logs_*.sqlite*
-.codex/state_*.sqlite*
-.codex/goals_*.sqlite*
-.codex/shell_snapshots/
-.codex/tmp/
-.codex/.tmp/
-.codex/installation_id
-.codex/models_cache.json
+# Codex is an allowlist: new runtime files stay untracked by default.
+/.codex/*
+!/.codex/AGENTS.md
+!/.codex/CONTEXT-MODE.md
+!/.codex/REKAL.md
+!/.codex/RTK.md
+!/.codex/config.toml.example
+!/.codex/hooks.json
+!/.codex/skills/
+/.codex/skills/*
+!/.codex/skills/grill-me/
+!/.codex/skills/security-best-practices/
+
+# Generated Python artifacts anywhere in the checkout.
+__pycache__/
+*.py[cod]
 
 .copilot/config.json
 .copilot/session-store.db*
