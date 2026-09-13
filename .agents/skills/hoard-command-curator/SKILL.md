@@ -1,3 +1,8 @@
+---
+name: hoard-command-curator
+description: Curate, parameterize, and preserve complex, reusable shell commands into Hoard. Use when discovering, executing, or refining non-trivial CLI commands (e.g. Kubernetes, AWS, Terraform, jq pipelines) that are worth saving for future use, or when the user asks to save, hoard, or bookmark a command.
+---
+
 # Hoard Command Curator
 
 Use `hoard` to preserve complex, reusable shell commands that are worth keeping for future use.
