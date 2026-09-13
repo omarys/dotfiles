@@ -102,6 +102,7 @@ plugins=(
   gitignore
   golang
   helm
+  hoard
   httpie
   jj
   k9s
