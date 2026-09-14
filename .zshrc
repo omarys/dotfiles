@@ -296,3 +296,4 @@ if ! command -v docker >/dev/null 2>&1; then
   unset _podman_sock
 fi
 eval "$(/home/omary/.local/bin/mise activate zsh)"
+eval "$(hoard shell-config -s zsh)"
