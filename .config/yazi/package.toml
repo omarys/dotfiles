@@ -28,6 +28,11 @@ use = "yazi-rs/plugins:piper"
 rev = "58c4f4e"
 hash = "45a533508a9840cc5a10cf6129f63e6a"
 
+[[plugin.deps]]
+use = "AminurAlam/yazi-plugins:preview-git"
+rev = "9997d5b"
+hash = "ba369f2f02be9e932cf7882c113d6844"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
 rev = "20b47bf"
