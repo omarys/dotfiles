@@ -256,8 +256,6 @@ function fwup() {
 
 bindkey '^ ' autosuggest-accept
 
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(navi widget zsh)"
 export FZF_CTRL_R_OPTS="
   --reverse
   --cycle
@@ -296,5 +294,7 @@ if ! command -v docker >/dev/null 2>&1; then
   fi
   unset _podman_sock
 fi
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(/home/omary/.local/bin/mise activate zsh)"
-# hoard shell-config --shell zsh | source
+eval "$(navi widget zsh)"
+eval "$(hoard shell-config -s zsh)"
