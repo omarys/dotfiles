@@ -1,17 +1,17 @@
 ---
 name: hoard-command-curator
-description: Curate, parameterize, and preserve complex, reusable shell commands into Hoard. Use when discovering, executing, or refining non-trivial CLI commands (e.g. Kubernetes, AWS, Terraform, jq pipelines) that are worth saving for future use, or when the user asks to save, hoard, or bookmark a command.
+description: Curate reusable shell commands and standalone Python scripts into Hoard with a required description/summary. Use when developing reusable CLI workflows or Python utilities worth saving, or when the user asks to save, hoard, or bookmark a command or script.
 ---
 
-# Hoard Command Curator
+# Hoard command and script curator
 
-Use `hoard` to preserve complex, reusable shell commands that are worth keeping for future use.
+Use `hoard` to preserve reusable shell commands and standalone Python scripts with a description/summary.
 
-This skill is intended for coding agents and shell-capable assistants. Its purpose is not to record shell history. It should curate useful commands into reusable, documented entries.
+Curate documented solutions, not shell history or temporary debugging files. The selection, naming, description, duplicate, secret-handling and safety rules below apply to both kinds of entry. Wrapper normalization and Hoard parameter syntax apply only to shell commands. For Python source, follow [Python scripts](#python-scripts).
 
 ## Goals
 
-When a useful command is created or successfully used:
+When a useful command or script is created or successfully used:
 
 1. Decide whether it is worth saving.
 2. Convert it into a reusable form.
@@ -56,7 +56,7 @@ If a later rule in this skill conflicts with this policy, the more specific rule
 
 ## Tool availability
 
-Before attempting to save a command, verify that `hoard` is available:
+Before attempting to save an entry, verify that `hoard` is available:
 
 ```sh
 command -v hoard >/dev/null 2>&1
@@ -81,6 +81,52 @@ hoard new --help
 ```
 
 Prefer the behavior of the installed binary over documentation remembered by the model.
+
+## Python scripts
+
+Save a Python script when it captures a reusable task, such as parsing logs, transforming data, producing reports or automating a diagnostic, and meets the shared curation rules. Explicit requests to save a script authorize archiving it, not executing it.
+
+1. Capture the complete standalone UTF-8 `.py` source. Hoard must preserve the implementation, not just an invocation such as `python3 /tmp/report.py` whose target will disappear. Sibling modules, data files and virtual environments are not bundled. Keep multi-file applications in their repository rather than archiving an incomplete entry.
+2. Remove secrets and temporary paths. Use `argparse`, `sys.argv` or environment-variable references for variable inputs. Preserve indentation, comments, docstrings, quoting and shebangs. Hoard deliberately ignores parameter tokens in Python entries. Do not insert `#parameter!` placeholders into Python source.
+3. Validate without executing when execution would be unsafe or unnecessary:
+
+   ```sh
+   python3 -c 'import pathlib, sys; p = pathlib.Path(sys.argv[1]); compile(p.read_bytes(), str(p), "exec")' ./summarize-jsonl.py
+   ```
+
+   This checks syntax, not runtime behavior or dependencies. If validation is unavailable but the user explicitly requests archiving, mark the description `Unverified` and state what remains unchecked. Hoard itself only archives source; saving never proves it runs correctly.
+4. Check for duplicates with the installed CLI, for example `hoard list --json --filter summarize-jsonl`. This fork emits YAML despite the `--json` flag name. Compare purpose, source and description. Reuse an equivalent entry instead of creating a second copy.
+5. Write a nonempty description/summary explaining the script's purpose, inputs and output. Include required Python version or third-party dependencies, permissions and destructive effects when relevant. A filename, `Python script`, or a copied invocation is not a summary. Include `python` among the tags; choose a namespace by task domain rather than creating a duplicate namespace for the language.
+6. Verify that `hoard new --help` supports `--script`, then save the file:
+
+   ```sh
+   hoard new --script ./summarize-jsonl.py \
+     --name summarize-jsonl \
+     --namespace data \
+     --tags python,jsonl,report \
+     --description "Summarize event counts from a JSONL log. Takes a file path and prints a JSON report. Requires Python 3."
+   ```
+
+   After initial Hoard setup this path is noninteractive. `--name` and a nonblank `--description` are required; `--summary` is an alias for `--description`. Tags are optional and an omitted namespace uses Hoard's configured default. `--script` conflicts with `--command`. Existing name/namespace pairs are rejected instead of overwritten. If the installed binary lacks `--script`, report that the updated fork is needed. Do not silently store a temporary file reference or edit the database as a workaround.
+7. Confirm the saved source and summary with `hoard list --json --filter summarize-jsonl`. Completion means the entry contains the full source, `kind: python`, and the intended description/summary. Report the entry name briefly when useful.
+
+### Retrieve or edit Python source
+
+Inspect the source before any execution:
+
+```sh
+hoard pick --name summarize-jsonl --raw
+```
+
+To restore it, choose an unused destination so redirection does not overwrite a user's file:
+
+```sh
+hoard pick --name summarize-jsonl --raw > ./summarize-jsonl.saved.py
+```
+
+`--raw` returns the exact source with no wrapper, parameter prompts or added newline. Without `--raw`, `pick` and shell-plugin selection print a single-line Python 3 invocation with encoded source. Hoard does not execute it. Append script arguments to that invocation if needed; stdin is still available. Restore a `.py` file instead for large scripts or code that depends on `__file__`. Explain dependencies from the summary rather than installing them automatically.
+
+Use `hoard edit --name summarize-jsonl` to edit the source through `$VISUAL` or `$EDITOR`, followed by description and tag prompts. Keep the description current when behavior changes. Use this updated fork on every client that handles Python entries. Older clients can lose the script kind on re-save; cloud sync with older servers is unverified.
 
 ## When to save a command
 
@@ -730,9 +776,11 @@ Names should describe intent rather than implementation details whenever possibl
 
 ## Descriptions
 
+Every saved command and Python script must include a nonempty description/summary. Supply Hoard's `description` field even when the source already has comments or a docstring.
+
 Descriptions should answer:
 
-> Why would I use this command?
+> Why would I use this command or script, and what does it produce?
 
 Prefer:
 
@@ -858,7 +906,7 @@ If an equivalent command already exists:
 If the new command materially improves an existing entry, consider updating it with:
 
 ```sh
-hoard edit <name>
+hoard edit --name <name>
 ```
 
 Do not overwrite a user's curated command merely because stylistic differences exist.
@@ -874,7 +922,7 @@ Material improvements include:
 
 ## Saving workflow
 
-When a command qualifies for Hoard:
+For Python entries, use the [Python scripts](#python-scripts) workflow. For shell commands:
 
 1. Capture the useful command.
 2. Remove secrets.
@@ -886,11 +934,11 @@ When a command qualifies for Hoard:
 8. Determine:
 
    - name;
-   - description;
+   - a nonempty description/summary;
    - namespace;
    - tags.
 
-9. Use the locally installed `hoard` CLI to save it.
+9. Use the locally installed `hoard` CLI to save it and confirm the entry includes its description.
 
 The standard Hoard entry workflow is:
 
@@ -900,7 +948,7 @@ hoard new
 
 Because this operation may be interactive, interact with the CLI normally rather than editing Hoard's storage files directly.
 
-Do not modify `trove.yml` directly unless:
+Do not modify `trove.db` or legacy `trove.yml` directly unless:
 
 - the user explicitly asks;
 - `hoard new` cannot accomplish the task; or
@@ -1041,13 +1089,11 @@ Do not save:
 
 When multiple commands form a reusable procedure, prefer the most useful individual commands unless Hoard supports a clean representation of the workflow.
 
-## Project-local versus global commands
+## Project-local versus global entries
 
-Hoard may use a local `trove.yml` when one exists in the current directory.
+This fork stores entries in `trove.db` and imports legacy `trove.yml` files. When enabled by `read_from_current_directory`, a local database or legacy trove takes precedence over the global trove.
 
-Respect this behavior.
-
-Before saving a command whose scope matters, determine whether the current project has local Hoard configuration.
+Before saving a command or script whose scope matters, use `hoard info` to check which database is active. Respect the user's local/global choice.
 
 Prefer project-local storage when the command is tightly coupled to:
 
@@ -1262,9 +1308,9 @@ A better rule:
 
 ## Safety boundary
 
-Never use a saved Hoard command as proof that the command is safe to execute.
+Never use a saved Hoard entry as proof that a command or script is safe to execute.
 
-Before executing any retrieved command:
+Before executing any retrieved command or script:
 
 1. inspect it;
 2. resolve parameters;
@@ -1280,4 +1326,4 @@ Saved commands can become stale as:
 - resource names change;
 - permissions change.
 
-Hoard is a command library, not an authorization mechanism.
+Hoard is a command and script library, not an authorization mechanism.
