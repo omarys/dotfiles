@@ -82,9 +82,41 @@ hoard new --help
 
 Prefer the behavior of the installed binary over documentation remembered by the model.
 
+`hoard new` saves a shell command without any prompt when `--name` is supplied:
+
+```sh
+hoard new -n #name -c '#command' -t tag1,tag2 --namespace #namespace
+```
+
+Any value that is not passed falls back to the configured default namespace and to
+an empty description or tag list. `--name` without `--command` is an error. A
+name/namespace pair that already exists is rejected instead of overwritten, so use
+`hoard edit --name <name>` to change an entry. A successful save prints
+`Saved [namespace/name]`. Without `--name`, or with `--command` but no `--name`, the
+interactive prompts open as usual with whatever was passed pre-filled.
+
+Hoard redacts secrets itself on save; see [Secret handling](#secret-handling).
+
 ## Python scripts
 
 Save a Python script when it captures a reusable task, such as parsing logs, transforming data, producing reports or automating a diagnostic, and meets the shared curation rules. Explicit requests to save a script authorize archiving it, not executing it.
+
+Recover scripts used by coding agents from the agent session stores rather than from
+shell history, because the history keeps only the invocation:
+
+- pi: `write` tool calls with the full source in `~/.pi/agent/sessions/**/*.jsonl`,
+  plus `bash` heredocs (`python3 - <<'PY'`).
+- Codex: `exec_command` heredoc bodies and `apply_patch` `*** Add File:` blocks in
+  `~/.codex/sessions/**/*.jsonl`.
+- Antigravity: `write_to_file` calls and `run_command` heredocs in
+  `~/.gemini/antigravity-cli/brain/*/.system_generated/logs/transcript.jsonl`.
+
+Keep the standalone tools and skip the rest: single-use probes against live systems,
+debugging iterations superseded by a later version, and modules that belong to a
+multi-file application (leave those in their repository). Prefer the final version of
+a script the agent fixed twice. Parameterize the paths it hardcoded with `argparse`,
+and use the description to record what the script was written for, since that is the
+part that cannot be recovered from the source.
 
 1. Capture the complete standalone UTF-8 `.py` source. Hoard must preserve the implementation, not just an invocation such as `python3 /tmp/report.py` whose target will disappear. Sibling modules, data files and virtual environments are not bundled. Keep multi-file applications in their repository rather than archiving an incomplete entry.
 2. Remove secrets and temporary paths. Use `argparse`, `sys.argv` or environment-variable references for variable inputs. Preserve indentation, comments, docstrings, quoting and shebangs. Hoard deliberately ignores parameter tokens in Python entries. Do not insert `#parameter!` placeholders into Python source.
@@ -335,6 +367,17 @@ curl \
 Never print a secret merely to transform the command before saving it.
 
 Do not retrieve secret values unless required for the user's primary task.
+
+Hoard also redacts secrets by itself on every save (`hoard new`, `hoard edit` and the
+TUI create/edit views) and reports the placeholders it inserted on stderr, without
+ever echoing the value. It matches value shapes, not intent: URL and `-u user:pass`
+credentials, `--password`/`--token`/`--api-key`/`--access-key`/`--secret` flags,
+`Authorization: Bearer ...`, `PASSWORD=`/`token:` assignments and query parameters,
+AWS/GitHub/Slack/OpenAI key shapes, JWTs and PEM private key blocks become
+`#password!`-style parameters. Shell expansions, existing parameters and Python
+sources are never rewritten. Treat this as a backstop, not as permission: still strip
+secrets before saving, and never echo one to check what was stored — read the entry
+back with `hoard list --json --filter <name>`.
 
 ## Environment-specific values
 
