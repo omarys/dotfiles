@@ -175,11 +175,11 @@ type nala >/dev/null 2>&1 && alias in="sudo nala install"
 type nala >/dev/null 2>&1 && alias up="flatpak update -y; \
   sudo nala upgrade --assume-yes;"
 
-type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; npm update -g; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
+# type pacman >/dev/null 2>&1 && alias upp="sudo pacman -Syyu; npm update -g; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update;"
 type pacman >/dev/null 2>&1 && alias se="pacman -Ss"
 type pacman >/dev/null 2>&1 && alias in="sudo pacman -S"
 
-type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update; codex update; agy update; pi update --extensions; npm update -g; fd "mise.toml" -X sh -c 'for f; do (cd "$(dirname "$f")" && mise upgrade --bump); done' _ {};"
+# type dnf >/dev/null 2>&1 && alias upp="sudo dnf -y update --refresh; cargo install-update -a; brew up; brew upgrade; ya pkg upgrade; flatpak update; codex update; agy update; pi update --extensions; npm update -g; fd "mise.toml" -X sh -c 'for f; do (cd "$(dirname "$f")" && mise upgrade --bump); done' _ {};"
 type dnf >/dev/null 2>&1 && alias se="dnf search"
 type dnf >/dev/null 2>&1 && alias in="sudo dnf -y install"
 
@@ -199,6 +199,26 @@ type uv >/dev/null 2>&1 && alias uvr="uv export --no-emit-workspace --no-dev --n
 type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
 type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
+
+function upp() {
+  if type dnf >/dev/null 2>&1; then
+    sudo dnf -y update --refresh
+  elif type pacman >/dev/null 2>&1; then
+    sudo pacman -Syyu
+  fi
+  cargo install-update -a
+  if type brew >/dev/null 2>&1; then
+    brew up
+    brew upgrade
+  fi
+  ya pkg upgrade
+  flatpak update
+  codex update
+  agy update
+  pi update --extensions
+  npm update -g
+  fd "mise.toml" -X sh -c 'for f; do (cd "$(dirname "$f")" && mise upgrade --bump); done' _ {}
+}
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
