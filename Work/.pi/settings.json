@@ -1,0 +1,29 @@
+{
+  "defaultModel": "openai-codex/gpt-5.6-sol",
+  "subagents": {
+    "defaultModel": "openai-codex/gpt-5.6-luna",
+    "defaultThinking": "low",
+    "agentOverrides": {
+      "planner": {
+        "model": "inherit",
+        "thinking": "medium"
+      },
+      "oracle": {
+        "model": "inherit",
+        "thinking": "high"
+      },
+      "reviewer": {
+        "model": "inherit",
+        "thinking": "medium"
+      },
+      "worker": {
+        "model": "openai-codex/gpt-5.6-luna",
+        "thinking": "medium"
+      },
+      "scout": {
+        "model": "openai-codex/gpt-5.6-luna",
+        "thinking": "low"
+      }
+    }
+  }
+}

@@ -5,3 +5,4 @@ continuum_bin = "continuum"
 labrador_bin = "labrador"
 auto_scan_on_startup = true
 seed_sample_data = false
+delete_after_read = false
