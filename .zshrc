@@ -57,8 +57,6 @@ unalias br 2>/dev/null
 # default browser
 export BROWSER=/usr/bin/firefox
 
-export EDITOR='nvim'
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -137,7 +135,7 @@ plugins=(
 source "$ZSH"/oh-my-zsh.sh
 
 export EDITOR='nvim'
-export VISUAL='neovide'
+export VISUAL='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

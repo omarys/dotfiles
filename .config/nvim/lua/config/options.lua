@@ -8,3 +8,12 @@ vim.g.copilot_no_tab_map = true
 -- Folding options: use treesitter expression folding by default
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
+
+-- Ensure .NET runtime is discovered by Mason tools (fantomas, fsautocomplete, omnisharp)
+if not vim.env.DOTNET_ROOT then
+  local mise_dotnet = vim.fn.expand("~/.local/share/mise/dotnet-root")
+  if vim.fn.isdirectory(mise_dotnet) == 1 then
+    vim.env.DOTNET_ROOT = mise_dotnet
+    vim.env.PATH = mise_dotnet .. ":" .. vim.env.PATH
+  end
+end
