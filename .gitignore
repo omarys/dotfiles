@@ -111,3 +111,4 @@ __pycache__/
 .config/opencode/context-mode/
 # mani #
 # mani #
+.pi/agent/web-search-cache
