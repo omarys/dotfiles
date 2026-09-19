@@ -88,6 +88,7 @@ export function bar(usedPercent: number, width = 24): { filled: string; drained:
 // re-check against dist/bundle/chunks/chunk-JVUZSMYM.js (FooterComponent) on pi upgrades.
 const FOOTER_BAR_WIDTH = 10;
 const FOOTER_MIN_REFRESH_MS = 20_000; // throttle API hits; usage only moves when you use tokens
+const AGENT_READOUT_KEY = "subagent-fleet"; // pi-subagents collapsed readout, pushed via setStatus
 let footerState: { usedPercent?: number; resetsAt?: string; err?: string } | undefined;
 let footerTui: { requestRender(): void } | undefined;
 let footerInstalled = false;
@@ -240,6 +241,7 @@ export function statusesLineText(
 	width: number,
 ): string {
 	const statuses = Array.from(footerData.getExtensionStatuses().entries())
+		.filter(([key]) => key !== AGENT_READOUT_KEY)
 		.sort(([a], [b]) => a.localeCompare(b))
 		.map(([, text]) => sanitizeStatusText(text))
 		.join(" ");
@@ -250,6 +252,18 @@ export function statusesLineText(
 		return truncateToWidth(line, width);
 	}
 	return truncateToWidth(barText, width);
+}
+
+/** Footer line 1: cwd left, the pi-subagents agent readout right-aligned. */
+export function pwdLine(theme: FgTheme, pwd: string, readout: string | undefined, width: number): string {
+	const left = theme.fg("dim", pwd);
+	if (!readout) return truncateToWidth(left, width, theme.fg("dim", "..."));
+	const rw = visibleWidth(readout);
+	const room = width - rw - 1;
+	if (room <= 0) return truncateToWidth(readout, width); // pwd yields; the readout is the priority
+	const leftClamped = truncateToWidth(left, room, theme.fg("dim", "..."));
+	const gap = Math.max(0, width - visibleWidth(leftClamped) - rw);
+	return truncateToWidth(`${leftClamped}${" ".repeat(gap)}${readout}`, width);
 }
 
 function ageOf(at: number): string {
@@ -438,8 +452,10 @@ function installFooter(ctx: ExtensionContext): void {
 				if (branch) pwd = `${pwd} (${branch})`;
 				const sessionName = ctx.sessionManager.getSessionName();
 				if (sessionName) pwd = `${pwd} • ${sessionName}`;
+				const readout =
+					footerData.getExtensionStatuses().get(AGENT_READOUT_KEY) ?? theme.fg("dim", "0 subagents");
 				return [
-					truncateToWidth(theme.fg("dim", pwd), width, theme.fg("dim", "...")),
+					pwdLine(theme, pwd, readout, width),
 					statsLineText(ctx, theme, footerData, width),
 					statusesLineText(ctx, theme, footerData, width),
 				];
