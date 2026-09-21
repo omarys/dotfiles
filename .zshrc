@@ -13,6 +13,7 @@ if [ -d "/home/linuxbrew/.linuxbrew" ]; then
         "$HOME/.zig/bin"
         "$HOME/go/bin"
         "$HOME/.bun/bin"
+        "$HOME/.dotnet/tools"
         /usr/local/bin
         /usr/local/sbin
         /usr/bin
@@ -36,6 +37,7 @@ else
         "$HOME/.zig/bin"
         "$HOME/go/bin"
         "$HOME/.bun/bin"
+        "$HOME/.dotnet/tools"
         /usr/local/bin
         /usr/local/sbin
         /usr/bin
