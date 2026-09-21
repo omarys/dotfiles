@@ -59,8 +59,6 @@ unalias br 2>/dev/null
 # default browser
 export BROWSER=/usr/bin/firefox
 
-export EDITOR='nvim'
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

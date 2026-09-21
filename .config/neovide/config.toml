@@ -1,4 +1,7 @@
 maximized = false
+# Disable temporary ext_messages/ext_cmdline capture at startup, which makes
+# noice.nvim refuse to initialize ("Noice can't work when the GUI has ext_...").
+startup-message-capture = false
 mouse-cursor-icon = "arrow"
 
 [font]
