@@ -1,10 +1,13 @@
 /**
- * Ancestor Settings Extension
+ * Workspace Model Boundary & Ancestor Settings Extension
  *
- * Automatically discovers and applies settings from the nearest ancestor `.pi/settings.json`
- * when working in nested subdirectories/repositories that do not contain their own `.pi/` config.
+ * Enforces strict workspace model isolation:
+ * - ~/Work: strictly uses OpenAI models (defaults to openai-codex/gpt-5.6-sol, thinking: medium).
+ *           Blocks opencode-go models from running in work repositories.
+ * - ~/Dev:  strictly uses OpenCode Go models (defaults to opencode-go/deepseek-v4.1-flash, thinking: high).
+ *           Prevents accidental OpenAI token burn in personal projects.
  *
- * Traversal starts from parent directories of cwd and stops before reaching the user home directory.
+ * Runs on startup, new sessions, reloads, and resumes.
  */
 
 import * as fs from "node:fs";
@@ -20,12 +23,13 @@ interface AncestorSettingsResult {
 
 function hasExplicitCliModelOverride(): boolean {
 	const args = process.argv;
-	return args.some((arg) =>
-		arg === "--model" ||
-		arg === "-m" ||
-		arg.startsWith("--model=") ||
-		arg === "--provider" ||
-		arg.startsWith("--provider=")
+	return args.some(
+		(arg) =>
+			arg === "--model" ||
+			arg === "-m" ||
+			arg.startsWith("--model=") ||
+			arg === "--provider" ||
+			arg.startsWith("--provider=")
 	);
 }
 
@@ -49,7 +53,6 @@ function findAncestorSettings(startDir: string): AncestorSettingsResult | null {
 			realCurrent = current;
 		}
 
-		// Never traverse into or beyond user's home directory
 		if (realCurrent === home) break;
 
 		const candidate = path.join(current, ".pi", "settings.json");
@@ -77,94 +80,106 @@ function findAncestorSettings(startDir: string): AncestorSettingsResult | null {
 	return null;
 }
 
-export default function ancestorSettingsExtension(pi: ExtensionAPI): void {
-	pi.on("session_start", async (event, ctx: ExtensionContext) => {
-		// Only run on initial startup, new session, or runtime reload
-		if (event.reason !== "startup" && event.reason !== "new" && event.reason !== "reload") {
-			return;
-		}
+function resolveModel(modelRegistry: any, modelSpec: string, defaultProvider?: string): any {
+	let provider = defaultProvider;
+	let modelId = modelSpec;
 
-		// If user explicitly passed --model or --provider on CLI, preserve it
+	if (modelSpec.includes("/")) {
+		const slashIdx = modelSpec.indexOf("/");
+		provider = modelSpec.slice(0, slashIdx);
+		modelId = modelSpec.slice(slashIdx + 1);
+	}
+
+	if (provider && modelId) {
+		const direct = modelRegistry.find(provider, modelId);
+		if (direct) return direct;
+	}
+
+	const all = modelRegistry.getAll();
+	return (
+		all.find((m: any) => m.id === modelId && (!provider || m.provider === provider)) ??
+		all.find((m: any) => m.id === modelId)
+	);
+}
+
+export default function ancestorSettingsExtension(pi: ExtensionAPI): void {
+	pi.on("session_start", async (_event, ctx: ExtensionContext) => {
 		if (hasExplicitCliModelOverride()) {
 			return;
 		}
 
-		// If project already has its own .pi/settings.json, Pi core already loaded it
-		const localSettings = path.join(ctx.cwd, ".pi", "settings.json");
-		if (fs.existsSync(localSettings)) {
-			return;
+		let realCwd: string;
+		let homeDir: string;
+		try {
+			realCwd = fs.realpathSync.native(ctx.cwd);
+			homeDir = fs.realpathSync.native(os.homedir());
+		} catch {
+			realCwd = path.resolve(ctx.cwd);
+			homeDir = os.homedir();
 		}
 
-		const ancestor = findAncestorSettings(ctx.cwd);
-		if (!ancestor) {
-			return;
-		}
+		const workDir = path.join(homeDir, "Work");
+		const devDir = path.join(homeDir, "Dev");
 
-		const { filePath, settings } = ancestor;
-		let appliedModel = false;
-		let selectedModelId = "";
+		const inWork = realCwd === workDir || realCwd.startsWith(workDir + path.sep);
+		const inDev = realCwd === devDir || realCwd.startsWith(devDir + path.sep);
 
-		// 1. Resolve and apply defaultModel
-		if (settings.defaultModel && typeof settings.defaultModel === "string") {
-			const rawModel = settings.defaultModel.trim();
-			let targetProvider: string | undefined = settings.defaultProvider;
-			let targetModelId = rawModel;
+		const localSettingsPath = path.join(ctx.cwd, ".pi", "settings.json");
+		const hasLocal = fs.existsSync(localSettingsPath);
 
-			if (rawModel.includes("/")) {
-				const slashIdx = rawModel.indexOf("/");
-				targetProvider = rawModel.slice(0, slashIdx);
-				targetModelId = rawModel.slice(slashIdx + 1);
-			}
+		let settings: Record<string, any> | undefined;
 
-			// Search in ModelRegistry
-			let model = targetProvider
-				? ctx.modelRegistry.find(targetProvider, targetModelId)
-				: undefined;
-
-			if (!model) {
-				const allModels = ctx.modelRegistry.getAll();
-				model = allModels.find(
-					(m) => m.id === targetModelId && (!targetProvider || m.provider === targetProvider)
-				) ?? allModels.find((m) => m.id === targetModelId);
-			}
-
-			if (model) {
-				const currentModel = ctx.model;
-				if (!currentModel || currentModel.provider !== model.provider || currentModel.id !== model.id) {
-					const success = await pi.setModel(model);
-					if (success) {
-						appliedModel = true;
-						selectedModelId = `${model.provider}/${model.id}`;
-					}
-				} else {
-					appliedModel = true;
-					selectedModelId = `${model.provider}/${model.id}`;
-				}
-			}
-		}
-
-		// 2. Resolve and apply thinking level
-		let targetThinkingLevel: string | undefined;
-		if (selectedModelId && settings.modelThinkingLevels?.[selectedModelId]) {
-			targetThinkingLevel = settings.modelThinkingLevels[selectedModelId];
-		} else if (settings.defaultThinkingLevel && typeof settings.defaultThinkingLevel === "string") {
-			targetThinkingLevel = settings.defaultThinkingLevel;
-		}
-
-		const validThinkingLevels = new Set(["off", "minimal", "low", "medium", "high", "xhigh", "max"]);
-		if (targetThinkingLevel && validThinkingLevels.has(targetThinkingLevel)) {
+		if (hasLocal) {
 			try {
-				pi.setThinkingLevel(targetThinkingLevel as any);
-			} catch {
-				// Ignore if thinking level not applicable
+				settings = JSON.parse(fs.readFileSync(localSettingsPath, "utf-8"));
+			} catch {}
+		} else {
+			const ancestor = findAncestorSettings(ctx.cwd);
+			if (ancestor) {
+				settings = ancestor.settings;
 			}
 		}
 
-		// 3. User feedback
-		if (appliedModel && ctx.ui?.notify) {
-			const relPath = path.relative(os.homedir(), filePath);
-			const displayPath = relPath.startsWith("..") ? filePath : `~/${relPath}`;
-			ctx.ui.notify(`Inherited model ${selectedModelId} from ${displayPath}`, "info");
+		const currentModel = ctx.model;
+
+		// 1. WORK WORKSPACE: strictly enforce OpenAI models (on startup and resume)
+		if (inWork) {
+			const targetSpec = settings?.defaultModel || "openai-codex/gpt-5.6-sol";
+			const targetProvider = settings?.defaultProvider || "openai-codex";
+			const target = resolveModel(ctx.modelRegistry, targetSpec, targetProvider);
+
+			if (target && (!currentModel || currentModel.provider !== target.provider || currentModel.id !== target.id)) {
+				await pi.setModel(target);
+				const thinking =
+					settings?.modelThinkingLevels?.[`${target.provider}/${target.id}`] ||
+					settings?.defaultThinkingLevel ||
+					"medium";
+				try {
+					pi.setThinkingLevel(thinking as any);
+				} catch {}
+				ctx.ui?.notify?.(`Work Workspace: active model set to ${target.provider}/${target.id}`, "info");
+			}
+			return;
+		}
+
+		// 2. DEV WORKSPACE: strictly enforce OpenCode Go models to save OpenAI tokens (on startup and resume)
+		if (inDev) {
+			const targetSpec = settings?.defaultModel || "opencode-go/deepseek-v4.1-flash";
+			const targetProvider = settings?.defaultProvider || "opencode-go";
+			const target = resolveModel(ctx.modelRegistry, targetSpec, targetProvider);
+
+			if (target && (!currentModel || currentModel.provider !== target.provider || currentModel.id !== target.id)) {
+				await pi.setModel(target);
+				const thinking =
+					settings?.modelThinkingLevels?.[`${target.provider}/${target.id}`] ||
+					settings?.defaultThinkingLevel ||
+					"high";
+				try {
+					pi.setThinkingLevel(thinking as any);
+				} catch {}
+				ctx.ui?.notify?.(`Dev Workspace: active model set to ${target.provider}/${target.id}`, "info");
+			}
+			return;
 		}
 	});
 }

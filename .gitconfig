@@ -1,9 +1,3 @@
-[includeIf "gitdir:~/"]
-	path = ~/.gitconfig-home
-[includeIf "gitdir:~/Dev/"]
-  path = ~/.gitconfig-dev
-[includeIf "gitdir:~/Work/"]
-  path = ~/Work/.gitconfig-work
 [commit]
 	gpgsign = true
   verbose = true
@@ -54,3 +48,10 @@
 [user]
 	email = scottomary@gmail.com
 	name = Scott O'Mary
+
+[includeIf "gitdir:~/"]
+	path = ~/.gitconfig-home
+[includeIf "gitdir:~/Dev/"]
+  path = ~/.gitconfig-dev
+[includeIf "gitdir:~/Work/"]
+  path = ~/Work/.gitconfig-work
