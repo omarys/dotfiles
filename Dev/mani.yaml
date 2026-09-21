@@ -19,6 +19,10 @@ projects:
     path: ~/Dev/extras
     url: git@github.com:omarys/extras.git
     tags: [mine, misc]
+  fornach:
+    path: ~/Dev/fornach
+    url: git@github.com:omarys/fornach.git
+    tags: [mine, gaming, f#]
   labrador:
     path: ~/Dev/labrador
     url: git@github.com:omarys/labrador.git
