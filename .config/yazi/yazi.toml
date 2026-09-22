@@ -13,8 +13,9 @@ group = "render"
 
 [preview]
 image_previewer = "chafa"
-max_width = 1920
-max_height = 1080
+# image_previewer = "sixel"
+max_width = 512
+max_height = 512
 
 # =============================================================================
 # Piper Previewers (Pipe external commands for rich previews)

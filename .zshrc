@@ -274,6 +274,13 @@ function fwup() {
   fwupdmgr update
 }
 
+function agyls() {
+  sqlite3 -header -column ~/.gemini/antigravity-cli/conversation_summaries.db \
+    "SELECT conversation_id, datetime(last_modified_time, 'localtime') AS modified, title, \
+      replace(replace(replace(workspace_uris, '[\"file://', ''), '\"]', ''), '\"',
+    '') AS workspace FROM conversation_summaries ORDER BY last_modified_time DESC LIMIT 10;"
+}
+
 bindkey '^ ' autosuggest-accept
 
 export FZF_CTRL_R_OPTS="

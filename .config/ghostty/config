@@ -1,4 +1,4 @@
-font-family = "RobotoMono Nerd Font"
+font-family = "CaskaydiaCove Nerd Font"
 shell-integration = zsh
 theme = Dracula
 window-decoration = true
@@ -6,3 +6,5 @@ font-size = 14
 shell-integration-features = no-cursor
 cursor-style = block
 command = tmux
+keybind = ctrl+page_down=previous_tab
+keybind = ctrl+page_up=next_tab
