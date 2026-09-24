@@ -1,49 +1,48 @@
 {
   "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4.1-flash",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "opencode-go/deepseek-v4.1-flash",
+  "defaultThinkingLevel": "medium",
 
   "modelThinkingLevels": {
-    "opencode-go/deepseek-v4.1-flash": "high",
-    "opencode-go/deepseek-v4-flash": "high",
-    "opencode-go/glm-5.3-flash": "high"
+    "opencode-go/deepseek-v4.1-flash": "medium",
+    "opencode-go/qwen3.7-plus": "medium"
   },
 
   "subagents": {
     "defaultProvider": "opencode-go",
-    "defaultModel": "opencode-go/deepseek-v4-flash",
-    "defaultThinking": "high",
+    "defaultModel": "opencode-go/deepseek-v4.1-flash",
+    "defaultThinking": "low",
     "maxThinking": "max",
 
     "agentOverrides": {
       "scout": {
-        "model": "opencode-go/deepseek-v4-flash",
+        "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "low"
       },
 
       "worker": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "thinking": "high"
+        "model": "opencode-go/deepseek-v4.1-flash",
+        "thinking": "medium"
       },
 
       "delegate": {
-        "model": "opencode-go/deepseek-v4-flash",
-        "thinking": "high"
+        "model": "opencode-go/deepseek-v4.1-flash",
+        "thinking": "medium"
       },
 
       "planner": {
-        "model": "inherit",
-        "thinking": "high"
+        "model": "opencode-go/qwen3.7-plus",
+        "thinking": "medium"
       },
 
       "reviewer": {
-        "model": "opencode-go/glm-5.3-flash",
-        "thinking": "high"
+        "model": "opencode-go/qwen3.7-plus",
+        "thinking": "medium"
       },
 
       "oracle": {
-        "model": "opencode-go/glm-5.3-flash",
-        "thinking": "max"
+        "model": "opencode-go/qwen3.7-plus",
+        "thinking": "high"
       }
     },
 

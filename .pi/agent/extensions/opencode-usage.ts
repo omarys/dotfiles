@@ -50,6 +50,8 @@ const USAGE_TYPE = "opencode-usage";
 const USAGE_ALL_TYPE = "opencode-usage-all";
 const CODEX_PROVIDER = "openai-codex";
 const WHAM_URL = "https://chatgpt.com/backend-api/wham/usage";
+const LEGACY_USAGE_STATUS_KEY = "opencode-usage";
+const USAGE_STATUS_KEY = "zz-opencode-usage"; // Zentui sorts statuses by key; keep usage at the far right.
 
 function isSupported(provider: string): boolean {
 	return provider === GO_PROVIDER || provider === CODEX_PROVIDER;
@@ -83,15 +85,11 @@ export function bar(usedPercent: number, width = 24): { filled: string; drained:
 	return { filled: "█".repeat(filled), drained: "░".repeat(width - filled) };
 }
 
-// ---- Footer: draining usage bar, right-aligned on the extension-statuses line ----
-// Mirrors pi's built-in FooterComponent.render() so replacing the footer loses nothing;
-// re-check against dist/bundle/chunks/chunk-JVUZSMYM.js (FooterComponent) on pi upgrades.
+// ---- Usage status rendered by the active footer owner (e.g. pi-zentui) ----
 const FOOTER_BAR_WIDTH = 10;
 const FOOTER_MIN_REFRESH_MS = 20_000; // throttle API hits; usage only moves when you use tokens
-const AGENT_READOUT_KEY = "subagent-fleet"; // pi-subagents collapsed readout, pushed via setStatus
 let footerState: { usedPercent?: number; resetsAt?: string; err?: string } | undefined;
-let footerTui: { requestRender(): void } | undefined;
-let footerInstalled = false;
+let lastFooterProvider: string | undefined;
 let lastFooterRefresh = 0;
 
 type FgTheme = { fg(name: string, text: string): string; bold(text: string): string };
@@ -398,71 +396,53 @@ async function resolveGo(
 	};
 }
 
+const plainTheme: FgTheme = { fg: (_name, text) => text, bold: (text) => text };
+
+function publishUsageStatus(ctx: ExtensionContext): void {
+	ctx.ui.setStatus(USAGE_STATUS_KEY, usageBarText(plainTheme));
+}
+
 async function refreshFooterUsage(ctx: ExtensionContext): Promise<void> {
 	const provider = ctx.model?.provider;
-	if (!provider || !isSupported(provider) || !footerInstalled) return;
+	if (!provider || !isSupported(provider)) {
+		footerState = undefined;
+		lastFooterProvider = undefined;
+		lastFooterRefresh = 0;
+		ctx.ui.setStatus(USAGE_STATUS_KEY, undefined);
+		return;
+	}
+	if (provider !== lastFooterProvider) {
+		lastFooterProvider = provider;
+		footerState = undefined;
+		lastFooterRefresh = 0;
+		publishUsageStatus(ctx);
+	}
 	const now = Date.now();
 	if (now - lastFooterRefresh < FOOTER_MIN_REFRESH_MS) return; // ponytail: throttle; refetch is event-driven
 	lastFooterRefresh = now;
 	if (provider === CODEX_PROVIDER) {
 		const res = await fetchCodexUsage(ctx);
+		if (lastFooterProvider !== provider) return;
 		const roll = res.ok ? res.usage.rolling : undefined;
 		if (res.ok && typeof roll?.percent === "number")
 			footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
 		else footerState = { err: res.ok ? "no rolling window data" : res.detail };
-		footerTui?.requestRender();
+		publishUsageStatus(ctx);
 		return;
 	}
 	const go = await resolveGo(ctx);
+	if (lastFooterProvider !== provider) return;
 	if (!go.ok) {
 		footerState = { err: go.error };
-		footerTui?.requestRender();
+		publishUsageStatus(ctx);
 		return;
 	}
 	const res = await fetchGo(go.baseUrl, "/usage", go.apiKey);
+	if (lastFooterProvider !== provider) return;
 	const roll = res.ok ? (res.body as UsageBody).usage?.rolling : undefined;
 	if (res.ok && typeof roll?.percent === "number") footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
 	else footerState = { err: res.ok ? "unexpected usage response" : res.detail };
-	footerTui?.requestRender();
-}
-
-function uninstallFooter(ctx: ExtensionContext): void {
-	if (!footerInstalled) return;
-	footerInstalled = false;
-	footerState = undefined;
-	ctx.ui.setFooter(undefined);
-}
-
-function installFooter(ctx: ExtensionContext): void {
-	if (footerInstalled) return;
-	footerInstalled = true;
-	ctx.ui.setFooter((tui, theme, footerData) => {
-		footerTui = tui;
-		const unsub = footerData.onBranchChange(() => tui.requestRender());
-		return {
-			dispose: () => {
-				unsub();
-				footerInstalled = false;
-				footerTui = undefined;
-			},
-			invalidate() {},
-			render(width: number): string[] {
-				let pwd = fmtCwd(ctx.sessionManager.getCwd());
-				const branch = footerData.getGitBranch();
-				if (branch) pwd = `${pwd} (${branch})`;
-				const sessionName = ctx.sessionManager.getSessionName();
-				if (sessionName) pwd = `${pwd} • ${sessionName}`;
-				const readout =
-					footerData.getExtensionStatuses().get(AGENT_READOUT_KEY) ?? theme.fg("dim", "0 subagents");
-				return [
-					pwdLine(theme, pwd, readout, width),
-					statsLineText(ctx, theme, footerData, width),
-					statusesLineText(ctx, theme, footerData, width),
-				];
-			},
-		};
-	});
-	void refreshFooterUsage(ctx);
+	publishUsageStatus(ctx);
 }
 
 async function fetchGo(
@@ -567,14 +547,12 @@ async function fetchCodexUsage(
 }
 
 export default function usageExtension(pi: ExtensionAPI) {
-	// Footer: while the active provider is opencode-go or openai-codex; refresh after API-using turns.
+	// Publish usage in the active footer's extension-status area; refresh after API-using turns.
 	pi.on("session_start", (_event, ctx) => {
-		if (ctx.model && isSupported(ctx.model.provider)) installFooter(ctx);
+		ctx.ui.setStatus(LEGACY_USAGE_STATUS_KEY, undefined);
+		void refreshFooterUsage(ctx);
 	});
-	pi.on("model_select", (_event, ctx) => {
-		if (ctx.model && isSupported(ctx.model.provider)) installFooter(ctx);
-		else uninstallFooter(ctx);
-	});
+	pi.on("model_select", (_event, ctx) => void refreshFooterUsage(ctx));
 	pi.on("tool_execution_end", (_event, ctx) => void refreshFooterUsage(ctx));
 	pi.on("turn_end", (_event, ctx) => void refreshFooterUsage(ctx));
 
