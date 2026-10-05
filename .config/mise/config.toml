@@ -1,6 +1,8 @@
 [tools]
+"aqua:cilium/cilium-cli" = "latest"
 # Dotfiles Pre-Commit Hook Dependencies & Shell Baseline
 "aqua:tealdeer-rs/tealdeer" = "latest"
+gh = "latest"
 go = "latest"
 node = "latest"
 pre-commit = "latest"

@@ -5,7 +5,7 @@
 
   "modelThinkingLevels": {
     "openai-codex/gpt-6-luna": "medium",
-    "openai-codex/gpt-6-sol": "high"
+    "openai-codex/gpt-6.1-sol": "high"
   },
 
   "subagents": {

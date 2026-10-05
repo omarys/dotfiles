@@ -1,21 +1,21 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
-rev = "f703392"
+rev = "6229767"
 hash = "7a4b4237223aaa94e589d1c01a23542a"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "f703392"
+rev = "6229767"
 hash = "14558d2829c0aa05e99c57de8f74d199"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "f703392"
+rev = "6229767"
 hash = "f281261ff04ad7ec867c3f802a50835f"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "f703392"
+rev = "6229767"
 hash = "347cc6b190eb0c2fd60513cc7ae37412"
 
 [[plugin.deps]]
@@ -25,15 +25,15 @@ hash = "9776f378459072b6c2875eae5addc49d"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "f703392"
+rev = "6229767"
 hash = "d1e0499cae5f3aeb628c267616d4b682"
 
 [[plugin.deps]]
 use = "AminurAlam/yazi-plugins:preview-git"
-rev = "9997d5b"
+rev = "28eea47"
 hash = "ba369f2f02be9e932cf7882c113d6844"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:dracula"
-rev = "20b47bf"
+rev = "1183892"
 hash = "40136c9a02e166067a36d9ad618887f2"
