@@ -200,6 +200,9 @@ type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
 type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
+type pi >/dev/null 2>&1 && alias ppi="pi --tui-mode fullscreen"
+type pi >/dev/null 2>&1 && alias ppc="pi --continue --tui-mode fullscreen"
+
 function upp() {
   if type dnf >/dev/null 2>&1; then
     sudo dnf -y update --refresh
@@ -299,6 +302,9 @@ export AWS_VAULT_BACKEND=pass
 
 # chafa
 export CHAFA_PRESET="symbols"
+
+# OpenLore: drive agy through the permission-tolerant wrapper (see ~/.local/bin/agy-openlore)
+export ANTIGRAVITY_CLI="$HOME/.local/bin/agy-openlore"
 
 # bun completions
 [ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"

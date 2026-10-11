@@ -1,46 +1,53 @@
 {
   "defaultProvider": "openai-codex",
-  "defaultModel": "openai-codex/gpt-6-luna",
+  "defaultModel": "gpt-6.1-sol",
   "defaultThinkingLevel": "medium",
-
-  "modelThinkingLevels": {
-    "openai-codex/gpt-6-luna": "medium",
-    "openai-codex/gpt-6.1-sol": "high"
-  },
-
   "subagents": {
-    "defaultProvider": "openai-codex",
     "defaultModel": "openai-codex/gpt-6-luna",
     "defaultThinking": "low",
-    "maxThinking": "max",
-
+    "projectRootResolution": "git-root",
+    "parallel": {
+      "maxTasks": 4,
+      "concurrency": 2
+    },
     "agentOverrides": {
-      "planner": {
-        "model": "inherit",
-        "thinking": "medium"
-      },
-      "oracle": {
-        "model": "inherit",
-        "thinking": "high"
-      },
-      "reviewer": {
-        "model": "inherit",
-        "thinking": "medium"
+      "scout": {
+        "model": "openai-codex/gpt-6-luna",
+        "thinking": "low"
       },
       "worker": {
         "model": "openai-codex/gpt-6-luna",
         "thinking": "medium"
       },
-      "scout": {
+      "researcher": {
         "model": "openai-codex/gpt-6-luna",
+        "thinking": "medium"
+      },
+      "reviewer": {
+        "model": "openai-codex/gpt-6.1-sol",
+        "thinking": "medium"
+      },
+      "evidence-auditor": {
+        "model": "openai-codex/gpt-6.1-sol",
         "thinking": "low"
+      },
+      "oracle": {
+        "model": "openai-codex/gpt-6-astra",
+        "thinking": "high"
+      },
+      "advisor": {
+        "model": "openai-codex/gpt-6-astra",
+        "thinking": "high"
+      },
+      "delegate": {
+        "model": "openai-codex/gpt-6.1-sol",
+        "thinking": "medium"
       }
     },
-
     "modelScope": {
       "enforce": true,
       "strict": true,
-      "allow": ["inherit", "openai-codex/*"]
+      "allow": ["inherit", "openai-codex/*", "antigravity/*"]
     }
   }
 }

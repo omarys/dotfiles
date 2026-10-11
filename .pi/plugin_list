@@ -15,8 +15,6 @@ User packages:
     /home/omary/.pi/agent/npm/node_modules/@dietrichgebert/ponytail
   npm:billion-context-pi
     /home/omary/.pi/agent/npm/node_modules/billion-context-pi
-  npm:pi-advisor-flow
-    /home/omary/.pi/agent/npm/node_modules/pi-advisor-flow
   npm:pi-zentui
     /home/omary/.pi/agent/npm/node_modules/pi-zentui
   npm:@narumitw/pi-usage

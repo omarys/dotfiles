@@ -376,6 +376,15 @@
       "skillFolderHash": "6ef87177d5674b39adc1e58a46149299feefe43a",
       "installedAt": "2026-09-03T15:48:49.589Z",
       "updatedAt": "2026-09-03T15:48:49.589Z"
+    },
+    "designing-gnome-ui": {
+      "source": "paresh-maheshwari/gnome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/paresh-maheshwari/gnome-skills.git",
+      "skillPath": "skills/designing-gnome-ui/SKILL.md",
+      "skillFolderHash": "f34ab0ca71dd298a62f8b70e9e85262ac95a318c",
+      "installedAt": "2026-10-05T15:36:41.235Z",
+      "updatedAt": "2026-10-05T15:36:41.235Z"
     }
   },
   "dismissed": {
