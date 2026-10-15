@@ -25,9 +25,9 @@ Use this template only when the project has no required format of its own.
 
 **Name:** <verb-led outcome>
 
-**Description:** <why this is needed and who benefits>
+**Description:** As a developer, I need to <perform the work> so that <benefit>.
 
-**Definition of Done:** <evidence required to close the Story>
+**Definition of Done:** As a developer, I need to <produce or verify specific evidence and obtain required approvals> before this Story can be closed.
 
 **Dependencies:** <Stories, roles, access, artifacts, or None>
 

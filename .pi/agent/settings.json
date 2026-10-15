@@ -1,6 +1,6 @@
 {
   "theme": "dark",
-  "lastChangelogVersion": "1.1.0",
+  "lastChangelogVersion": "1.2.0",
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
@@ -13,11 +13,32 @@
     "npm:pi-open-tui",
     "npm:@companion-ai/feynman",
     "npm:pi-antigravity",
-    "npm:billion-context",
-    "npm:openlore"
+    "npm:openlore",
+    "npm:billion-context-pi",
+    "npm:billion-context-pi-subagents"
   ],
-  "extensions": ["-builtin:mcp"],
+  "extensions": [
+    "-builtin:mcp"
+  ],
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
-  "defaultThinkingLevel": "high"
+  "defaultThinkingLevel": "high",
+  "piBolt": {
+    "packages": [
+      "npm:pi-mcp-adapter",
+      "npm:pi-web-access",
+      "npm:pi-subagents",
+      "npm:context-mode",
+      "npm:@juicesharp/rpiv-ask-user-question",
+      "npm:@juicesharp/rpiv-todo",
+      "npm:@dietrichgebert/ponytail",
+      "npm:pi-zentui",
+      "npm:pi-open-tui",
+      "npm:@companion-ai/feynman",
+      "npm:pi-antigravity",
+      "npm:billion-context",
+      "npm:openlore",
+      "npm:opensec-pi-fff@0.11.0"
+    ]
+  }
 }

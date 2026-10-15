@@ -62,11 +62,12 @@ Each Story must include:
 
 - **Epic:** The exact parent Epic name or key.
 - **Name:** A short verb-led outcome. Name what becomes possible.
-- **Description:** Why the work is needed and who benefits. Keep implementation
-  detail only when it constrains the result.
-- **Definition of Done:** Evidence the team must produce before closing the
-  Story, such as working implementation, tests, documentation, and required
-  review.
+- **Description:** Start with `As a developer, I need to ...` and explain the
+  work and its benefit using `so that ...`. Keep implementation detail only
+  when it constrains the result.
+- **Definition of Done:** Start with `As a developer, I need to ...` and name
+  the evidence required to close the Story, such as verified implementation,
+  test results, documentation, and required approvals.
 - **Dependencies:** Earlier Stories, teams, people, access, artifacts, or
   decisions required to start or finish. Write `None` when there are none.
 - **Acceptance Criteria:** Observable results that the customer, operator, or
@@ -120,6 +121,8 @@ Confirm all of these conditions:
 
 - Every Story points to the Epic.
 - Every Story contains every required field.
+- Description and Definition of Done each start with `As a developer, I need to`
+  unless the project's required wording overrides this convention.
 - Every point value is allowed.
 - Story dependencies refer to existing Stories and contain no cycle.
 - The recommended slice reaches the sprint goal.
