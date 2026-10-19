@@ -5,11 +5,11 @@
   "subagents": {
     "defaultModel": "deepseek-v4.1-flash",
     "defaultThinking": "low",
-    "maxThinking": "high",
+    "maxThinking": "max",
     "projectRootResolution": "git-root",
     "agentOverrides": {
       "scout": {
-        "model": "opencode-go/glm-5.3-flash",
+        "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "low"
       },
       "worker": {
@@ -21,11 +21,11 @@
         "thinking": "low"
       },
       "reviewer": {
-        "model": "antigravity/gemini-3.8-flash",
-        "thinking": "medium"
+        "model": "opencode-go/deepseek-v4-pro",
+        "thinking": "high"
       },
       "oracle": {
-        "model": "opencode-go/deepseek-v4-pro",
+        "model": "antigravity/gemini-3.8-flash",
         "thinking": "high"
       },
       "advisor": {
@@ -33,8 +33,8 @@
         "thinking": "high"
       },
       "delegate": {
-        "model": "opencode-go/deepseek-v4.1-flash",
-        "thinking": "high"
+        "model": "opencode-go/glm-5.3-flash",
+        "thinking": "low"
       }
     },
     "modelScope": {
