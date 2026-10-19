@@ -200,8 +200,9 @@ type speedtest-cli >/dev/null 2>&1 && alias fast="speedtest-cli --simple"
 
 type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
-type pi >/dev/null 2>&1 && alias ppi="pi-bolt --tui-mode fullscreen"
-type pi >/dev/null 2>&1 && alias ppc="pi-bolt --continue --tui-mode fullscreen"
+type pi-bolt >/dev/null 2>&1 && alias ppi="pi-bolt --tui-mode fullscreen"
+type pi-bolt >/dev/null 2>&1 && alias ppc="pi-bolt --continue --tui-mode fullscreen"
+type pi >/dev/null 2>&1 && type pi-bolt >/dev/null 2>&1 && alias pup="pi update && pi update --extensions && pi-bolt update && pi-bolt update --extensions"
 
 function upp() {
   if type dnf >/dev/null 2>&1; then
@@ -331,3 +332,6 @@ fi
 eval "$(/home/omary/.local/bin/mise activate zsh)"
 eval "$(navi widget zsh)"
 eval "$(hoard shell-config -s zsh)"
+
+# opencode
+export PATH=/home/omary/.opencode/bin:$PATH

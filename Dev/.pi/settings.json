@@ -1,9 +1,9 @@
 {
   "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-pro",
+  "defaultModel": "deepseek-v4.1-flash",
   "defaultThinkingLevel": "high",
   "subagents": {
-    "defaultModel": "opencode-go/deepseek-v4.1-flash",
+    "defaultModel": "deepseek-v4.1-flash",
     "defaultThinking": "low",
     "maxThinking": "high",
     "projectRootResolution": "git-root",

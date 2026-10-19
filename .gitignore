@@ -115,3 +115,5 @@ __pycache__/
 
 # openlore analysis artifacts
 .openlore/
+.config/yazi/package.toml
+.config/opencode/service.json
