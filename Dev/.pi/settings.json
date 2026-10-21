@@ -17,7 +17,7 @@
         "thinking": "high"
       },
       "researcher": {
-        "model": "opencode-go/glm-5.3-flash",
+        "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "low"
       },
       "reviewer": {
@@ -33,7 +33,7 @@
         "thinking": "high"
       },
       "delegate": {
-        "model": "opencode-go/glm-5.3-flash",
+        "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "low"
       }
     },
