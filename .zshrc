@@ -202,7 +202,11 @@ type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
 type pi-bolt >/dev/null 2>&1 && alias ppi="pi-bolt --tui-mode fullscreen"
 type pi-bolt >/dev/null 2>&1 && alias ppc="pi-bolt --continue --tui-mode fullscreen"
-type pi >/dev/null 2>&1 && type pi-bolt >/dev/null 2>&1 && alias pup="pi update && pi update --extensions && pi-bolt update && pi-bolt update --extensions"
+type pi >/dev/null 2>&1 && type pi-bolt >/dev/null 2>&1 && alias pup="pi update && pi update --extensions && pi-bolt update && pi-bolt update --extensions && pi-bolt compile"
+
+# pi-bolt compile/update AOT-compiles every installed extension; several bundled dists exceed Bun's 256 KB
+# per-module bytecode cap, which aborts the build (pi-bolt docs/PLUGINS.md, row "the build stopped").
+export BUN_JSC_maximumAOTCandidateBytecodeSize=2000000
 
 function upp() {
   if type dnf >/dev/null 2>&1; then
