@@ -2,7 +2,7 @@
  * OpenCode Go usage check for the `opencode-go` provider.
  *
  * Slash commands:
- *   /usage      — 5-hour rolling window as a draining bar (remaining % + reset
+ *   /usage-go   — 5-hour rolling window as a draining bar (remaining % + reset
  *                 countdown), plus weekly/monthly in brief; scoped to the current model.
  *                 Works for `opencode-go` (opencode.ai/zen/go/v1 /usage) and
  *                 `openai-codex` (chatgpt.com/backend-api/wham/usage, ChatGPT plan).
@@ -637,7 +637,7 @@ export default function usageExtension(pi: ExtensionAPI) {
 		return box;
 	});
 
-	pi.registerCommand("usage", {
+	pi.registerCommand("usage-go", {
 		description: "5h-window usage as a draining bar (remaining %, reset countdown) for opencode-go / openai-codex",
 		handler: async (_args, ctx) => {
 			const session = makeSession(ctx);

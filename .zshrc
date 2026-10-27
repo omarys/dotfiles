@@ -202,7 +202,7 @@ type neovide >/dev/null 2>&1 && alias nvd="neovide --fork"
 
 type pi-bolt >/dev/null 2>&1 && alias ppi="pi-bolt --tui-mode fullscreen"
 type pi-bolt >/dev/null 2>&1 && alias ppc="pi-bolt --continue --tui-mode fullscreen"
-type pi >/dev/null 2>&1 && type pi-bolt >/dev/null 2>&1 && alias pup="pi update && pi update --extensions && pi-bolt update && pi-bolt update --extensions && pi-bolt compile"
+type pi >/dev/null 2>&1 && type pi-bolt >/dev/null 2>&1 && alias pup="pi update && pi update --extensions && pi-bolt update && pi-bolt update --extensions && pi-bolt compile || curl -fsSL https://pi-bolt.opensec.in/install.sh | sh"
 
 # pi-bolt compile/update AOT-compiles every installed extension; several bundled dists exceed Bun's 256 KB
 # per-module bytecode cap, which aborts the build (pi-bolt docs/PLUGINS.md, row "the build stopped").
