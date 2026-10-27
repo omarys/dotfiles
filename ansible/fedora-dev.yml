@@ -26,8 +26,10 @@
       - make
       - mpv
       - neovim
+      - nss-tools
       - opensc
       - openssl
+      - p11-kit-server
       - pass
       - pcsc-lite
       - pcsc-lite-ccid
@@ -496,37 +498,142 @@
           args:
             creates: "{{ user_home }}/.local/share/nvim/lazy"
 
-# =========================================================================
-# 8. (Commented Out) SmartCard (CAC) and DoD PKI Certificates
-# =========================================================================
-# - name: 8. Configure SmartCard (CAC) and DoD Certificates
-#   become: true
-#   block:
-#     - name: Enable and start PC/SC Smart Card Daemon
-#       ansible.builtin.systemd:
-#         name: pcscd
-#         enabled: true
-#         state: started
-#     - name: Ensure certificate extraction directory exists
-#       ansible.builtin.file:
-#         path: /tmp/dod_certs
-#         state: directory
-#     - name: Download DoD PKI Certificate Zip
-#       ansible.builtin.get_url:
-#         url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
-#         dest: "/tmp/dod_certs.zip"
-#         validate_certs: false
-#         headers:
-#           User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-#     - name: Unzip DoD Certificates
-#       ansible.builtin.unarchive:
-#         src: "/tmp/dod_certs.zip"
-#         dest: "/tmp/dod_certs"
-#         remote_src: true
-#     - name: Install DoD PEM certificates to system trust
-#       ansible.builtin.shell: |
-#         find /tmp/dod_certs -type f -name '*.pem' -exec cp {} /etc/pki/ca-trust/source/anchors/ \;
-#       register: dod_copy
-#       changed_when: dod_copy.stdout != ""
-#     - name: Update System CA Trust
-#       ansible.builtin.command: update-ca-trust extract
+    # =========================================================================
+    # 8. SmartCard (CAC) and DoD PKI Certificates
+    # =========================================================================
+    - name: 8. Configure SmartCard (CAC) and DoD Certificates
+      become: true
+      block:
+        - name: Configure OpenSC to use PIV-II driver without probing incompatible applets
+          ansible.builtin.copy:
+            dest: /etc/opensc.conf
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              app default {
+                  # debug = 3;
+                  # debug_file = opensc-debug.txt;
+                  card_drivers = PIV-II;
+                  reader_driver pcsc {
+                      # The pinpad is disabled by default,
+                      # because of many broken readers out there
+                      enable_pinpad = false;
+                  }
+              }
+              # the pkcs15-init is used for card initialization when the file caching
+              # brings more trouble than use so disable that:
+              app pkcs15-init {
+                  framework pkcs15 {
+                      use_file_caching = false;
+                  }
+              }
+          register: opensc_conf
+
+        - name: Prevent USB autosuspend on Alcor Link AK9563 SmartCard reader
+          ansible.builtin.copy:
+            dest: /etc/udev/rules.d/99-alcor-smartcard.rules
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="2ce3", ATTR{idProduct}=="9563", ATTR{power/control}="on"
+          register: alcor_udev
+
+        - name: Reload udev rules for SmartCard reader # noqa: no-handler
+          ansible.builtin.command:
+            cmd: udevadm control --reload-rules
+          changed_when: true
+          when: alcor_udev.changed
+
+        - name: Trigger udev rules for SmartCard reader # noqa: no-handler
+          ansible.builtin.command:
+            cmd: udevadm trigger
+          changed_when: true
+          when: alcor_udev.changed
+
+        - name: Enable and start PC/SC Smart Card Daemon
+          ansible.builtin.systemd:
+            name: pcscd.socket
+            enabled: true
+            state: started
+
+        - name: Restart pcscd when OpenSC config changes # noqa: no-handler
+          ansible.builtin.systemd:
+            name: pcscd.service
+            state: restarted
+          when: opensc_conf.changed
+
+        - name: Ensure Firefox policies directory exists
+          ansible.builtin.file:
+            path: /etc/firefox/policies
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+
+        - name: Configure Firefox to trust system CA store (DoD Enterprise Roots)
+          ansible.builtin.copy:
+            dest: /etc/firefox/policies/policies.json
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              {
+                "policies": {
+                  "Certificates": {
+                    "ImportEnterpriseRoots": true
+                  }
+                }
+              }
+
+        - name: Check if DoD CA bundle is already installed in system trust
+          ansible.builtin.find:
+            paths: /etc/pki/ca-trust/source/anchors
+            patterns:
+              - "*DOD*.pem"
+              - "*DoD*.pem"
+              - "*dod*.pem"
+          register: existing_dod_certs
+
+        - name: Download and install DoD PKI Certificates when missing
+          when: existing_dod_certs.matched == 0
+          block:
+            - name: Ensure certificate extraction directory exists
+              ansible.builtin.file:
+                path: /tmp/dod_certs
+                state: directory
+                mode: "0755"
+            - name: Download DoD PKI Certificate Zip
+              ansible.builtin.get_url:
+                url: "https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip"
+                dest: "/tmp/dod_certs.zip"
+                mode: "0644"
+                validate_certs: false
+                headers:
+                  User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            - name: Unzip DoD Certificates
+              ansible.builtin.unarchive:
+                src: "/tmp/dod_certs.zip"
+                dest: "/tmp/dod_certs"
+                remote_src: true
+            - name: Extract PEM certificates from DoD PKCS7 bundle into system trust
+              ansible.builtin.shell:
+                cmd: |
+                  set -o pipefail
+                  p7b_file=$(find /tmp/dod_certs -type f -name '*DoD.pem.p7b' | head -n 1)
+                  openssl pkcs7 -print_certs -in "$p7b_file" -out /etc/pki/ca-trust/source/anchors/DoD_CAs.pem
+                executable: /bin/bash
+                creates: /etc/pki/ca-trust/source/anchors/DoD_CAs.pem
+            - name: Update System CA Trust
+              ansible.builtin.command:
+                cmd: update-ca-trust extract
+              changed_when: true
+
+    - name: Enable p11-kit-server user socket for Flatpak SmartCard access
+      become: false
+      ansible.builtin.systemd:
+        name: p11-kit-server.socket
+        scope: user
+        enabled: true
+        state: started
