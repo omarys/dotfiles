@@ -117,3 +117,4 @@ __pycache__/
 .openlore/
 .config/yazi/package.toml
 .config/opencode/service.json
+.unipi/

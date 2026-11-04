@@ -13,6 +13,7 @@ ruff = "latest"
 shellcheck = "latest"
 trufflehog = "latest"
 yamlfmt = "latest"
+zig = "latest"
 
 [settings]
 experimental = true
