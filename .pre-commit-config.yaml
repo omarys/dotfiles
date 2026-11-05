@@ -40,6 +40,14 @@ repos:
         pass_filenames: false
         always_run: true
         stages: [pre-commit, pre-push]
+      - id: pi-settings-sync
+        name: Sync live pi settings into the repo
+        description: Copy ~/.pi/agent/settings.json into .pi/agent/ when pi has changed it.
+        entry: .local/share/scripts/pi-settings-sync.sh
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
   - repo: https://github.com/ansible/ansible-lint
     rev: v26.8.0
     hooks:
