@@ -2,6 +2,7 @@
   "mcpServers": {
     "context-mode": {
       "command": "context-mode",
+      "args": ["server"],
       "lifecycle": "keep-alive"
     },
     "rekal": {
