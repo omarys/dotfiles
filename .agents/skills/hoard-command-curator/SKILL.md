@@ -1,6 +1,6 @@
 ---
 name: hoard-command-curator
-description: Curate reusable shell commands and standalone Python scripts into Hoard with a required description/summary. Use when developing reusable CLI workflows or Python utilities worth saving, or when the user asks to save, hoard, or bookmark a command or script.
+description: Curate reusable shell commands and standalone Python scripts into Hoard with a required description/summary, and retrieve them headlessly with `--json`/`--compact` or render them with `hoard eval`. Use when developing reusable CLI workflows or Python utilities worth saving, when the user asks to save, hoard, or bookmark a command or script, or when an agent needs to search, render or verify a stored entry without a terminal.
 ---
 
 # Hoard command and script curator
@@ -82,11 +82,17 @@ hoard new --help
 
 Prefer the behavior of the installed binary over documentation remembered by the model.
 
-`hoard new` saves a shell command without any prompt when `--name` is supplied:
+`hoard new` saves a shell command without any prompt when `--name` and `--command`
+are supplied:
 
 ```sh
-hoard new -n #name -c '#command' -t tag1,tag2 --namespace #namespace
+hoard new --name <name> --command '<command>' --description '<summary>' \
+  --tags tag1,tag2 --namespace <namespace>
 ```
+
+Add `--json --compact` to a headless save and the result is one checkable line:
+exit 0 with `{"ok":true,"saved":"<namespace>/<name>","k","ns","c","p","redactions"}`,
+where `p` lists the detected parameters and `redactions` how many secrets were masked.
 
 Any value that is not passed falls back to the configured default namespace and to
 an empty description or tag list. `--name` without `--command` is an error. A
@@ -96,6 +102,78 @@ name/namespace pair that already exists is rejected instead of overwritten, so u
 interactive prompts open as usual with whatever was passed pre-filled.
 
 Hoard redacts secrets itself on save; see [Secret handling](#secret-handling).
+
+## Headless retrieval: `--json`, `--compact`, `eval`
+
+Every subcommand accepts `--json` (`-j`). `--compact` (alias `--tokens`) implies
+`--json` and prints one minified line, so prefer it whenever the payload goes into a
+model's context instead of a human's eyes.
+
+```sh
+hoard list --json --compact --filter kubernetes
+hoard list --json --compact --best --filter deploy
+hoard pick --name summarize-jsonl --raw          # byte-exact source, no JSON
+hoard eval pods -p namespace=kube-system --json --compact
+hoard schema --json --compact                    # the contract, once per session
+```
+
+Compact keys:
+
+| key | meaning |
+| --- | --- |
+| `k` | name |
+| `c` | command, or the stored source for a Python entry |
+| `d` | description; omitted when empty |
+| `p` | parameter names in a listing (`"p":["namespace"]`); applied values in `eval` (`"p":{"namespace":"dev"}`); omitted when there are none |
+| `s` | lexical score, present only on a scored `--filter` query, highest first |
+
+Without `--compact`, `--json` is pretty-printed with descriptive keys
+(`name`, `command`, `description`, `namespace`, `kind`, `tags`, `created`,
+`params`) — use that shape when a human reads the output or when you need `kind`
+or `namespace`, both of which the compact form drops.
+
+Rules that keep the stream parseable:
+
+- stdout carries exactly one JSON document per call, failures included; stderr
+  carries diagnostics only.
+- `--json` wins over `--raw`, so never combine them expecting raw text.
+- ANSI colours and cursor sequences are stripped whenever stdout is not a TTY or
+  `--json`/`--compact` is set; do not strip them yourself.
+- `--best` and `--raw` print nothing and exit `2` when the filter matches nothing.
+
+### Exit codes and error payloads
+
+| exit | `error_type` | meaning |
+| --- | --- | --- |
+| 0 | — | success |
+| 1 | `ParseError` | the invocation is invalid (bad flag, missing argument) |
+| 2 | `CommandNotFound` | the entry, namespace or query matched nothing |
+| 3 | `InvalidParameter` | bad or missing parameter, a name that is already taken, or an operation that needs a terminal (`edit`) |
+| 4 | `RuntimeError` | I/O, database or validation failure |
+
+```json
+{"ok": false, "status": "error", "error_type": "InvalidParameter",
+ "message": "missing required parameter(s): container_id",
+ "missing_params": ["container_id"], "suggested_keys": ["container_id"]}
+```
+
+Branch on `error_type`, never on the `message` text; `missing_params` and
+`suggested_keys` name exactly what a retry needs. Successful saves carry
+`"ok": true` and are printed only after the trove was written
+(`hoard new --json --compact` →
+`{"ok":true,"saved":"kube/pods","k":"pods","ns":"kube","c":"…","p":["namespace"],"redactions":0}`),
+so a success payload on stdout is proof the save landed.
+
+No prompt opens when stdout is not a TTY: `hoard edit` refuses with
+`InvalidParameter` (exit 3) and `hoard history import` requires an explicit `--all`
+or `--dry-run` instead of importing everything behind the caller's back. Always pass
+`--name`, `--command` and `--description` (or `--script` with `--name` and
+`--description`) rather than relying on the interactive flow.
+
+`hoard schema --json --compact` is the authoritative contract for the payload
+shapes, the argument of every headless invocation, the placeholder rules and the
+exit codes. Read it instead of guessing when a call is rejected; prefer it over
+any remembered documentation, including this skill.
 
 ## Python scripts
 
@@ -119,7 +197,7 @@ and use the description to record what the script was written for, since that is
 part that cannot be recovered from the source.
 
 1. Capture the complete standalone UTF-8 `.py` source. Hoard must preserve the implementation, not just an invocation such as `python3 /tmp/report.py` whose target will disappear. Sibling modules, data files and virtual environments are not bundled. Keep multi-file applications in their repository rather than archiving an incomplete entry.
-2. Remove secrets and temporary paths. Use `argparse`, `sys.argv` or environment-variable references for variable inputs. Preserve indentation, comments, docstrings, quoting and shebangs. Hoard deliberately ignores parameter tokens in Python entries. Do not insert `#parameter!` placeholders into Python source.
+2. Remove secrets and temporary paths. Use `argparse`, `sys.argv` or environment-variable references for variable inputs. Preserve indentation, comments, docstrings, quoting and shebangs. Hoard treats Python entries as source, not as a shell template: it records no parameters for them and `hoard eval` returns the stored source untouched. Never insert `#parameter!` markers or `{{...}}` placeholders into Python source — a `{{braces}}` in a script, a format string or an f-string is source text. Leave the parameterization to `argparse` or `sys.argv`.
 3. Validate without executing when execution would be unsafe or unnecessary:
 
    ```sh
@@ -127,7 +205,7 @@ part that cannot be recovered from the source.
    ```
 
    This checks syntax, not runtime behavior or dependencies. If validation is unavailable but the user explicitly requests archiving, mark the description `Unverified` and state what remains unchecked. Hoard itself only archives source; saving never proves it runs correctly.
-4. Check for duplicates with the installed CLI, for example `hoard list --json --filter summarize-jsonl`. This fork emits YAML despite the `--json` flag name. Compare purpose, source and description. Reuse an equivalent entry instead of creating a second copy.
+4. Check for duplicates with the installed CLI, for example `hoard list --json --compact --filter summarize-jsonl`. Compare `k`, `d` and `c` (name, description, source); `s` ranks the matches. Reuse an equivalent entry instead of creating a second copy. This fork emits real JSON — YAML output means an outdated binary.
 5. Write a nonempty description/summary explaining the script's purpose, inputs and output. Include required Python version or third-party dependencies, permissions and destructive effects when relevant. A filename, `Python script`, or a copied invocation is not a summary. Include `python` among the tags; choose a namespace by task domain rather than creating a duplicate namespace for the language.
 6. Verify that `hoard new --help` supports `--script`, then save the file:
 
@@ -140,7 +218,7 @@ part that cannot be recovered from the source.
    ```
 
    After initial Hoard setup this path is noninteractive. `--name` and a nonblank `--description` are required; `--summary` is an alias for `--description`. Tags are optional and an omitted namespace uses Hoard's configured default. `--script` conflicts with `--command`. Existing name/namespace pairs are rejected instead of overwritten. If the installed binary lacks `--script`, report that the updated fork is needed. Do not silently store a temporary file reference or edit the database as a workaround.
-7. Confirm the saved source and summary with `hoard list --json --filter summarize-jsonl`. Completion means the entry contains the full source, `kind: python`, and the intended description/summary. Report the entry name briefly when useful.
+7. Confirm the saved source and summary with `hoard list --json --filter summarize-jsonl`. Add `--compact` for the dense `{k,c,d,p}` form, but confirm `kind: "python"` and `namespace` with the full payload since the compact form drops both. `hoard pick --name summarize-jsonl --raw` is the byte-exact source check. Completion means the entry contains the full source, the right kind and the intended description/summary. Report the entry name briefly when useful.
 
 ### Retrieve or edit Python source
 
@@ -930,8 +1008,12 @@ Before saving when practical, inspect existing Hoard commands using the installe
 For example:
 
 ```sh
-hoard list
+hoard list --json --compact --filter <term>
 ```
+
+`--filter` (short `-f`) ranks matches and `--best` returns only the top one, which is
+the cheapest way to ask "is this already in the trove?". Drop `--compact` when you
+need `namespace` or `kind`.
 
 Search by likely:
 
@@ -999,45 +1081,94 @@ Do not modify `trove.db` or legacy `trove.yml` directly unless:
 
 Prefer Hoard's own CLI so its configuration and schema remain authoritative.
 
-## Parameter syntax
-
-Hoard supports parameterized commands.
-
-The default parameter token is:
-
-```text
-#
-```
-
-Example:
+Without a terminal, run the save with explicit flags and `--json --compact` so the
+result is checkable in one line:
 
 ```sh
-echo "My name is #name and I live in #city"
+hoard new --name <name> --command '<command>' --description '<summary>' \
+  --namespace <ns> --tags <tag1,tag2> --json --compact
 ```
 
-Named parameters should be descriptive.
+Exit 0 plus `{"ok":true,"saved":"<ns>/<name>",...}` means it persisted; exit 3 with
+`InvalidParameter` usually means the `ns/name` pair is already taken, which is
+rejected instead of overwritten. `hoard schema --json --compact` prints the exact
+flag and payload contract if a flag is rejected.
 
-Prefer:
+## Parameter syntax
+
+Hoard supports parameterized commands. Two dialects render, one is preferred.
+
+### Preferred: brace placeholders
 
 ```text
-#namespace
-#pod
-#bucket
-#region
-#profile
-#cluster
-#repository
+{{name}}            required parameter
+{{name=default}}    optional parameter with a default
 ```
 
-over:
+```sh
+docker logs -f {{container_id}}
+kubectl get pods -n {{namespace=kube-system}}
+docker exec -it {{container}} sh -c 'tail -n {{lines=100}} {{logfile}}'
+```
+
+The stored template is the source of truth: Hoard derives the parameter list from it
+when you save (`hoard new --json` echoes it as `p`) and every listing reports it, so
+no separate parameter list can drift out of sync. Identifiers start with an ASCII
+letter or `_`, followed by ASCII letters, digits, `_`, `-` or `.`; any other
+`{{...}}` text is left untouched.
+
+Values are inserted verbatim and never quoted for you, so put the quoting in the
+command itself. A missing required parameter fails with `InvalidParameter` (exit 3)
+and lists the keys in `missing_params`; repeated keys and an empty value for a
+required parameter are rejected instead of silently last-wins.
+
+### Rendering an entry
+
+`hoard eval` substitutes parameters and prints the command without ever running it:
+
+```sh
+hoard eval pods -p namespace=kube-system                  # human: the rendered line
+hoard eval pods -p namespace=dev --json --compact
+# {"ok":true,"k":"pods","c":"kubectl get pods -n dev","p":{"namespace":"dev"}}
+# a parameter that kept its default is not echoed in `p`
+```
+
+That is the check to run after saving a parameterized entry, and the way to show a
+user what a template expands to. `hoard pick` stays the step that returns the stored
+template (placeholders intact) — `pick` retrieves, `eval` renders.
+
+### Legacy: token markers
+
+Older entries use the configured start token, the parameter name and the configured
+end token — with the defaults, `#name!`:
+
+```sh
+echo "My name is #name! and I live in #city!"
+```
+
+`eval` renders these too, and they stay literal inside Python sources (where `#` is a
+comment), so a trove written before brace placeholders existed keeps working. Keep
+the markers an entry already uses; prefer `{{...}}` for anything new.
+
+`hoard new` reports the parameter names it detected in `p` for shell entries. A
+Python entry has none: `hoard eval <name> -p key=value` on one is an
+`InvalidParameter` (exit 3) instead of a silent no-op.
+
+Named parameters should be descriptive:
 
 ```text
-#x
-#foo
-#value1
+{{namespace}}   {{pod}}      {{bucket}}   {{region}}
+{{profile}}     {{cluster}}  {{repository}}
 ```
 
-The user's Hoard configuration may define a different token.
+not:
+
+```text
+{{x}}   {{foo}}   {{value1}}
+```
+
+The user's Hoard configuration may define a different token for the legacy dialect;
+brace placeholders are unaffected by it.
 
 If parameter syntax appears not to work, inspect:
 

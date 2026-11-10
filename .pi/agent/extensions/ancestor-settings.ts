@@ -1,12 +1,13 @@
 /**
  * Workspace Model Boundary & Ancestor Settings Extension
  *
- * Enforces strict workspace model isolation:
- * - ~/Work: strictly uses OpenAI models (defaults to openai-codex/gpt-5.6-sol, thinking: medium).
- *           Blocks opencode-go models from running in work repositories.
- * - ~/Dev:  strictly uses OpenCode Go models (defaults to opencode-go/deepseek-v4.1-flash, thinking: high).
- *           Prevents accidental OpenAI token burn in personal projects.
+ * Applies workspace model defaults and provider boundaries:
+ * - ~/Work: uses OpenAI models (defaults to openai-codex/gpt-5.6-sol, thinking: medium).
+ *           Blocks opencode-go models from running in ordinary work sessions.
+ * - ~/Dev:  uses OpenCode Go models (defaults to opencode-go/deepseek-v4.1-flash, thinking: high).
+ *           Prevents accidental OpenAI token burn in ordinary personal sessions.
  *
+ * Under ~/Work only, explicit subagent role models take precedence over workspace defaults.
  * Runs on startup, new sessions, reloads, and resumes.
  */
 
@@ -141,6 +142,20 @@ export default function ancestorSettingsExtension(pi: ExtensionAPI): void {
 		}
 
 		const currentModel = ctx.model;
+
+		// Preserve configured SDK role choices in Work only; leave Dev policy unchanged.
+		const roleDefaults = settings?.subagents;
+		const roleModels = Object.values(roleDefaults?.agentOverrides ?? {});
+		const selectedRoleModel = inWork && currentModel && roleModels.some((role: any) => {
+			if (typeof role?.model !== "string") return false;
+			const spec = role.model.replace(/:(off|minimal|low|medium|high|xhigh|max)$/, "");
+			const slash = spec.indexOf("/");
+			const provider = slash >= 0 ? spec.slice(0, slash) :
+				role.defaultProvider ?? roleDefaults?.defaultProvider ?? settings?.defaultProvider;
+			const id = slash >= 0 ? spec.slice(slash + 1) : spec;
+			return provider === currentModel.provider && id === currentModel.id;
+		});
+		if (selectedRoleModel) return;
 
 		// 1. WORK WORKSPACE: strictly enforce OpenAI models (on startup and resume)
 		if (inWork) {
