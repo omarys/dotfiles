@@ -118,3 +118,4 @@ __pycache__/
 .config/yazi/package.toml
 .config/opencode/service.json
 .unipi/
+*.db

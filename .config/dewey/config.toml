@@ -5,4 +5,12 @@ continuum_bin = "continuum"
 labrador_bin = "labrador"
 auto_scan_on_startup = true
 seed_sample_data = false
+storage_profile = "fast"
+chapter_stale_hours = 24
 delete_after_read = false
+
+[labrador]
+providers = ["novelping"]
+
+[komikku.sources]
+"Weeb Central" = "https://weebcentral.com/"

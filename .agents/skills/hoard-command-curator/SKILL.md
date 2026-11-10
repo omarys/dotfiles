@@ -1370,3 +1370,12 @@ Saved commands can become stale as:
 - permissions change.
 
 Hoard is a command and script library, not an authorization mechanism.
+
+## Find candidates with `hoard history scan`
+
+`hoard history scan` is the fast way to find hoardable candidates: it mines zsh
+history and pi / pi-bolt session tool calls for commands and Python snippets you
+already ran, filters navigation noise, and reports what is worth saving. It is
+read-only, so run it before drafting entries by hand. `hoard history import`
+saves the picks into the `history` and `pi` namespaces with `#name!` placeholders
+where secrets were found.
