@@ -385,6 +385,51 @@
       "skillFolderHash": "f34ab0ca71dd298a62f8b70e9e85262ac95a318c",
       "installedAt": "2026-10-05T15:36:41.235Z",
       "updatedAt": "2026-10-05T15:36:41.235Z"
+    },
+    "aws-containers": {
+      "source": "aws/agent-toolkit-for-aws",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "skillPath": "skills/core-skills/aws-containers/SKILL.md",
+      "skillFolderHash": "dad459c6e50103d5e14f512ab53349366cbeb680",
+      "installedAt": "2026-11-12T14:54:19.882Z",
+      "updatedAt": "2026-11-12T14:54:19.882Z"
+    },
+    "aws-iam": {
+      "source": "aws/agent-toolkit-for-aws",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "skillPath": "skills/core-skills/aws-iam/SKILL.md",
+      "skillFolderHash": "5e1f56c0e6418455b9b11bfefd098b61f01cc287",
+      "installedAt": "2026-11-12T14:54:19.886Z",
+      "updatedAt": "2026-11-12T14:54:19.886Z"
+    },
+    "aws-observability": {
+      "source": "aws/agent-toolkit-for-aws",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "skillPath": "skills/core-skills/aws-observability/SKILL.md",
+      "skillFolderHash": "aa7acc9daaca9505f53a4836954f8abd445e4560",
+      "installedAt": "2026-11-12T14:54:19.887Z",
+      "updatedAt": "2026-11-12T14:54:19.887Z"
+    },
+    "aws-security": {
+      "source": "aws/agent-toolkit-for-aws",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "skillPath": "skills/core-skills/aws-security/SKILL.md",
+      "skillFolderHash": "73fbfabb801bccf792e2e962b19e6af334a5d0ce",
+      "installedAt": "2026-11-12T14:54:19.888Z",
+      "updatedAt": "2026-11-12T14:54:19.888Z"
+    },
+    "amazon-opensearch-service": {
+      "source": "aws/agent-toolkit-for-aws",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aws/agent-toolkit-for-aws.git",
+      "skillPath": "skills/specialized-skills/analytics-skills/amazon-opensearch-service/SKILL.md",
+      "skillFolderHash": "649758c661a01a0cc20f526b831b9279c6ced552",
+      "installedAt": "2026-11-12T14:54:19.888Z",
+      "updatedAt": "2026-11-12T14:54:19.888Z"
     }
   },
   "dismissed": {

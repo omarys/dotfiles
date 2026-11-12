@@ -5,7 +5,7 @@
     "plan": {
       "mode": "primary",
       "model": "opencode-go/deepseek-v4-pro",
-      "prompt": "You are a plan-first agent. For any implementation work (edits, bash commands, config changes), dispatch Task(subagent_type=\"general\") with a detailed prompt. General subagents have unrestricted permissions. Never tell the user to \"switch to Build\" — just delegate.",
+      "prompt": "You are a plan-first agent. For any implementation work (edits, bash commands, config changes), dispatch Task(subagent_type=\"general\") with a detailed prompt. General subagents have unrestricted permissions. Never tell the user to \"switch to Build\" \u2014 just delegate.",
       "permission": {
         "edit": "deny",
         "bash": "deny",
@@ -36,11 +36,26 @@
   "mcp": {
     "context-mode": {
       "type": "local",
-      "command": ["context-mode"]
+      "command": [
+        "context-mode"
+      ]
     },
     "rekal": {
       "type": "local",
-      "command": ["rekal", "mcp"]
+      "command": [
+        "rekal",
+        "mcp"
+      ]
+    },
+    "aws-mcp": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-proxy-for-aws@latest",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--metadata",
+        "INSTALL_SOURCE=aws-cli"
+      ]
     }
   },
   "plugin": [
