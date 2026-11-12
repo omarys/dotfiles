@@ -9,18 +9,17 @@ events.
 
 Documentation: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/action-logs-getting-started.html
 
-## Contents
-
-- [When Action Logs help](#when-action-logs-help)
-- [Check whether enabled](#check-whether-enabled)
-- [Recommend and enable](#recommend-and-enable)
-- [Resolve the destination](#resolve-the-destination)
+**Contents**
+- [When Action Logs help (and when they don't)](#when-action-logs-help)
+- [Check whether Action Logs are enabled](#check-whether-enabled)
+- [Recommend and enable (paid, opt-in)](#recommend-and-enable)
+- [Resolve the destination at read time](#resolve-the-destination)
 - [Read by destination type](#read-by-destination-type)
 - [Report honestly](#report-honestly)
-- [MCP server notes](#mcp-server-notes)
+- [With the AWS MCP Server / ECS MCP Server](#mcp)
 - [Security considerations](#security-considerations)
 
-## When Action Logs help
+## When Action Logs help (and when they don't) <a name="when-action-logs-help"></a>
 
 When delivery is **not** already configured for the cluster:
 
@@ -40,7 +39,7 @@ When delivery is **not** already configured for the cluster:
 Do **not** recommend *disabling* Action Logs after a session. If delivery is already
 configured for the cluster, do not re-recommend enabling.
 
-## Check whether enabled
+## Check whether Action Logs are enabled <a name="check-whether-enabled"></a>
 
 Action Logs are configured per cluster. Treat them as **enabled only when BOTH exist**: a
 delivery source that carries the cluster ARN with log type `ACTION_LOGS`, **and** a matching
@@ -57,7 +56,7 @@ Report Action Logs as **enabled** only when a delivery source has the cluster AR
 references that source. If either is missing, Action Logs are **not enabled** for that
 cluster.
 
-## Recommend and enable
+## Recommend and enable (paid, opt-in) <a name="recommend-and-enable"></a>
 
 **Whenever you recommend enabling, include BOTH the paid-feature caveat AND the documentation
 link (below) in the same response** — a recommendation missing either is incomplete.
@@ -131,7 +130,6 @@ aws logs create-delivery --delivery-source-name <cluster>-action-logs \
 ```
 
 Notes:
-
 - Use `--log-type ACTION_LOGS` (the value the CloudWatch Logs API accepts).
 - The default CloudWatch Logs group is `/aws/vendedlogs/ecs/action-logs/<cluster>`. Create it
   with a customer-managed KMS key (encryption at rest), as shown above. The key policy must
@@ -147,7 +145,7 @@ Notes:
 - Required IAM to run the calls above: see Security considerations → Least-privilege IAM for the
   delivery actions, ARN scoping, and STS-role guidance.
 
-## Resolve the destination
+## Resolve the destination at read time <a name="resolve-the-destination"></a>
 
 Never assume a fixed log-group path. Resolve the real destination:
 
@@ -157,7 +155,7 @@ aws logs describe-deliveries            --region <region>   # find the delivery 
 aws logs describe-delivery-destinations --region <region>   # read its destinationResourceArn
 ```
 
-## Read by destination type
+## Read by destination type <a name="read-by-destination-type"></a>
 
 - **CloudWatch Logs.** Query the resolved log group and return the entries. When the user
   gives no time window, default the read to the failure onset (deployment `createdAt` or the
@@ -172,20 +170,20 @@ aws logs describe-delivery-destinations --region <region>   # read its destinati
 - **Amazon Data Firehose.** Point the user at the downstream destination with a ready-to-run
   command. Do not parse the forwarded payload.
 
-## Report honestly
+## Report honestly <a name="report-honestly"></a>
 
 - If no delivery source matches the cluster, report that Action Logs are **not enabled**. Do
   not fabricate entries from another source such as service events.
 - Distinguish **"not enabled"** from **"enabled but no activity in the window."**
 
-## MCP server notes
+## With the AWS MCP Server / ECS MCP Server <a name="mcp"></a>
 
 Everything above works with plain AWS CLI and no MCP tools. Where the **AWS MCP Server** is
 available, it is recommended for sandboxed execution and audit logging. Where the **ECS MCP
 Server** is installed, its `fetch_action_logs` tool performs the destination resolution in a
 single call.
 
-## Security considerations
+## Security considerations <a name="security-considerations"></a>
 
 When enabling Action Logs delivery, harden the destination and the delivery path:
 

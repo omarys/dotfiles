@@ -15,7 +15,7 @@ Security Hub CSPM receives:
 - Macie findings (in ASFF format)
 - Third-party findings (via `BatchImportFindings` API, ASFF format)
 
-CSPM generates its own compliance findings in ASFF format by evaluating resources against enabled standards.
+CSPM generates its own compliance findings by evaluating resources against enabled standards.
 
 ## Operator prerequisites
 
@@ -23,26 +23,19 @@ CSPM generates its own compliance findings in ASFF format by evaluating resource
 
 ## Available Standards
 
-For conceptual questions, use current documentation such as the
-[AI Security Best Practices standard](https://docs.aws.amazon.com/securityhub/latest/userguide/standards-ai-security.html).
-This describes available checks, not whether the customer's account has enabled them.
-Do not perform account discovery to answer a general standards question.
-
-For an authorized assessment, discover the requested state in the selected account
-and region:
+Discover enabled and available standards dynamically:
 
 ```bash
-# Only when the request asks which standards this account has enabled
+# List currently enabled standards
 aws securityhub get-enabled-standards
 
-# For current regional definitions, versions and ARNs
+# List all available standard definitions
 aws securityhub describe-standards
 ```
 
-Do not maintain a static standards catalog here. For exact account/region-specific
-versions or ARNs, use scoped `describe-standards` evidence; if live discovery is not
-authorized, leave those details unverified. Published standard documentation does
-not establish customer enablement.
+Do not rely on a static standards list in this reference. Use `describe-standards` output as the authoritative source for current names, versions, ARNs, and regional availability.
+
+Always use `describe-standards` to discover the current standards list before naming specific standard versions or ARNs.
 
 ## API Convention
 

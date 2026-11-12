@@ -84,9 +84,9 @@ LEVELS = ("TRACE", "TOOL_CALL", "SESSION")
 # All THREE apply independently and are enforced by TRUNCATING with a note in the receipt — never a
 # silent cap. `traces × evaluators` fans out into one evaluate call per pair, so a big matrix would
 # throttle and blow the timeout.
-MAX_TRACES = 50       # unique traces fetched per run
-MAX_EVALUATORS = 10   # distinct evaluators per run
-MAX_PAIRS = 100       # total (trace, evaluator) PAIRS per run
+MAX_TRACES = 50  # unique traces fetched per run
+MAX_EVALUATORS = 10  # distinct evaluators per run
+MAX_PAIRS = 100  # total (trace, evaluator) PAIRS per run
 # Hard ceiling on ac.evaluate() calls per run. TRACE/SESSION issue 1 call per pair (so MAX_PAIRS
 # bounds them), but TOOL_CALL chunks tool spans into ≤MAX_TARGET_IDS-id calls, so one pair can be
 # many calls — this bounds the total fan-out (throttle/timeout guard) regardless of level. This is
@@ -199,40 +199,38 @@ _DEFAULT_KIND = "UNSPECIFIED"
 # here will receive incomplete span context — extend _ATTR_COLS if that is the case.
 _ATTR_COLS = [
     # Span kind (agent framework conventions)
-    ("openinference.span.kind",      "oi_span_kind"),
-    ("aws.genai.span_kind",          "aws_genai_span_kind"),
-    ("gen_ai.operation.name",        "gen_ai_op_name"),
+    ("openinference.span.kind", "oi_span_kind"),
+    ("aws.genai.span_kind", "aws_genai_span_kind"),
+    ("gen_ai.operation.name", "gen_ai_op_name"),
     # Input / output (string-valued keys; structured-array keys like gen_ai.input.messages
     # are included as-is — evaluators that need them receive whatever value Omni stores)
-    ("input.value",                  "input_value"),
-    ("output.value",                 "output_value"),
-    ("gen_ai.input_value",           "gen_ai_input_value"),
-    ("gen_ai.output_value",          "gen_ai_output_value"),
-    ("gen_ai.input.messages",        "gen_ai_input_messages"),
-    ("gen_ai.output.messages",       "gen_ai_output_messages"),
-    ("llm.input_messages",           "llm_input_messages"),
-    ("llm.output_messages",          "llm_output_messages"),
+    ("input.value", "input_value"),
+    ("output.value", "output_value"),
+    ("gen_ai.input_value", "gen_ai_input_value"),
+    ("gen_ai.output_value", "gen_ai_output_value"),
+    ("gen_ai.input.messages", "gen_ai_input_messages"),
+    ("gen_ai.output.messages", "gen_ai_output_messages"),
+    ("llm.input_messages", "llm_input_messages"),
+    ("llm.output_messages", "llm_output_messages"),
     # Tool call
-    ("tool.name",                    "tool_name"),
-    ("gen_ai.tool.name",             "gen_ai_tool_name"),
-    ("gen_ai.tool.call.id",          "gen_ai_tool_call_id"),
+    ("tool.name", "tool_name"),
+    ("gen_ai.tool.name", "gen_ai_tool_name"),
+    ("gen_ai.tool.call.id", "gen_ai_tool_call_id"),
     # Session identity
-    ("session.id",                   "session_id_attr"),
+    ("session.id", "session_id_attr"),
     # LLM metadata
-    ("gen_ai.request.model",         "gen_ai_req_model"),
-    ("gen_ai.response.model",        "gen_ai_resp_model"),
-    ("gen_ai.system",                "gen_ai_system"),
+    ("gen_ai.request.model", "gen_ai_req_model"),
+    ("gen_ai.response.model", "gen_ai_resp_model"),
+    ("gen_ai.system", "gen_ai_system"),
     # Token counts
-    ("gen_ai.usage.input_tokens",    "usage_input_tokens"),
-    ("gen_ai.usage.output_tokens",   "usage_output_tokens"),
-    ("llm.token_count.prompt",       "prompt_tokens"),
-    ("llm.token_count.completion",   "completion_tokens"),
+    ("gen_ai.usage.input_tokens", "usage_input_tokens"),
+    ("gen_ai.usage.output_tokens", "usage_output_tokens"),
+    ("llm.token_count.prompt", "prompt_tokens"),
+    ("llm.token_count.completion", "completion_tokens"),
 ]
 
 # Pre-built SELECT fragment — one alias per attribute key.
-_ATTR_SELECT = ", ".join(
-    "attributes['%s'] AS %s" % (key, alias) for key, alias in _ATTR_COLS
-)
+_ATTR_SELECT = ", ".join("attributes['%s'] AS %s" % (key, alias) for key, alias in _ATTR_COLS)
 
 
 def _die(payload) -> NoReturn:
@@ -273,7 +271,7 @@ def _normalize_span_kind(value):
         upper = text.upper()
         for prefix in ("SPAN_KIND_", "SPANKIND."):
             if upper.startswith(prefix):
-                upper = upper[len(prefix):]
+                upper = upper[len(prefix) :]
                 break
         return upper if upper in _VALID_KINDS else _DEFAULT_KIND
     return _DEFAULT_KIND
@@ -311,6 +309,7 @@ def _row_to_span(row):
 
 # ---- span fetch via CloudWatch Omni SQL (traces.default) ----
 
+
 def _omni_query(omni, sql, soft=False):
     """Run an Omni SQL query and paginate to collect all rows.
 
@@ -331,9 +330,7 @@ def _omni_query(omni, sql, soft=False):
             _die({"error": msg})
 
         try:
-            qid = omni.start_telemetry_query(
-                sessionId=session_id, queryString=sql
-            )["queryId"]
+            qid = omni.start_telemetry_query(sessionId=session_id, queryString=sql)["queryId"]
         except (BotoCoreError, ClientError) as e:
             msg = "Omni start_telemetry_query failed: %s" % e
             if soft:
@@ -396,7 +393,7 @@ def _resolve_session_id(omni, trace_id, window_days):
     """Find the trace's session.id via Omni SQL, or None. Non-fatal on failure."""
     sql = (
         "SELECT attributes['session.id'] AS session_id "
-        "FROM \"traces.default\" "
+        'FROM "traces.default" '
         "WHERE traceId = '%s' "
         "AND attributes['session.id'] IS NOT NULL "
         "AND \"@timestamp\" BETWEEN NOW() - INTERVAL '%d days' AND NOW() "
@@ -423,9 +420,7 @@ def _fetch_spans(omni, filter_clause, window_days, soft=False):
         "startTimeUnixNano, endTimeUnixNano, "
         "resource['attributes']['service.name'] AS svc_name, "
         "scope['name'] AS scope_name, "
-        "status['code'] AS status_code, "
-        + _ATTR_SELECT
-        + " FROM \"traces.default\" "
+        "status['code'] AS status_code, " + _ATTR_SELECT + ' FROM "traces.default" '
         "WHERE %s "
         "AND \"@timestamp\" BETWEEN NOW() - INTERVAL '%d days' AND NOW() "
         "ORDER BY startTimeUnixNano ASC "
@@ -694,7 +689,7 @@ def _score_pair(ac, tid, spans, evaluator_id, level, max_calls, include_explanat
                 {
                     "evaluatorId": evaluator_id,
                     "evaluationInput": evaluation_input,
-                    "evaluationTarget": {"spanIds": span_ids[i: i + MAX_TARGET_IDS]},
+                    "evaluationTarget": {"spanIds": span_ids[i : i + MAX_TARGET_IDS]},
                 }
             )
         if len(calls) > max_calls:
@@ -801,12 +796,9 @@ def _run(args):
         Exception
     ) as e:  # noqa: BLE001 — e.g. UnknownServiceError on a boto3 too old for this service
         _die(
-            {
-                "error": "could not create a cloudwatchomni client (is boto3 recent enough?): %s"
-                % e
-            }
+            {"error": "could not create a cloudwatchomni client (is boto3 recent enough?): %s" % e}
         )
-    logs = session.client("logs")             # writeback only (put_log_events)
+    logs = session.client("logs")  # writeback only (put_log_events)
     try:
         ac = session.client(EVALUATE_SERVICE)
     except (

@@ -1,9 +1,8 @@
 # CloudWatch Alarms
 
-Configure and manage CloudWatch alarms including metric, composite, and anomaly detection types with evaluation mechanics and recommended defaults.
+Configure and manage CloudWatch alarms including metric, PromQL, composite, and anomaly detection types with evaluation mechanics and recommended defaults.
 
 ## Contents
-
 - [Alarm types](#alarm-types)
 - [Missing data treatment](#missing-data-treatment)
 - [Evaluation mechanics](#evaluation-mechanics)
@@ -43,7 +42,13 @@ Combines states of other alarms with Boolean logic.
 - **Action suppression**: `ActionsSuppressor` alarm can suppress composite alarm actions during known events (deployments, maintenance)
 
 ### PromQL Alarm (OpenTelemetry metrics)
-Monitors OTel metrics using PromQL instant queries with duration-based pending/recovery periods. Use for metrics sent via OTLP (150 labels, 30-day retention).
+Monitors OTel metrics ingested over OTLP ([otel-metrics.md](otel-metrics.md)) with a PromQL instant query; confirm in the "PromQL alarms" documentation before alarming on OTel-enriched vended metrics. It is a CloudWatch alarm, not an Omni **alert**.
+
+- **Write the threshold into the expression** (`... > <threshold>`): the alarm counts each series the query returns as a breach. An Omni alert is the other way round — its threshold is a separate field.
+- **Contributors.** Each returned series is tracked as its own contributor, identified by its labels, so one alarm watches a whole fleet.
+- **Duration-based state, not M-of-N** — pending and recovery periods per contributor, the counterparts of Prometheus `for` and `keep_firing_for` (details in "PromQL alarms").
+- **Write the query by [promql.md](promql.md)'s rules** — a `rate()` over a delta Sum alarms on a wrong number. Anomaly bands are written in PromQL itself (`quantile_over_time` / `stddev_over_time`); `ANOMALY_DETECTION_BAND` is classic metric math.
+- **Request shape** (`PutMetricAlarm`): `--evaluation-criteria 'PromQLCriteria={Query=<expr with threshold>,PendingPeriod=<s>,RecoveryPeriod=<s>}'` plus `--evaluation-interval <s>`; no `--threshold`, `--comparison-operator`, `--metric-name` or `--evaluation-periods`, and `--treat-missing-data` does not apply. Confirm against the "PromQL alarms" documentation.
 
 ---
 
@@ -71,13 +76,11 @@ With `treatMissingData=missing`, the pattern M, M, B, M, M can trigger ALARM eve
 ## Evaluation mechanics
 
 ### Three core settings
-
 1. **Period** — seconds per data point aggregation (valid: 10, 20, 30, or any multiple of 60)
 2. **Evaluation Periods** (N) — number of most recent periods to evaluate
 3. **Datapoints to Alarm** (M) — how many of N must breach
 
 ### Evaluation frequency
-
 - Period ≥ 1 min → evaluated **every minute**
 - Period = 10s/20s/30s → evaluated **every 10 seconds**
 - If `EvaluationPeriods × Period > 1 day` → evaluated **once per hour**
@@ -87,13 +90,11 @@ With `treatMissingData=missing`, the pattern M, M, B, M, M can trigger ALARM eve
 CloudWatch fetches more data points than the configured Evaluation Periods — the actual lookback window is wider than expected.
 
 **Example**: Alarm with 1-day period, 1 evaluation period, `treatMissingData=breaching`:
-
 - You expect it to fire after 1 day of no data
 - CloudWatch actually looks back **~3 days** before firing
 - Dead man switch alarms fire **later than expected** due to hourly evaluation
 
 ### Evaluation period quotas
-
 - Period ≥ 1 hour → max evaluation window: **7 days**
 - Period < 1 hour → max evaluation window: **1 day**
 
@@ -102,13 +103,11 @@ CloudWatch fetches more data points than the configured Evaluation Periods — t
 ## Composite alarms
 
 ### When to use
-
 - Reduce alert fatigue: only page when BOTH high CPU AND high error rate
 - Service-level health: aggregate per-resource alarms into one service alarm
 - Suppress during deployments: use `ActionsSuppressor` to mute during known events
 
 ### Rule expression syntax
-
 ```
 ALARM("error-rate-alarm") AND ALARM("latency-alarm")
 ALARM("error-rate-alarm") OR ALARM("throttle-alarm")
@@ -118,7 +117,6 @@ AT_LEAST(50%, ALARM, (a1, a2, a3, a4))
 ```
 
 ### Limitations
-
 - **Cannot** perform EC2 actions (stop, terminate, reboot, recover)
 - **Cannot** perform Auto Scaling actions
 - Composite and all underlying alarms must be in the **same account and Region** (underlying alarms must be same account + Region; monitoring accounts via OAM can watch source account metrics)
@@ -179,7 +177,6 @@ AT_LEAST(50%, ALARM, (a1, a2, a3, a4))
 **Note**: Alarm on error **rate** (percentage via math expression), not raw error count. Raw counts trigger on a single error even during 10,000 successful invocations.
 
 For CLI:
-
 ```bash
 aws cloudwatch put-metric-alarm --alarm-name MyFunc-ErrorRate \
   --metrics '[
@@ -193,7 +190,6 @@ aws cloudwatch put-metric-alarm --alarm-name MyFunc-ErrorRate \
 ```
 
 For CDK:
-
 ```typescript
 import { Alarm, ComparisonOperator, MathExpression, TreatMissingData } from 'aws-cdk-lib/aws-cloudwatch';
 import { Duration } from 'aws-cdk-lib';
@@ -215,7 +211,6 @@ const errorRateAlarm = new Alarm(this, 'ErrorRateAlarm', {
 ```
 
 ### Duration/latency alarm (use p99, never Average)
-
 ```typescript
 const durationAlarm = new Alarm(this, 'DurationP99Alarm', {
   metric: fn.metricDuration({ statistic: 'p99', period: Duration.minutes(1) }),
@@ -228,7 +223,6 @@ const durationAlarm = new Alarm(this, 'DurationP99Alarm', {
 ```
 
 For CLI:
-
 ```bash
 aws cloudwatch put-metric-alarm --alarm-name MyFunc-Duration-P99 \
   --namespace AWS/Lambda --metric-name Duration \
@@ -240,7 +234,6 @@ aws cloudwatch put-metric-alarm --alarm-name MyFunc-Duration-P99 \
 ```
 
 ### Composite alarm
-
 ```typescript
 import { CompositeAlarm, AlarmRule, AlarmState } from 'aws-cdk-lib/aws-cloudwatch';
 
@@ -254,7 +247,6 @@ const serviceHealthAlarm = new CompositeAlarm(this, 'ServiceHealth', {
 ```
 
 ### Anomaly detection alarm (CloudFormation)
-
 ```yaml
 Resources:
   AnomalyDetector:

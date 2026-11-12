@@ -3,10 +3,10 @@
 Using CloudTrail for operational debugging: who changed what, when. Not for security threat detection.
 
 ## Contents
-
 - [Event types](#event-types)
 - [Event history](#event-history)
 - [Common operational queries](#common-operational-queries)
+- [Auditing CloudWatch's own data plane](#auditing-cloudwatchs-own-data-plane)
 - [Querying CloudTrail logs](#querying-cloudtrail-logs)
 - [CloudTrail → CloudWatch integration](#cloudtrail--cloudwatch-integration)
 
@@ -32,7 +32,6 @@ Using CloudTrail for operational debugging: who changed what, when. Not for secu
 - Cannot view data events, Insights events, or network activity events
 
 ### Common lookups
-
 ```bash
 # Who deleted an S3 bucket?
 aws cloudtrail lookup-events \
@@ -53,18 +52,15 @@ aws cloudtrail lookup-events \
 ## Common operational queries
 
 ### "Who deleted my resource?"
-
 1. Check Event History (90 days) for `Delete*` events
 2. Filter by resource name or resource type
 3. Look at `userIdentity.arn` for the actor and `sourceIPAddress` for origin
 
 ### "Who changed this configuration?"
-
 1. Search for `Update*`, `Modify*`, `Put*` events on the resource
 2. Compare `requestParameters` across events to see what changed
 
 ### "What happened during the incident?"
-
 1. Filter by time range of the incident
 2. Look for `errorCode` fields (AccessDenied, ThrottlingException)
 3. Correlate with CloudWatch metrics/logs for the same time window
@@ -109,6 +105,30 @@ aws cloudtrail put-event-selectors --trail-name my-trail \
 
 ---
 
+## Auditing CloudWatch's own data plane
+
+Metric publishing and metric queries are CloudWatch **data events**, so they only appear in a
+trail or event data store that logs data events for the matching resource type (use the
+merge-first selector procedure above). Choose by resource type rather than event name — one
+event name shows up under both:
+
+| `resources.type` | Records |
+|---|---|
+| `AWS::CloudWatch::Metric` | Classic metric APIs — `PutMetricData` (SDK and CLI calls), `GetMetricData`, `GetMetricStatistics`, `ListMetrics`, `GetMetricWidgetImage` |
+| `AWS::CloudWatch::Dataset` | OpenTelemetry metrics — OTLP ingestion to `monitoring.<region>.amazonaws.com/v1/metrics`, recorded as `PutMetricData` (`readOnly: false`) with the dataset ARN; and PromQL queries, recorded as `QueryMetrics` (`/api/v1/query`, `/api/v1/query_range`), `GetSeries` (`/api/v1/series`), and `GetLabels` (`/api/v1/labels`, `/api/v1/label/<name>/values`), all `readOnly: true` |
+
+- A trail that selects only `AWS::CloudWatch::Metric` misses all OTLP ingestion and every
+  PromQL query.
+- To tell an OTLP ingestion `PutMetricData` from a classic one in queried logs, read
+  `additionalEventData.protocol` (`OTLP`); for PromQL events, `requestParameters.path` names
+  the endpoint called.
+- Filter on `readOnly` within `AWS::CloudWatch::Dataset` to log only ingestion (`false`) or
+  only queries (`true`).
+- Bearer-token (API key) senders appear under the IAM user that owns the key.
+- Data events never appear in CloudTrail Event history (`lookup-events`): say so, and read them from the trail's S3 logs or a CloudTrail Lake event data store.
+
+---
+
 ## Querying CloudTrail logs
 
 ### Recommended: Trail → S3 → Athena
@@ -131,7 +151,6 @@ This is the long-term supported approach — works with standard SQL, scales to 
 ## CloudTrail → CloudWatch integration
 
 ### Alert on specific API calls
-
 ```
 CloudTrail → Trail → CloudWatch Logs → Metric Filter → CloudWatch Alarm → SNS
 ```
@@ -142,7 +161,6 @@ CloudTrail → Trail → CloudWatch Logs → Metric Filter → CloudWatch Alarm 
 4. Configure SNS notification
 
 ### Event selectors
-
 - **Basic**: simple include/exclude for management and data events
 - **Advanced**: fine-grained filtering by event source, resource type, resource ARN
 - Exclude high-volume management event sources on trails: AWS KMS, RDS Data API

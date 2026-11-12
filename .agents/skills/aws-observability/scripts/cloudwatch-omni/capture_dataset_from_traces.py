@@ -42,6 +42,7 @@ Examples:
   python capture_dataset_from_traces.py --mode add --dataset-id my_ds-AbC123 \
       --trace-ids 6a81... --i-have-confirmed
 """
+
 from __future__ import annotations
 
 import argparse
@@ -237,7 +238,10 @@ def invalid(example, schema_type=PREDEFINED_SCHEMA):
     # The service rejects the WHOLE batch if any single example exceeds 1 MB serialized.
     size = len(json.dumps(example, default=str).encode("utf-8"))
     if size > MAX_EXAMPLE_BYTES:
-        return "example serializes to %d bytes; the service caps one example at %d bytes" % (size, MAX_EXAMPLE_BYTES)
+        return "example serializes to %d bytes; the service caps one example at %d bytes" % (
+            size,
+            MAX_EXAMPLE_BYTES,
+        )
     return None
 
 
@@ -264,7 +268,7 @@ def fetch_spans_by_trace(omni, trace_ids, window_days):
         "attributes['gen_ai.input_value'] AS gen_ai_input_value, "
         "attributes['gen_ai.output_value'] AS gen_ai_output_value, "
         "attributes['session.id'] AS session_id_attr "
-        "FROM \"traces.default\" "
+        'FROM "traces.default" '
         "WHERE traceId IN (%s) "
         "AND \"@timestamp\" BETWEEN NOW() - INTERVAL '%d days' AND NOW() "
         "ORDER BY traceId ASC, startTimeUnixNano ASC "
@@ -277,16 +281,14 @@ def fetch_spans_by_trace(omni, trace_ids, window_days):
     session_id = None
     try:
         try:
-            session_id = omni.start_telemetry_query_session(
-                sessionName="capture-dataset"
-            )["sessionId"]
+            session_id = omni.start_telemetry_query_session(sessionName="capture-dataset")[
+                "sessionId"
+            ]
         except (BotoCoreError, ClientError) as e:
             _die({"error": "Omni start_telemetry_query_session failed: %s" % e})
 
         try:
-            qid = omni.start_telemetry_query(
-                sessionId=session_id, queryString=sql
-            )["queryId"]
+            qid = omni.start_telemetry_query(sessionId=session_id, queryString=sql)["queryId"]
         except (BotoCoreError, ClientError) as e:
             _die({"error": "Omni start_telemetry_query failed: %s" % e})
 
@@ -380,7 +382,9 @@ def _error(e):
 
 def _is_no_route(e):
     err = _error(e)
-    return err.get("Code") == NO_ROUTE_CODE and (err.get("Message") or "").strip() == NO_ROUTE_MESSAGE
+    return (
+        err.get("Code") == NO_ROUTE_CODE and (err.get("Message") or "").strip() == NO_ROUTE_MESSAGE
+    )
 
 
 def _sdk_operation(client, operation):
@@ -495,17 +499,23 @@ def _resolve_dataset_id(lister, id_or_name):
             resp = lister.list_datasets(**({"nextToken": token} if token else {}))
         except _ListFormChanged:
             if restarted:
-                _die({"error": "list_datasets kept switching between POST and GET mid-listing; "
-                      "re-run, or pass the dataset id with --dataset-id to skip the list."})
+                _die(
+                    {
+                        "error": "list_datasets kept switching between POST and GET mid-listing; "
+                        "re-run, or pass the dataset id with --dataset-id to skip the list."
+                    }
+                )
             token, restarted = None, True
             continue
         except (BotoCoreError, ClientError) as e:
-            _die({
-                "error": "list_datasets failed: %s" % e,
-                "hint": "If this is AccessDeniedException with 'Unable to determine "
-                "service/operation name to be authorized', the region is mid-rollout of the "
-                "dataset API; re-run, or pass the dataset id with --dataset-id to skip the list.",
-            })
+            _die(
+                {
+                    "error": "list_datasets failed: %s" % e,
+                    "hint": "If this is AccessDeniedException with 'Unable to determine "
+                    "service/operation name to be authorized', the region is mid-rollout of the "
+                    "dataset API; re-run, or pass the dataset id with --dataset-id to skip the list.",
+                }
+            )
         for d in resp.get("datasets", []):
             if d.get("datasetId") == id_or_name or d.get("datasetName") == id_or_name:
                 return d.get("datasetId")
@@ -519,14 +529,19 @@ def _get_dataset(ctl, dataset_id, missing_ok=False):
     try:
         return ctl.get_dataset(datasetId=dataset_id)
     except (BotoCoreError, ClientError) as e:
-        if missing_ok and _error(e).get("Code") in ("ResourceNotFoundException", "ValidationException"):
+        if missing_ok and _error(e).get("Code") in (
+            "ResourceNotFoundException",
+            "ValidationException",
+        ):
             return None
-        _die({
-            "error": "get_dataset failed for %s: %s. --mode add must read the dataset (its example "
-            "count, and the schemaType of a dataset that still declares one) before building "
-            "examples, so this lookup cannot be skipped -- grant bedrock-agentcore-control "
-            "GetDataset on this dataset and re-run." % (dataset_id, e)
-        })
+        _die(
+            {
+                "error": "get_dataset failed for %s: %s. --mode add must read the dataset (its example "
+                "count, and the schemaType of a dataset that still declares one) before building "
+                "examples, so this lookup cannot be skipped -- grant bedrock-agentcore-control "
+                "GetDataset on this dataset and re-run." % (dataset_id, e)
+            }
+        )
 
 
 def _schema_and_count(dataset_id, resp):
@@ -539,13 +554,14 @@ def _schema_and_count(dataset_id, resp):
     """
     schema = resp.get("schemaType") or None
     if schema is not None and schema not in ADD_SCHEMAS:
-        _die({
-            "error": "dataset %s declares schemaType %r; this helper can only build %s examples "
-            "from traces. Add to a dataset declaring one of those or no type at all, or create a "
-            "new one with --mode create."
-            % (dataset_id, schema, " or ".join(ADD_SCHEMAS)),
-            "schemaType": schema,
-        })
+        _die(
+            {
+                "error": "dataset %s declares schemaType %r; this helper can only build %s examples "
+                "from traces. Add to a dataset declaring one of those or no type at all, or create a "
+                "new one with --mode create." % (dataset_id, schema, " or ".join(ADD_SCHEMAS)),
+                "schemaType": schema,
+            }
+        )
     count = resp.get("exampleCount")
     return schema, (count if isinstance(count, int) else None)
 
@@ -594,12 +610,14 @@ def main():
     # helper cannot verify that confirmation happened; it only guarantees that an unflagged
     # run exits non-zero having touched no AWS API.
     if not args.i_have_confirmed:
-        _die({
-            "error": "refusing to write: creating/extending a dataset is a real resource write. "
-            "Confirm with the user first, then re-run with --i-have-confirmed. Do not pass the "
-            "flag on a request that has not been confirmed.",
-            "confirmationRequired": True,
-        })
+        _die(
+            {
+                "error": "refusing to write: creating/extending a dataset is a real resource write. "
+                "Confirm with the user first, then re-run with --i-have-confirmed. Do not pass the "
+                "flag on a request that has not been confirmed.",
+                "confirmationRequired": True,
+            }
+        )
 
     if args.mode == "create" and not args.dataset_name:
         _die({"error": "--dataset-name is required for --mode create"})
@@ -709,12 +727,15 @@ def main():
         }
     else:
         if existing is not None and existing + len(examples) > MAX_DATASET_EXAMPLES:
-            _die({
-                "error": "dataset %s already holds %d examples; adding %d would exceed the service cap of %d "
-                "examples per dataset (the write would fail with 402 ServiceQuotaExceededException). "
-                "Create a new dataset (--mode create) for the remainder." % (dsid, existing, len(examples), MAX_DATASET_EXAMPLES),
-                "conversionErrors": conversion_errors,
-            })
+            _die(
+                {
+                    "error": "dataset %s already holds %d examples; adding %d would exceed the service cap of %d "
+                    "examples per dataset (the write would fail with 402 ServiceQuotaExceededException). "
+                    "Create a new dataset (--mode create) for the remainder."
+                    % (dsid, existing, len(examples), MAX_DATASET_EXAMPLES),
+                    "conversionErrors": conversion_errors,
+                }
+            )
         try:
             resp = ctl.add_dataset_examples(datasetId=dsid, source=source, clientToken=str(uuid4()))
         except (BotoCoreError, ClientError) as e:

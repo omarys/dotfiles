@@ -88,18 +88,14 @@ Before constructing the Autopilot command, attempt to discover the AWS account I
 
 1. **User-provided values** — If the user specified an account ID or region in their prompt, use those directly.
 2. **Environment variables** — Check for `AWS_ACCOUNT_ID`, `AWS_DEFAULT_REGION`, or `AWS_REGION`:
-
    ```bash
    echo "Account: ${AWS_ACCOUNT_ID:-not set}" && echo "Region: ${AWS_REGION:-${AWS_DEFAULT_REGION:-not set}}"
    ```
-
 3. **AWS CLI / STS** — If AWS credentials are configured, query STS:
-
    ```bash
    aws sts get-caller-identity --query Account --output text
    aws configure get region
    ```
-
 4. **Project configuration files** — Look for account/region in common locations:
    - `terraform.tfvars`, `*.tf` files (look for `region` or `account_id` variables)
    - `cdk.json` or `cdk.context.json`

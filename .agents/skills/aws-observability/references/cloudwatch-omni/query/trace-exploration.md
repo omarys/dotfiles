@@ -45,7 +45,11 @@ A tool span is any span whose role attribute says TOOL (`openinference.span.kind
 `aws.genai.span_kind` = `'TOOL'`) or whose `gen_ai.operation.name` is `'execute_tool'`; when
 the agent's family is not yet known, match all three. Token counts may be ingested as
 strings — `TRY_CAST(... AS BIGINT)` before summing. Report a span that has no input, output
-or token attribute as having none; never fill one in.
+or token attribute as having none; never fill one in. Spans or GenAI attributes missing
+after instrumenting (no message content, only HTTP spans, no token counts) is an
+instrumentation question: load `setting-up-cloudwatch-observability` →
+`references/cloudwatch-omni/omni-agents-instrumentation/` before concluding the content is
+lost.
 
 ---
 
@@ -245,7 +249,7 @@ matching trace is.
 >
 > Close every answer in this section (several tool calls, a repeated tool, failed tool calls,
 > slowest traces) with both of these, even when no query could run: **the result line** —
-> `N traces matched: <ids>`, or `none matched in <window>; widened to <wider window>: <result>`,
+> "N traces matched: <ids>", or "none matched in <window>; widened to <wider window>: <result>",
 > or, when the query has not run, exactly what that line will report, including the wider
 > window you will try if nothing matches — and **the offer** —
 > save the matching traces as an evaluation dataset, or score them, on the user's go-ahead.

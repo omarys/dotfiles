@@ -13,8 +13,7 @@ description: >-
   application source code or a Terraform plan JSON, working with STS, Organizations,
   or condition operators, or any task needing a service or execution role. Does not
   cover non-IAM authorization like Cognito user-pool policies or app-level RBAC.
-metadata:
-  version: "3"
+version: 3
 ---
 
 # AWS IAM — Common Pitfalls
@@ -66,7 +65,6 @@ Use the best available tool for AWS operations — the AWS MCP server is recomme
 **Policy Evaluation:**
 
 - ForAllValues with empty/missing key: evaluates to true (vacuous truth). To avoid that, use a `Null` condition in addition to the `ForAllValues` on **the same context key** to require that key to be present and non-null. For example, when evaluating the `aws:TagKeys` context key:
-
   ```json
   {
     "Version": "2012-10-17",
@@ -85,7 +83,6 @@ Use the best available tool for AWS operations — the AWS MCP server is recomme
     }
   }
   ```
-
 - `aws:TagKeys` values are case-sensitive, but the tag key in `aws:PrincipalTag/<key>`, `aws:ResourceTag/<key>`, and `aws:RequestTag/<key>` is not. The Allow allowlist above is unaffected (a re-cased key is simply not in the list), but a Deny that protects a tag key with `ForAnyValue:StringEquals` on `aws:TagKeys` is bypassed by a re-cased key (`PROTECTED-TAG`) — use `ForAnyValue:StringEqualsIgnoreCase`. See [references/common-pitfalls.md](references/common-pitfalls.md).
 - Resource-based policies granting to IAM user ARN bypass permissions boundaries in same account.
 - 8 privilege escalation actions via direct IAM policy manipulation: PutGroupPolicy, PutRolePolicy, PutUserPolicy, CreatePolicy, CreatePolicyVersion, AttachGroupPolicy, AttachRolePolicy, AttachUserPolicy.

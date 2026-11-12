@@ -39,7 +39,6 @@ Do not skip role creation by referencing "pre-existing roles" unless the user ex
    - Include `aws:SourceAccount` with the full account ID.
    - Include `aws:SourceArn` and `aws:SourceAccount` conditions when the assuming service supports them — most major services do, including Glue, CloudTrail, Firehose, Lambda, S3 replication, DataSync, and VPC Flow Logs. Check service documentation if unsure which condition keys a specific service populates.
    - Example:
-
      ```json
      {
        "Version": "2012-10-17",
@@ -50,15 +49,12 @@ Do not skip role creation by referencing "pre-existing roles" unless the user ex
            "Action": "sts:AssumeRole",
            "Condition": {
              "StringEquals": { "aws:SourceAccount": "123456789012" },
-             "ArnLike": {
-               "aws:SourceArn": "arn:aws:glue:us-east-1:123456789012:crawler/my-crawler"
-             }
+             "ArnLike": { "aws:SourceArn": "arn:aws:glue:us-east-1:123456789012:crawler/my-crawler" }
            }
          }
        ]
      }
      ```
-
 3. The trust policy goes in `AssumeRolePolicyDocument`, not in the permissions policy.
 
 ### Permissions policy
@@ -79,7 +75,7 @@ When updating a resource that has an associated service role:
 
 1. Read the existing role's trust policy, permissions policy, and tags
 2. If tags indicate the role is managed by an external tool (e.g., `aws:cloudformation:stack-name`, `managed-by: terraform`), flag this to the user before proceeding
-3. **If the trust policy lacks `aws:SourceArn` and `aws:SourceAccount` conditions, add them** — this is required, not optional. Follow the confused deputy guidance from the Create section. Use the specific resource ARN from the task context.
+3. **If the trust policy lacks `aws:SourceArn` and `aws:SourceAccount` conditions and the assuming service supports them, add them** — this is required, not optional. Follow the confused deputy guidance from the Create section. Use the specific resource ARN from the task context.
 4. Update the permissions policy to cover the new activity — prefer extending the existing role over creating a new one when the trust principal is unchanged
 5. If existing permissions are broader than needed after the update, offer to scope them down
 

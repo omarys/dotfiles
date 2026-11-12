@@ -3,7 +3,6 @@
 Widget types, cross-account/region patterns, dynamic labels, and recommended defaults.
 
 ## Contents
-
 - [Widget types](#widget-types)
 - [Cross-account and cross-region](#cross-account-and-cross-region)
 - [Dynamic labels](#dynamic-labels)
@@ -29,20 +28,30 @@ Widget types, cross-account/region patterns, dynamic labels, and recommended def
 | **Logs table** | Log Insights query results inline |
 | **Alarm status** | Alarm state visualization |
 | **Markdown** | Free-form text, links, section headers |
+| **PromQL** (`"type": "chart"`) | OTel metrics — build the query in Query Studio, then **Add to dashboard**, or write the widget yourself (below); signals and query spelling per [promql.md](promql.md) |
+
+A PromQL widget in `PutDashboard` is `"type": "chart"` (not `metric`, whose `metrics` array cannot carry PromQL text):
+
+```json
+{"type": "chart",
+ "properties": {"view": "line", "title": "p99 Lambda Duration", "region": "us-east-1",
+  "data": {"queries": [{"id": "q1", "type": "cloudwatch-metrics", "language": "PromQL", "step": 300,
+   "query": "histogram_quantile(0.99, sum by (FunctionName) (sum_over_time({__name__=\"Duration\", \"@instrumentation.@name\"=\"cloudwatch.aws/lambda\"}[5m])))"}]}}}
+```
+
+`view` is one of `line`, `bar`, `column`, `pie`, `number`, `solidgauge`, `legend`, `histogram`, `heatmap`, `scatter`; each query may also set `label`, `region`, `accountId` and `visible` ("Dashboard Body Structure and Syntax", chart widget). `PutDashboard` ignores `x`, `y`, `width` and `height` on a chart widget (a validation message, not an error), so the console places it.
 
 ---
 
 ## Cross-account and cross-region
 
 ### Prerequisites
-
 - CloudWatch Observability Access Manager (OAM) configured
 - Monitoring account + source account links established
 - IAM roles for cross-account access
 
 ### Dashboard body JSON
 Each widget supports `accountId` and `region` parameters:
-
 ```json
 {
   "type": "metric",
@@ -55,7 +64,6 @@ Each widget supports `accountId` and `region` parameters:
 ```
 
 ### Limitations
-
 - Search expressions operate within the widget's configured region (set `region` per widget for cross-region search)
 - Cross-account composite alarms are not supported. However, with OAM, metric alarms in a monitoring account can watch metrics from source accounts.
 - Cross-account alarms do NOT support ANOMALY_DETECTION_BAND, INSIGHT_RULE, or SERVICE_QUOTA functions
@@ -89,7 +97,6 @@ Max 6 dynamic values per label. `${LABEL}` can only be used once per label.
 Variables add dropdown/radio/text inputs that dynamically filter all widgets on a dashboard. Up to 25 variables per dashboard.
 
 Two types:
-
 - **Property variables**: Populate from CloudWatch dimension values (e.g., all `FunctionName` values in `AWS/Lambda`)
 - **Pattern variables**: Free-text input matched against metric patterns
 
@@ -112,12 +119,11 @@ Shared dashboard viewers cannot change variable values — the dashboard renders
 | Setting | Default | Best practice |
 |---------|----------|------------|
 | `start` | `-PT3H` | **`-PT8H`** (covers a shift) |
-| `periodOverride` | AUTO | **`INHERIT`** (let widgets control) |
+| `periodOverride` | `auto` | **`inherit`** (lowercase in JSON; `INHERIT` is rejected) |
 | Layout width | varies | **24** for full-width, **12** for side-by-side |
 | Alarm widgets | none | **Always include** alarm status row at top |
 
 ### Dashboard structure pattern
-
 1. **Row 1**: Markdown header + alarm status widgets (24-wide)
 2. **Row 2**: Key business metrics (Number widgets, 6-wide each)
 3. **Row 3**: Request/error rate graphs (Line widgets, 12-wide)
@@ -125,13 +131,11 @@ Shared dashboard viewers cannot change variable values — the dashboard renders
 5. **Row 5**: Log Insights query results (Logs table, 24-wide)
 
 ### Sharing
-
 - Share publicly or with specific email addresses via Amazon Cognito
 - Shared dashboards accessible via URL without AWS console login
 - Check the [CloudWatch pricing page](https://aws.amazon.com/cloudwatch/pricing/) for current dashboard costs
 
 ### API limits
-
 - PutDashboard, GetDashboard, ListDashboards, DeleteDashboards: all 10 TPS (adjustable)
 
 ---
@@ -139,7 +143,6 @@ Shared dashboard viewers cannot change variable values — the dashboard renders
 ## CDK patterns
 
 ### Dashboard with alarm and graph widgets
-
 ```typescript
 import { Dashboard, AlarmWidget, GraphWidget, TextWidget, PeriodOverride } from 'aws-cdk-lib/aws-cloudwatch';
 

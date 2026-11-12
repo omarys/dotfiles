@@ -1,6 +1,6 @@
 {
   "theme": "dark",
-  "lastChangelogVersion": "1.5.0",
+  "lastChangelogVersion": "1.5.2",
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
@@ -154,8 +154,8 @@
     "{\"source\":\"npm:pi-rtk-optimizer\",\"scope\":\"user\"}": "0.9.0",
     "{\"source\":\"npm:pi-mcp-adapter\",\"scope\":\"user\"}": "7.0.1",
     "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.47.0",
-    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.87.0",
-    "{\"source\":\"npm:pi-open-tui\",\"scope\":\"user\"}": "0.4.4",
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.88.0",
+    "{\"source\":\"npm:pi-open-tui\",\"scope\":\"user\"}": "0.4.5",
     "{\"source\":\"npm:opensec-pi-subagents@0.20.9\",\"scope\":\"user\"}": "0.20.9",
     "{\"source\":\"npm:pi-rtk-optimizer\",\"scope\":\"project\"}": "0.9.0",
     "{\"source\":\"npm:opensec-pi-subagents@0.20.9\",\"scope\":\"project\"}": "0.20.9"

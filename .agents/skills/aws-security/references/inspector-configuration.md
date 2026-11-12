@@ -6,15 +6,6 @@ Assesses Amazon Inspector configuration completeness by checking scan type enabl
 
 Works from both standalone accounts and delegated administrator accounts.
 
-**A complete Inspector configuration review MUST cover all of these — do not stop early:**
-
-1. Scan-type enablement — `batch-get-account-status` (report every scan type as ENABLED/DISABLED/SUSPENDED exactly as returned)
-2. Coverage statistics and unscanned resources — `list-coverage-statistics`, `list-coverage`
-3. Suppression rules — `list-filters`
-4. Organization member status and delegated admin — `list-delegated-admin-accounts`, `describe-organization-configuration` (org auto-enable), `list-members`
-
-Report a status for each; if a check could not run (access denied), mark it UNKNOWN rather than omitting it.
-
 ## Classify the Request
 
 | User intent | Workflow |
@@ -72,7 +63,7 @@ Report a status for each; if a check could not run (access denied), mark it UNKN
 
    | Check | Status |
    |---|---|
-   | Each scan type from API response | ENABLED / DISABLED / SUSPENDED (report the exact status string the API returns, in uppercase) |
+   | Each scan type from API response | Enabled / Disabled / Suspended |
    | EC2 deep inspection configured | Configured / Not Configured |
    | CIS benchmarks configured | Configured / Not Configured |
    | Coverage status (inactive resources) | None / Count |
@@ -89,10 +80,10 @@ Report a status for each; if a check could not run (access denied), mark it UNKN
 2. Check organization configuration:
 
    ```bash
-   aws inspector2 describe-organization-configuration
+   aws inspector2 get-configuration
    ```
 
-   Report the `autoEnable` value for ALL scan types it returns. (`get-configuration` returns the EC2 scan mode and ECR rescan duration, not auto-enable.)
+   Report ALL scan types and their auto-enable status.
 
    > For organization-level Inspector policies (INSPECTOR_POLICY), see `references/organization-policies.md`.
 
@@ -105,7 +96,7 @@ Report a status for each; if a check could not run (access denied), mark it UNKN
 4. (ONLY if user explicitly requests per-account detail):
 
    ```bash
-   aws inspector2 list-members --no-only-associated
+   aws inspector2 list-members
    aws inspector2 batch-get-account-status --account-ids <ACCOUNT_IDS>
    ```
 

@@ -1,9 +1,17 @@
-# CloudWatch Custom Metrics
+# CloudWatch Classic Metrics
 
-Publishing, querying, and managing custom metrics — EMF, PutMetricData, metric filters, and retention.
+Publishing, querying, and managing **classic** custom metrics — namespaces and dimensions, EMF,
+PutMetricData, metric filters, metric math, and retention.
+
+CloudWatch also has an **OpenTelemetry metric model** — OTLP ingestion, OTel attributes as
+labels, queried with PromQL — which is the AWS-recommended path for new custom metrics.
+Choosing between the two, ingestion, and enrichment of vended metrics are in
+[otel-metrics.md](otel-metrics.md); querying is in [promql.md](promql.md).
+PromQL does not read the classic metrics described here, and `GetMetricData` is not how to
+read an OTel metric. OTLP-ingested metrics, span-derived metrics and OTel-enriched vended
+metrics (the full set an Omni Space shows) are read with a PromQL query per [promql.md](promql.md).
 
 ## Contents
-
 - [EMF vs PutMetricData](#emf-vs-putmetricdata)
 - [Embedded Metric Format (EMF)](#embedded-metric-format-emf)
 - [PutMetricData API](#putmetricdata-api)
@@ -33,7 +41,6 @@ Publishing, querying, and managing custom metrics — EMF, PutMetricData, metric
 ## Embedded Metric Format (EMF)
 
 ### JSON structure
-
 ```json
 {
   "_aws": {
@@ -56,7 +63,6 @@ Publishing, querying, and managing custom metrics — EMF, PutMetricData, metric
 ```
 
 ### EMF limits
-
 - Max **100 metrics** per MetricDirective
 - Max **30 dimensions** per DimensionSet (may be empty)
 - Dimension value: max **1024 characters**, must be string
@@ -74,7 +80,6 @@ For Lambda/containers, use a library that handles EMF serialization (e.g., Lambd
 ## PutMetricData API
 
 ### Limits
-
 - **500 TPS** per account per region (adjustable via Service Quotas) — NOT 150 TPS
 - Up to **1,000 MetricDatum** items per request
 - Up to **150 values** per MetricDatum (for percentile statistics support)
@@ -84,7 +89,6 @@ For Lambda/containers, use a library that handles EMF serialization (e.g., Lambd
 
 ### StatisticSets (batch optimization)
 Instead of publishing individual data points, aggregate into StatisticSets:
-
 ```json
 {
   "MetricName": "Latency",
@@ -97,7 +101,6 @@ Instead of publishing individual data points, aggregate into StatisticSets:
   "Unit": "Milliseconds"
 }
 ```
-
 Reduces API calls and cost.
 
 ---
@@ -112,11 +115,9 @@ Extract metrics from log events automatically.
 - Metric filter → CloudWatch metric → alarm pipeline is the standard log-to-alert pattern
 
 ### Example: count 5xx errors from access logs
-
 ```
 { $.statusCode >= 500 }
 ```
-
 Publishes a metric with value 1 for each matching log event.
 
 ---
@@ -134,10 +135,9 @@ Publishes a metric with value 1 for each matching log event.
 
 **Key insight**: You cannot query 1-minute data from 2 months ago. It has been automatically aggregated to 5-minute resolution. High-resolution (1-second) data is only available for 3 hours.
 
-**OTel metrics**: Only **30 days** retention (public preview) — significantly shorter than traditional CloudWatch metrics (15 months).
+**OTel metrics** are also kept 15 months but are priced differently — see [otel-metrics.md](otel-metrics.md), and confirm current values in the CloudWatch documentation.
 
 ### Metric expiry
-
 - Metrics with no new data for **15 months** expire
 - Metrics with no data for **2 weeks** are not listed by ListMetrics (but still exist)
 
@@ -148,13 +148,11 @@ Publishes a metric with value 1 for each matching log event.
 **Note**: Each unique dimension combination = separate metric = separate cost.
 
 ### Anti-patterns
-
 - Do not use `requestId`, `userId`, `sessionId` as dimensions — creates millions of metrics
 - Do not publish `{InstanceId, InstanceType}` and expect to query by `InstanceId` alone — must publish both combinations separately
 - Do not use inconsistent units — metrics with different units are separate data streams
 
 ### Best practices
-
 - Use low-cardinality dimensions: `ServiceName`, `Environment`, `Operation`, `StatusCode`
 - Use the `SEARCH` function for cross-dimension queries
 - Always specify units consistently
@@ -170,21 +168,17 @@ Combine metrics using expressions in alarms and dashboards.
 `SUM`, `AVG`, `MIN`, `MAX`, `STDDEV`, `PERIOD`, `SEARCH`, `IF`, `FILL`, `ANOMALY_DETECTION_BAND`
 
 ### Error rate pattern
-
 ```
 errors * 100 / invocations
 ```
 
 ### SEARCH expression (dynamic metrics)
-
 ```
 SEARCH('{AWS/Lambda,FunctionName} MetricName="Errors"', 'Sum', 300)
 ```
-
 Automatically includes new functions matching the pattern — useful in dashboards and graphs (SEARCH cannot be used in alarms).
 
 ### Limits
-
 - Max **10 metrics** in a metric math alarm expression
 - Use Metrics Insights queries for more (max 10,000 metrics, 500 time series returned)
 - Metrics Insights alarm data window: **3 hours** only

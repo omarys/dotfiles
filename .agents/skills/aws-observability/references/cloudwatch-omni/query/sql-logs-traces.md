@@ -50,7 +50,7 @@ span columns on `traces.default`; filtering on them against `traces.default` ret
 without error, indistinguishable from "no evaluations ran" — see agent-evaluation.md's "Query
 surface" section.
 
-**Metrics are not in this table.** Metrics are not SQL — they are queried with PromQL, and there is no `metrics.default` `FROM` target. See [promql-metrics.md](promql-metrics.md) for the PromQL surface, label conventions, and per-service metric catalog.
+**Metrics are not in this table.** Metrics are not SQL — they are queried with PromQL, and there is no `metrics.default` `FROM` target. Classic CloudWatch metrics (custom metrics, vended metrics without OTel enrichment, and usage metrics such as `AWS/Logs` `IncomingBytes`) are not in CloudWatch Omni at all: Omni's PromQL surface has no `GetMetricData` or Metrics Insights route behind it. Counting or sizing records in `logs.default` does not reproduce them, so do not offer it even as an approximation; read them in CloudWatch ([promql-metrics.md](promql-metrics.md), §1). See [../../cloudwatch/promql.md](../../cloudwatch/promql.md) for the PromQL surface, label conventions, and per-service metric catalog.
 
 **FROM clause quoting is flexible** — all of these are equivalent:
 
@@ -163,7 +163,6 @@ WHERE `@timestamp` BETWEEN NOW() - INTERVAL '1 HOUR' AND NOW()
 ```
 
 **Key rules:**
-
 - The root-level field is referenced as-is (or backtick-quoted if it has special characters)
 - Nested keys use `['key']` with single-quoted string literals
 - Special characters inside the bracket string are fine — no backticks needed there:
@@ -195,7 +194,6 @@ derived table first and refer to that alias. Alias-qualifying a top-level column
 concluding the data is absent — not proof the name is wrong.** A correctly-named field can
 legitimately be NULL across every matching record, so rule out the three ways a field name
 can be wrong first:
-
 - **Misspelled or non-existent field** — permissive schema returns NULL, not an error.
   Re-discover the real names with [Schema Discovery](#5-schema-discovery).
 - **A root-level field quoted wrong** — a field starting with `@` or containing a `.`/`-` MUST
@@ -448,8 +446,8 @@ WHERE `@timestamp` BETWEEN NOW() - INTERVAL '1 HOUR' AND NOW()
 
 `` `@timestamp` `` is `Timestamp(Nanosecond)`. `dateceil` and `convert_timezone` accept only
 `Timestamp(Microsecond)`, so call them on `arrow_cast(\`@timestamp\`, 'Timestamp(Microsecond, None)')`;
-passed the raw column they fail at planning with`Failed to coerce arguments ... Timestamp(ns) to
-the signature Exact(..., Timestamp(µs))`.`dateceil` takes an `INTERVAL`, not a`'5 minutes'`
+passed the raw column they fail at planning with `Failed to coerce arguments ... Timestamp(ns) to
+the signature Exact(..., Timestamp(µs))`. `dateceil` takes an `INTERVAL`, not a `'5 minutes'`
 string. `date_diff` takes dates: `date_diff(CAST(a AS DATE), CAST(b AS DATE))`.
 
 - `NOW()` — current timestamp
@@ -518,7 +516,6 @@ string. `date_diff` takes dates: `date_diff(CAST(a AS DATE), CAST(b AS DATE))`.
 - `pattern(string)` — log clustering (groups similar text into patterns)
 
 All aggregate functions support the `FILTER (WHERE condition)` clause:
-
 ```sql
 SUM(tokens) FILTER (WHERE kind = 'CLIENT') as client_tokens
 ```
@@ -526,7 +523,6 @@ SUM(tokens) FILTER (WHERE kind = 'CLIENT') as client_tokens
 ### Window
 
 All aggregate functions can be used as window functions with `OVER (...)`:
-
 - `ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)`
 - `RANK()` / `DENSE_RANK()` — ranking with/without gaps
 - `LAG(expr, offset)` / `LEAD(expr, offset)` — access previous/next rows
@@ -539,6 +535,7 @@ All aggregate functions can be used as window functions with `OVER (...)`:
 - `md5(s)` — MD5 hash
 - `sha256(s)` / `sha512(s)` — SHA hashes
 - `digest(s, algorithm)` — generic hash
+
 
 ---
 

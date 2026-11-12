@@ -10,6 +10,7 @@ real Omni-error propagation.
 Run: `python test_evaluate_traces.py` (exits non-zero on any failure). This file is NOT executed
 by the package's no-op build; it is a hand-run, reviewable regression suite for the helper.
 """
+
 import contextlib
 import importlib.util
 import io
@@ -112,13 +113,19 @@ def _make_session(counters, *, tool_spans=1, session_id=None, eval_mode="ok", ra
             attrs["session.id"] = session_id
         if is_tool:
             attrs["gen_ai.operation.name"] = "execute_tool"
-        return {"traceId": "t", "spanId": span_id, "kind": "INTERNAL",
-                "attributes": attrs, "resource": {"attributes": {"service.name": "svc"}}}
+        return {
+            "traceId": "t",
+            "spanId": span_id,
+            "kind": "INTERNAL",
+            "attributes": attrs,
+            "resource": {"attributes": {"service.name": "svc"}},
+        }
 
     docs = [_span("0" * 16, False)] + [_span("%016x" % (i + 1), True) for i in range(tool_spans)]
 
     class FakeOmni:
         """Fake cloudwatchomni client for Omni SQL span queries."""
+
         _phase = {}  # queryId -> "polled"
 
         def start_telemetry_query_session(self, **k):
@@ -132,7 +139,12 @@ def _make_session(counters, *, tool_spans=1, session_id=None, eval_mode="ok", ra
         def get_telemetry_query_results(self, queryId, maxResults=1, nextToken=None):
             if raise_cls is not None:
                 raise raise_cls(
-                    {"Error": {"Code": "AccessDeniedException", "Message": "no cloudwatchomni access"}},
+                    {
+                        "Error": {
+                            "Code": "AccessDeniedException",
+                            "Message": "no cloudwatchomni access",
+                        }
+                    },
                     "StartTelemetryQuery",
                 )
             state = FakeOmni._phase.get(queryId, {})
@@ -156,6 +168,7 @@ def _make_session(counters, *, tool_spans=1, session_id=None, eval_mode="ok", ra
 
     class FakeLogs:
         """Fake logs client — writeback path only (put_log_events)."""
+
         def put_log_events(self, **k):
             return {}
 
@@ -172,11 +185,26 @@ def _make_session(counters, *, tool_spans=1, session_id=None, eval_mode="ok", ra
         def evaluate(self, **k):
             counters["eval"] = counters.get("eval", 0) + 1
             if eval_mode == "error":
-                return {"evaluationResults": [{"evaluatorId": k["evaluatorId"], "value": None,
-                                               "errorCode": "AgentSpanMappingException",
-                                               "errorMessage": "boom"}]}
-            return {"evaluationResults": [{"evaluatorId": k["evaluatorId"], "value": 0.5,
-                                           "label": "ok", "explanation": "why"}]}
+                return {
+                    "evaluationResults": [
+                        {
+                            "evaluatorId": k["evaluatorId"],
+                            "value": None,
+                            "errorCode": "AgentSpanMappingException",
+                            "errorMessage": "boom",
+                        }
+                    ]
+                }
+            return {
+                "evaluationResults": [
+                    {
+                        "evaluatorId": k["evaluatorId"],
+                        "value": 0.5,
+                        "label": "ok",
+                        "explanation": "why",
+                    }
+                ]
+            }
 
     class FakeSession:
         def client(self, name):
@@ -191,9 +219,20 @@ def _make_session(counters, *, tool_spans=1, session_id=None, eval_mode="ok", ra
 
 def _run(mod, **kw):
     ns = mod.argparse.Namespace(
-        trace_id=None, trace_ids=None, session_id=None, evaluator_id=None, evaluator_ids=None,
-        level="TRACE", region="us-east-1", window_days=30, no_writeback=True,
-        retention_days=30, kms_key_id=None, include_explanations=False, service_name=None)
+        trace_id=None,
+        trace_ids=None,
+        session_id=None,
+        evaluator_id=None,
+        evaluator_ids=None,
+        level="TRACE",
+        region="us-east-1",
+        window_days=30,
+        no_writeback=True,
+        retention_days=30,
+        kms_key_id=None,
+        include_explanations=False,
+        service_name=None,
+    )
     for k, v in kw.items():
         setattr(ns, k, v)
     out = io.StringIO()
@@ -218,8 +257,10 @@ def test_single_trace_back_compat():
     mod = _load(lambda: _make_session(c))
     r = _run(mod, trace_id="aa")
     check("single-trace: one pair scored, one fetch", r["pairsScored"] == 1 and c["fetch"] == 1)
-    check("single-trace: row tagged with traceId + evaluatorId",
-          {"traceId", "evaluatorId", "value"} <= set(r["results"][0]))
+    check(
+        "single-trace: row tagged with traceId + evaluatorId",
+        {"traceId", "evaluatorId", "value"} <= set(r["results"][0]),
+    )
 
 
 def test_matrix_fetch_once():
@@ -232,9 +273,13 @@ def test_matrix_fetch_once():
 
 def test_ground_truth_gating():
     mod = _load(lambda: _make_session({}))
-    r = _run(mod, trace_id="aa", evaluator_ids="Builtin.Helpfulness,Builtin.TrajectoryExactOrderMatch")
-    check("mixed GT: drops trajectory matcher, scores the rest",
-          r.get("evaluators") == ["Builtin.Helpfulness"])
+    r = _run(
+        mod, trace_id="aa", evaluator_ids="Builtin.Helpfulness,Builtin.TrajectoryExactOrderMatch"
+    )
+    check(
+        "mixed GT: drops trajectory matcher, scores the rest",
+        r.get("evaluators") == ["Builtin.Helpfulness"],
+    )
     r2 = _run(mod, trace_id="aa", evaluator_ids="Builtin.TrajectoryExactOrderMatch")
     check("all-GT: refuses the run", "error" in r2)
 
@@ -242,15 +287,23 @@ def test_ground_truth_gating():
 def test_caps():
     mod = _load(lambda: _make_session({}))
     r = _run(mod, trace_ids=",".join("%02x" % i for i in range(60)))
-    check("trace cap: 60 -> 50 with a note",
-          r["tracesScored"] == 50 and any("capped to 50 traces" in n for n in r.get("notes", [])))
+    check(
+        "trace cap: 60 -> 50 with a note",
+        r["tracesScored"] == 50 and any("capped to 50 traces" in n for n in r.get("notes", [])),
+    )
     r2 = _run(mod, trace_ids="aa,bb,cc", evaluator_ids=",".join("E%d" % i for i in range(12)))
-    check("evaluator cap: 12 -> 10 with a note",
-          len(r2["evaluators"]) == 10 and any("capped to 10 evaluators" in n for n in r2.get("notes", [])))
+    check(
+        "evaluator cap: 12 -> 10 with a note",
+        len(r2["evaluators"]) == 10
+        and any("capped to 10 evaluators" in n for n in r2.get("notes", [])),
+    )
     r3 = _run(mod, trace_ids=",".join("%02x" % i for i in range(40)), evaluator_ids="E1,E2,E3")
-    check("pair cap: 40x3 -> 33 traces (pair bound bites below the 50-trace bound)",
-          r3["tracesScored"] == 33 and r3["pairsScored"] == 99
-          and any("100-pair" in n for n in r3.get("notes", [])))
+    check(
+        "pair cap: 40x3 -> 33 traces (pair bound bites below the 50-trace bound)",
+        r3["tracesScored"] == 33
+        and r3["pairsScored"] == 99
+        and any("100-pair" in n for n in r3.get("notes", [])),
+    )
 
 
 def test_evaluate_call_budget():
@@ -259,16 +312,17 @@ def test_evaluate_call_budget():
     mod.MAX_EVALUATE_CALLS = 5
     r = _run(mod, trace_ids="aa,bb,cc", evaluator_ids="E1,E2", level="TOOL_CALL")
     check("TOOL_CALL: total evaluate calls bounded by budget", c["eval"] <= 5)
-    check("TOOL_CALL: budget/truncation noted",
-          any("budget" in n for n in r.get("notes", [])))
+    check("TOOL_CALL: budget/truncation noted", any("budget" in n for n in r.get("notes", [])))
 
 
 def test_pairs_scored_excludes_errors():
     mod = _load(lambda: _make_session({}, eval_mode="error"))
     r = _run(mod, trace_id="aa")
     check("error-only result: not counted in pairsScored", r["pairsScored"] == 0)
-    check("error-only result: still surfaced in results",
-          any(x.get("errorCode") for x in r["results"]))
+    check(
+        "error-only result: still surfaced in results",
+        any(x.get("errorCode") for x in r["results"]),
+    )
 
 
 def test_traces_scored_honesty_under_budget():
@@ -276,13 +330,20 @@ def test_traces_scored_honesty_under_budget():
     mod = _load(lambda: _make_session(c, tool_spans=25))
     mod.MAX_EVALUATE_CALLS = 3  # only the first trace's chunks fit
     r = _run(mod, trace_ids="aa,bb,cc", level="TOOL_CALL")
-    check("tracesScored < tracesFetched when budget truncates",
-          r["tracesScored"] < r["tracesFetched"])
-    check("tracesScored == distinct traces with a real score",
-          r["tracesScored"] == len({
-              x["traceId"] for x in r["results"]
-              if x.get("value") is not None and not x.get("errorCode")
-          }))
+    check(
+        "tracesScored < tracesFetched when budget truncates", r["tracesScored"] < r["tracesFetched"]
+    )
+    check(
+        "tracesScored == distinct traces with a real score",
+        r["tracesScored"]
+        == len(
+            {
+                x["traceId"]
+                for x in r["results"]
+                if x.get("value") is not None and not x.get("errorCode")
+            }
+        ),
+    )
 
 
 def test_session_dedup():
@@ -290,33 +351,47 @@ def test_session_dedup():
     mod = _load(lambda: _make_session(c, session_id="S1"))
     r = _run(mod, trace_ids="aa,bb", evaluator_ids="E1", level="SESSION")
     check("same-session: fetched once", c["fetch"] == 1)
-    check("same-session: SESSION scored once (no duplicate)",
-          len([x for x in r["results"] if x.get("value") is not None]) == 1)
+    check(
+        "same-session: SESSION scored once (no duplicate)",
+        len([x for x in r["results"] if x.get("value") is not None]) == 1,
+    )
 
 
 def test_real_error_propagated():
     mod = _load(lambda: _make_session({}, raise_cls=_ClientError))
     r = _run(mod, trace_id="aa")
     blob = json.dumps(r)
-    check("real Omni error surfaced (not the generic window message)",
-          "AccessDenied" in blob or "cloudwatchomni" in blob)
+    check(
+        "real Omni error surfaced (not the generic window message)",
+        "AccessDenied" in blob or "cloudwatchomni" in blob,
+    )
 
 
 def test_service_name_filter():
     c = {}
     mod = _load(lambda: _make_session(c))
     _run(mod, trace_id="aa", service_name="orchestrator")
-    check("service name: span fetch filtered to that service",
-          "resource['attributes']['service.name'] = 'orchestrator'" in c["span_sql"][0])
+    check(
+        "service name: span fetch filtered to that service",
+        "resource['attributes']['service.name'] = 'orchestrator'" in c["span_sql"][0],
+    )
     r = _run(mod, trace_id="aa", service_name="x' OR '1'='1")
     check("service name: unsafe value rejected", "invalid service name" in r.get("error", ""))
 
 
 def main():
-    for fn in [test_single_trace_back_compat, test_matrix_fetch_once, test_ground_truth_gating,
-               test_caps, test_evaluate_call_budget, test_pairs_scored_excludes_errors,
-               test_traces_scored_honesty_under_budget, test_session_dedup,
-               test_real_error_propagated, test_service_name_filter]:
+    for fn in [
+        test_single_trace_back_compat,
+        test_matrix_fetch_once,
+        test_ground_truth_gating,
+        test_caps,
+        test_evaluate_call_budget,
+        test_pairs_scored_excludes_errors,
+        test_traces_scored_honesty_under_budget,
+        test_session_dedup,
+        test_real_error_propagated,
+        test_service_name_filter,
+    ]:
         fn()
     passed = sum(1 for _, ok in RESULTS if ok)
     print("\n%d/%d passed" % (passed, len(RESULTS)))
