@@ -1,0 +1,564 @@
+diff --git a/scripts/test-native-images.ts b/scripts/test-native-images.ts
+index b718fff..c6be120 100644
+--- a/scripts/test-native-images.ts
++++ b/scripts/test-native-images.ts
+@@ -85,8 +85,8 @@ try {
+   const gif = Buffer.from("GIF89a");
+   const webp = Buffer.from("RIFF0000WEBP");
+   const toolContext = { cwd, modelRegistry: { getApiKeyForProvider: async () => apiKey } };
+-  const runTool = (referenceImages?: string[], signal?: AbortSignal) => imageTool.execute(
+-    "test", { prompt: "use these references", path: "result.png", referenceImages }, signal, undefined, toolContext,
++  const runTool = (referenceImages?: string[], signal?: AbortSignal, path = "result.png") => imageTool.execute(
++    "test", { prompt: "use these references", path, referenceImages }, signal, undefined, toolContext,
+   );
+   try {
+     // Content sniffing, not the filename, determines the MIME type.
+@@ -121,10 +121,10 @@ try {
+     assert.deepEqual(await readFile(join(cwd, "result.png")), png);
+     assert.equal(generated.content[1].data, png.toString("base64"));
+     expectedImages = [expectedImages[0]!];
+-    await runTool(["inside.png"]);
++    await runTool(["inside.png"], undefined, "result-2.png");
+     expectedImages = [];
+-    await runTool();
+-    await runTool([]);
++    await runTool(undefined, undefined, "result-3.png");
++    await runTool([], undefined, "result-4.png");
+     assert.equal(toolCalls, 4);
+ 
+     await assert.rejects(runTool(["missing.png"]), /ENOENT/);
+@@ -134,6 +134,8 @@ try {
+     }
+     await assert.rejects(runTool(["reference image.dat"], abort.signal), /aborted/i);
+     assert.equal(toolCalls, 4, "invalid references and cancellation do not send a request");
++    // An existing target is never clobbered silently.
++    await assert.rejects(runTool(), /already exists/);
+   } finally {
+     await rm(cwd, { recursive: true, force: true });
+     await rm(outside, { recursive: true, force: true });
+diff --git a/src/auth/accounts.ts b/src/auth/accounts.ts
+index dce7c21..8e1c326 100644
+--- a/src/auth/accounts.ts
++++ b/src/auth/accounts.ts
+@@ -1,5 +1,14 @@
+-import { createHash } from "node:crypto";
+-import { chmodSync, existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
++import { createHash, randomBytes } from "node:crypto";
++import {
++  chmodSync,
++  closeSync,
++  copyFileSync,
++  existsSync,
++  openSync,
++  readFileSync,
++  renameSync,
++  writeFileSync,
++} from "node:fs";
+ import { homedir } from "node:os";
+ import { join } from "node:path";
+ import type { OAuthCredentials } from "@earendil-works/pi-ai";
+@@ -10,6 +19,8 @@ import { refreshAntigravityToken } from "./oauth.js";
+ const ACCOUNTS_FILE = "antigravity-accounts.json";
+ const AUTH_FILE = "auth.json";
+ const REFRESH_SKEW_MS = 5 * 60 * 1000;
++/** A quota wall is sticky: re-trying that account on every turn only adds latency. */
++const QUOTA_COOLDOWN_MS = 5 * 60 * 1000;
+ 
+ export type StoredAccount = AntigravityOAuthCredentials & {
+   accountId: string;
+@@ -53,9 +64,17 @@ function readJsonObject(path: string): Record<string, unknown> | undefined {
+   }
+ }
+ 
++let privateWriteSeq = 0;
++
+ function writePrivateJson(path: string, value: unknown): void {
+-  const tempPath = `${path}.${process.pid}.tmp`;
+-  writeFileSync(tempPath, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
++  // Unique per write, so two same-process writers can never share a temp file.
++  const tempPath = `${path}.${process.pid}.${(privateWriteSeq += 1)}.${randomBytes(6).toString("hex")}.tmp`;
++  const handle = openSync(tempPath, "wx", 0o600);
++  try {
++    writeFileSync(handle, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8" });
++  } finally {
++    closeSync(handle);
++  }
+   chmodSync(tempPath, 0o600);
+   renameSync(tempPath, path);
+   chmodSync(path, 0o600);
+@@ -95,11 +114,62 @@ function normalizeStore(value: Record<string, unknown> | undefined): AccountsFil
+   };
+ }
+ 
++const UNREADABLE_STORE = Symbol("unreadable-account-store");
++
++/**
++ * Set while the store file exists but cannot be parsed. Saving is refused in that
++ * window: rebuilding the file from the single active credential would destroy
++ * every other linked account, so a corrupt store is preserved for manual repair.
++ */
++let unreadableStore: { path: string; backupPath?: string; warned?: boolean } | undefined;
++
++function readAccountStoreFile(): Record<string, unknown> | typeof UNREADABLE_STORE | undefined {
++  const path = accountsPath();
++  if (!existsSync(path)) return undefined;
++  try {
++    const parsed: unknown = JSON.parse(readFileSync(path, "utf8"));
++    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return UNREADABLE_STORE;
++    return parsed as Record<string, unknown>;
++  } catch {
++    return UNREADABLE_STORE;
++  }
++}
++
++function quarantineAccountStore(path: string): string | undefined {
++  const backupPath = `${path}.corrupt-${process.pid}`;
++  try {
++    if (!existsSync(backupPath)) copyFileSync(path, backupPath);
++    return backupPath;
++  } catch {
++    return undefined;
++  }
++}
++
+ export function loadAccountStore(): AccountsFile {
+-  return normalizeStore(readJsonObject(accountsPath()));
++  const raw = readAccountStoreFile();
++  if (raw === UNREADABLE_STORE) {
++    const path = accountsPath();
++    if (unreadableStore?.path !== path) {
++      unreadableStore = { path, backupPath: quarantineAccountStore(path) };
++    }
++    return emptyStore();
++  }
++  unreadableStore = undefined;
++  return normalizeStore(raw);
+ }
+ 
+ function saveAccountStore(store: AccountsFile): void {
++  if (unreadableStore) {
++    if (!unreadableStore.warned) {
++      unreadableStore.warned = true;
++      process.emitWarning(
++        `Refusing to overwrite unreadable Antigravity account store: ${unreadableStore.path}` +
++          (unreadableStore.backupPath ? ` (backed up to ${unreadableStore.backupPath})` : "") +
++          ". Fix or remove the file to save account changes again.",
++      );
++    }
++    return;
++  }
+   writePrivateJson(accountsPath(), store);
+ }
+ 
+@@ -247,9 +317,59 @@ export function listAccounts(): AccountSummary[] {
+   }));
+ }
+ 
++/** One in-flight refresh per account, so concurrent callers share a single token. */
++const refreshInFlight = new Map<string, Promise<AntigravityOAuthCredentials>>();
++
+ async function ensureFresh(account: StoredAccount): Promise<StoredAccount> {
+   if (account.access && account.expires > Date.now() + REFRESH_SKEW_MS) return account;
+-  return accountFromCredentials(await refreshAntigravityToken(account), account);
++  const key = account.accountId;
++  let pending = refreshInFlight.get(key);
++  if (!pending) {
++    pending = refreshAntigravityToken(account);
++    refreshInFlight.set(key, pending);
++    const clear = () => {
++      if (refreshInFlight.get(key) === pending) refreshInFlight.delete(key);
++    };
++    pending.then(clear, clear);
++  }
++  return accountFromCredentials(await pending, account);
++}
++
++/** Serializes read-modify-write cycles on the store within this process. */
++let storeLock: Promise<unknown> = Promise.resolve();
++
++function withStoreLock<T>(run: () => Promise<T>): Promise<T> {
++  const result = storeLock.then(run, run);
++  storeLock = result.catch(() => undefined);
++  return result;
++}
++
++/** In-process quota walls: `<accountId>\u0000<model>` -> epoch ms it may be retried. */
++const quotaCooldowns = new Map<string, number>();
++
++function quotaCooldownKey(accountId: string, model: string | undefined): string {
++  const trimmed = model?.trim();
++  return trimmed ? `${accountId}\u0000${trimmed}` : accountId;
++}
++
++function markQuotaExhausted(accountId: string | undefined, model: string | undefined): void {
++  if (!accountId) return;
++  const now = Date.now();
++  for (const [key, expiresAt] of quotaCooldowns) {
++    if (expiresAt <= now) quotaCooldowns.delete(key);
++  }
++  quotaCooldowns.set(quotaCooldownKey(accountId, model), now + QUOTA_COOLDOWN_MS);
++}
++
++function isQuotaCoolingDown(accountId: string, model: string | undefined, now: number): boolean {
++  const key = quotaCooldownKey(accountId, model);
++  const expiresAt = quotaCooldowns.get(key);
++  if (expiresAt === undefined) return false;
++  if (expiresAt <= now) {
++    quotaCooldowns.delete(key);
++    return false;
++  }
++  return true;
+ }
+ 
+ function apiKeyFor(account: StoredAccount): AntigravityApiKey {
+@@ -261,40 +381,49 @@ function apiKeyFor(account: StoredAccount): AntigravityApiKey {
+ }
+ 
+ export async function activateAccount(selector: string): Promise<StoredAccount> {
+-  syncCurrentAuth();
+-  const store = loadAccountStore();
+-  const accountId = findAccountId(store, selector);
+-  if (!accountId) throw new Error(`Antigravity account not found: ${selector}`);
+-  const existing = store.accounts[accountId];
+-  if (!existing) throw new Error(`Antigravity account not found: ${selector}`);
+-  const account = await ensureFresh(existing);
+-  account.lastUsedAt = Date.now();
+-  store.accounts[account.accountId] = account;
+-  store.activeAccountId = account.accountId;
+-  saveAccountStore(store);
+-  writeActiveCredential(account);
+-  return account;
++  return withStoreLock(async () => {
++    syncCurrentAuth();
++    const store = loadAccountStore();
++    const accountId = findAccountId(store, selector);
++    if (!accountId) throw new Error(`Antigravity account not found: ${selector}`);
++    const existing = store.accounts[accountId];
++    if (!existing) throw new Error(`Antigravity account not found: ${selector}`);
++    const account = await ensureFresh(existing);
++    account.lastUsedAt = Date.now();
++    // Re-read after the await: a synchronous writer may have updated the store meanwhile.
++    const latest = loadAccountStore();
++    latest.accounts[account.accountId] = account;
++    latest.activeAccountId = account.accountId;
++    saveAccountStore(latest);
++    writeActiveCredential(account);
++    return account;
++  });
+ }
+ 
+ export async function removeAccount(selector: string): Promise<StoredAccount | undefined> {
+-  syncCurrentAuth();
+-  const store = loadAccountStore();
+-  const accountId = findAccountId(store, selector);
+-  if (!accountId) throw new Error(`Antigravity account not found: ${selector}`);
+-  delete store.accounts[accountId];
+-  let next: StoredAccount | undefined;
+-  if (store.activeAccountId === accountId) {
+-    next = sortedAccounts(store).sort((a, b) => b.lastUsedAt - a.lastUsedAt)[0];
+-    if (next) {
+-      next = await ensureFresh(next);
+-      next.lastUsedAt = Date.now();
+-      store.accounts[next.accountId] = next;
++  return withStoreLock(async () => {
++    syncCurrentAuth();
++    const store = loadAccountStore();
++    const accountId = findAccountId(store, selector);
++    if (!accountId) throw new Error(`Antigravity account not found: ${selector}`);
++    delete store.accounts[accountId];
++    let next: StoredAccount | undefined;
++    if (store.activeAccountId === accountId) {
++      next = sortedAccounts(store).sort((a, b) => b.lastUsedAt - a.lastUsedAt)[0];
++      if (next) {
++        next = await ensureFresh(next);
++        next.lastUsedAt = Date.now();
++      }
+     }
+-    store.activeAccountId = next?.accountId;
+-    writeActiveCredential(next);
+-  }
+-  saveAccountStore(store);
+-  return next;
++    // Re-read after the await: a synchronous writer may have updated the store meanwhile.
++    const latest = loadAccountStore();
++    delete latest.accounts[accountId];
++    if (next) latest.accounts[next.accountId] = next;
++    if (latest.activeAccountId === accountId) latest.activeAccountId = next?.accountId;
++    saveAccountStore(latest);
++    if (store.activeAccountId === accountId) writeActiveCredential(next);
++    return next;
++  });
+ }
+ 
+ /**
+@@ -303,25 +432,39 @@ export async function removeAccount(selector: string): Promise<StoredAccount | u
+  */
+ export async function failoverToNextAccount(
+   triedAccessTokens: ReadonlySet<string>,
++  model?: string,
+ ): Promise<AntigravityApiKey | undefined> {
+-  syncCurrentAuth();
+-  const store = loadAccountStore();
+-  const candidates = sortedAccounts(store).filter(
+-    (account) => !triedAccessTokens.has(account.access),
+-  );
+-  for (const candidate of candidates) {
+-    try {
+-      const account = await ensureFresh(candidate);
+-      if (!account.access || triedAccessTokens.has(account.access)) continue;
+-      account.lastUsedAt = Date.now();
+-      store.accounts[account.accountId] = account;
+-      store.activeAccountId = account.accountId;
+-      saveAccountStore(store);
+-      writeActiveCredential(account);
+-      return apiKeyFor(account);
+-    } catch {
+-      // Skip accounts whose refresh token is no longer valid.
++  return withStoreLock(async () => {
++    syncCurrentAuth();
++    const store = loadAccountStore();
++    // The 429 that triggered this failover came from the active account, so keep it
++    // out of the rotation for a while instead of retrying it first on the next turn.
++    markQuotaExhausted(
++      store.activeAccountId ? store.accounts[store.activeAccountId]?.accountId : undefined,
++      model,
++    );
++    const now = Date.now();
++    const candidates = sortedAccounts(store).filter(
++      (account) =>
++        !triedAccessTokens.has(account.access) &&
++        !isQuotaCoolingDown(account.accountId, model, now),
++    );
++    for (const candidate of candidates) {
++      try {
++        const account = await ensureFresh(candidate);
++        if (!account.access || triedAccessTokens.has(account.access)) continue;
++        account.lastUsedAt = Date.now();
++        // Re-read after the await: a synchronous writer may have updated the store meanwhile.
++        const latest = loadAccountStore();
++        latest.accounts[account.accountId] = account;
++        latest.activeAccountId = account.accountId;
++        saveAccountStore(latest);
++        writeActiveCredential(account);
++        return apiKeyFor(account);
++      } catch {
++        // Skip accounts whose refresh token is no longer valid.
++      }
+     }
+-  }
+-  return undefined;
++    return undefined;
++  });
+ }
+diff --git a/src/auth/oauth.ts b/src/auth/oauth.ts
+index e695b1e..a073cd7 100644
+--- a/src/auth/oauth.ts
++++ b/src/auth/oauth.ts
+@@ -118,7 +118,15 @@ function startCallbackServer(expectedState: string): Promise<CallbackServer> {
+         return;
+       }
+ 
+-      const url = new URL(req.url || "", REDIRECT_URI);
++      let url: URL;
++      try {
++        url = new URL(req.url || "", REDIRECT_URI);
++      } catch {
++        // A malformed request (stray client, health probe) must not abort an active sign-in.
++        res.writeHead(400, oauthCallbackHeaders("text/plain; charset=utf-8"));
++        res.end("Malformed OAuth callback request.");
++        return;
++      }
+       if (url.pathname !== "/oauth-callback") {
+         res.writeHead(404, oauthCallbackHeaders());
+         res.end("Antigravity OAuth callback route not found.");
+@@ -128,6 +136,13 @@ function startCallbackServer(expectedState: string): Promise<CallbackServer> {
+       const error = url.searchParams.get("error");
+       const code = url.searchParams.get("code");
+       const state = url.searchParams.get("state");
++      // A provider error from a stale tab (foreign state) is ignored like any other stray
++      // request; a real error on this sign-in still rejects below.
++      if (error && state && state !== expectedState) {
++        res.writeHead(400, oauthCallbackHeaders());
++        res.end("Antigravity authentication failed: invalid state.");
++        return;
++      }
+       if (error) {
+         const safe = escapeHtml(error.slice(0, 200));
+         res.writeHead(400, oauthCallbackHeaders());
+@@ -135,16 +150,16 @@ function startCallbackServer(expectedState: string): Promise<CallbackServer> {
+         finish(() => rejectCode(new Error(`OAuth error: ${error.slice(0, 200)}`)));
+         return;
+       }
++      // Neither branch settles the promise: a favicon probe, preflight, or stale tab on
++      // this port must not kill a sign-in that is still waiting for the real callback.
+       if (!code || !state) {
+         res.writeHead(400, oauthCallbackHeaders());
+         res.end("Antigravity authentication failed: missing code or state.");
+-        finish(() => rejectCode(new Error("Missing code or state in OAuth callback")));
+         return;
+       }
+       if (state !== expectedState) {
+         res.writeHead(400, oauthCallbackHeaders());
+         res.end("Antigravity authentication failed: invalid state.");
+-        finish(() => rejectCode(new Error("OAuth state mismatch")));
+         return;
+       }
+ 
+@@ -384,7 +399,9 @@ export async function loginAntigravity(
+     return {
+       refresh: tokenData.refresh_token,
+       access: tokenData.access_token,
+-      expires: Date.now() + tokenData.expires_in * 1000 - 5 * 60 * 1000,
++      // Absolute expiry, not pre-discounted: the refresh skew is applied once, by
++      // REFRESH_SKEW_MS in accounts.ts, which owns refresh scheduling.
++      expires: Date.now() + tokenData.expires_in * 1000,
+       projectId: discoveredProject || defaultProjectId(email || "antigravity-default"),
+       email,
+     };
+@@ -428,7 +445,7 @@ export async function refreshAntigravityToken(
+     ...credentials,
+     refresh: data.refresh_token || credentials.refresh,
+     access: data.access_token,
+-    expires: Date.now() + data.expires_in * 1000 - 5 * 60 * 1000,
++    expires: Date.now() + data.expires_in * 1000,
+     projectId:
+       existingProjectId || discoveredProject || defaultProjectId(email || "antigravity-default"),
+   };
+diff --git a/src/image/image.ts b/src/image/image.ts
+index 021ef80..9bf2c9f 100644
+--- a/src/image/image.ts
++++ b/src/image/image.ts
+@@ -1,6 +1,7 @@
+ import { randomUUID } from "node:crypto";
+ import { constants } from "node:fs";
+ import { lstat, mkdir, open, realpath } from "node:fs/promises";
++import type { FileHandle } from "node:fs/promises";
+ import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
+ import {
+   antigravityHeaders,
+@@ -326,11 +327,19 @@ export async function writeImage(
+   } catch (error) {
+     if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+   }
+-  const handle = await open(
+-    target,
+-    constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW,
+-    0o600,
+-  );
++  let handle: FileHandle;
++  try {
++    handle = await open(
++      target,
++      constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW,
++      0o600,
++    );
++  } catch (error) {
++    if ((error as NodeJS.ErrnoException).code === "EEXIST") {
++      throw new Error(`Image output already exists: ${target}`, { cause: error });
++    }
++    throw error;
++  }
+   try {
+     await handle.writeFile(Buffer.from(image.data, "base64"));
+   } finally {
+diff --git a/src/stream/stream.ts b/src/stream/stream.ts
+index f246d4f..586609c 100644
+--- a/src/stream/stream.ts
++++ b/src/stream/stream.ts
+@@ -1441,6 +1441,7 @@ export async function streamResponse(
+   let started = false;
+   let currentBlock: ActiveBlock | null = null;
+   let hasContent = false;
++  let pendingSignature: string | undefined;
+   let sawFinishReason = false;
+   let stray = "";
+   const blocks = output.content;
+@@ -1502,8 +1503,9 @@ export async function streamResponse(
+         if (!currentBlock || currentBlock.type !== type) {
+           finishCurrent();
+           currentBlock = isThinking
+-            ? { type: "thinking", thinking: "", thinkingSignature: undefined }
+-            : { type: "text", text: "" };
++            ? { type: "thinking", thinking: "", thinkingSignature: pendingSignature }
++            : { type: "text", text: "", textSignature: pendingSignature };
++          pendingSignature = undefined;
+           blocks.push(currentBlock);
+           ensureStarted();
+           stream.push({
+@@ -1533,6 +1535,17 @@ export async function streamResponse(
+         }
+       }
+ 
++      // A trailing part can carry only a thought signature (no text, no call). Attach it
++      // to the block that can hold it instead of dropping it; emit no delta and do not
++      // count it as content.
++      if (part.thoughtSignature && part.text === undefined && !part.functionCall) {
++        const holder = currentBlock ?? blocks[blockIndex()];
++        if (holder?.type === "thinking") holder.thinkingSignature = part.thoughtSignature;
++        else if (holder?.type === "text") holder.textSignature = part.thoughtSignature;
++        else if (holder?.type === "toolCall") holder.thoughtSignature = part.thoughtSignature;
++        else pendingSignature = part.thoughtSignature;
++      }
++
+       if (part.functionCall) {
+         hasContent = true;
+         finishCurrent();
+@@ -1565,9 +1578,13 @@ export async function streamResponse(
+     if (candidate?.finishReason) {
+       sawFinishReason = true;
+       output.rawStopReason = candidate.finishReason;
+-      output.stopReason = blocks.some((b) => b.type === "toolCall")
+-        ? StopReason.ToolUse
+-        : mapStopReason(candidate.finishReason);
++      // Only a clean provider stop may become toolUse: a MAX_TOKENS, safety, or error
++      // finish after a tool call must keep its mapped reason so truncation is not swallowed.
++      const mappedStopReason = mapStopReason(candidate.finishReason);
++      output.stopReason =
++        mappedStopReason === StopReason.Stop && blocks.some((b) => b.type === "toolCall")
++          ? StopReason.ToolUse
++          : mappedStopReason;
+     }
+ 
+     if (responseData.usageMetadata) {
+@@ -1891,7 +1908,7 @@ export function streamAntigravity(
+           }
+           const friendly = friendlyAntigravityError(response?.status, lastText);
+           if (response?.status === 429 && /Quota reached\./i.test(friendly)) {
+-            const next = await failoverToNextAccount(triedAccessTokens);
++            const next = await failoverToNextAccount(triedAccessTokens, runtimeModel);
+             if (next) {
+               triedAccessTokens.add(next.token);
+               creds = next;
+diff --git a/src/usage/usage.ts b/src/usage/usage.ts
+index 17ef3c6..cf3078d 100644
+--- a/src/usage/usage.ts
++++ b/src/usage/usage.ts
+@@ -32,6 +32,8 @@ import type {
+   TierRaw,
+ } from "../types/types.js";
+ 
++const QUOTA_TIMEOUT_MS = 8000;
++
+ function clampFraction(value: unknown): number | undefined {
+   if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
+   if (value < 0) return 0;
+@@ -84,6 +86,7 @@ async function postJson(
+         method: "POST",
+         headers: jsonHeaders(token),
+         body: JSON.stringify(body),
++        signal: AbortSignal.timeout(QUOTA_TIMEOUT_MS),
+       });
+       setLastEndpoint(endpoint);
+       setLastStatus(res.status);
+@@ -105,7 +108,10 @@ async function postJson(
+       }
+       return { endpoint, status: res.status, data };
+     } catch (error) {
+-      lastErrorText = safeError(error);
++      lastErrorText =
++        error instanceof DOMException && error.name === "TimeoutError"
++          ? `Request timed out after ${QUOTA_TIMEOUT_MS}ms`
++          : safeError(error);
+       setLastError(lastErrorText);
+     }
+   }

@@ -97,6 +97,7 @@ __pycache__/
 .pi/agent/models-store.json
 .pi/agent/opencode-usage-cache.json
 .pi/agent/npm/
+.pi/npm/
 .pi/agent/history*
 .pi/agent/sessions/
 .pi/agent/log/

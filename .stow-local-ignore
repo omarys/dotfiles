@@ -7,3 +7,10 @@ README.org
 ^/\.codex/(?!AGENTS\.md$|CONTEXT-MODE\.md$|REKAL\.md$|RTK\.md$|hooks\.json$|skills(?:/|$)).*
 ^/\.codex/skills/(?!grill-me(?:/|$)|security-best-practices(?:/|$)).*
 ^/\.stowrc$
+
+# Pi packages are installed by `pi`, never stowed. A stowed .pi/npm makes Pi treat
+# ~/.dotfiles as a project package root and duplicates every global install.
+^/\.pi/npm(/|$)
+# Legacy shims that made ~/.dotfiles/.pi look like an agent directory. They caused
+# project-scoped package installs; the real links are the agent/ files below.
+^/\.pi/(settings\.json|trust\.json|extensions)$

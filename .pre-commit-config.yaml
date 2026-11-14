@@ -2,7 +2,7 @@
 # newline. It is synced byte-for-byte by pi-settings-sync, so any whitespace
 # hook that rewrites it makes the two fight: fixer appends a newline, sync
 # copies the live bytes back, repeat forever.
-exclude: "(SKILL\\.md|\\.copilot/installed-plugins|\\.config/yazi/(plugins|flavors)/|\\.agents/skills/|\\.pi/agent/settings\\.json)"
+exclude: "(SKILL\\.md|\\.copilot/installed-plugins|\\.config/yazi/(plugins|flavors)/|\\.agents/skills/|\\.pi/agent/settings\\.json|\\.pi/patches/)"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

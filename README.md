@@ -31,3 +31,31 @@ plugin installations, bundled skills, sessions, databases, and caches belong in
 `~/.codex`; do not link them into the repository. Git and Stow allow only the
 shared Codex files. Add an explicit exception to both ignore files when adding
 another shared file.
+
+## Pi
+
+Keep `~/.pi/agent` a real directory. Stow links only the shared files into it:
+`settings.json`, `AGENTS.md`, the extensions, and `~/.pi/agents/*.md`. Auth tokens,
+sessions, caches, and installed packages stay local to each machine.
+
+Packages are declared once, in `.pi/agent/settings.json`. Pi installs them into
+`~/.pi/agent/npm` on first launch, so that directory is never committed or stowed.
+Do not recreate `.pi/settings.json`, `.pi/trust.json`, or `.pi/extensions` at the
+repository root: Pi would read them as a project-scoped package declaration and
+install a second copy of every package into `.pi/npm` whenever you run `pi` from
+inside `~/.dotfiles`.
+
+### Local patch
+
+`.pi/patches/pi-antigravity/` holds a fix patch for the installed
+`pi-antigravity` version. Pi rebuilds `~/.pi/agent/npm` from its `package.json` on
+every install, update, and removal, which discards the patch. Re-apply it after any
+of those:
+
+```bash
+~/.dotfiles/.pi/patches/pi-antigravity/apply.sh
+```
+
+The script refuses to run against an unexpected package version, and is a no-op
+when the patch is already applied. Drop the patch directory once the fixes land
+upstream.
