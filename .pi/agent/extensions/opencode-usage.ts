@@ -91,6 +91,11 @@ const FOOTER_MIN_REFRESH_MS = 20_000; // throttle API hits; usage only moves whe
 let footerState: { usedPercent?: number; resetsAt?: string; err?: string } | undefined;
 let lastFooterProvider: string | undefined;
 let lastFooterRefresh = 0;
+// Session generation: bumped on session_start/session_shutdown so an in-flight refresh can
+// tell that the ctx it captured no longer belongs to a live session.
+let footerEpoch = 0;
+// The in-flight footer fetch, so shutdown (or a newer refresh) can cancel it.
+let footerAbort: AbortController | undefined;
 
 type FgTheme = { fg(name: string, text: string): string; bold(text: string): string };
 
@@ -398,17 +403,53 @@ async function resolveGo(
 
 const plainTheme: FgTheme = { fg: (_name, text) => text, bold: (text) => text };
 
+/** `setStatus` that tolerates print/json mode and a ctx whose session has been replaced. */
+function safeSetStatus(ctx: ExtensionContext, key: string, text: string | undefined): void {
+	if (!ctx.hasUI) return; // print/json mode: nothing renders a footer
+	try {
+		ctx.ui.setStatus(key, text);
+	} catch {
+		// Stale ctx after a session switch/reload: the footer is gone, drop the update.
+	}
+}
+
+/** 15s timeout, combined with the refresh's own abort signal when the runtime supports it. */
+function fetchSignal(extra?: AbortSignal): AbortSignal {
+	const timeout = AbortSignal.timeout(15_000);
+	if (!extra) return timeout;
+	const any = (AbortSignal as unknown as { any?: (signals: AbortSignal[]) => AbortSignal }).any;
+	return typeof any === "function" ? any([extra, timeout]) : timeout;
+}
+
+/** Invalidate any in-flight refresh and forget all per-session footer state. */
+function endFooterSession(): void {
+	footerEpoch += 1;
+	footerAbort?.abort();
+	footerAbort = undefined;
+	footerState = undefined;
+	lastFooterProvider = undefined;
+	lastFooterRefresh = 0;
+}
+
+/** Fire-and-forget refresh that never leaves a rejected promise unhandled. */
+function runFooterRefresh(ctx: ExtensionContext): void {
+	void refreshFooterUsage(ctx).catch(() => {
+		/* informational only: a failed refresh must not surface as an unhandled rejection */
+	});
+}
+
 function publishUsageStatus(ctx: ExtensionContext): void {
-	ctx.ui.setStatus(USAGE_STATUS_KEY, usageBarText(plainTheme));
+	safeSetStatus(ctx, USAGE_STATUS_KEY, usageBarText(plainTheme));
 }
 
 async function refreshFooterUsage(ctx: ExtensionContext): Promise<void> {
+	if (!ctx.hasUI) return; // nothing renders a footer in print/json mode
+	const epoch = footerEpoch;
+	const live = () => epoch === footerEpoch;
 	const provider = ctx.model?.provider;
 	if (!provider || !isSupported(provider)) {
-		footerState = undefined;
-		lastFooterProvider = undefined;
-		lastFooterRefresh = 0;
-		ctx.ui.setStatus(USAGE_STATUS_KEY, undefined);
+		endFooterSession();
+		safeSetStatus(ctx, USAGE_STATUS_KEY, undefined);
 		return;
 	}
 	if (provider !== lastFooterProvider) {
@@ -420,41 +461,53 @@ async function refreshFooterUsage(ctx: ExtensionContext): Promise<void> {
 	const now = Date.now();
 	if (now - lastFooterRefresh < FOOTER_MIN_REFRESH_MS) return; // ponytail: throttle; refetch is event-driven
 	lastFooterRefresh = now;
-	if (provider === CODEX_PROVIDER) {
-		const res = await fetchCodexUsage(ctx);
-		if (lastFooterProvider !== provider) return;
-		const roll = res.ok ? res.usage.rolling : undefined;
-		if (res.ok && typeof roll?.percent === "number")
-			footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
-		else footerState = { err: res.ok ? "no rolling window data" : res.detail };
+	// Supersede any fetch still in flight before starting a new one.
+	footerAbort?.abort();
+	const ac = new AbortController();
+	footerAbort = ac;
+	// Every await below is followed by a check that this ctx is still the live session
+	// (and that this refresh was not superseded) before touching ctx again.
+	const usable = () => live() && !ac.signal.aborted && lastFooterProvider === provider;
+	try {
+		if (provider === CODEX_PROVIDER) {
+			const res = await fetchCodexUsage(ctx, ac.signal);
+			if (!usable()) return;
+			const roll = res.ok ? res.usage.rolling : undefined;
+			if (res.ok && typeof roll?.percent === "number")
+				footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
+			else footerState = { err: res.ok ? "no rolling window data" : res.detail };
+			publishUsageStatus(ctx);
+			return;
+		}
+		const go = await resolveGo(ctx);
+		if (!usable()) return;
+		if (!go.ok) {
+			footerState = { err: go.error };
+			publishUsageStatus(ctx);
+			return;
+		}
+		const res = await fetchGo(go.baseUrl, "/usage", go.apiKey, ac.signal);
+		if (!usable()) return;
+		const roll = res.ok ? (res.body as UsageBody).usage?.rolling : undefined;
+		if (res.ok && typeof roll?.percent === "number") footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
+		else footerState = { err: res.ok ? "unexpected usage response" : res.detail };
 		publishUsageStatus(ctx);
-		return;
+	} finally {
+		if (footerAbort === ac) footerAbort = undefined;
 	}
-	const go = await resolveGo(ctx);
-	if (lastFooterProvider !== provider) return;
-	if (!go.ok) {
-		footerState = { err: go.error };
-		publishUsageStatus(ctx);
-		return;
-	}
-	const res = await fetchGo(go.baseUrl, "/usage", go.apiKey);
-	if (lastFooterProvider !== provider) return;
-	const roll = res.ok ? (res.body as UsageBody).usage?.rolling : undefined;
-	if (res.ok && typeof roll?.percent === "number") footerState = { usedPercent: roll.percent, resetsAt: roll.resetsAt };
-	else footerState = { err: res.ok ? "unexpected usage response" : res.detail };
-	publishUsageStatus(ctx);
 }
 
 async function fetchGo(
 	baseUrl: string,
 	path: string,
 	apiKey?: string,
+	signal?: AbortSignal,
 ): Promise<{ ok: true; body: UsageBody | ModelsBody } | { ok: false; detail: string }> {
 	let res: Response;
 	try {
 		res = await fetch(`${baseUrl}${path}`, {
 			headers: { ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}), Accept: "application/json" },
-			signal: AbortSignal.timeout(15_000),
+			signal: fetchSignal(signal),
 		});
 	} catch {
 		return { ok: false, detail: `Could not reach ${baseUrl}${path} (network or timeout).` };
@@ -508,6 +561,7 @@ export function windowOf(w: { used_percent?: number; reset_at?: number; reset_af
  */
 async function fetchCodexUsage(
 	ctx: ExtensionContext,
+	signal?: AbortSignal,
 ): Promise<{ ok: true; usage: Record<string, Window>; planType?: string } | { ok: false; detail: string }> {
 	const access = await ctx.modelRegistry.getApiKeyForProvider(CODEX_PROVIDER);
 	if (!access)
@@ -522,7 +576,7 @@ async function fetchCodexUsage(
 				Accept: "application/json",
 				"User-Agent": "Codex/1.0 (pi usage)",
 			},
-			signal: AbortSignal.timeout(15_000),
+			signal: fetchSignal(signal),
 		});
 	} catch {
 		return { ok: false, detail: `Could not reach ${WHAM_URL} (network or timeout).` };
@@ -549,12 +603,15 @@ async function fetchCodexUsage(
 export default function usageExtension(pi: ExtensionAPI) {
 	// Publish usage in the active footer's extension-status area; refresh after API-using turns.
 	pi.on("session_start", (_event, ctx) => {
-		ctx.ui.setStatus(LEGACY_USAGE_STATUS_KEY, undefined);
-		void refreshFooterUsage(ctx);
+		endFooterSession(); // fresh epoch: leftovers from the previous session must not be reused
+		safeSetStatus(ctx, LEGACY_USAGE_STATUS_KEY, undefined);
+		runFooterRefresh(ctx);
 	});
-	pi.on("model_select", (_event, ctx) => void refreshFooterUsage(ctx));
-	pi.on("tool_execution_end", (_event, ctx) => void refreshFooterUsage(ctx));
-	pi.on("turn_end", (_event, ctx) => void refreshFooterUsage(ctx));
+	pi.on("model_select", (_event, ctx) => runFooterRefresh(ctx));
+	pi.on("tool_execution_end", (_event, ctx) => runFooterRefresh(ctx));
+	pi.on("turn_end", (_event, ctx) => runFooterRefresh(ctx));
+	// Cancel pending refreshes and invalidate the ctx they captured.
+	pi.on("session_shutdown", () => endFooterSession());
 
 	const makeSession = (ctx: ExtensionCommandContext) => {
 		const cachePath = join(getAgentDir(), "opencode-usage-cache.json");

@@ -1,9 +1,9 @@
 {
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6.1-sol",
+  "defaultProvider": "antigravity",
+  "defaultModel": "gemini-4-argon",
   "defaultThinkingLevel": "medium",
   "subagents": {
-    "defaultModel": "openai-codex/gpt-6-luna",
+    "defaultModel": "antigravity/gemini-3.8-flash",
     "defaultThinking": "low",
     "projectRootResolution": "git-root",
     "parallel": {
@@ -12,42 +12,42 @@
     },
     "agentOverrides": {
       "scout": {
-        "model": "openai-codex/gpt-6-luna",
+        "model": "antigravity/gemini-3.8-flash",
         "thinking": "low"
       },
       "worker": {
-        "model": "openai-codex/gpt-6-luna",
+        "model": "antigravity/gemini-3.8-flash",
         "thinking": "medium"
       },
       "researcher": {
-        "model": "openai-codex/gpt-6-luna",
+        "model": "antigravity/gemini-3.8-flash",
         "thinking": "medium"
       },
       "reviewer": {
-        "model": "openai-codex/gpt-6.1-sol",
+        "model": "antigravity/gemini-4-hydrogen",
         "thinking": "medium"
       },
       "evidence-auditor": {
-        "model": "openai-codex/gpt-6.1-sol",
+        "model": "antigravity/gemini-4-hydrogen",
         "thinking": "low"
       },
       "oracle": {
-        "model": "openai-codex/gpt-6-astra",
+        "model": "antigravity/gemini-4-carbon",
         "thinking": "high"
       },
       "advisor": {
-        "model": "openai-codex/gpt-6-astra",
+        "model": "antigravity/gemini-4-carbon",
         "thinking": "high"
       },
       "delegate": {
-        "model": "openai-codex/gpt-6.1-sol",
+        "model": "antigravity/gemini-4-hydrogen",
         "thinking": "medium"
       }
     },
     "modelScope": {
       "enforce": true,
       "strict": true,
-      "allow": ["inherit", "openai-codex/*", "antigravity/*"]
+      "allow": ["inherit", "antigravity/*", "openai-codex/*"]
     }
   }
 }

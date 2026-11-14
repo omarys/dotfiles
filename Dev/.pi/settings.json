@@ -1,12 +1,16 @@
 {
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "medium",
   "subagents": {
-    "defaultModel": "deepseek-v4.1-flash",
+    "defaultProvider": "opencode-go",
+    "defaultModel": "opencode-go/deepseek-v4.1-flash",
     "defaultThinking": "low",
-    "maxThinking": "max",
     "projectRootResolution": "git-root",
+    "parallel": {
+      "maxTasks": 4,
+      "concurrency": 2
+    },
     "agentOverrides": {
       "scout": {
         "model": "opencode-go/deepseek-v4.1-flash",
@@ -14,22 +18,26 @@
       },
       "worker": {
         "model": "opencode-go/deepseek-v4.1-flash",
-        "thinking": "high"
+        "thinking": "medium"
       },
       "researcher": {
         "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "low"
       },
       "reviewer": {
-        "model": "opencode-go/deepseek-v4-pro",
+        "model": "opencode-go/deepseek-v4.1-flash",
         "thinking": "high"
       },
+      "evidence-auditor": {
+        "model": "opencode-go/deepseek-v4.1-flash",
+        "thinking": "low"
+      },
       "oracle": {
-        "model": "antigravity/gemini-3.8-flash",
+        "model": "antigravity/gemini-4-argon",
         "thinking": "high"
       },
       "advisor": {
-        "model": "antigravity/gemini-3.8-flash",
+        "model": "antigravity/gemini-4-argon",
         "thinking": "high"
       },
       "delegate": {

@@ -149,8 +149,8 @@
   "extensionChangelogVersions": {
     "{\"source\":\"npm:pi-mcp-adapter\",\"scope\":\"project\"}": "7.0.1",
     "{\"source\":\"npm:pi-web-access\",\"scope\":\"project\"}": "0.47.0",
-    "{\"source\":\"npm:pi-subagents\",\"scope\":\"project\"}": "0.87.0",
-    "{\"source\":\"npm:pi-open-tui\",\"scope\":\"project\"}": "0.4.4",
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"project\"}": "0.88.1",
+    "{\"source\":\"npm:pi-open-tui\",\"scope\":\"project\"}": "0.4.5",
     "{\"source\":\"npm:pi-rtk-optimizer\",\"scope\":\"user\"}": "0.9.0",
     "{\"source\":\"npm:pi-mcp-adapter\",\"scope\":\"user\"}": "7.0.1",
     "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.47.0",
@@ -158,6 +158,7 @@
     "{\"source\":\"npm:pi-open-tui\",\"scope\":\"user\"}": "0.4.5",
     "{\"source\":\"npm:opensec-pi-subagents@0.20.9\",\"scope\":\"user\"}": "0.20.9",
     "{\"source\":\"npm:pi-rtk-optimizer\",\"scope\":\"project\"}": "0.9.0",
-    "{\"source\":\"npm:opensec-pi-subagents@0.20.9\",\"scope\":\"project\"}": "0.20.9"
+    "{\"source\":\"npm:opensec-pi-subagents@0.20.9\",\"scope\":\"project\"}": "0.20.9",
+    "{\"source\":\"npm:pi-cache-optimizer\",\"scope\":\"project\"}": "2.10.6"
   }
 }

@@ -90,6 +90,7 @@ plugins=(
   # composer
   # conda
   cp
+  direnv
   docker
   docker-compose
   dnf
@@ -311,10 +312,10 @@ export CHAFA_PRESET="symbols"
 # OpenLore: drive agy through the permission-tolerant wrapper (see ~/.local/bin/agy-openlore)
 export ANTIGRAVITY_CLI="$HOME/.local/bin/agy-openlore"
 
-# Antigravity CLI model modes: Argon for planning, Flash for implementation
-alias agy="agy --model gemini-3.8-flash-medium"
+# Antigravity CLI model modes: Argon for planning, Hydrogen for implementation
+alias agy="agy --model gemini-4-hydrogen-medium"
 alias agy-plan="agy --mode plan --model gemini-4-argon-medium"
-alias agy-impl="agy --mode auto --model gemini-3.8-flash-medium"
+alias agy-impl="agy --mode auto --model gemini-4-hydrogen-medium"
 
 # bun completions
 [ -s "/home/omary/.bun/_bun" ] && source "/home/omary/.bun/_bun"
