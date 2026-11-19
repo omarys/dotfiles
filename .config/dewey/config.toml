@@ -10,10 +10,7 @@ chapter_stale_hours = 24
 delete_after_read = false
 
 [labrador]
-providers = [
-    "novelarchive",
-    "novelping",
-]
+providers = ["mangadistrict"]
 
 [komikku.sources]
 "Weeb Central" = "https://weebcentral.com/"

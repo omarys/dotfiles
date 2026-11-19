@@ -93,7 +93,7 @@ run = 'piper -- bat -p --color=always "$1"'
 
 [opener]
 open = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
-image = [{ run = 'xdg-open %s', desc = "Open", orphan = true }]
+image = [{ run = 'feh %s', desc = "feh", orphan = true }]
 neovide-fallback = [
   { run = 'neovide %s', desc = "Neovide", block = false, orphan = true, for = "unix" },
 ]
@@ -103,7 +103,7 @@ play = [
 
 [open]
 prepend_rules = [
-  { mime = "image/*", use = "feh" },
+  { mime = "image/*", use = "image" },
   { mime = "text/*", use = "neovide-fallback" },
   { mime = "video/*", use = "play" },
   { mime = "application/gzip", use = "open" },
