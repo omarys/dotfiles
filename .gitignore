@@ -41,6 +41,7 @@ pipup.sh
 !/.codex/REKAL.md
 !/.codex/RTK.md
 !/.codex/config.toml.example
+!/.codex/agents/
 !/.codex/hooks.json
 !/.codex/skills/
 /.codex/skills/*

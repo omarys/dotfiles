@@ -1,6 +1,12 @@
-model = "gpt-6-astra"
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
+
+# Subagents inherit the parent's model and reasoning effort by default.
+# Use reviewer on Sol/high for reviews; increase Sol effort for deeper investigations.
+# Use the simple_worker agent for small, repeatable tasks on gpt-6-luna/high.
+# Use researcher on gpt-6.1-terra/medium for evidence gathering and visual research.
+# Consider gpt-6.2-astra for complex engineering when available in the model picker.
 
 [features]
 hooks = true

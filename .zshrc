@@ -313,7 +313,6 @@ export CHAFA_PRESET="symbols"
 export ANTIGRAVITY_CLI="$HOME/.local/bin/agy-openlore"
 
 # Antigravity CLI model modes: Argon for planning, Hydrogen for implementation
-alias agy="agy --model gemini-4-hydrogen-medium"
 alias agy-plan="agy --mode plan --model gemini-4-argon-medium"
 alias agy-impl="agy --mode auto --model gemini-4-hydrogen-medium"
 
