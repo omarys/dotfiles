@@ -209,4 +209,3 @@ Optimized for Google AI Ultra 5x multi-model sessions (alternating between Gemin
 - **Context Hygiene & Compaction Standard**:
   - Every subagent prompt must be tightly scoped and self-contained.
   - Every subagent response must be pre-compacted, high-signal, and under ~400 words unless full file diffs are explicitly requested.
-

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "context-mode": {
+      "command": "context-mode",
+      "args": [
+        "server"
+      ]
+    },
+    "rekal": {
+      "command": "rekal",
+      "args": [
+        "mcp"
+      ]
+    }
+  }
+}
