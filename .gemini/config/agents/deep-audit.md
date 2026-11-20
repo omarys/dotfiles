@@ -10,7 +10,12 @@ tools:
   - write_file
   - run_command
   - manage_task
-mcpServers: []
+  - call_mcp_tool
+  - list_resources
+  - read_resource
+mcpServers:
+  - context-mode
+  - rekal
 ---
 
 # Deep Audit Subagent
@@ -30,7 +35,7 @@ Your mission is to perform complex multi-file refactoring, container hardening r
 
 3. **Compacted Execution & Context Economy**:
    - Run commands using `rtk` prefixes and compact filters to keep this isolated context focused and lean.
-   - Keep MCP overhead zero (`mcpServers: []`) so maximum context is reserved for reasoning over code and architecture.
+   - Use `context-mode` and `rekal` for large-output filtering and prior context so maximum context is reserved for reasoning over code and architecture.
 
 4. **Actionable Remediation**:
    - Provide concrete, prioritized remediation steps and exact code/manifest diffs.

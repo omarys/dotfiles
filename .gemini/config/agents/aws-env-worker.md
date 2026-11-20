@@ -13,6 +13,8 @@ tools:
   - read_resource
 mcpServers:
   - aws-mcp
+  - context-mode
+  - rekal
 ---
 
 # AWS Environment Worker Subagent

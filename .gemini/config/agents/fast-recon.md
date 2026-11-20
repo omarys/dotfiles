@@ -8,7 +8,12 @@ tools:
   - read_file
   - run_command
   - manage_task
-mcpServers: []
+  - call_mcp_tool
+  - list_resources
+  - read_resource
+mcpServers:
+  - context-mode
+  - rekal
 ---
 
 # Fast Recon Subagent

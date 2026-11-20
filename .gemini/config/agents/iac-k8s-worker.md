@@ -10,7 +10,12 @@ tools:
   - edit_file
   - run_command
   - manage_task
-mcpServers: []
+  - call_mcp_tool
+  - list_resources
+  - read_resource
+mcpServers:
+  - context-mode
+  - rekal
 ---
 
 # IaC & Kubernetes Worker Subagent
